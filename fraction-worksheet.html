@@ -907,8 +907,17 @@
             }
 
             /* Ensure maximum 20 problems per page */
+            .problem:nth-child(20) {
+                page-break-after: always;
+            }
+
             .problem:nth-child(n+21) {
                 page-break-before: always;
+            }
+
+            /* Force page break after problems container */
+            .problems-container {
+                page-break-after: always;
             }
 
             /* Educational content on separate page */
@@ -1124,67 +1133,232 @@
                 <p><strong>Example:</strong> In the fraction 3/4, you have 3 parts out of 4 equal parts that make up the whole.</p>
 
                 <div class="visual-fraction-demo">
-                    <strong>Visual:</strong>
-                    <div style="display: flex; flex-wrap: wrap; width: 120px;">
-                        <div class="pizza-slice filled" style="width: 28px; height: 28px;"></div>
-                        <div class="pizza-slice filled" style="width: 28px; height: 28px;"></div>
-                        <div class="pizza-slice filled" style="width: 28px; height: 28px;"></div>
-                        <div class="pizza-slice" style="width: 28px; height: 28px;"></div>
+                    <strong>Visual - One Whole (4/4):</strong>
+                    <div style="display: flex; gap: 4px; margin: 10px 0;">
+                        <div class="pizza-slice filled" style="width: 40px; height: 40px;"></div>
+                        <div class="pizza-slice filled" style="width: 40px; height: 40px;"></div>
+                        <div class="pizza-slice filled" style="width: 40px; height: 40px;"></div>
+                        <div class="pizza-slice" style="width: 40px; height: 40px;"></div>
                     </div>
-                    <span>= 3/4 (three out of four parts)</span>
+                    <span style="margin-top: 8px; display: block;"><strong>Filled parts (orange) = 3/4</strong> (three out of four parts)<br>
+                    Empty parts (white) = 1/4 (one out of four parts)</span>
                 </div>
             </div>
 
             <h3>Brief History of Fractions</h3>
 
             <div class="timeline">
-                <p><strong>Fractions have been used for over 5,000 years!</strong> Let's see how far back 3000 BC really is:</p>
+                <p><strong>Fractions have been used for over 5,000 years!</strong> Let's see how far back 3000 BC really is compared to when you, your parents, and grandparents were born:</p>
 
-                <div class="timeline-bar" style="display: flex; justify-content: space-between; align-items: flex-end; margin: 30px 0;">
-                    <div class="timeline-item">
-                        <div class="timeline-point"></div>
-                        <div class="timeline-label" style="font-size: 0.85em;">3000 BC<br>Egyptians<br>(5,000+ years ago)</div>
+                <div style="position: relative; height: 180px; margin: 40px 0; background: linear-gradient(to right, #E8EAF6, #C5CAE9); border-radius: 8px; padding: 20px;">
+                    <!-- Timeline bar -->
+                    <div style="position: absolute; top: 50%; left: 20px; right: 20px; height: 4px; background: linear-gradient(to right, var(--md-primary), var(--md-secondary)); transform: translateY(-50%);"></div>
+
+                    <!-- 3000 BC - Egyptians (0%) -->
+                    <div style="position: absolute; left: 20px; top: 50%; transform: translateY(-50%);">
+                        <div style="width: 16px; height: 16px; background: white; border: 3px solid var(--md-primary); border-radius: 50%;"></div>
+                        <div style="position: absolute; top: -70px; left: 50%; transform: translateX(-50%); text-align: center; white-space: nowrap; font-size: 0.8em; font-weight: 600;">
+                            <div style="font-size: 1.3em; margin-bottom: 4px;">📜</div>
+                            3000 BC<br>Egyptians
+                        </div>
                     </div>
-                    <div class="timeline-item">
-                        <div class="timeline-point"></div>
-                        <div class="timeline-label" style="font-size: 0.85em;">600 BC<br>India<br>(2,600+ years ago)</div>
+
+                    <!-- 600 BC - India (47.8%) -->
+                    <div style="position: absolute; left: calc(20px + 47.8% * (100% - 40px)); top: 50%; transform: translateY(-50%);">
+                        <div style="width: 16px; height: 16px; background: white; border: 3px solid var(--md-primary); border-radius: 50%;"></div>
+                        <div style="position: absolute; top: 25px; left: 50%; transform: translateX(-50%); text-align: center; white-space: nowrap; font-size: 0.8em; font-weight: 600;">
+                            <div style="font-size: 1.3em; margin-bottom: 4px;">🕉️</div>
+                            600 BC<br>India
+                        </div>
                     </div>
-                    <div class="timeline-item">
-                        <div class="timeline-point"></div>
-                        <div class="timeline-label" style="font-size: 0.85em;">1500 AD<br>Modern notation<br>(500+ years ago)</div>
+
+                    <!-- 1500 AD - Modern notation (89.5%) -->
+                    <div style="position: absolute; left: calc(20px + 89.5% * (100% - 40px)); top: 50%; transform: translateY(-50%);">
+                        <div style="width: 16px; height: 16px; background: white; border: 3px solid var(--md-primary); border-radius: 50%;"></div>
+                        <div style="position: absolute; top: -70px; left: 50%; transform: translateX(-50%); text-align: center; white-space: nowrap; font-size: 0.8em; font-weight: 600;">
+                            <div style="font-size: 1.3em; margin-bottom: 4px;">📐</div>
+                            1500 AD<br>Modern
+                        </div>
                     </div>
-                    <div class="timeline-item">
-                        <div class="timeline-point"></div>
-                        <div class="timeline-label" style="font-size: 0.85em;">2026 AD<br>Today!<br>(Now)</div>
+
+                    <!-- 1950 - Grandparents (98.5%) -->
+                    <div style="position: absolute; left: calc(20px + 98.5% * (100% - 40px)); top: 50%; transform: translateY(-50%);">
+                        <div style="width: 12px; height: 12px; background: white; border: 2px solid #FF9800; border-radius: 50%;"></div>
+                        <div style="position: absolute; top: 25px; left: 50%; transform: translateX(-50%); text-align: center; white-space: nowrap; font-size: 0.75em; color: #F57C00;">
+                            1950<br>👵👴
+                        </div>
+                    </div>
+
+                    <!-- 1980 - Parents (99.1%) -->
+                    <div style="position: absolute; left: calc(20px + 99.1% * (100% - 40px)); top: 50%; transform: translateY(-50%);">
+                        <div style="width: 12px; height: 12px; background: white; border: 2px solid #4CAF50; border-radius: 50%;"></div>
+                        <div style="position: absolute; top: -70px; left: 50%; transform: translateX(-50%); text-align: center; white-space: nowrap; font-size: 0.75em; color: #2E7D32;">
+                            1980<br>👨👩
+                        </div>
+                    </div>
+
+                    <!-- 2016 - 9-year-old born (99.8%) -->
+                    <div style="position: absolute; left: calc(20px + 99.8% * (100% - 40px)); top: 50%; transform: translateY(-50%);">
+                        <div style="width: 12px; height: 12px; background: white; border: 2px solid #2196F3; border-radius: 50%;"></div>
+                        <div style="position: absolute; top: 25px; left: 50%; transform: translateX(-50%); text-align: center; white-space: nowrap; font-size: 0.75em; color: #1565C0;">
+                            2016<br>🧒
+                        </div>
+                    </div>
+
+                    <!-- 2026 - Today (100%) -->
+                    <div style="position: absolute; right: 20px; top: 50%; transform: translateY(-50%);">
+                        <div style="width: 20px; height: 20px; background: var(--md-secondary); border: 3px solid var(--md-primary); border-radius: 50%; box-shadow: 0 0 10px rgba(3, 218, 198, 0.5);"></div>
+                        <div style="position: absolute; top: -70px; left: 50%; transform: translateX(-50%); text-align: center; white-space: nowrap; font-size: 0.85em; font-weight: 700; color: var(--md-primary);">
+                            <div style="font-size: 1.3em; margin-bottom: 4px;">⭐</div>
+                            2026<br>TODAY!
+                        </div>
+                    </div>
+                </div>
+
+                <p style="margin-top: 20px; font-size: 0.95em; color: #666;"><strong>Scale Perspective:</strong> This timeline is drawn to scale! Notice how recent your birth (2016), your parents' birth (1980), and even your grandparents' birth (1950) are compared to when ancient Egyptians started using fractions 5,000 years ago. All of modern human history is squeezed into that tiny space at the right end of the timeline!</p>
+            </div>
+
+            <div class="strategy-box">
+                <div style="display: flex; align-items: flex-start; gap: 20px;">
+                    <div style="flex: 1;">
+                        <h4>📜 Ancient Egypt (~3000 BC)</h4>
+                        <p>The ancient Egyptians were among the first to use fractions. They needed fractions to divide food, land, and supplies fairly among people. They mainly used "unit fractions" (fractions with 1 as the numerator), like 1/2, 1/3, 1/4.</p>
+
+                        <p><strong>Egyptian Hieroglyph for Fractions:</strong></p>
+                        <div style="background: #FFF8DC; padding: 15px; border-radius: 4px; border: 2px solid #D4AF37; margin: 10px 0;">
+                            <div style="font-size: 2em; text-align: center; font-family: serif;">
+                                <div style="margin: 10px 0;">👁️ = Eye of Horus (used for fractions!)</div>
+                                <div style="font-size: 0.6em; margin-top: 10px;">
+                                    Egyptians placed a special symbol (mouth) above a number to show it was a fraction.<br>
+                                    For example: 1/2, 1/3, 1/4 each had their own hieroglyph.
+                                </div>
+                            </div>
+                        </div>
+
+                        <p><strong>Egyptian Flag Colors:</strong> <span style="display: inline-block; width: 30px; height: 20px; background: linear-gradient(to bottom, #CE1126 33%, #FFFFFF 33%, #FFFFFF 66%, #000000 66%); border: 1px solid #999; vertical-align: middle;"></span> Red, White, and Black with golden eagle</p>
                     </div>
                 </div>
             </div>
 
             <div class="strategy-box">
-                <h4>📜 Ancient Egypt (~3000 BC)</h4>
-                <p>The ancient Egyptians were among the first to use fractions. They needed fractions to divide food, land, and supplies fairly among people. They mainly used "unit fractions" (fractions with 1 as the numerator), like 1/2, 1/3, 1/4. They wrote these fractions using hieroglyphs!</p>
+                <div style="display: flex; align-items: flex-start; gap: 20px;">
+                    <div style="flex: 1;">
+                        <h4>🕉️ Ancient India (~600 BC to 500 AD)</h4>
+                        <p><strong>Indian mathematicians made huge contributions to fractions!</strong> In ancient India, mathematicians like <strong>Aryabhata</strong> (476-550 AD) and <strong>Brahmagupta</strong> (598-668 AD) developed advanced fraction systems.</p>
+
+                        <div style="background: #FFF3E0; padding: 15px; border-radius: 4px; border: 2px solid #FF9800; margin: 10px 0;">
+                            <div style="text-align: center;">
+                                <div style="font-size: 2em; margin-bottom: 10px;">🕉️ ☸️ 📿</div>
+                                <div style="font-size: 0.9em;">
+                                    <strong>Indian Flag Colors:</strong><br>
+                                    <span style="display: inline-block; width: 40px; height: 10px; background: #FF9933; vertical-align: middle;"></span>
+                                    <span style="display: inline-block; width: 40px; height: 10px; background: #FFFFFF; border: 1px solid #999; vertical-align: middle;"></span>
+                                    <span style="display: inline-block; width: 40px; height: 10px; background: #138808; vertical-align: middle;"></span>
+                                    with ⚫ Ashoka Chakra (24 spokes)
+                                </div>
+                            </div>
+                        </div>
+
+                        <p><strong>Key Contributions:</strong></p>
+                        <ul>
+                            <li>✨ Used fractions extensively in astronomy and calculations</li>
+                            <li>➕ Developed rules for adding, subtracting, multiplying, and dividing fractions</li>
+                            <li>0️⃣ Created the concept of <strong>zero</strong>, which revolutionized mathematics</li>
+                            <li>📝 Wrote fractions similar to how we do today (one number above another)</li>
+                        </ul>
+
+                        <div style="background: #E3F2FD; padding: 10px; border-radius: 4px; margin: 10px 0;">
+                            <strong>Ancient Indian Fraction Notation:</strong><br>
+                            <div style="text-align: center; font-size: 1.5em; margin: 10px 0;">
+                                <div style="border-bottom: 2px solid #000; display: inline-block; padding: 5px;">3</div><br>
+                                <div style="display: inline-block; padding: 5px;">4</div>
+                            </div>
+                            <p style="font-size: 0.9em; text-align: center;">This notation spread to the Arab world and then to Europe!</p>
+                        </div>
+
+                        <p>The Indian numeral system and fraction notation spread to the Arab world and then to Europe, forming the basis of the math we use today!</p>
+                    </div>
+                </div>
             </div>
 
             <div class="strategy-box">
-                <h4>🕉️ Ancient India (~600 BC to 500 AD)</h4>
-                <p><strong>Indian mathematicians made huge contributions to fractions!</strong> In ancient India, mathematicians like <strong>Aryabhata</strong> (476-550 AD) and <strong>Brahmagupta</strong> (598-668 AD) developed advanced fraction systems. They:</p>
-                <ul>
-                    <li>Used fractions extensively in astronomy and calculations</li>
-                    <li>Developed rules for adding, subtracting, multiplying, and dividing fractions</li>
-                    <li>Created the concept of zero, which revolutionized mathematics</li>
-                    <li>Wrote fractions similar to how we do today (one number above another)</li>
-                </ul>
-                <p>The Indian numeral system and fraction notation spread to the Arab world and then to Europe, forming the basis of the math we use today!</p>
+                <div style="display: flex; align-items: flex-start; gap: 20px;">
+                    <div style="flex: 1;">
+                        <h4>🏛️ Greeks, Romans, and Babylonians</h4>
+
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 15px 0;">
+                            <div style="background: #E8F5E9; padding: 12px; border-radius: 4px; border: 2px solid #4CAF50;">
+                                <div style="text-align: center; font-size: 1.5em; margin-bottom: 8px;">🌙⭐ (Babylon)</div>
+                                <strong>Babylonians:</strong><br>
+                                <div style="font-size: 0.9em;">
+                                    Used base-60 system<br>
+                                    (sexagesimal)<br>
+                                    <strong>Legacy:</strong> 60 minutes in an hour, 60 seconds in a minute!
+                                </div>
+                            </div>
+
+                            <div style="background: #FFF3E0; padding: 12px; border-radius: 4px; border: 2px solid #FF9800;">
+                                <div style="text-align: center; font-size: 1.5em; margin-bottom: 8px;">🏛️ (Greece)</div>
+                                <strong>Greeks:</strong><br>
+                                <div style="font-size: 0.9em;">
+                                    Used fractions for geometry and mathematics<br>
+                                    Famous mathematicians: Pythagoras, Euclid
+                                </div>
+                            </div>
+
+                            <div style="background: #FCE4EC; padding: 12px; border-radius: 4px; border: 2px solid #E91E63; grid-column: 1 / -1;">
+                                <div style="text-align: center; font-size: 1.5em; margin-bottom: 8px;">🏛️ (Rome)</div>
+                                <strong>Romans:</strong> Used fractions based on 12 (unciae)<br>
+                                <div style="font-size: 0.9em;">
+                                    Roman numerals: I, II, III, IV, V, VI, VII, VIII, IX, X, XI, XII<br>
+                                    This is why we have 12 inches in a foot!
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div class="strategy-box">
-                <h4>🏛️ Greeks, Romans, and Babylonians</h4>
-                <p>The Babylonians used fractions based on 60 (which is why we have 60 minutes in an hour!). The Greeks and Romans also developed their own fraction systems.</p>
-            </div>
+                <div style="display: flex; align-items: flex-start; gap: 20px;">
+                    <div style="flex: 1;">
+                        <h4>📐 Modern Notation (~1500 AD)</h4>
+                        <p>The fraction notation we use today (with the horizontal bar between numerator and denominator) became popular in Europe during the 1500s, about 500 years ago.</p>
 
-            <div class="strategy-box">
-                <h4>📐 Modern Notation (~1500 AD)</h4>
-                <p>The fraction notation we use today (with the horizontal bar between numerator and denominator) became popular in Europe during the 1500s, about 500 years ago.</p>
+                        <div style="background: #E3F2FD; padding: 15px; border-radius: 4px; border: 2px solid #2196F3; margin: 15px 0; text-align: center;">
+                            <div style="font-size: 1.2em; margin-bottom: 15px;"><strong>Evolution of Fraction Notation:</strong></div>
+
+                            <div style="display: flex; justify-content: space-around; align-items: center; flex-wrap: wrap; gap: 20px;">
+                                <div>
+                                    <div style="font-size: 0.9em; color: #666; margin-bottom: 5px;">Ancient</div>
+                                    <div style="font-size: 1.3em;">3⎜4</div>
+                                    <div style="font-size: 0.8em; color: #666; margin-top: 5px;">(side by side)</div>
+                                </div>
+
+                                <div style="font-size: 2em; color: var(--md-primary);">→</div>
+
+                                <div>
+                                    <div style="font-size: 0.9em; color: #666; margin-bottom: 5px;">Medieval</div>
+                                    <div style="font-size: 1.3em;">3/4</div>
+                                    <div style="font-size: 0.8em; color: #666; margin-top: 5px;">(with slash)</div>
+                                </div>
+
+                                <div style="font-size: 2em; color: var(--md-primary);">→</div>
+
+                                <div>
+                                    <div style="font-size: 0.9em; color: #666; margin-bottom: 5px;">Modern (1500s)</div>
+                                    <div style="font-size: 1.8em;">
+                                        <div style="border-bottom: 2px solid #000; padding: 5px;">3</div>
+                                        <div style="padding: 5px;">4</div>
+                                    </div>
+                                    <div style="font-size: 0.8em; color: #666; margin-top: 5px;">(horizontal bar)</div>
+                                </div>
+                            </div>
+
+                            <p style="margin-top: 15px; font-size: 0.95em;">📚 The horizontal bar (called a "vinculum") made fractions clearer and easier to work with in complex equations!</p>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <h3>Strategies for Comparing Fractions</h3>
