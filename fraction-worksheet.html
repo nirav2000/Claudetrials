@@ -716,6 +716,37 @@
             border: 2px solid #e0e0e0;
         }
 
+        /* Fraction bar - shows ONE whole divided into parts */
+        .fraction-bar {
+            display: inline-flex;
+            border: 3px solid #333;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .fraction-part {
+            width: 40px;
+            height: 40px;
+            border-right: 2px solid #333;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #666;
+        }
+
+        .fraction-part:last-child {
+            border-right: none;
+        }
+
+        .fraction-part.filled {
+            background: #FFA726;
+            color: white;
+        }
+
+        /* Keep old classes for compatibility but deprecate them */
         .pizza-slice, .sushi-piece, .book-page {
             width: 30px;
             height: 30px;
@@ -979,6 +1010,27 @@
                 print-color-adjust: exact;
                 -webkit-print-color-adjust: exact;
             }
+
+            .fraction-bar {
+                border: 2pt solid #333 !important;
+                print-color-adjust: exact;
+                -webkit-print-color-adjust: exact;
+            }
+
+            .fraction-part {
+                width: 5mm !important;
+                height: 6mm !important;
+                border-right: 1pt solid #333 !important;
+                font-size: 8pt;
+                print-color-adjust: exact;
+                -webkit-print-color-adjust: exact;
+            }
+
+            .fraction-part.filled {
+                background: #FFA726 !important;
+                print-color-adjust: exact;
+                -webkit-print-color-adjust: exact;
+            }
         }
 
         /* ===== RESPONSIVE DESIGN ===== */
@@ -1133,15 +1185,20 @@
                 <p><strong>Example:</strong> In the fraction 3/4, you have 3 parts out of 4 equal parts that make up the whole.</p>
 
                 <div class="visual-fraction-demo">
-                    <strong>Visual - One Whole (4/4):</strong>
-                    <div style="display: flex; gap: 4px; margin: 10px 0;">
-                        <div class="pizza-slice filled" style="width: 40px; height: 40px;"></div>
-                        <div class="pizza-slice filled" style="width: 40px; height: 40px;"></div>
-                        <div class="pizza-slice filled" style="width: 40px; height: 40px;"></div>
-                        <div class="pizza-slice" style="width: 40px; height: 40px;"></div>
+                    <strong>Visual - One Whole Divided into 4 Equal Parts:</strong>
+                    <div style="margin: 15px 0;">
+                        <div class="fraction-bar">
+                            <div class="fraction-part filled">1</div>
+                            <div class="fraction-part filled">2</div>
+                            <div class="fraction-part filled">3</div>
+                            <div class="fraction-part">4</div>
+                        </div>
                     </div>
-                    <span style="margin-top: 8px; display: block;"><strong>Filled parts (orange) = 3/4</strong> (three out of four parts)<br>
-                    Empty parts (white) = 1/4 (one out of four parts)</span>
+                    <span style="margin-top: 8px; display: block;">
+                        ☝️ <strong>This is ONE whole shape</strong> divided into 4 equal parts<br>
+                        <strong>Filled parts (orange) = 3/4</strong> (three out of four parts)<br>
+                        <strong>Empty parts (white) = 1/4</strong> (one out of four parts)
+                    </span>
                 </div>
             </div>
 
@@ -1369,37 +1426,41 @@
 
                 <div class="example-box">
                     <strong>Example:</strong> Compare 3/8 and 5/8
-                    <div class="visual-fraction-demo">
+                    <div class="visual-fraction-demo" style="display: flex; align-items: center; gap: 15px; flex-wrap: wrap;">
                         <div>
-                            <strong>3/8:</strong>
-                            <div style="display: flex;">
-                                <div class="pizza-slice filled"></div>
-                                <div class="pizza-slice filled"></div>
-                                <div class="pizza-slice filled"></div>
-                                <div class="pizza-slice"></div>
-                                <div class="pizza-slice"></div>
-                                <div class="pizza-slice"></div>
-                                <div class="pizza-slice"></div>
-                                <div class="pizza-slice"></div>
+                            <strong>3/8 (one whole):</strong>
+                            <div style="margin: 10px 0;">
+                                <div class="fraction-bar">
+                                    <div class="fraction-part filled" style="width: 30px; height: 35px;">1</div>
+                                    <div class="fraction-part filled" style="width: 30px; height: 35px;">2</div>
+                                    <div class="fraction-part filled" style="width: 30px; height: 35px;">3</div>
+                                    <div class="fraction-part" style="width: 30px; height: 35px;">4</div>
+                                    <div class="fraction-part" style="width: 30px; height: 35px;">5</div>
+                                    <div class="fraction-part" style="width: 30px; height: 35px;">6</div>
+                                    <div class="fraction-part" style="width: 30px; height: 35px;">7</div>
+                                    <div class="fraction-part" style="width: 30px; height: 35px;">8</div>
+                                </div>
                             </div>
                         </div>
-                        <span style="font-size: 2em; margin: 0 10px;">&lt;</span>
+                        <span style="font-size: 2em; color: var(--md-primary);">&lt;</span>
                         <div>
-                            <strong>5/8:</strong>
-                            <div style="display: flex;">
-                                <div class="pizza-slice filled"></div>
-                                <div class="pizza-slice filled"></div>
-                                <div class="pizza-slice filled"></div>
-                                <div class="pizza-slice filled"></div>
-                                <div class="pizza-slice filled"></div>
-                                <div class="pizza-slice"></div>
-                                <div class="pizza-slice"></div>
-                                <div class="pizza-slice"></div>
+                            <strong>5/8 (one whole):</strong>
+                            <div style="margin: 10px 0;">
+                                <div class="fraction-bar">
+                                    <div class="fraction-part filled" style="width: 30px; height: 35px;">1</div>
+                                    <div class="fraction-part filled" style="width: 30px; height: 35px;">2</div>
+                                    <div class="fraction-part filled" style="width: 30px; height: 35px;">3</div>
+                                    <div class="fraction-part filled" style="width: 30px; height: 35px;">4</div>
+                                    <div class="fraction-part filled" style="width: 30px; height: 35px;">5</div>
+                                    <div class="fraction-part" style="width: 30px; height: 35px;">6</div>
+                                    <div class="fraction-part" style="width: 30px; height: 35px;">7</div>
+                                    <div class="fraction-part" style="width: 30px; height: 35px;">8</div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <br><br>
-                    <strong>Solution:</strong> Both fractions have 8 as the denominator (the parts are the same size).<br>
+                    <br>
+                    <strong>Solution:</strong> Both fractions have 8 as the denominator (both wholes divided into 8 equal parts).<br>
                     Since 3 &lt; 5, we know that 3/8 &lt; 5/8
                 </div>
             </div>
@@ -1535,32 +1596,36 @@
 
                 <div class="visual-fraction-demo">
                     <strong>You eat:</strong>
-                    <div style="display: flex;">
-                        <div class="pizza-slice filled"></div>
-                        <div class="pizza-slice filled"></div>
-                        <div class="pizza-slice filled"></div>
-                        <div class="pizza-slice"></div>
-                        <div class="pizza-slice"></div>
-                        <div class="pizza-slice"></div>
-                        <div class="pizza-slice"></div>
-                        <div class="pizza-slice"></div>
+                    <div style="margin: 10px 0;">
+                        <div class="fraction-bar">
+                            <div class="fraction-part filled" style="width: 30px; height: 35px;">1</div>
+                            <div class="fraction-part filled" style="width: 30px; height: 35px;">2</div>
+                            <div class="fraction-part filled" style="width: 30px; height: 35px;">3</div>
+                            <div class="fraction-part" style="width: 30px; height: 35px;">4</div>
+                            <div class="fraction-part" style="width: 30px; height: 35px;">5</div>
+                            <div class="fraction-part" style="width: 30px; height: 35px;">6</div>
+                            <div class="fraction-part" style="width: 30px; height: 35px;">7</div>
+                            <div class="fraction-part" style="width: 30px; height: 35px;">8</div>
+                        </div>
                     </div>
-                    <span>= 3/8 of the pizza</span>
+                    <span>= 3/8 of the pizza (one whole pizza divided into 8 slices)</span>
                 </div>
 
                 <div class="visual-fraction-demo">
                     <strong>Your friend eats:</strong>
-                    <div style="display: flex;">
-                        <div class="pizza-slice filled"></div>
-                        <div class="pizza-slice filled"></div>
-                        <div class="pizza-slice filled"></div>
-                        <div class="pizza-slice filled"></div>
-                        <div class="pizza-slice filled"></div>
-                        <div class="pizza-slice"></div>
-                        <div class="pizza-slice"></div>
-                        <div class="pizza-slice"></div>
+                    <div style="margin: 10px 0;">
+                        <div class="fraction-bar">
+                            <div class="fraction-part filled" style="width: 30px; height: 35px;">1</div>
+                            <div class="fraction-part filled" style="width: 30px; height: 35px;">2</div>
+                            <div class="fraction-part filled" style="width: 30px; height: 35px;">3</div>
+                            <div class="fraction-part filled" style="width: 30px; height: 35px;">4</div>
+                            <div class="fraction-part filled" style="width: 30px; height: 35px;">5</div>
+                            <div class="fraction-part" style="width: 30px; height: 35px;">6</div>
+                            <div class="fraction-part" style="width: 30px; height: 35px;">7</div>
+                            <div class="fraction-part" style="width: 30px; height: 35px;">8</div>
+                        </div>
                     </div>
-                    <span>= 5/8 of the pizza</span>
+                    <span>= 5/8 of the pizza (one whole pizza divided into 8 slices)</span>
                 </div>
 
                 <p><strong>Who ate more?</strong> Your friend did, because 5/8 &gt; 3/8!</p>
@@ -1830,7 +1895,18 @@
                 <h3>📦 Version History</h3>
 
                 <div class="version-item">
-                    <strong>Version 1.3.1</strong> (2026-01-22) - Current<br>
+                    <strong>Version 1.3.2</strong> (2026-01-22) - Current<br>
+                    🎯 Fixed fraction visuals to show ONE whole divided into parts (not separate squares)<br>
+                    📊 Redesigned all fraction bars to clearly display single shapes divided into sections<br>
+                    🧮 Added numbered parts to make counting easier<br>
+                    ✨ Improved visual clarity for understanding fractions fundamentally<br>
+                    📍 Fixed timeline label overlap for 1950, 1980, and 2016 markers<br>
+                    📄 Made page breaks conditional - only apply when more than 20 problems<br>
+                    🖨️ Eliminated gaps in print/PDF for all problem counts (10, 20, 30, 40)
+                </div>
+
+                <div class="version-item">
+                    <strong>Version 1.3.1</strong> (2026-01-22)<br>
                     📄 Fixed page breaks - 20 questions now fit perfectly on one A4 page<br>
                     📏 Added to-scale historical timeline (5,026 years accurately represented)<br>
                     👨‍👩‍👧 Added personal perspective markers: grandparents (1950), parents (1980), 9-year-olds (2016)<br>
