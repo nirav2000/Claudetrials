@@ -1059,7 +1059,7 @@
             }
 
             h1::after {
-                content: "v1.4.7";
+                content: "v1.4.6";
                 font-size: 0.7em;
                 color: #666;
                 font-weight: normal;
@@ -1238,10 +1238,9 @@
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
             <h1 class="md-headline-4" style="margin: 0;">Fraction Comparison Practice</h1>
             <div style="display: flex; align-items: center; gap: 10px;">
-                <span style="font-size: 0.9rem; color: #666; font-weight: 500;">v<span id="currentVersion">1.4.7</span></span>
+                <span style="font-size: 0.9rem; color: #666; font-weight: 500;">v<span id="currentVersion">1.4.6</span></span>
                 <select id="versionSelector" style="padding: 4px 8px; border-radius: 4px; border: 1px solid var(--md-primary); background: white; color: var(--md-primary); font-size: 0.85rem; cursor: pointer;">
-                    <option value="1.4.7">Version 1.4.7 (Current)</option>
-                    <option value="1.4.6">Version 1.4.6</option>
+                    <option value="1.4.6">Version 1.4.6 (Current)</option>
                     <option value="1.4.5">Version 1.4.5</option>
                     <option value="1.4.4">Version 1.4.4</option>
                     <option value="1.4.3">Version 1.4.3</option>
@@ -2186,21 +2185,6 @@
 
                 <h4 style="color: #D32F2F; margin-top: 16px;">Misconception #1: "Bigger denominator = bigger fraction"</h4>
                 <p><strong>What it looks like:</strong> Thinking 1/8 > 1/4 because 8 > 4</p>
-                <div style="display: flex; align-items: center; justify-content: center; gap: 40px; margin: 20px 0; padding: 20px; background: white; border-radius: 8px;">
-                    <div style="text-align: center;">
-                        <div style="font-weight: 600; color: #D32F2F; margin-bottom: 10px;">❌ Wrong Thinking</div>
-                        ${generatePizzaDiagram(1, 8, 100)}
-                        <div style="margin-top: 8px; font-weight: 600;">1/8</div>
-                        <div style="font-size: 0.85em; color: #666;">8 > 4, so 1/8 must be bigger?</div>
-                    </div>
-                    <div style="font-size: 2em; color: #666;">vs</div>
-                    <div style="text-align: center;">
-                        <div style="font-weight: 600; color: #4CAF50; margin-bottom: 10px;">✓ Reality</div>
-                        ${generatePizzaDiagram(1, 4, 100)}
-                        <div style="margin-top: 8px; font-weight: 600;">1/4</div>
-                        <div style="font-size: 0.85em; color: #666;">Actually BIGGER!</div>
-                    </div>
-                </div>
                 <p><strong>Why this happens:</strong> Students apply whole number thinking (8 > 4, so 1/8 must be bigger than 1/4)</p>
                 <p><strong>Why it's wrong:</strong> Larger denominators mean MORE pieces, making each piece SMALLER. Pizza cut into 8 slices gives smaller pieces than pizza cut into 4 slices.</p>
                 <p><strong>Better approach:</strong> Think "How many pieces is the whole divided into?" More pieces = smaller size per piece.</p>
@@ -2209,21 +2193,6 @@
 
                 <h4 style="color: #D32F2F; margin-top: 16px;">Misconception #2: "Both numbers bigger = bigger fraction"</h4>
                 <p><strong>What it looks like:</strong> Thinking 4/10 > 1/2 because both 4 and 10 are larger than 1 and 2</p>
-                <div style="display: flex; align-items: center; justify-content: center; gap: 40px; margin: 20px 0; padding: 20px; background: white; border-radius: 8px;">
-                    <div style="text-align: center;">
-                        <div style="font-weight: 600; color: #D32F2F; margin-bottom: 10px;">❌ Wrong Thinking</div>
-                        ${generatePizzaDiagram(4, 10, 100)}
-                        <div style="margin-top: 8px; font-weight: 600;">4/10</div>
-                        <div style="font-size: 0.85em; color: #666;">4 > 1 and 10 > 2, so bigger?</div>
-                    </div>
-                    <div style="font-size: 2em; color: #666;">vs</div>
-                    <div style="text-align: center;">
-                        <div style="font-weight: 600; color: #4CAF50; margin-bottom: 10px;">✓ Reality</div>
-                        ${generatePizzaDiagram(1, 2, 100)}
-                        <div style="margin-top: 8px; font-weight: 600;">1/2</div>
-                        <div style="font-size: 0.85em; color: #666;">Actually BIGGER!</div>
-                    </div>
-                </div>
                 <p><strong>Why this happens:</strong> Focusing on individual numbers rather than the relationship between them</p>
                 <p><strong>Why it's wrong:</strong> What matters is the RATIO, not the absolute size of numbers. 1/2 = 50%, but 4/10 = 40%.</p>
                 <p><strong>Better approach:</strong> Think about what fraction of the whole you're taking. 1/2 = half. Is 4/10 more or less than half?</p>
@@ -2232,33 +2201,6 @@
 
                 <h4 style="color: #D32F2F; margin-top: 16px;">Misconception #3: "Add numerators, add denominators"</h4>
                 <p><strong>What it looks like:</strong> Thinking 1/4 + 1/4 = 2/8 (adding across)</p>
-                <div style="display: flex; align-items: center; justify-content: center; gap: 40px; margin: 20px 0; padding: 20px; background: white; border-radius: 8px;">
-                    <div style="text-align: center;">
-                        <div style="font-weight: 600; color: #D32F2F; margin-bottom: 10px;">❌ Wrong Method</div>
-                        <div style="display: flex; gap: 10px; align-items: center; justify-content: center;">
-                            ${generatePizzaDiagram(1, 4, 80)}
-                            <span style="font-size: 1.5em;">+</span>
-                            ${generatePizzaDiagram(1, 4, 80)}
-                            <span style="font-size: 1.5em;">=</span>
-                            ${generatePizzaDiagram(2, 8, 80)}
-                        </div>
-                        <div style="margin-top: 8px;">1/4 + 1/4 = 2/8 ❌</div>
-                        <div style="font-size: 0.85em; color: #666;">Adding across is WRONG</div>
-                    </div>
-                    <div style="font-size: 2em; color: #666;">vs</div>
-                    <div style="text-align: center;">
-                        <div style="font-weight: 600; color: #4CAF50; margin-bottom: 10px;">✓ Correct Method</div>
-                        <div style="display: flex; gap: 10px; align-items: center; justify-content: center;">
-                            ${generatePizzaDiagram(1, 4, 80)}
-                            <span style="font-size: 1.5em;">+</span>
-                            ${generatePizzaDiagram(1, 4, 80)}
-                            <span style="font-size: 1.5em;">=</span>
-                            ${generatePizzaDiagram(2, 4, 80)}
-                        </div>
-                        <div style="margin-top: 8px;">1/4 + 1/4 = 2/4 ✓</div>
-                        <div style="font-size: 0.85em; color: #666;">Same denominator!</div>
-                    </div>
-                </div>
                 <p><strong>Why this happens:</strong> Applying arithmetic rules from whole numbers incorrectly</p>
                 <p><strong>Why it's wrong:</strong> You can only add fractions with the same denominator. 1/4 + 1/4 = 2/4, not 2/8.</p>
                 <p><strong>Better approach:</strong> Think: "I have 1 quarter-piece plus another 1 quarter-piece = 2 quarter-pieces = 2/4."</p>
@@ -2267,36 +2209,6 @@
 
                 <h4 style="color: #D32F2F; margin-top: 16px;">Misconception #4: "Multiply both numbers to compare fractions"</h4>
                 <p><strong>What it looks like:</strong> For 2/3 vs 3/4, calculating 2×4=8 and 3×3=9, thinking this alone determines the answer</p>
-                <div style="display: flex; align-items: center; justify-content: center; gap: 40px; margin: 20px 0; padding: 20px; background: white; border-radius: 8px;">
-                    <div style="text-align: center;">
-                        <div style="font-weight: 600; color: #FF9800; margin-bottom: 10px;">⚠️ Incomplete Understanding</div>
-                        <div style="padding: 15px; background: #FFF3E0; border-radius: 4px; margin-bottom: 10px;">
-                            <div style="font-size: 1.1em; font-weight: 600;">2×4 = 8</div>
-                            <div style="font-size: 1.1em; font-weight: 600;">3×3 = 9</div>
-                            <div style="margin-top: 8px; color: #F57C00;">So 3/4 > 2/3?</div>
-                        </div>
-                        <div style="font-size: 0.85em; color: #666;">But WHY does this work?</div>
-                    </div>
-                    <div style="font-size: 2em; color: #666;">→</div>
-                    <div style="text-align: center;">
-                        <div style="font-weight: 600; color: #4CAF50; margin-bottom: 10px;">✓ Full Understanding</div>
-                        <div style="display: flex; gap: 20px; align-items: center; justify-content: center; margin-bottom: 10px;">
-                            ${generatePizzaDiagram(8, 12, 90)}
-                            <div style="text-align: left;">
-                                <div style="font-weight: 600;">2/3 = 8/12</div>
-                                <div style="font-size: 0.85em; color: #666;">8 twelfths</div>
-                            </div>
-                        </div>
-                        <div style="display: flex; gap: 20px; align-items: center; justify-content: center;">
-                            ${generatePizzaDiagram(9, 12, 90)}
-                            <div style="text-align: left;">
-                                <div style="font-weight: 600;">3/4 = 9/12</div>
-                                <div style="font-size: 0.85em; color: #666;">9 twelfths</div>
-                            </div>
-                        </div>
-                        <div style="margin-top: 10px; font-size: 0.85em; color: #666;">Now clearly 9/12 > 8/12!</div>
-                    </div>
-                </div>
                 <p><strong>Why this happens:</strong> Partial understanding of cross-multiplication without knowing what it means</p>
                 <p><strong>Why it's wrong (or incomplete):</strong> While cross-multiplication works, you must understand WHY. You're finding common denominators: 2/3 = 8/12 and 3/4 = 9/12.</p>
                 <p><strong>Better approach:</strong> Understand you're comparing 8 twelfths vs 9 twelfths. Now it's obvious: 9/12 > 8/12, so 3/4 > 2/3.</p>
@@ -2305,25 +2217,6 @@
 
                 <h4 style="color: #D32F2F; margin-top: 16px;">Misconception #5: "Fractions can't be greater than 1"</h4>
                 <p><strong>What it looks like:</strong> Thinking all fractions must be less than 1</p>
-                <div style="display: flex; align-items: center; justify-content: center; gap: 40px; margin: 20px 0; padding: 20px; background: white; border-radius: 8px;">
-                    <div style="text-align: center;">
-                        <div style="font-weight: 600; color: #D32F2F; margin-bottom: 10px;">❌ Limited View</div>
-                        ${generatePizzaDiagram(3, 4, 100)}
-                        <div style="margin-top: 8px; font-weight: 600;">3/4 < 1</div>
-                        <div style="font-size: 0.85em; color: #666;">All fractions must be less than 1?</div>
-                    </div>
-                    <div style="font-size: 2em; color: #666;">vs</div>
-                    <div style="text-align: center;">
-                        <div style="font-weight: 600; color: #4CAF50; margin-bottom: 10px;">✓ Reality</div>
-                        <div style="display: flex; gap: 10px; align-items: center; justify-content: center;">
-                            ${generatePizzaDiagram(4, 4, 90)}
-                            <span style="font-size: 1.5em;">+</span>
-                            ${generatePizzaDiagram(1, 4, 90)}
-                        </div>
-                        <div style="margin-top: 8px; font-weight: 600;">5/4 = 1.25</div>
-                        <div style="font-size: 0.85em; color: #666;">Greater than 1 is OK!</div>
-                    </div>
-                </div>
                 <p><strong>Why this happens:</strong> Early lessons focus on "proper fractions" (numerator < denominator)</p>
                 <p><strong>Why it's wrong:</strong> Improper fractions like 5/4 or 7/3 are perfectly valid and represent numbers greater than 1.</p>
                 <p><strong>Better approach:</strong> Think of fractions as division: 5/4 = 5÷4 = 1.25. You CAN divide 5 pizzas among 4 people!</p>
@@ -2331,22 +2224,15 @@
                 <p><strong>Sense check:</strong> If numerator > denominator, the result MUST be greater than 1.</p>
             </div>
 
-            <p><strong>Practice makes perfect!</strong> The more you work with fractions, the easier they become. Use the strategies above to compare fractions, and remember that fractions are just another way to represent numbers – they're powerful tools that help us solve real problems every day!</p>
-            </div><!-- End of collapsible learning guide content -->
-        </div><!-- End of educational content -->
-
-        <!-- Project Files & Resources - Separate collapsible section -->
-        <div class="resource-links" style="margin-top: 30px;">
-            <h3 class="collapsible-header" onclick="toggleSection('resourceLinksContent')" style="cursor: pointer; display: flex; align-items: center; gap: 8px; font-size: 1.2em;">
-                <span class="chevron" id="resourceLinksChevron">▶</span>
-                📚 Project Files & Resources
-            </h3>
-            <div class="collapsible-content" id="resourceLinksContent" style="display: none; padding: 15px 0;">
-                <a href="#" onclick="viewMarkdownFile('README.md'); return false;">📖 README - Project Documentation</a>
-                <a href="#" onclick="viewMarkdownFile('TODO.md'); return false;">📝 TODO - Project Planning & Design Ideas</a>
+            <div class="resource-links">
+                <h4>📚 Project Files & Resources</h4>
+                <a href="README.md" target="_blank">📖 README - Project Documentation</a>
+                <a href="TODO.md" target="_blank">📝 TODO - Project Planning & Design Ideas</a>
                 <a href="#" onclick="viewMarkdownFile('FEATURES_TODO.md'); return false;">✨ FEATURES TODO - Planned Features & Roadmap</a>
             </div>
-        </div>
+
+            <p><strong>Practice makes perfect!</strong> The more you work with fractions, the easier they become. Use the strategies above to compare fractions, and remember that fractions are just another way to represent numbers – they're powerful tools that help us solve real problems every day!</p>
+            </div><!-- End of collapsible learning guide content -->
 
             <div class="version-history">
                 <h3 class="collapsible-header" onclick="toggleSection('versionHistoryContent')" style="cursor: pointer; display: flex; align-items: center; gap: 8px;">
@@ -2356,35 +2242,7 @@
 
                 <div class="collapsible-content" id="versionHistoryContent" style="display: none;">
                 <div class="version-item">
-                    <strong>Version 1.4.7</strong> (2026-01-22) - Current<br>
-                    🎨 <strong>Visual Misconceptions Illustrations:</strong> Added pizza diagrams to all 5 common misconceptions<br>
-                    &nbsp;&nbsp;&nbsp;• Each misconception now has side-by-side visual comparison<br>
-                    &nbsp;&nbsp;&nbsp;• "Wrong Thinking" vs "Reality" diagrams<br>
-                    &nbsp;&nbsp;&nbsp;• Shows visually why the misconception fails<br>
-                    &nbsp;&nbsp;&nbsp;• Includes addition diagrams for misconception #3<br>
-                    &nbsp;&nbsp;&nbsp;• Common denominator visualization for misconception #4<br>
-                    📚 <strong>Unified Markdown Viewer:</strong> All resource links now use markdown viewer<br>
-                    &nbsp;&nbsp;&nbsp;• README.md opens in modal viewer (not new tab)<br>
-                    &nbsp;&nbsp;&nbsp;• TODO.md opens in modal viewer (not new tab)<br>
-                    &nbsp;&nbsp;&nbsp;• FEATURES_TODO.md already used modal viewer<br>
-                    &nbsp;&nbsp;&nbsp;• Consistent experience across all documentation<br>
-                    📂 <strong>Collapsible Project Files:</strong> Moved resources outside Learning Guide<br>
-                    &nbsp;&nbsp;&nbsp;• "Project Files & Resources" now separate section<br>
-                    &nbsp;&nbsp;&nbsp;• Collapsible with chevron indicator (defaults collapsed)<br>
-                    &nbsp;&nbsp;&nbsp;• Cleaner organization and navigation<br>
-                    🔧 <strong>Fixed Visual Aids Issues:</strong><br>
-                    &nbsp;&nbsp;&nbsp;• Visual aids now work for ALL questions from the start<br>
-                    &nbsp;&nbsp;&nbsp;• Removed mistakeType requirement (was blocking regular problems)<br>
-                    &nbsp;&nbsp;&nbsp;• Pizza diagrams generated for any fraction comparison<br>
-                    🔄 <strong>Fixed Hint Toggle:</strong> Clicking question number now properly removes everything<br>
-                    &nbsp;&nbsp;&nbsp;• Removes both pizza diagrams AND explanation text<br>
-                    &nbsp;&nbsp;&nbsp;• Added .hint-explanation class for proper removal<br>
-                    &nbsp;&nbsp;&nbsp;• Clean toggle on/off behavior<br>
-                    ✨ Enhanced user experience with better visual learning throughout
-                </div>
-
-                <div class="version-item">
-                    <strong>Version 1.4.6</strong> (2026-01-22)<br>
+                    <strong>Version 1.4.6</strong> (2026-01-22) - Current<br>
                     📖 <strong>Markdown Viewer:</strong> Added FEATURES_TODO.md link with beautiful rendered view<br>
                     📚 <strong>Collapsible Learning Guide:</strong> Made entire guide collapsible (default collapsed) to reduce visual clutter<br>
                     ⚠️ <strong>Common Misconceptions Section:</strong> Added comprehensive section explaining 5 major mistakes:<br>
@@ -2624,20 +2482,19 @@
 
         function renderSingleProblemVisualAid(problemIndex) {
             const problem = problems[problemIndex];
-            if (!problem) return;
+            if (!problem || !problem.mistakeType) return;
 
             const problemDiv = document.querySelector(`.problem:nth-child(${problemIndex + 1})`);
             if (!problemDiv) return;
 
-            // Remove existing visual aids AND explanation if any
+            // Remove existing visual aid if any
             const existingAid = problemDiv.querySelector('.visual-aids');
-            const existingExplanation = problemDiv.querySelector('.hint-explanation');
-            if (existingAid) existingAid.remove();
-            if (existingExplanation) existingExplanation.remove();
+            if (existingAid) {
+                existingAid.remove();
+            }
 
             // Add visual aid if it should be shown
             if (showVisualAids[problemIndex]) {
-                const explanation = problem.mistakeExplanation || 'Compare the visual representations to see which fraction is larger';
                 const visualAidsHTML = `
                     <div class="visual-aids" style="grid-column: 1 / -1; margin-top: 8px; padding: 12px; background: #F5F5F5; border-radius: 4px; display: flex; align-items: center; justify-content: center; gap: 20px;">
                         <div style="text-align: center;">
@@ -2650,8 +2507,8 @@
                             <div style="font-size: 0.9em; margin-top: 4px; font-weight: 500;">${problem.num2}/${problem.denom2}</div>
                         </div>
                     </div>
-                    <div class="hint-explanation" style="grid-column: 1 / -1; margin-top: 8px; padding: 8px; background: #E3F2FD; border-radius: 4px; font-size: 0.85em; color: #1976D2; text-align: center;">
-                        💡 ${explanation}
+                    <div style="grid-column: 1 / -1; margin-top: 8px; padding: 8px; background: #E3F2FD; border-radius: 4px; font-size: 0.85em; color: #1976D2; text-align: center;">
+                        💡 ${problem.mistakeExplanation}
                     </div>
                 `;
                 problemDiv.insertAdjacentHTML('beforeend', visualAidsHTML);
@@ -3037,7 +2894,7 @@
                                 <div style="font-size: 0.9em; margin-top: 4px; font-weight: 500;">${problem.num2}/${problem.denom2}</div>
                             </div>
                         </div>
-                        <div class="hint-explanation" style="grid-column: 1 / -1; margin-top: 8px; padding: 8px; background: #E3F2FD; border-radius: 4px; font-size: 0.85em; color: #1976D2; text-align: center;">
+                        <div style="grid-column: 1 / -1; margin-top: 8px; padding: 8px; background: #E3F2FD; border-radius: 4px; font-size: 0.85em; color: #1976D2; text-align: center;">
                             💡 ${explanation}
                         </div>
                     `;
@@ -3756,8 +3613,7 @@
 
             // Version file mapping
             const versionFiles = {
-                '1.4.7': 'fraction-worksheet.html',
-                '1.4.6': 'fraction-worksheet-v1.4.6.html',
+                '1.4.6': 'fraction-worksheet.html',
                 '1.4.5': 'fraction-worksheet-v1.4.5.html',
                 '1.4.4': 'fraction-worksheet-v1.4.4.html',
                 '1.4.3': 'fraction-worksheet-v1.4.3.html',
@@ -3774,7 +3630,6 @@
             };
 
             const versionDescriptions = {
-                '1.4.7': 'Visual misconceptions illustrations, unified markdown viewer, collapsible resources, fixed hint toggle and visual aids',
                 '1.4.6': 'Markdown viewer, collapsible Learning Guide, common misconceptions section, hints for ALL questions, 94% print scale, inclusive skin tones',
                 '1.4.5': 'Conditional visual aids (show hints only when needed), collapsible sections, print enhancements, selective mistake types',
                 '1.4.4': 'Common Mistakes mode with visual aids (pizza diagrams), targets error patterns for better understanding',
