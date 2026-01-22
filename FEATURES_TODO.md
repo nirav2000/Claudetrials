@@ -2,29 +2,29 @@
 
 ## High Priority Features
 
-### 1. Conditional Visual Aids Display ⏳
-**Status:** Planned
-**Description:** Visual aids in Common Mistakes mode should only appear when:
+### 1. Conditional Visual Aids Display ✅
+**Status:** Completed - 2026-01-22 20:00 (v1.4.5)
+**Description:** Visual aids now only appear when:
 - User answers incorrectly
-- User takes too long (configurable timeout)
+- User takes too long (configurable timeout: Off, 30s, 45s, 60s, 90s)
 - User manually clicks the question number to request a hint
 
 **Rationale:** Encourages students to attempt problems independently first, allowing us to identify where they struggle.
 
-**Implementation Notes:**
-- Add timer for each problem
-- Track answer attempts
-- Make question number clickable as hint button
-- Add settings toggle to enable/disable time-based hints
+**Implemented:**
+- ✅ Timer for each problem
+- ✅ Answer attempt tracking
+- ✅ Question number clickable as hint button
+- ✅ Settings toggle to enable/disable time-based hints
 
 ---
 
-### 2. Hint System with Pictorial Representation ⏳
-**Status:** Not started
-**Description:** Add hint button/system for regular (non-Common Mistakes) mode:
-- Show pictorial representation when hint is requested
-- Similar visual aids as Common Mistakes mode
-- Available for all problems, not just targeted ones
+### 2. Hint System with Pictorial Representation ✅
+**Status:** Completed - 2026-01-22 21:30 (v1.4.6, enhanced v1.4.7)
+**Description:** Universal hint system for ALL questions (not just Common Mistakes mode):
+- Pizza diagram visualization when hint is requested
+- Works for any fraction comparison
+- Available for all problems automatically
 
 **Rationale:** Provides on-demand help without reducing the learning challenge.
 
@@ -50,57 +50,68 @@
 
 ---
 
-### 4. Print Visual Aids Option 🖨️
-**Status:** Planned
-**Description:** Add checkbox to include visual aids when printing worksheets in Common Mistakes mode.
+### 4. Print Visual Aids Option ✅
+**Status:** Completed - 2026-01-22 20:00 (v1.4.5)
+**Description:** Checkbox to include visual aids when printing worksheets.
 
-**Implementation Notes:**
-- Add "Include Visual Aids in Print" checkbox
-- Toggle visibility of visual aids for print media
-
----
-
-### 5. Auto-Switch Input Method for Printing 🖨️
-**Status:** Planned
-**Description:** Automatically switch to keyboard input method when printing (to show answer boxes), then restore original method after printing.
-
-**Implementation Notes:**
-- Use beforeprint event to save current method and switch to keyboard
-- Use afterprint event to restore original method
+**Implemented:**
+- ✅ "Include Visual Aids in Print/PDF" checkbox
+- ✅ Toggles visibility of visual aids for print media
+- ✅ Works with both print and PDF download
 
 ---
 
-### 6. Selective Common Mistake Types 🎯
-**Status:** Planned
-**Description:** Allow users to select which specific common mistake patterns to include:
+### 5. Auto-Switch Input Method for Printing ✅
+**Status:** Completed - 2026-01-22 20:00 (v1.4.5)
+**Description:** Automatically switches to keyboard input method when printing (to show answer boxes), then restores original method after printing.
+
+**Implemented:**
+- ✅ beforeprint event saves current method and switches to keyboard
+- ✅ afterprint event restores original method
+- ✅ Seamless user experience
+
+---
+
+### 6. Selective Common Mistake Types ✅
+**Status:** Completed - 2026-01-22 20:00 (v1.4.5)
+**Description:** Users can select which specific common mistake patterns to include:
 - Higher Denominator trap
 - Both Numbers Higher trap
 - Unit Fraction confusion
 - Near-Whole comparison
 - Equivalent Fractions
 
-**Implementation Notes:**
-- Add checkboxes for each mistake type
-- Modify generateCommonMistakesProblems() to filter based on selection
-- Default to all selected
+**Implemented:**
+- ✅ Checkboxes for each mistake type
+- ✅ generateCommonMistakesProblems() filters based on selection
+- ✅ All selected by default
 
 ---
 
 ## UI/UX Improvements
 
 ### 7. Collapsible "How to Use" Section ✅
-**Status:** Planned
+**Status:** Completed - 2026-01-22 21:00 (v1.4.6)
 **Description:** Make "How to Use" section collapsible with default state collapsed.
 
 **Rationale:** Reduces initial visual clutter for returning users.
 
+**Implemented:**
+- ✅ Collapsible Learning Guide section
+- ✅ Default state: collapsed
+- ✅ Toggle to expand/collapse
+
 ---
 
 ### 8. Collapsible "Version History" Section ✅
-**Status:** Planned
+**Status:** Completed - 2026-01-22 21:00 (v1.4.6)
 **Description:** Make "Version History" section collapsible.
 
 **Rationale:** Reduces scroll length for users not interested in version details.
+
+**Implemented:**
+- ✅ Collapsible Version History section
+- ✅ Toggle to expand/collapse
 
 ---
 
@@ -171,6 +182,18 @@
 
 ---
 
+### 16. Customizable Timeline Icon Colors 🎨
+**Status:** Requested - 2026-01-22
+**Description:** Allow users to customize the skin tone/color of the emoji icons in the Modern Timeline section:
+- Options for different skin tones for child, parents, and grandparents
+- Color picker or preset options
+- Support for diverse family representations
+- Settings saved in localStorage
+
+**Rationale:** Enables personalization and inclusive representation for families of different ethnic backgrounds.
+
+---
+
 ## Recently Completed ✅
 
 ### Common Mistakes Mode with Visual Aids (v1.4.4)
@@ -209,8 +232,9 @@
 - 👨‍🏫 Teacher tools
 - 📱 Mobile optimization
 - 💾 Offline capability
+- 🎨 Customization/personalization
 
 ---
 
-Last Updated: 2026-01-22
-Current Version: 1.4.4
+Last Updated: 2026-01-22 22:00
+Current Version: 1.4.8
