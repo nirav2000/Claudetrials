@@ -716,37 +716,6 @@
             border: 2px solid #e0e0e0;
         }
 
-        /* Fraction bar - shows ONE whole divided into parts */
-        .fraction-bar {
-            display: inline-flex;
-            border: 3px solid #333;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-        }
-
-        .fraction-part {
-            width: 40px;
-            height: 40px;
-            border-right: 2px solid #333;
-            background: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            color: #666;
-        }
-
-        .fraction-part:last-child {
-            border-right: none;
-        }
-
-        .fraction-part.filled {
-            background: #FFA726;
-            color: white;
-        }
-
-        /* Keep old classes for compatibility but deprecate them */
         .pizza-slice, .sushi-piece, .book-page {
             width: 30px;
             height: 30px;
@@ -846,8 +815,7 @@
             .score,
             .canvas-controls,
             .voice-btn,
-            button,
-            #versionSelector {
+            button {
                 display: none !important;
             }
 
@@ -938,17 +906,17 @@
                 font-size: 9pt;
             }
 
-            /* Conditional page breaks - only applied when needed */
-            .problems-container.has-page-breaks .problem:nth-child(20) {
+            /* Ensure maximum 20 problems per page */
+            .problem:nth-child(20) {
                 page-break-after: always;
             }
 
-            .problems-container.has-page-breaks .problem:nth-child(n+21) {
+            .problem:nth-child(n+21) {
                 page-break-before: always;
             }
 
-            /* Only add page break after problems container when needed */
-            .problems-container.has-page-breaks {
+            /* Force page break after problems container */
+            .problems-container {
                 page-break-after: always;
             }
 
@@ -1011,27 +979,6 @@
                 print-color-adjust: exact;
                 -webkit-print-color-adjust: exact;
             }
-
-            .fraction-bar {
-                border: 2pt solid #333 !important;
-                print-color-adjust: exact;
-                -webkit-print-color-adjust: exact;
-            }
-
-            .fraction-part {
-                width: 5mm !important;
-                height: 6mm !important;
-                border-right: 1pt solid #333 !important;
-                font-size: 8pt;
-                print-color-adjust: exact;
-                -webkit-print-color-adjust: exact;
-            }
-
-            .fraction-part.filled {
-                background: #FFA726 !important;
-                print-color-adjust: exact;
-                -webkit-print-color-adjust: exact;
-            }
         }
 
         /* ===== RESPONSIVE DESIGN ===== */
@@ -1079,22 +1026,7 @@
 </head>
 <body>
     <div class="container">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
-            <h1 class="md-headline-4" style="margin: 0;">Fraction Comparison Practice</h1>
-            <div style="display: flex; align-items: center; gap: 10px;">
-                <span style="font-size: 0.9rem; color: #666; font-weight: 500;">v<span id="currentVersion">1.4.0</span></span>
-                <select id="versionSelector" style="padding: 4px 8px; border-radius: 4px; border: 1px solid var(--md-primary); background: white; color: var(--md-primary); font-size: 0.85rem; cursor: pointer;">
-                    <option value="1.4.0">Version 1.4.0 (Current)</option>
-                    <option value="1.3.3">Version 1.3.3</option>
-                    <option value="1.3.2">Version 1.3.2</option>
-                    <option value="1.3.1">Version 1.3.1</option>
-                    <option value="1.3.0">Version 1.3.0</option>
-                    <option value="1.2.0">Version 1.2.0</option>
-                    <option value="1.1.0">Version 1.1.0</option>
-                    <option value="1.0.0">Version 1.0.0</option>
-                </select>
-            </div>
-        </div>
+        <h1 class="md-headline-4">Fraction Comparison Practice</h1>
 
         <!-- Controls Section -->
         <div class="controls">
@@ -1201,20 +1133,15 @@
                 <p><strong>Example:</strong> In the fraction 3/4, you have 3 parts out of 4 equal parts that make up the whole.</p>
 
                 <div class="visual-fraction-demo">
-                    <strong>Visual - One Whole Divided into 4 Equal Parts:</strong>
-                    <div style="margin: 15px 0;">
-                        <div class="fraction-bar">
-                            <div class="fraction-part filled">1</div>
-                            <div class="fraction-part filled">2</div>
-                            <div class="fraction-part filled">3</div>
-                            <div class="fraction-part">4</div>
-                        </div>
+                    <strong>Visual - One Whole (4/4):</strong>
+                    <div style="display: flex; gap: 4px; margin: 10px 0;">
+                        <div class="pizza-slice filled" style="width: 40px; height: 40px;"></div>
+                        <div class="pizza-slice filled" style="width: 40px; height: 40px;"></div>
+                        <div class="pizza-slice filled" style="width: 40px; height: 40px;"></div>
+                        <div class="pizza-slice" style="width: 40px; height: 40px;"></div>
                     </div>
-                    <span style="margin-top: 8px; display: block;">
-                        ☝️ <strong>This is ONE whole shape</strong> divided into 4 equal parts<br>
-                        <strong>Filled parts (orange) = 3/4</strong> (three out of four parts)<br>
-                        <strong>Empty parts (white) = 1/4</strong> (one out of four parts)
-                    </span>
+                    <span style="margin-top: 8px; display: block;"><strong>Filled parts (orange) = 3/4</strong> (three out of four parts)<br>
+                    Empty parts (white) = 1/4 (one out of four parts)</span>
                 </div>
             </div>
 
@@ -1223,111 +1150,78 @@
             <div class="timeline">
                 <p><strong>Fractions have been used for over 5,000 years!</strong> Let's see how far back 3000 BC really is compared to when you, your parents, and grandparents were born:</p>
 
-                <!-- Main Timeline -->
-                <div style="background: linear-gradient(to right, #E8EAF6, #C5CAE9); border-radius: 8px; padding: 30px 20px; margin: 30px 0;">
-                    <!-- Timeline bar with markers -->
-                    <div style="position: relative; height: 100px; margin-bottom: 30px;">
-                        <!-- The line -->
-                        <div style="position: absolute; top: 50px; left: 0; right: 0; height: 4px; background: linear-gradient(to right, var(--md-primary), var(--md-secondary));"></div>
+                <div style="position: relative; height: 180px; margin: 40px 0; background: linear-gradient(to right, #E8EAF6, #C5CAE9); border-radius: 8px; padding: 20px;">
+                    <!-- Timeline bar -->
+                    <div style="position: absolute; top: 50%; left: 20px; right: 20px; height: 4px; background: linear-gradient(to right, var(--md-primary), var(--md-secondary)); transform: translateY(-50%);"></div>
 
-                        <!-- Major historical markers -->
-                        <div style="position: absolute; left: 0%; top: 50px; transform: translate(0, -50%);">
-                            <div style="width: 16px; height: 16px; background: white; border: 3px solid var(--md-primary); border-radius: 50%; margin: 0 auto;"></div>
-                            <div style="margin-top: 15px; text-align: center; font-size: 0.75em; font-weight: 600;">
-                                <div style="font-size: 1.5em;">📜</div>
-                                3000 BC<br>Egypt
-                            </div>
-                        </div>
-
-                        <div style="position: absolute; left: 48%; top: 50px; transform: translate(-50%, -50%);">
-                            <div style="width: 16px; height: 16px; background: white; border: 3px solid var(--md-primary); border-radius: 50%; margin: 0 auto;"></div>
-                            <div style="margin-top: -75px; text-align: center; font-size: 0.75em; font-weight: 600;">
-                                <div style="font-size: 1.5em;">🕉️</div>
-                                600 BC<br>India
-                            </div>
-                        </div>
-
-                        <div style="position: absolute; left: 89%; top: 50px; transform: translate(-50%, -50%);">
-                            <div style="width: 16px; height: 16px; background: white; border: 3px solid var(--md-primary); border-radius: 50%; margin: 0 auto;"></div>
-                            <div style="margin-top: 15px; text-align: center; font-size: 0.75em; font-weight: 600;">
-                                <div style="font-size: 1.5em;">📐</div>
-                                1500 AD<br>Modern
-                            </div>
-                        </div>
-
-                        <div style="position: absolute; right: 0%; top: 50px; transform: translate(0, -50%);">
-                            <div style="width: 20px; height: 20px; background: var(--md-secondary); border: 3px solid var(--md-primary); border-radius: 50%; margin: 0 auto; box-shadow: 0 0 10px rgba(3, 218, 198, 0.5);"></div>
-                            <div style="margin-top: -85px; text-align: center; font-size: 0.8em; font-weight: 700; color: var(--md-primary);">
-                                <div style="font-size: 1.8em;">⭐</div>
-                                2026<br>TODAY!
-                            </div>
+                    <!-- 3000 BC - Egyptians (0%) -->
+                    <div style="position: absolute; left: 20px; top: 50%; transform: translateY(-50%);">
+                        <div style="width: 16px; height: 16px; background: white; border: 3px solid var(--md-primary); border-radius: 50%;"></div>
+                        <div style="position: absolute; top: -70px; left: 50%; transform: translateX(-50%); text-align: center; white-space: nowrap; font-size: 0.8em; font-weight: 600;">
+                            <div style="font-size: 1.3em; margin-bottom: 4px;">📜</div>
+                            3000 BC<br>Egyptians
                         </div>
                     </div>
 
-                    <!-- Modern Era Zoom Box -->
-                    <div style="background: rgba(255, 255, 255, 0.9); border: 2px solid var(--md-primary); border-radius: 8px; padding: 20px; margin-top: 20px;">
-                        <div style="text-align: center; font-weight: 600; margin-bottom: 15px; color: var(--md-primary);">
-                            🔍 Modern Times Zoom (1950-2026) - All within the last 76 years!
+                    <!-- 600 BC - India (47.8%) -->
+                    <div style="position: absolute; left: calc(20px + 47.8% * (100% - 40px)); top: 50%; transform: translateY(-50%);">
+                        <div style="width: 16px; height: 16px; background: white; border: 3px solid var(--md-primary); border-radius: 50%;"></div>
+                        <div style="position: absolute; top: 25px; left: 50%; transform: translateX(-50%); text-align: center; white-space: nowrap; font-size: 0.8em; font-weight: 600;">
+                            <div style="font-size: 1.3em; margin-bottom: 4px;">🕉️</div>
+                            600 BC<br>India
                         </div>
-                        <div style="display: flex; justify-content: space-around; align-items: center; gap: 15px; flex-wrap: wrap;">
-                            <div style="text-align: center; padding: 10px;">
-                                <div style="width: 12px; height: 12px; background: white; border: 2px solid #FF9800; border-radius: 50%; margin: 0 auto 8px;"></div>
-                                <div style="font-size: 0.75em; font-weight: 600; color: #F57C00;">
-                                    1950<br>
-                                    <span style="font-size: 1.8em;">👵👴</span><br>
-                                    Grandparents
-                                </div>
-                            </div>
+                    </div>
 
-                            <div style="font-size: 1.5em; color: #999;">→</div>
-
-                            <div style="text-align: center; padding: 10px;">
-                                <div style="width: 12px; height: 12px; background: white; border: 2px solid #4CAF50; border-radius: 50%; margin: 0 auto 8px;"></div>
-                                <div style="font-size: 0.75em; font-weight: 600; color: #2E7D32;">
-                                    1980<br>
-                                    <span style="font-size: 1.8em;">👨👩</span><br>
-                                    Parents
-                                </div>
-                            </div>
-
-                            <div style="font-size: 1.5em; color: #999;">→</div>
-
-                            <div style="text-align: center; padding: 10px;">
-                                <div style="width: 12px; height: 12px; background: white; border: 2px solid #2196F3; border-radius: 50%; margin: 0 auto 8px;"></div>
-                                <div style="font-size: 0.75em; font-weight: 600; color: #1565C0;">
-                                    2016<br>
-                                    <span style="font-size: 1.8em;">🧒</span><br>
-                                    You (9 yrs)
-                                </div>
-                            </div>
-
-                            <div style="font-size: 1.5em; color: #999;">→</div>
-
-                            <div style="text-align: center; padding: 10px;">
-                                <div style="width: 14px; height: 14px; background: var(--md-secondary); border: 2px solid var(--md-primary); border-radius: 50%; margin: 0 auto 8px;"></div>
-                                <div style="font-size: 0.75em; font-weight: 700; color: var(--md-primary);">
-                                    2026<br>
-                                    <span style="font-size: 1.8em;">⭐</span><br>
-                                    Today!
-                                </div>
-                            </div>
+                    <!-- 1500 AD - Modern notation (89.5%) -->
+                    <div style="position: absolute; left: calc(20px + 89.5% * (100% - 40px)); top: 50%; transform: translateY(-50%);">
+                        <div style="width: 16px; height: 16px; background: white; border: 3px solid var(--md-primary); border-radius: 50%;"></div>
+                        <div style="position: absolute; top: -70px; left: 50%; transform: translateX(-50%); text-align: center; white-space: nowrap; font-size: 0.8em; font-weight: 600;">
+                            <div style="font-size: 1.3em; margin-bottom: 4px;">📐</div>
+                            1500 AD<br>Modern
                         </div>
-                        <div style="text-align: center; margin-top: 15px; font-size: 0.85em; color: #666;">
-                            These 76 years represent only <strong>1.5%</strong> of the 5,026-year timeline above!
+                    </div>
+
+                    <!-- 1950 - Grandparents (98.5%) -->
+                    <div style="position: absolute; left: calc(20px + 98.5% * (100% - 40px)); top: 50%; transform: translateY(-50%);">
+                        <div style="width: 12px; height: 12px; background: white; border: 2px solid #FF9800; border-radius: 50%;"></div>
+                        <div style="position: absolute; top: 25px; left: 50%; transform: translateX(-50%); text-align: center; white-space: nowrap; font-size: 0.75em; color: #F57C00;">
+                            1950<br>👵👴
+                        </div>
+                    </div>
+
+                    <!-- 1980 - Parents (99.1%) -->
+                    <div style="position: absolute; left: calc(20px + 99.1% * (100% - 40px)); top: 50%; transform: translateY(-50%);">
+                        <div style="width: 12px; height: 12px; background: white; border: 2px solid #4CAF50; border-radius: 50%;"></div>
+                        <div style="position: absolute; top: -70px; left: 50%; transform: translateX(-50%); text-align: center; white-space: nowrap; font-size: 0.75em; color: #2E7D32;">
+                            1980<br>👨👩
+                        </div>
+                    </div>
+
+                    <!-- 2016 - 9-year-old born (99.8%) -->
+                    <div style="position: absolute; left: calc(20px + 99.8% * (100% - 40px)); top: 50%; transform: translateY(-50%);">
+                        <div style="width: 12px; height: 12px; background: white; border: 2px solid #2196F3; border-radius: 50%;"></div>
+                        <div style="position: absolute; top: 25px; left: 50%; transform: translateX(-50%); text-align: center; white-space: nowrap; font-size: 0.75em; color: #1565C0;">
+                            2016<br>🧒
+                        </div>
+                    </div>
+
+                    <!-- 2026 - Today (100%) -->
+                    <div style="position: absolute; right: 20px; top: 50%; transform: translateY(-50%);">
+                        <div style="width: 20px; height: 20px; background: var(--md-secondary); border: 3px solid var(--md-primary); border-radius: 50%; box-shadow: 0 0 10px rgba(3, 218, 198, 0.5);"></div>
+                        <div style="position: absolute; top: -70px; left: 50%; transform: translateX(-50%); text-align: center; white-space: nowrap; font-size: 0.85em; font-weight: 700; color: var(--md-primary);">
+                            <div style="font-size: 1.3em; margin-bottom: 4px;">⭐</div>
+                            2026<br>TODAY!
                         </div>
                     </div>
                 </div>
 
-                <p style="margin-top: 20px; font-size: 0.95em; color: #666;">
-                    <strong>💡 Scale Perspective:</strong> This timeline is drawn to scale! The top bar shows 5,026 years from 3000 BC to 2026 AD.
-                    Notice how ALL of modern history (grandparents, parents, you) is squeezed into the tiniest space at the right end - that's why we created the zoom box below to see it clearly!
-                </p>
+                <p style="margin-top: 20px; font-size: 0.95em; color: #666;"><strong>Scale Perspective:</strong> This timeline is drawn to scale! Notice how recent your birth (2016), your parents' birth (1980), and even your grandparents' birth (1950) are compared to when ancient Egyptians started using fractions 5,000 years ago. All of modern human history is squeezed into that tiny space at the right end of the timeline!</p>
             </div>
 
             <div class="strategy-box">
                 <div style="display: flex; align-items: flex-start; gap: 20px;">
                     <div style="flex: 1;">
-                        <h4>📜 Ancient Egypt 🇪🇬 (~3000 BC)</h4>
+                        <h4>📜 Ancient Egypt (~3000 BC)</h4>
                         <p>The ancient Egyptians were among the first to use fractions. They needed fractions to divide food, land, and supplies fairly among people. They mainly used "unit fractions" (fractions with 1 as the numerator), like 1/2, 1/3, 1/4.</p>
 
                         <p><strong>Egyptian Hieroglyph for Fractions:</strong></p>
@@ -1340,6 +1234,8 @@
                                 </div>
                             </div>
                         </div>
+
+                        <p><strong>Egyptian Flag Colors:</strong> <span style="display: inline-block; width: 30px; height: 20px; background: linear-gradient(to bottom, #CE1126 33%, #FFFFFF 33%, #FFFFFF 66%, #000000 66%); border: 1px solid #999; vertical-align: middle;"></span> Red, White, and Black with golden eagle</p>
                     </div>
                 </div>
             </div>
@@ -1347,8 +1243,21 @@
             <div class="strategy-box">
                 <div style="display: flex; align-items: flex-start; gap: 20px;">
                     <div style="flex: 1;">
-                        <h4>🕉️ Ancient India 🇮🇳 (~600 BC to 500 AD)</h4>
+                        <h4>🕉️ Ancient India (~600 BC to 500 AD)</h4>
                         <p><strong>Indian mathematicians made huge contributions to fractions!</strong> In ancient India, mathematicians like <strong>Aryabhata</strong> (476-550 AD) and <strong>Brahmagupta</strong> (598-668 AD) developed advanced fraction systems.</p>
+
+                        <div style="background: #FFF3E0; padding: 15px; border-radius: 4px; border: 2px solid #FF9800; margin: 10px 0;">
+                            <div style="text-align: center;">
+                                <div style="font-size: 2em; margin-bottom: 10px;">🕉️ ☸️ 📿</div>
+                                <div style="font-size: 0.9em;">
+                                    <strong>Indian Flag Colors:</strong><br>
+                                    <span style="display: inline-block; width: 40px; height: 10px; background: #FF9933; vertical-align: middle;"></span>
+                                    <span style="display: inline-block; width: 40px; height: 10px; background: #FFFFFF; border: 1px solid #999; vertical-align: middle;"></span>
+                                    <span style="display: inline-block; width: 40px; height: 10px; background: #138808; vertical-align: middle;"></span>
+                                    with ⚫ Ashoka Chakra (24 spokes)
+                                </div>
+                            </div>
+                        </div>
 
                         <p><strong>Key Contributions:</strong></p>
                         <ul>
@@ -1460,41 +1369,37 @@
 
                 <div class="example-box">
                     <strong>Example:</strong> Compare 3/8 and 5/8
-                    <div class="visual-fraction-demo" style="display: flex; align-items: center; gap: 15px; flex-wrap: wrap;">
+                    <div class="visual-fraction-demo">
                         <div>
-                            <strong>3/8 (one whole):</strong>
-                            <div style="margin: 10px 0;">
-                                <div class="fraction-bar">
-                                    <div class="fraction-part filled" style="width: 30px; height: 35px;">1</div>
-                                    <div class="fraction-part filled" style="width: 30px; height: 35px;">2</div>
-                                    <div class="fraction-part filled" style="width: 30px; height: 35px;">3</div>
-                                    <div class="fraction-part" style="width: 30px; height: 35px;">4</div>
-                                    <div class="fraction-part" style="width: 30px; height: 35px;">5</div>
-                                    <div class="fraction-part" style="width: 30px; height: 35px;">6</div>
-                                    <div class="fraction-part" style="width: 30px; height: 35px;">7</div>
-                                    <div class="fraction-part" style="width: 30px; height: 35px;">8</div>
-                                </div>
+                            <strong>3/8:</strong>
+                            <div style="display: flex;">
+                                <div class="pizza-slice filled"></div>
+                                <div class="pizza-slice filled"></div>
+                                <div class="pizza-slice filled"></div>
+                                <div class="pizza-slice"></div>
+                                <div class="pizza-slice"></div>
+                                <div class="pizza-slice"></div>
+                                <div class="pizza-slice"></div>
+                                <div class="pizza-slice"></div>
                             </div>
                         </div>
-                        <span style="font-size: 2em; color: var(--md-primary);">&lt;</span>
+                        <span style="font-size: 2em; margin: 0 10px;">&lt;</span>
                         <div>
-                            <strong>5/8 (one whole):</strong>
-                            <div style="margin: 10px 0;">
-                                <div class="fraction-bar">
-                                    <div class="fraction-part filled" style="width: 30px; height: 35px;">1</div>
-                                    <div class="fraction-part filled" style="width: 30px; height: 35px;">2</div>
-                                    <div class="fraction-part filled" style="width: 30px; height: 35px;">3</div>
-                                    <div class="fraction-part filled" style="width: 30px; height: 35px;">4</div>
-                                    <div class="fraction-part filled" style="width: 30px; height: 35px;">5</div>
-                                    <div class="fraction-part" style="width: 30px; height: 35px;">6</div>
-                                    <div class="fraction-part" style="width: 30px; height: 35px;">7</div>
-                                    <div class="fraction-part" style="width: 30px; height: 35px;">8</div>
-                                </div>
+                            <strong>5/8:</strong>
+                            <div style="display: flex;">
+                                <div class="pizza-slice filled"></div>
+                                <div class="pizza-slice filled"></div>
+                                <div class="pizza-slice filled"></div>
+                                <div class="pizza-slice filled"></div>
+                                <div class="pizza-slice filled"></div>
+                                <div class="pizza-slice"></div>
+                                <div class="pizza-slice"></div>
+                                <div class="pizza-slice"></div>
                             </div>
                         </div>
                     </div>
-                    <br>
-                    <strong>Solution:</strong> Both fractions have 8 as the denominator (both wholes divided into 8 equal parts).<br>
+                    <br><br>
+                    <strong>Solution:</strong> Both fractions have 8 as the denominator (the parts are the same size).<br>
                     Since 3 &lt; 5, we know that 3/8 &lt; 5/8
                 </div>
             </div>
@@ -1630,36 +1535,32 @@
 
                 <div class="visual-fraction-demo">
                     <strong>You eat:</strong>
-                    <div style="margin: 10px 0;">
-                        <div class="fraction-bar">
-                            <div class="fraction-part filled" style="width: 30px; height: 35px;">1</div>
-                            <div class="fraction-part filled" style="width: 30px; height: 35px;">2</div>
-                            <div class="fraction-part filled" style="width: 30px; height: 35px;">3</div>
-                            <div class="fraction-part" style="width: 30px; height: 35px;">4</div>
-                            <div class="fraction-part" style="width: 30px; height: 35px;">5</div>
-                            <div class="fraction-part" style="width: 30px; height: 35px;">6</div>
-                            <div class="fraction-part" style="width: 30px; height: 35px;">7</div>
-                            <div class="fraction-part" style="width: 30px; height: 35px;">8</div>
-                        </div>
+                    <div style="display: flex;">
+                        <div class="pizza-slice filled"></div>
+                        <div class="pizza-slice filled"></div>
+                        <div class="pizza-slice filled"></div>
+                        <div class="pizza-slice"></div>
+                        <div class="pizza-slice"></div>
+                        <div class="pizza-slice"></div>
+                        <div class="pizza-slice"></div>
+                        <div class="pizza-slice"></div>
                     </div>
-                    <span>= 3/8 of the pizza (one whole pizza divided into 8 slices)</span>
+                    <span>= 3/8 of the pizza</span>
                 </div>
 
                 <div class="visual-fraction-demo">
                     <strong>Your friend eats:</strong>
-                    <div style="margin: 10px 0;">
-                        <div class="fraction-bar">
-                            <div class="fraction-part filled" style="width: 30px; height: 35px;">1</div>
-                            <div class="fraction-part filled" style="width: 30px; height: 35px;">2</div>
-                            <div class="fraction-part filled" style="width: 30px; height: 35px;">3</div>
-                            <div class="fraction-part filled" style="width: 30px; height: 35px;">4</div>
-                            <div class="fraction-part filled" style="width: 30px; height: 35px;">5</div>
-                            <div class="fraction-part" style="width: 30px; height: 35px;">6</div>
-                            <div class="fraction-part" style="width: 30px; height: 35px;">7</div>
-                            <div class="fraction-part" style="width: 30px; height: 35px;">8</div>
-                        </div>
+                    <div style="display: flex;">
+                        <div class="pizza-slice filled"></div>
+                        <div class="pizza-slice filled"></div>
+                        <div class="pizza-slice filled"></div>
+                        <div class="pizza-slice filled"></div>
+                        <div class="pizza-slice filled"></div>
+                        <div class="pizza-slice"></div>
+                        <div class="pizza-slice"></div>
+                        <div class="pizza-slice"></div>
                     </div>
-                    <span>= 5/8 of the pizza (one whole pizza divided into 8 slices)</span>
+                    <span>= 5/8 of the pizza</span>
                 </div>
 
                 <p><strong>Who ate more?</strong> Your friend did, because 5/8 &gt; 3/8!</p>
@@ -1713,37 +1614,37 @@
                 <h4>⏰ Time Management</h4>
                 <p>An hour has 60 minutes. Let's see how fractions help us understand time:</p>
 
-                <div class="visual-fraction-demo" style="flex-direction: column; align-items: flex-start; gap: 15px;">
-                    <strong>Your afternoon (each bar = 1 hour):</strong><br>
-                    <div style="display: flex; align-items: center; gap: 10px;">
-                        <div style="min-width: 100px;"><strong>Homework:</strong></div>
-                        <div class="fraction-bar">
-                            <div class="fraction-part filled" style="width: 35px; height: 30px;"></div>
-                            <div class="fraction-part" style="width: 35px; height: 30px;"></div>
-                            <div class="fraction-part" style="width: 35px; height: 30px;"></div>
-                            <div class="fraction-part" style="width: 35px; height: 30px;"></div>
+                <div class="visual-fraction-demo" style="flex-direction: column; align-items: flex-start;">
+                    <strong>Your afternoon:</strong><br>
+                    <div style="display: flex; margin: 10px 0;">
+                        <div><strong>Homework:</strong></div>
+                        <div style="display: flex; margin-left: 10px;">
+                            <div class="book-page filled"></div>
+                            <div class="book-page filled"></div>
+                            <div class="book-page filled"></div>
+                            <div class="book-page"></div>
                         </div>
-                        <span>15 min = 15/60 = 1/4 hour</span>
+                        <span style="margin-left: 10px;">15 min = 15/60 = 1/4 hour</span>
                     </div>
-                    <div style="display: flex; align-items: center; gap: 10px;">
-                        <div style="min-width: 100px;"><strong>Video games:</strong></div>
-                        <div class="fraction-bar">
-                            <div class="fraction-part filled" style="width: 35px; height: 30px;"></div>
-                            <div class="fraction-part filled" style="width: 35px; height: 30px;"></div>
-                            <div class="fraction-part" style="width: 35px; height: 30px;"></div>
-                            <div class="fraction-part" style="width: 35px; height: 30px;"></div>
+                    <div style="display: flex; margin: 10px 0;">
+                        <div><strong>Video games:</strong></div>
+                        <div style="display: flex; margin-left: 10px;">
+                            <div class="book-page filled"></div>
+                            <div class="book-page filled"></div>
+                            <div class="book-page"></div>
+                            <div class="book-page"></div>
                         </div>
-                        <span>30 min = 30/60 = 1/2 hour</span>
+                        <span style="margin-left: 10px;">30 min = 30/60 = 1/2 hour</span>
                     </div>
-                    <div style="display: flex; align-items: center; gap: 10px;">
-                        <div style="min-width: 100px;"><strong>Reading:</strong></div>
-                        <div class="fraction-bar">
-                            <div class="fraction-part filled" style="width: 35px; height: 30px;"></div>
-                            <div class="fraction-part" style="width: 35px; height: 30px;"></div>
-                            <div class="fraction-part" style="width: 35px; height: 30px;"></div>
-                            <div class="fraction-part" style="width: 35px; height: 30px;"></div>
+                    <div style="display: flex; margin: 10px 0;">
+                        <div><strong>Reading:</strong></div>
+                        <div style="display: flex; margin-left: 10px;">
+                            <div class="book-page filled"></div>
+                            <div class="book-page"></div>
+                            <div class="book-page"></div>
+                            <div class="book-page"></div>
                         </div>
-                        <span>15 min = 15/60 = 1/4 hour</span>
+                        <span style="margin-left: 10px;">15 min = 15/60 = 1/4 hour</span>
                     </div>
                 </div>
 
@@ -1929,42 +1830,7 @@
                 <h3>📦 Version History</h3>
 
                 <div class="version-item">
-                    <strong>Version 1.4.0</strong> (2026-01-22) - Current<br>
-                    🎯 <strong>Major Update:</strong> Working version switcher with actual saved version files<br>
-                    📂 Created separate files for all previous versions (v1.0.0 through v1.3.3)<br>
-                    🔄 Version switcher now actually loads previous versions when selected<br>
-                    📅 <strong>Timeline completely redesigned from scratch</strong><br>
-                    🔍 New two-part timeline: main scale + "Modern Times Zoom" box<br>
-                    ✨ Zoom box shows 1950-2026 clearly with arrows and labels<br>
-                    📊 Fixed all overlapping and positioning issues<br>
-                    💯 Timeline now displays correctly on all screen sizes<br>
-                    📍 Shows scale perspective: modern era is only 1.5% of 5,026 years
-                </div>
-
-                <div class="version-item">
-                    <strong>Version 1.3.3</strong> (2026-01-22)<br>
-                    🏁 Added flag emojis next to country names (Egypt 🇪🇬, India 🇮🇳)<br>
-                    🗑️ Removed flag description text for cleaner presentation<br>
-                    ⏰ Fixed homework bar to correctly show 1/4 hour (not 3/4)<br>
-                    📊 Updated all time management bars to use new fraction-bar design<br>
-                    📌 Added version number display in top right corner<br>
-                    🔄 Added version switcher dropdown for navigating between versions<br>
-                    ✅ Version switcher includes descriptions and navigation guidance
-                </div>
-
-                <div class="version-item">
-                    <strong>Version 1.3.2</strong> (2026-01-22)<br>
-                    🎯 Fixed fraction visuals to show ONE whole divided into parts (not separate squares)<br>
-                    📊 Redesigned all fraction bars to clearly display single shapes divided into sections<br>
-                    🧮 Added numbered parts to make counting easier<br>
-                    ✨ Improved visual clarity for understanding fractions fundamentally<br>
-                    📍 Fixed timeline label overlap for 1950, 1980, and 2016 markers<br>
-                    📄 Made page breaks conditional - only apply when more than 20 problems<br>
-                    🖨️ Eliminated gaps in print/PDF for all problem counts (10, 20, 30, 40)
-                </div>
-
-                <div class="version-item">
-                    <strong>Version 1.3.1</strong> (2026-01-22)<br>
+                    <strong>Version 1.3.1</strong> (2026-01-22) - Current<br>
                     📄 Fixed page breaks - 20 questions now fit perfectly on one A4 page<br>
                     📏 Added to-scale historical timeline (5,026 years accurately represented)<br>
                     👨‍👩‍👧 Added personal perspective markers: grandparents (1950), parents (1980), 9-year-olds (2016)<br>
@@ -2203,13 +2069,6 @@
             const container = document.getElementById('problemsContainer');
             const method = document.getElementById('inputMethod').value;
             container.innerHTML = '';
-
-            // Add or remove page break class based on number of problems
-            if (problems.length > 20) {
-                container.classList.add('has-page-breaks');
-            } else {
-                container.classList.remove('has-page-breaks');
-            }
 
             problems.forEach((problem, index) => {
                 const problemDiv = document.createElement('div');
@@ -2843,53 +2702,6 @@
                 educationalContent.classList.remove('hidden-for-print');
             });
         }
-
-        // ===== VERSION SWITCHER =====
-        document.getElementById('versionSelector').addEventListener('change', function(e) {
-            const selectedVersion = e.target.value;
-            const currentVersion = document.getElementById('currentVersion').textContent;
-
-            if (selectedVersion === currentVersion) {
-                return; // Already on this version
-            }
-
-            // Version file mapping
-            const versionFiles = {
-                '1.4.0': 'fraction-worksheet.html',
-                '1.3.3': 'fraction-worksheet-v1.3.3.html',
-                '1.3.2': 'fraction-worksheet-v1.3.2.html',
-                '1.3.1': 'fraction-worksheet-v1.3.1.html',
-                '1.3.0': 'fraction-worksheet-v1.3.0.html',
-                '1.2.0': 'fraction-worksheet-v1.2.0.html',
-                '1.1.0': 'fraction-worksheet-v1.1.0.html',
-                '1.0.0': 'fraction-worksheet-v1.0.0.html'
-            };
-
-            const versionDescriptions = {
-                '1.4.0': 'Working version switcher with saved files, timeline completely redesigned with zoom box',
-                '1.3.3': 'Flag emojis, fixed homework bar, version number display and switcher',
-                '1.3.2': 'Fixed fraction visuals to show ONE whole divided into parts, conditional page breaks, timeline fixes',
-                '1.3.1': 'Fixed page breaks, to-scale timeline, historical illustrations',
-                '1.3.0': 'Enhanced educational content with visual aids',
-                '1.2.0': 'Material Design and A4 optimization',
-                '1.1.0': 'Added README and TODO files',
-                '1.0.0': 'Initial release with 4 input methods'
-            };
-
-            const confirmSwitch = confirm(
-                `Switch to Version ${selectedVersion}?\n\n` +
-                `${versionDescriptions[selectedVersion]}\n\n` +
-                `This will load the saved version file.`
-            );
-
-            if (confirmSwitch) {
-                // Navigate to the version file
-                window.location.href = versionFiles[selectedVersion];
-            } else {
-                // Reset selector to current version
-                e.target.value = currentVersion;
-            }
-        });
     </script>
 </body>
 </html>

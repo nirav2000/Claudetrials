@@ -1,0 +1,1412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Fraction Comparison Worksheet</title>
+
+    <!-- External library for PDF generation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+    <style>
+        /* ===== RESET AND BASE STYLES ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        /* ===== MAIN CONTAINER ===== */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        /* ===== HEADER ===== */
+        h1 {
+            text-align: center;
+            color: #667eea;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        /* ===== CONTROLS SECTION ===== */
+        .controls {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            border: 2px solid #e9ecef;
+        }
+
+        .controls-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .control-group label {
+            font-weight: 600;
+            color: #495057;
+            margin-bottom: 8px;
+            font-size: 0.95em;
+        }
+
+        .control-group select {
+            padding: 10px;
+            border: 2px solid #dee2e6;
+            border-radius: 8px;
+            font-size: 1em;
+            transition: all 0.3s;
+            background: white;
+        }
+
+        .control-group select:hover {
+            border-color: #667eea;
+        }
+
+        .control-group select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        /* ===== BUTTONS ===== */
+        .button-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #5a6268;
+            transform: translateY(-2px);
+        }
+
+        .btn-success {
+            background: #28a745;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #218838;
+            transform: translateY(-2px);
+        }
+
+        .btn-danger {
+            background: #dc3545;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #c82333;
+            transform: translateY(-2px);
+        }
+
+        .btn-info {
+            background: #17a2b8;
+            color: white;
+        }
+
+        .btn-info:hover {
+            background: #138496;
+            transform: translateY(-2px);
+        }
+
+        /* ===== INSTRUCTIONS ===== */
+        .instructions {
+            background: #e7f3ff;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            border-left: 5px solid #667eea;
+        }
+
+        .instructions h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+
+        .instructions ul {
+            margin-left: 20px;
+        }
+
+        .instructions li {
+            margin-bottom: 8px;
+            color: #495057;
+        }
+
+        /* ===== VOICE STATUS ===== */
+        .voice-status {
+            background: #fff3cd;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 5px solid #ffc107;
+            display: none;
+        }
+
+        .voice-status.show {
+            display: block;
+        }
+
+        .voice-status.error {
+            background: #f8d7da;
+            border-left-color: #dc3545;
+        }
+
+        .voice-status.success {
+            background: #d4edda;
+            border-left-color: #28a745;
+        }
+
+        /* ===== SCORE DISPLAY ===== */
+        .score {
+            text-align: center;
+            font-size: 1.5em;
+            margin: 20px 0;
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 10px;
+            display: none;
+        }
+
+        .score.show {
+            display: block;
+        }
+
+        .score-correct {
+            color: #90ee90;
+            font-weight: bold;
+        }
+
+        .score-incorrect {
+            color: #ffcccb;
+            font-weight: bold;
+        }
+
+        /* ===== PROBLEMS GRID ===== */
+        .problems-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .problem {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border: 2px solid #e9ecef;
+            transition: all 0.3s;
+            page-break-inside: avoid;
+        }
+
+        .problem:hover {
+            border-color: #667eea;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.1);
+        }
+
+        .problem-number {
+            font-weight: bold;
+            color: #667eea;
+            font-size: 1.1em;
+            min-width: 30px;
+        }
+
+        /* ===== FRACTION DISPLAY ===== */
+        .fraction {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            vertical-align: middle;
+            font-size: 1.2em;
+        }
+
+        .numerator {
+            border-bottom: 2px solid #333;
+            padding-bottom: 2px;
+            min-width: 30px;
+            text-align: center;
+        }
+
+        .denominator {
+            padding-top: 2px;
+            min-width: 30px;
+            text-align: center;
+        }
+
+        /* ===== INPUT ELEMENTS ===== */
+        .input-area {
+            min-width: 45px;
+            min-height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Keyboard input */
+        .operator-input {
+            width: 45px;
+            height: 45px;
+            text-align: center;
+            font-size: 1.5em;
+            border: 2px solid #dee2e6;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+
+        .operator-input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .operator-input.correct {
+            background-color: #d4edda;
+            border-color: #28a745;
+        }
+
+        .operator-input.incorrect {
+            background-color: #f8d7da;
+            border-color: #dc3545;
+        }
+
+        /* Button input */
+        .operator-buttons {
+            display: flex;
+            gap: 5px;
+        }
+
+        .operator-btn {
+            width: 40px;
+            height: 40px;
+            font-size: 1.3em;
+            padding: 0;
+            border: 2px solid #dee2e6;
+            background: white;
+            border-radius: 6px;
+        }
+
+        .operator-btn:hover {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+
+        .operator-btn.selected {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+
+        .operator-btn.correct {
+            background-color: #28a745;
+            border-color: #28a745;
+            color: white;
+        }
+
+        .operator-btn.incorrect {
+            background-color: #dc3545;
+            border-color: #dc3545;
+            color: white;
+        }
+
+        /* Drawing canvas */
+        .canvas-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .drawing-canvas {
+            border: 2px solid #dee2e6;
+            border-radius: 8px;
+            cursor: crosshair;
+            background: white;
+            touch-action: none;
+        }
+
+        .drawing-canvas.correct {
+            border-color: #28a745;
+            background-color: #d4edda;
+        }
+
+        .drawing-canvas.incorrect {
+            border-color: #dc3545;
+            background-color: #f8d7da;
+        }
+
+        .canvas-controls {
+            display: flex;
+            gap: 5px;
+        }
+
+        .canvas-btn {
+            padding: 4px 12px;
+            font-size: 0.85em;
+            border-radius: 5px;
+        }
+
+        /* Voice input */
+        .voice-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .voice-btn {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: white;
+            border: 2px solid #dee2e6;
+            font-size: 1.3em;
+            padding: 0;
+            position: relative;
+        }
+
+        .voice-btn:hover {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+
+        .voice-btn.listening {
+            background: #dc3545;
+            color: white;
+            border-color: #dc3545;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(220, 53, 69, 0.7);
+            }
+            50% {
+                transform: scale(1.05);
+                box-shadow: 0 0 0 10px rgba(220, 53, 69, 0);
+            }
+        }
+
+        .voice-result {
+            font-size: 1.3em;
+            min-width: 30px;
+            text-align: center;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .voice-result.correct {
+            color: #28a745;
+        }
+
+        .voice-result.incorrect {
+            color: #dc3545;
+        }
+
+        /* ===== PRINT STYLES ===== */
+        @media print {
+            @page {
+                size: A4;
+                margin: 15mm;
+            }
+
+            body {
+                background: white;
+                padding: 0;
+            }
+
+            .container {
+                box-shadow: none;
+                padding: 20px;
+                max-width: 100%;
+            }
+
+            /* Hide interactive elements */
+            .controls,
+            .button-group,
+            .instructions,
+            .voice-status,
+            .score,
+            .canvas-controls,
+            .voice-btn,
+            button {
+                display: none !important;
+            }
+
+            h1 {
+                font-size: 1.8em;
+                margin-bottom: 15px;
+                color: black;
+            }
+
+            .problems-container {
+                gap: 12px;
+            }
+
+            .problem {
+                padding: 10px;
+                border: 1px solid #dee2e6;
+                background: white;
+            }
+
+            .problem-number {
+                color: black;
+            }
+
+            .operator-input,
+            .operator-buttons,
+            .drawing-canvas,
+            .voice-container {
+                border: 2px solid #333;
+                background: white !important;
+            }
+
+            .operator-input {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            /* Adjust spacing for A4 */
+            .problem {
+                margin-bottom: 5px;
+            }
+
+            /* Ensure 20 problems fit on one page */
+            .problems-container {
+                font-size: 0.9em;
+            }
+        }
+
+        /* ===== RESPONSIVE DESIGN ===== */
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 1.8em;
+            }
+
+            .problems-container {
+                grid-template-columns: 1fr;
+            }
+
+            .controls-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            button {
+                width: 100%;
+            }
+        }
+
+        /* ===== UTILITY CLASSES ===== */
+        .hidden {
+            display: none;
+        }
+
+        .mt-20 {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Interactive Fraction Comparison Worksheet</h1>
+
+        <!-- Controls Section -->
+        <div class="controls">
+            <div class="controls-grid">
+                <div class="control-group">
+                    <label for="inputMethod">Input Method:</label>
+                    <select id="inputMethod">
+                        <option value="keyboard">Keyboard</option>
+                        <option value="buttons">Buttons</option>
+                        <option value="drawing">Drawing</option>
+                        <option value="voice">Voice</option>
+                    </select>
+                </div>
+
+                <div class="control-group">
+                    <label for="numProblems">Number of Problems:</label>
+                    <select id="numProblems">
+                        <option value="10">10</option>
+                        <option value="20" selected>20</option>
+                        <option value="30">30</option>
+                        <option value="40">40</option>
+                    </select>
+                </div>
+
+                <div class="control-group">
+                    <label for="denominators">Denominators:</label>
+                    <select id="denominators">
+                        <option value="12,20" selected>12 and 20</option>
+                        <option value="10,12,20">10, 12, and 20</option>
+                        <option value="6,8,10,12">6, 8, 10, and 12</option>
+                        <option value="2,3,4,5,6,7,8,9,10,11,12">All (2-12)</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="button-group">
+                <button class="btn-primary" onclick="generateWorksheet()">Generate New Worksheet</button>
+                <button class="btn-success" onclick="checkAnswers()">Check Answers</button>
+                <button class="btn-secondary" onclick="showAnswers()">Show Answers</button>
+                <button class="btn-danger" onclick="clearAnswers()">Clear Answers</button>
+                <button class="btn-info" onclick="printWorksheet()">Print</button>
+                <button class="btn-info" onclick="downloadPDF()">Download PDF</button>
+            </div>
+        </div>
+
+        <!-- Instructions -->
+        <div class="instructions">
+            <h3>How to Use:</h3>
+            <ul>
+                <li><strong>Keyboard:</strong> Type &lt;, &gt;, or = directly. Shortcuts: 'l' or ',' for &lt;, 'g' or '.' for &gt;, '-' for =</li>
+                <li><strong>Buttons:</strong> Click the symbol buttons to select your answer</li>
+                <li><strong>Drawing:</strong> Draw the symbol on the canvas, then click "Done" to recognize it. Click "Clear" to start over</li>
+                <li><strong>Voice:</strong> Click the microphone icon and say "less than", "greater than", or "equal" (Chrome/Edge only)</li>
+            </ul>
+        </div>
+
+        <!-- Voice Status -->
+        <div id="voiceStatus" class="voice-status"></div>
+
+        <!-- Score Display -->
+        <div id="score" class="score"></div>
+
+        <!-- Problems Container -->
+        <div id="problemsContainer" class="problems-container"></div>
+    </div>
+
+    <script>
+        // ===== GLOBAL STATE =====
+        let problems = [];
+        let currentInputMethod = 'keyboard';
+        let recognition = null;
+        let currentVoiceIndex = -1;
+
+        // ===== INITIALIZATION =====
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeVoiceRecognition();
+            generateWorksheet();
+
+            // Event listeners for controls
+            document.getElementById('inputMethod').addEventListener('change', function(e) {
+                currentInputMethod = e.target.value;
+                generateWorksheet();
+            });
+        });
+
+        // ===== VOICE RECOGNITION SETUP =====
+        function initializeVoiceRecognition() {
+            // Check for browser support
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+            if (!SpeechRecognition) {
+                console.warn('Speech recognition not supported in this browser');
+                return;
+            }
+
+            recognition = new SpeechRecognition();
+            recognition.continuous = false;
+            recognition.interimResults = false;
+            recognition.lang = 'en-US';
+
+            recognition.onstart = function() {
+                console.log('Voice recognition started');
+            };
+
+            recognition.onresult = function(event) {
+                const transcript = event.results[0][0].transcript.toLowerCase().trim();
+                const confidence = event.results[0][0].confidence;
+
+                console.log('Transcript:', transcript, 'Confidence:', confidence);
+
+                let operator = '';
+
+                // Parse various phrases
+                if (transcript.includes('less') || transcript === 'less than' || transcript === '<') {
+                    operator = '<';
+                } else if (transcript.includes('greater') || transcript === 'greater than' || transcript === '>') {
+                    operator = '>';
+                } else if (transcript.includes('equal') || transcript === 'equals' || transcript === '=') {
+                    operator = '=';
+                }
+
+                if (operator && currentVoiceIndex >= 0) {
+                    problems[currentVoiceIndex].userAnswer = operator;
+                    updateVoiceDisplay(currentVoiceIndex, operator);
+                    showVoiceStatus('Recognized: ' + getOperatorName(operator), 'success');
+                } else {
+                    showVoiceStatus('Could not understand. Please say "less than", "greater than", or "equal"', 'error');
+                }
+
+                currentVoiceIndex = -1;
+            };
+
+            recognition.onerror = function(event) {
+                console.error('Voice recognition error:', event.error);
+
+                let message = 'Voice recognition error: ';
+                switch(event.error) {
+                    case 'no-speech':
+                        message += 'No speech detected. Please try again.';
+                        break;
+                    case 'audio-capture':
+                        message += 'No microphone found. Please check your device.';
+                        break;
+                    case 'not-allowed':
+                        message += 'Microphone permission denied. Please allow microphone access.';
+                        break;
+                    case 'network':
+                        message += 'Network error occurred.';
+                        break;
+                    default:
+                        message += event.error;
+                }
+
+                showVoiceStatus(message, 'error');
+
+                // Remove listening state from button
+                if (currentVoiceIndex >= 0) {
+                    const btn = document.querySelector(`#voice-btn-${currentVoiceIndex}`);
+                    if (btn) btn.classList.remove('listening');
+                }
+
+                currentVoiceIndex = -1;
+            };
+
+            recognition.onend = function() {
+                console.log('Voice recognition ended');
+
+                // Remove listening state from button
+                if (currentVoiceIndex >= 0) {
+                    const btn = document.querySelector(`#voice-btn-${currentVoiceIndex}`);
+                    if (btn) btn.classList.remove('listening');
+                }
+            };
+        }
+
+        function showVoiceStatus(message, type = 'info') {
+            const statusDiv = document.getElementById('voiceStatus');
+            statusDiv.textContent = message;
+            statusDiv.className = 'voice-status show';
+
+            if (type === 'error') {
+                statusDiv.classList.add('error');
+            } else if (type === 'success') {
+                statusDiv.classList.add('success');
+            }
+
+            // Auto-hide after 5 seconds
+            setTimeout(() => {
+                statusDiv.classList.remove('show');
+            }, 5000);
+        }
+
+        function getOperatorName(operator) {
+            switch(operator) {
+                case '<': return 'less than';
+                case '>': return 'greater than';
+                case '=': return 'equal';
+                default: return '';
+            }
+        }
+
+        // ===== PROBLEM GENERATION =====
+        function generateWorksheet() {
+            const numProblems = parseInt(document.getElementById('numProblems').value);
+            const denominatorOptions = document.getElementById('denominators').value.split(',').map(Number);
+
+            problems = [];
+
+            for (let i = 0; i < numProblems; i++) {
+                // Generate two random fractions
+                const denom1 = denominatorOptions[Math.floor(Math.random() * denominatorOptions.length)];
+                const denom2 = denominatorOptions[Math.floor(Math.random() * denominatorOptions.length)];
+
+                // Ensure numerator < denominator for proper fractions
+                const num1 = Math.floor(Math.random() * denom1) + 1;
+                const num2 = Math.floor(Math.random() * denom2) + 1;
+
+                // Calculate correct operator using decimal comparison
+                const decimal1 = num1 / denom1;
+                const decimal2 = num2 / denom2;
+
+                let correctOperator;
+                if (Math.abs(decimal1 - decimal2) < 0.0001) {
+                    correctOperator = '=';
+                } else if (decimal1 < decimal2) {
+                    correctOperator = '<';
+                } else {
+                    correctOperator = '>';
+                }
+
+                problems.push({
+                    num1,
+                    denom1,
+                    num2,
+                    denom2,
+                    correctOperator,
+                    userAnswer: '',
+                    strokes: [] // For drawing mode
+                });
+            }
+
+            renderProblems();
+        }
+
+        // ===== PROBLEM RENDERING =====
+        function renderProblems() {
+            const container = document.getElementById('problemsContainer');
+            const method = document.getElementById('inputMethod').value;
+            container.innerHTML = '';
+
+            problems.forEach((problem, index) => {
+                const problemDiv = document.createElement('div');
+                problemDiv.className = 'problem';
+
+                const html = `
+                    <div class="problem-number">${index + 1}.</div>
+                    <div class="fraction">
+                        <div class="numerator">${problem.num1}</div>
+                        <div class="denominator">${problem.denom1}</div>
+                    </div>
+                    <div class="input-area" id="input-${index}">
+                        ${renderInputMethod(index, method)}
+                    </div>
+                    <div class="fraction">
+                        <div class="numerator">${problem.num2}</div>
+                        <div class="denominator">${problem.denom2}</div>
+                    </div>
+                `;
+
+                problemDiv.innerHTML = html;
+                container.appendChild(problemDiv);
+
+                // Initialize drawing canvas if needed
+                if (method === 'drawing') {
+                    initializeCanvas(index);
+                }
+            });
+        }
+
+        function renderInputMethod(index, method) {
+            switch(method) {
+                case 'keyboard':
+                    return `<input type="text" class="operator-input" id="input-field-${index}"
+                            maxlength="1" onkeypress="handleKeyPress(event, ${index})"
+                            onchange="handleInputChange(${index})">`;
+
+                case 'buttons':
+                    return `
+                        <div class="operator-buttons">
+                            <button class="operator-btn" onclick="selectOperator(${index}, '<')">&lt;</button>
+                            <button class="operator-btn" onclick="selectOperator(${index}, '>')">&gt;</button>
+                            <button class="operator-btn" onclick="selectOperator(${index}, '=')">=</button>
+                        </div>
+                    `;
+
+                case 'drawing':
+                    return `
+                        <div class="canvas-container">
+                            <canvas class="drawing-canvas" id="canvas-${index}" width="60" height="60"></canvas>
+                            <div class="canvas-controls">
+                                <button class="canvas-btn btn-secondary" onclick="clearCanvas(${index})">Clear</button>
+                                <button class="canvas-btn btn-primary" onclick="recognizeDrawing(${index})">Done</button>
+                            </div>
+                        </div>
+                    `;
+
+                case 'voice':
+                    return `
+                        <div class="voice-container">
+                            <button class="voice-btn" id="voice-btn-${index}" onclick="startVoiceRecognition(${index})">🎤</button>
+                            <div class="voice-result" id="voice-result-${index}"></div>
+                        </div>
+                    `;
+
+                default:
+                    return '';
+            }
+        }
+
+        // ===== KEYBOARD INPUT HANDLING =====
+        function handleKeyPress(event, index) {
+            const key = event.key.toLowerCase();
+            let operator = '';
+
+            // Direct operators
+            if (key === '<' || key === ',' || key === 'l') {
+                operator = '<';
+            } else if (key === '>' || key === '.' || key === 'g') {
+                operator = '>';
+            } else if (key === '=' || key === '-') {
+                operator = '=';
+            }
+
+            if (operator) {
+                event.preventDefault();
+                const input = document.getElementById(`input-field-${index}`);
+                input.value = operator;
+                problems[index].userAnswer = operator;
+            } else if (key !== 'Enter') {
+                event.preventDefault();
+            }
+        }
+
+        function handleInputChange(index) {
+            const input = document.getElementById(`input-field-${index}`);
+            const value = input.value.trim();
+
+            // Normalize input
+            if (value === '<' || value === ',' || value.toLowerCase() === 'l') {
+                input.value = '<';
+                problems[index].userAnswer = '<';
+            } else if (value === '>' || value === '.' || value.toLowerCase() === 'g') {
+                input.value = '>';
+                problems[index].userAnswer = '>';
+            } else if (value === '=' || value === '-') {
+                input.value = '=';
+                problems[index].userAnswer = '=';
+            } else {
+                input.value = '';
+                problems[index].userAnswer = '';
+            }
+        }
+
+        // ===== BUTTON INPUT HANDLING =====
+        function selectOperator(index, operator) {
+            problems[index].userAnswer = operator;
+
+            // Update button states
+            const container = document.getElementById(`input-${index}`);
+            const buttons = container.querySelectorAll('.operator-btn');
+            buttons.forEach(btn => {
+                btn.classList.remove('selected');
+                if (btn.textContent.trim() === operator) {
+                    btn.classList.add('selected');
+                }
+            });
+        }
+
+        // ===== DRAWING INPUT HANDLING =====
+        function initializeCanvas(index) {
+            const canvas = document.getElementById(`canvas-${index}`);
+            if (!canvas) return;
+
+            const ctx = canvas.getContext('2d');
+            let isDrawing = false;
+            let currentStroke = [];
+
+            // Set up canvas style
+            ctx.lineWidth = 3;
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+            ctx.strokeStyle = '#333';
+
+            // Mouse events
+            canvas.addEventListener('mousedown', startDrawing);
+            canvas.addEventListener('mousemove', draw);
+            canvas.addEventListener('mouseup', stopDrawing);
+            canvas.addEventListener('mouseout', stopDrawing);
+
+            // Touch events
+            canvas.addEventListener('touchstart', handleTouchStart);
+            canvas.addEventListener('touchmove', handleTouchMove);
+            canvas.addEventListener('touchend', stopDrawing);
+
+            function startDrawing(e) {
+                isDrawing = true;
+                currentStroke = [];
+                const pos = getMousePos(canvas, e);
+                currentStroke.push(pos);
+                ctx.beginPath();
+                ctx.moveTo(pos.x, pos.y);
+            }
+
+            function draw(e) {
+                if (!isDrawing) return;
+                e.preventDefault();
+
+                const pos = getMousePos(canvas, e);
+                currentStroke.push(pos);
+                ctx.lineTo(pos.x, pos.y);
+                ctx.stroke();
+            }
+
+            function stopDrawing() {
+                if (isDrawing && currentStroke.length > 0) {
+                    problems[index].strokes.push([...currentStroke]);
+                }
+                isDrawing = false;
+            }
+
+            function handleTouchStart(e) {
+                e.preventDefault();
+                const touch = e.touches[0];
+                const mouseEvent = new MouseEvent('mousedown', {
+                    clientX: touch.clientX,
+                    clientY: touch.clientY
+                });
+                canvas.dispatchEvent(mouseEvent);
+            }
+
+            function handleTouchMove(e) {
+                e.preventDefault();
+                const touch = e.touches[0];
+                const mouseEvent = new MouseEvent('mousemove', {
+                    clientX: touch.clientX,
+                    clientY: touch.clientY
+                });
+                canvas.dispatchEvent(mouseEvent);
+            }
+
+            function getMousePos(canvas, e) {
+                const rect = canvas.getBoundingClientRect();
+                return {
+                    x: e.clientX - rect.left,
+                    y: e.clientY - rect.top
+                };
+            }
+        }
+
+        function clearCanvas(index) {
+            const canvas = document.getElementById(`canvas-${index}`);
+            const ctx = canvas.getContext('2d');
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            problems[index].strokes = [];
+            problems[index].userAnswer = '';
+            canvas.classList.remove('correct', 'incorrect');
+        }
+
+        /**
+         * DRAWING RECOGNITION ALGORITHM
+         *
+         * This algorithm analyzes the drawn strokes to recognize <, >, or = symbols.
+         *
+         * Key techniques:
+         * 1. Multi-stroke support: Handles symbols drawn in multiple strokes (e.g., two lines for =)
+         * 2. Regional analysis: Divides canvas into left/center/right regions
+         * 3. Horizontal line detection: Identifies parallel horizontal lines for =
+         * 4. Directional analysis: Determines if strokes converge (< or >) based on point distribution
+         * 5. Bounding box calculation: Uses stroke dimensions to improve accuracy
+         */
+        function recognizeDrawing(index) {
+            const strokes = problems[index].strokes;
+
+            if (strokes.length === 0) {
+                alert('Please draw a symbol first!');
+                return;
+            }
+
+            // Flatten all points from all strokes
+            const allPoints = strokes.flat();
+
+            if (allPoints.length < 2) {
+                alert('Please draw a symbol!');
+                return;
+            }
+
+            // Calculate bounding box
+            const xs = allPoints.map(p => p.x);
+            const ys = allPoints.map(p => p.y);
+            const minX = Math.min(...xs);
+            const maxX = Math.max(...xs);
+            const minY = Math.min(...ys);
+            const maxY = Math.max(...ys);
+            const width = maxX - minX;
+            const height = maxY - minY;
+            const centerX = (minX + maxX) / 2;
+            const centerY = (minY + maxY) / 2;
+
+            // Check for equals sign (two horizontal strokes)
+            if (strokes.length >= 2) {
+                const horizontalStrokes = strokes.filter(stroke => {
+                    const strokeYs = stroke.map(p => p.y);
+                    const strokeHeight = Math.max(...strokeYs) - Math.min(...strokeYs);
+                    return strokeHeight < height * 0.3; // Relatively flat
+                });
+
+                if (horizontalStrokes.length >= 2) {
+                    // Check if they're parallel and separated
+                    const y1 = horizontalStrokes[0].map(p => p.y).reduce((a, b) => a + b) / horizontalStrokes[0].length;
+                    const y2 = horizontalStrokes[1].map(p => p.y).reduce((a, b) => a + b) / horizontalStrokes[1].length;
+
+                    if (Math.abs(y1 - y2) > height * 0.2) {
+                        setRecognizedOperator(index, '=');
+                        return;
+                    }
+                }
+            }
+
+            // Single stroke equals (one horizontal line)
+            if (strokes.length === 1 && height < width * 0.5) {
+                setRecognizedOperator(index, '=');
+                return;
+            }
+
+            // Analyze point distribution for < or >
+            // Divide canvas into three regions: left, center, right
+            const leftThird = minX + width / 3;
+            const rightThird = minX + 2 * width / 3;
+
+            const leftPoints = allPoints.filter(p => p.x < leftThird).length;
+            const centerPoints = allPoints.filter(p => p.x >= leftThird && p.x <= rightThird).length;
+            const rightPoints = allPoints.filter(p => p.x > rightThird).length;
+
+            // Analyze vertical distribution (top vs bottom)
+            const topHalf = allPoints.filter(p => p.y < centerY).length;
+            const bottomHalf = allPoints.filter(p => p.y >= centerY).length;
+
+            // Calculate convergence point
+            // For <: points should be denser on the right, spreading to left
+            // For >: points should be denser on the left, spreading to right
+
+            const leftDensity = leftPoints / (width / 3 + 1);
+            const rightDensity = rightPoints / (width / 3 + 1);
+
+            // Additional check: analyze first and last points of main stroke
+            const mainStroke = strokes.reduce((longest, current) =>
+                current.length > longest.length ? current : longest, strokes[0]);
+
+            const firstPoint = mainStroke[0];
+            const lastPoint = mainStroke[mainStroke.length - 1];
+            const midPoints = mainStroke.slice(Math.floor(mainStroke.length * 0.3),
+                                              Math.floor(mainStroke.length * 0.7));
+
+            // Calculate average X position of middle section
+            const midX = midPoints.reduce((sum, p) => sum + p.x, 0) / midPoints.length;
+
+            // Determine operator based on analysis
+            // If drawing starts and ends on sides, with middle more centered: likely < or >
+            if (firstPoint.x < centerX && lastPoint.x < centerX && midX > centerX) {
+                // Likely >
+                setRecognizedOperator(index, '>');
+            } else if (firstPoint.x > centerX && lastPoint.x > centerX && midX < centerX) {
+                // Likely <
+                setRecognizedOperator(index, '<');
+            } else if (leftDensity > rightDensity * 1.3) {
+                // More points on left side
+                setRecognizedOperator(index, '>');
+            } else if (rightDensity > leftDensity * 1.3) {
+                // More points on right side
+                setRecognizedOperator(index, '<');
+            } else {
+                // Default based on general shape
+                if (width > height * 1.5) {
+                    setRecognizedOperator(index, '=');
+                } else if (leftPoints > rightPoints) {
+                    setRecognizedOperator(index, '>');
+                } else {
+                    setRecognizedOperator(index, '<');
+                }
+            }
+        }
+
+        function setRecognizedOperator(index, operator) {
+            problems[index].userAnswer = operator;
+
+            // Draw the recognized symbol on the canvas
+            const canvas = document.getElementById(`canvas-${index}`);
+            const ctx = canvas.getContext('2d');
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            ctx.font = 'bold 36px Arial';
+            ctx.fillStyle = '#667eea';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(operator, canvas.width / 2, canvas.height / 2);
+
+            // Keep the strokes for potential re-recognition
+            // problems[index].strokes = []; // Don't clear, allow corrections
+        }
+
+        // ===== VOICE INPUT HANDLING =====
+        function startVoiceRecognition(index) {
+            if (!recognition) {
+                showVoiceStatus('Voice recognition is not supported in this browser. Please use Chrome or Edge.', 'error');
+                return;
+            }
+
+            currentVoiceIndex = index;
+
+            const btn = document.getElementById(`voice-btn-${index}`);
+            btn.classList.add('listening');
+
+            showVoiceStatus('Listening... Say "less than", "greater than", or "equal"', 'info');
+
+            try {
+                recognition.start();
+            } catch (e) {
+                console.error('Error starting recognition:', e);
+                showVoiceStatus('Could not start voice recognition. Please try again.', 'error');
+                btn.classList.remove('listening');
+                currentVoiceIndex = -1;
+            }
+        }
+
+        function updateVoiceDisplay(index, operator) {
+            const resultDiv = document.getElementById(`voice-result-${index}`);
+            if (resultDiv) {
+                resultDiv.textContent = operator;
+            }
+        }
+
+        // ===== ANSWER CHECKING =====
+        function checkAnswers() {
+            let correct = 0;
+            let incorrect = 0;
+
+            problems.forEach((problem, index) => {
+                const isCorrect = problem.userAnswer === problem.correctOperator;
+
+                if (problem.userAnswer) {
+                    if (isCorrect) {
+                        correct++;
+                    } else {
+                        incorrect++;
+                    }
+                }
+
+                // Apply visual feedback based on input method
+                applyFeedback(index, isCorrect, problem.userAnswer);
+            });
+
+            // Display score
+            const scoreDiv = document.getElementById('score');
+            scoreDiv.innerHTML = `
+                <span class="score-correct">Correct: ${correct}</span> |
+                <span class="score-incorrect">Incorrect: ${incorrect}</span> |
+                Unanswered: ${problems.length - correct - incorrect}
+            `;
+            scoreDiv.classList.add('show');
+        }
+
+        function applyFeedback(index, isCorrect, userAnswer) {
+            const method = document.getElementById('inputMethod').value;
+            const inputArea = document.getElementById(`input-${index}`);
+
+            if (!userAnswer) return; // No answer provided
+
+            switch(method) {
+                case 'keyboard':
+                    const input = document.getElementById(`input-field-${index}`);
+                    input.classList.remove('correct', 'incorrect');
+                    input.classList.add(isCorrect ? 'correct' : 'incorrect');
+                    break;
+
+                case 'buttons':
+                    const buttons = inputArea.querySelectorAll('.operator-btn');
+                    buttons.forEach(btn => {
+                        btn.classList.remove('correct', 'incorrect');
+                        if (btn.classList.contains('selected')) {
+                            btn.classList.add(isCorrect ? 'correct' : 'incorrect');
+                        }
+                    });
+                    break;
+
+                case 'drawing':
+                    const canvas = document.getElementById(`canvas-${index}`);
+                    canvas.classList.remove('correct', 'incorrect');
+                    canvas.classList.add(isCorrect ? 'correct' : 'incorrect');
+                    break;
+
+                case 'voice':
+                    const resultDiv = document.getElementById(`voice-result-${index}`);
+                    resultDiv.classList.remove('correct', 'incorrect');
+                    resultDiv.classList.add(isCorrect ? 'correct' : 'incorrect');
+                    break;
+            }
+        }
+
+        // ===== SHOW ANSWERS =====
+        function showAnswers() {
+            problems.forEach((problem, index) => {
+                const method = document.getElementById('inputMethod').value;
+
+                switch(method) {
+                    case 'keyboard':
+                        const input = document.getElementById(`input-field-${index}`);
+                        input.value = problem.correctOperator;
+                        input.classList.add('correct');
+                        input.classList.remove('incorrect');
+                        break;
+
+                    case 'buttons':
+                        const inputArea = document.getElementById(`input-${index}`);
+                        const buttons = inputArea.querySelectorAll('.operator-btn');
+                        buttons.forEach(btn => {
+                            btn.classList.remove('selected', 'correct', 'incorrect');
+                            if (btn.textContent.trim() === problem.correctOperator) {
+                                btn.classList.add('selected', 'correct');
+                            }
+                        });
+                        break;
+
+                    case 'drawing':
+                        setRecognizedOperator(index, problem.correctOperator);
+                        const canvas = document.getElementById(`canvas-${index}`);
+                        canvas.classList.add('correct');
+                        canvas.classList.remove('incorrect');
+                        break;
+
+                    case 'voice':
+                        updateVoiceDisplay(index, problem.correctOperator);
+                        const resultDiv = document.getElementById(`voice-result-${index}`);
+                        resultDiv.classList.add('correct');
+                        resultDiv.classList.remove('incorrect');
+                        break;
+                }
+
+                problem.userAnswer = problem.correctOperator;
+            });
+
+            // Show perfect score
+            const scoreDiv = document.getElementById('score');
+            scoreDiv.innerHTML = `<span class="score-correct">All answers shown correctly!</span>`;
+            scoreDiv.classList.add('show');
+        }
+
+        // ===== CLEAR ANSWERS =====
+        function clearAnswers() {
+            problems.forEach((problem, index) => {
+                problem.userAnswer = '';
+                problem.strokes = [];
+
+                const method = document.getElementById('inputMethod').value;
+
+                switch(method) {
+                    case 'keyboard':
+                        const input = document.getElementById(`input-field-${index}`);
+                        input.value = '';
+                        input.classList.remove('correct', 'incorrect');
+                        break;
+
+                    case 'buttons':
+                        const inputArea = document.getElementById(`input-${index}`);
+                        const buttons = inputArea.querySelectorAll('.operator-btn');
+                        buttons.forEach(btn => {
+                            btn.classList.remove('selected', 'correct', 'incorrect');
+                        });
+                        break;
+
+                    case 'drawing':
+                        clearCanvas(index);
+                        break;
+
+                    case 'voice':
+                        const resultDiv = document.getElementById(`voice-result-${index}`);
+                        resultDiv.textContent = '';
+                        resultDiv.classList.remove('correct', 'incorrect');
+                        break;
+                }
+            });
+
+            // Hide score
+            const scoreDiv = document.getElementById('score');
+            scoreDiv.classList.remove('show');
+        }
+
+        // ===== PRINT AND PDF =====
+        function printWorksheet() {
+            window.print();
+        }
+
+        function downloadPDF() {
+            const element = document.querySelector('.container');
+            const opt = {
+                margin: 15,
+                filename: 'fraction-worksheet.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2 },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
+
+            // Temporarily hide controls for PDF
+            const controls = document.querySelector('.controls');
+            const instructions = document.querySelector('.instructions');
+            const voiceStatus = document.getElementById('voiceStatus');
+            const score = document.getElementById('score');
+
+            const originalControlsDisplay = controls.style.display;
+            const originalInstructionsDisplay = instructions.style.display;
+            const originalVoiceDisplay = voiceStatus.style.display;
+            const originalScoreDisplay = score.style.display;
+
+            controls.style.display = 'none';
+            instructions.style.display = 'none';
+            voiceStatus.style.display = 'none';
+            score.style.display = 'none';
+
+            // Generate PDF
+            html2pdf().set(opt).from(element).save().then(() => {
+                // Restore displays
+                controls.style.display = originalControlsDisplay;
+                instructions.style.display = originalInstructionsDisplay;
+                voiceStatus.style.display = originalVoiceDisplay;
+                score.style.display = originalScoreDisplay;
+            });
+        }
+    </script>
+</body>
+</html>

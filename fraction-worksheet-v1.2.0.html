@@ -1,0 +1,1556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Fraction Comparison Worksheet</title>
+
+    <!-- Google Fonts - Roboto (Material Design) -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!-- External library for PDF generation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+    <style>
+        /* ===== MATERIAL DESIGN BASE STYLES ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* Material Design Color Palette */
+            --md-primary: #6200EA;
+            --md-primary-dark: #4615B2;
+            --md-primary-light: #7C4DFF;
+            --md-secondary: #03DAC6;
+            --md-secondary-dark: #00A896;
+            --md-error: #B00020;
+            --md-success: #4CAF50;
+            --md-warning: #FF9800;
+            --md-surface: #FFFFFF;
+            --md-background: #FAFAFA;
+            --md-on-primary: #FFFFFF;
+            --md-on-surface: #000000;
+            --md-text-primary: rgba(0, 0, 0, 0.87);
+            --md-text-secondary: rgba(0, 0, 0, 0.60);
+            --md-text-disabled: rgba(0, 0, 0, 0.38);
+            --md-divider: rgba(0, 0, 0, 0.12);
+        }
+
+        body {
+            font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 24px;
+            color: var(--md-text-primary);
+        }
+
+        /* ===== MATERIAL ELEVATION (SHADOWS) ===== */
+        .elevation-0 { box-shadow: none; }
+        .elevation-1 { box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); }
+        .elevation-2 { box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23); }
+        .elevation-3 { box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23); }
+        .elevation-4 { box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22); }
+        .elevation-5 { box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22); }
+
+        /* ===== MAIN CONTAINER (MATERIAL CARD) ===== */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: var(--md-surface);
+            border-radius: 8px;
+            padding: 32px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2), 0 16px 32px rgba(0,0,0,0.15);
+        }
+
+        /* ===== HEADER ===== */
+        h1 {
+            text-align: center;
+            color: var(--md-primary);
+            margin-bottom: 24px;
+            font-size: 2.125rem;
+            font-weight: 500;
+            letter-spacing: 0.0073529412em;
+        }
+
+        /* ===== CONTROLS SECTION (MATERIAL CARD) ===== */
+        .controls {
+            background: var(--md-background);
+            padding: 24px;
+            border-radius: 4px;
+            margin-bottom: 24px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .controls-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .control-group label {
+            font-weight: 500;
+            color: var(--md-text-secondary);
+            margin-bottom: 8px;
+            font-size: 0.75rem;
+            letter-spacing: 0.0333333333em;
+            text-transform: uppercase;
+        }
+
+        /* Material Design Select */
+        .control-group select {
+            padding: 12px 16px;
+            border: 1px solid var(--md-divider);
+            border-radius: 4px;
+            font-size: 1rem;
+            font-family: 'Roboto', sans-serif;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            background: var(--md-surface);
+            color: var(--md-text-primary);
+        }
+
+        .control-group select:hover {
+            border-color: var(--md-text-secondary);
+        }
+
+        .control-group select:focus {
+            outline: none;
+            border-color: var(--md-primary);
+            box-shadow: 0 0 0 2px rgba(98, 0, 234, 0.1);
+        }
+
+        /* ===== MATERIAL DESIGN BUTTONS ===== */
+        .button-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        button {
+            padding: 10px 24px;
+            border: none;
+            border-radius: 4px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            font-family: 'Roboto', sans-serif;
+            letter-spacing: 0.0892857143em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Ripple effect (simplified) */
+        button:active {
+            transform: scale(0.98);
+        }
+
+        .btn-primary {
+            background: var(--md-primary);
+            color: var(--md-on-primary);
+        }
+
+        .btn-primary:hover {
+            background: var(--md-primary-dark);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #5a6268;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+
+        .btn-success {
+            background: var(--md-success);
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #45a049;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+
+        .btn-danger {
+            background: var(--md-error);
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #8e0018;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+
+        .btn-info {
+            background: #0288D1;
+            color: white;
+        }
+
+        .btn-info:hover {
+            background: #0277BD;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+
+        /* ===== INSTRUCTIONS (MATERIAL CARD) ===== */
+        .instructions {
+            background: #E8EAF6;
+            padding: 16px;
+            border-radius: 4px;
+            margin-bottom: 24px;
+            border-left: 4px solid var(--md-primary);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .instructions h3 {
+            color: var(--md-primary);
+            margin-bottom: 12px;
+            font-size: 1.25rem;
+            font-weight: 500;
+        }
+
+        .instructions ul {
+            margin-left: 20px;
+        }
+
+        .instructions li {
+            margin-bottom: 8px;
+            color: var(--md-text-primary);
+            line-height: 1.5;
+        }
+
+        /* ===== VOICE STATUS (MATERIAL SNACKBAR STYLE) ===== */
+        .voice-status {
+            background: #323232;
+            color: white;
+            padding: 14px 16px;
+            border-radius: 4px;
+            margin-bottom: 16px;
+            display: none;
+            box-shadow: 0 3px 5px rgba(0,0,0,0.2);
+        }
+
+        .voice-status.show {
+            display: block;
+        }
+
+        .voice-status.error {
+            background: #D32F2F;
+        }
+
+        .voice-status.success {
+            background: #388E3C;
+        }
+
+        /* ===== SCORE DISPLAY (MATERIAL CARD) ===== */
+        .score {
+            text-align: center;
+            font-size: 1.25rem;
+            margin: 16px 0;
+            padding: 16px;
+            background: var(--md-primary);
+            color: white;
+            border-radius: 4px;
+            display: none;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            font-weight: 500;
+        }
+
+        .score.show {
+            display: block;
+        }
+
+        .score-correct {
+            color: #C8E6C9;
+            font-weight: 700;
+        }
+
+        .score-incorrect {
+            color: #FFCDD2;
+            font-weight: 700;
+        }
+
+        /* ===== PROBLEMS GRID ===== */
+        .problems-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin-top: 24px;
+        }
+
+        /* Material Design Card for Problems */
+        .problem {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px;
+            background: var(--md-surface);
+            border-radius: 4px;
+            border: 1px solid var(--md-divider);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            page-break-inside: avoid;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+        }
+
+        .problem:hover {
+            box-shadow: 0 4px 8px rgba(0,0,0,0.16);
+            transform: translateY(-2px);
+        }
+
+        .problem-number {
+            font-weight: 500;
+            color: var(--md-primary);
+            font-size: 1rem;
+            min-width: 30px;
+        }
+
+        /* ===== FRACTION DISPLAY ===== */
+        .fraction {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            vertical-align: middle;
+            font-size: 1.125rem;
+            font-weight: 400;
+        }
+
+        .numerator {
+            border-bottom: 2px solid var(--md-text-primary);
+            padding-bottom: 2px;
+            min-width: 30px;
+            text-align: center;
+        }
+
+        .denominator {
+            padding-top: 2px;
+            min-width: 30px;
+            text-align: center;
+        }
+
+        /* ===== INPUT ELEMENTS ===== */
+        .input-area {
+            min-width: 45px;
+            min-height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Material Design Text Field */
+        .operator-input {
+            width: 45px;
+            height: 45px;
+            text-align: center;
+            font-size: 1.5em;
+            border: 1px solid var(--md-divider);
+            border-radius: 4px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            background: var(--md-surface);
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .operator-input:focus {
+            outline: none;
+            border-color: var(--md-primary);
+            box-shadow: 0 0 0 2px rgba(98, 0, 234, 0.1);
+        }
+
+        .operator-input.correct {
+            background-color: #C8E6C9;
+            border-color: var(--md-success);
+        }
+
+        .operator-input.incorrect {
+            background-color: #FFCDD2;
+            border-color: var(--md-error);
+        }
+
+        /* Material Design Buttons for Operators */
+        .operator-buttons {
+            display: flex;
+            gap: 4px;
+        }
+
+        .operator-btn {
+            width: 40px;
+            height: 40px;
+            font-size: 1.25em;
+            padding: 0;
+            border: 1px solid var(--md-divider);
+            background: var(--md-surface);
+            border-radius: 4px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .operator-btn:hover {
+            background: var(--md-primary-light);
+            color: white;
+            border-color: var(--md-primary);
+        }
+
+        .operator-btn.selected {
+            background: var(--md-primary);
+            color: white;
+            border-color: var(--md-primary);
+        }
+
+        .operator-btn.correct {
+            background-color: var(--md-success);
+            border-color: var(--md-success);
+            color: white;
+        }
+
+        .operator-btn.incorrect {
+            background-color: var(--md-error);
+            border-color: var(--md-error);
+            color: white;
+        }
+
+        /* Drawing canvas */
+        .canvas-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .drawing-canvas {
+            border: 1px solid var(--md-divider);
+            border-radius: 4px;
+            cursor: crosshair;
+            background: var(--md-surface);
+            touch-action: none;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .drawing-canvas.correct {
+            border-color: var(--md-success);
+            background-color: #C8E6C9;
+        }
+
+        .drawing-canvas.incorrect {
+            border-color: var(--md-error);
+            background-color: #FFCDD2;
+        }
+
+        .canvas-controls {
+            display: flex;
+            gap: 4px;
+        }
+
+        .canvas-btn {
+            padding: 6px 16px;
+            font-size: 0.75rem;
+            border-radius: 4px;
+        }
+
+        /* Voice input */
+        .voice-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Material Design FAB-style button */
+        .voice-btn {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: var(--md-surface);
+            border: 1px solid var(--md-divider);
+            font-size: 1.25em;
+            padding: 0;
+            position: relative;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .voice-btn:hover {
+            background: var(--md-primary);
+            color: white;
+            border-color: var(--md-primary);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+
+        .voice-btn.listening {
+            background: var(--md-error);
+            color: white;
+            border-color: var(--md-error);
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(176, 0, 32, 0.7);
+            }
+            50% {
+                transform: scale(1.05);
+                box-shadow: 0 0 0 10px rgba(176, 0, 32, 0);
+            }
+        }
+
+        .voice-result {
+            font-size: 1.25em;
+            min-width: 30px;
+            text-align: center;
+            font-weight: 500;
+            color: var(--md-primary);
+        }
+
+        .voice-result.correct {
+            color: var(--md-success);
+        }
+
+        .voice-result.incorrect {
+            color: var(--md-error);
+        }
+
+        /* ===== OPTIMIZED PRINT STYLES FOR A4 ===== */
+        @media print {
+            @page {
+                size: A4 portrait;
+                margin: 10mm;
+            }
+
+            body {
+                background: white;
+                padding: 0;
+                margin: 0;
+            }
+
+            .container {
+                box-shadow: none;
+                padding: 5mm;
+                max-width: 100%;
+                margin: 0;
+            }
+
+            /* Hide all interactive elements */
+            .controls,
+            .button-group,
+            .instructions,
+            .voice-status,
+            .score,
+            .canvas-controls,
+            .voice-btn,
+            button {
+                display: none !important;
+            }
+
+            h1 {
+                font-size: 16pt;
+                margin-bottom: 3mm;
+                color: black;
+                page-break-after: avoid;
+            }
+
+            .problems-container {
+                gap: 3mm;
+                margin-top: 3mm;
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            /* Compact problem styling for 20 problems on one A4 page */
+            .problem {
+                padding: 2mm;
+                border: 0.5pt solid #ccc;
+                background: white;
+                margin-bottom: 0;
+                gap: 3mm;
+                box-shadow: none;
+                page-break-inside: avoid;
+                break-inside: avoid;
+            }
+
+            .problem-number {
+                color: black;
+                font-size: 10pt;
+                min-width: 8mm;
+                font-weight: 500;
+            }
+
+            .fraction {
+                font-size: 11pt;
+            }
+
+            .numerator, .denominator {
+                min-width: 8mm;
+                border-color: black;
+            }
+
+            .input-area {
+                min-width: 10mm;
+                min-height: 10mm;
+            }
+
+            .operator-input {
+                width: 10mm;
+                height: 10mm;
+                border: 1pt solid #333;
+                background: white !important;
+                font-size: 11pt;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .operator-buttons {
+                gap: 2mm;
+            }
+
+            .operator-btn {
+                width: 10mm;
+                height: 10mm;
+                border: 1pt solid #333;
+                background: white !important;
+                font-size: 11pt;
+            }
+
+            .drawing-canvas {
+                width: 15mm !important;
+                height: 15mm !important;
+                border: 1pt solid #333;
+                background: white !important;
+            }
+
+            .voice-container {
+                width: 10mm;
+                height: 10mm;
+                border: 1pt solid #333;
+                background: white !important;
+            }
+
+            .voice-result {
+                font-size: 11pt;
+            }
+
+            /* Ensure 10 rows per column fit on one page */
+            .problem:nth-child(n+21) {
+                page-break-before: always;
+            }
+        }
+
+        /* ===== RESPONSIVE DESIGN ===== */
+        @media (max-width: 768px) {
+            .container {
+                padding: 16px;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            .problems-container {
+                grid-template-columns: 1fr;
+            }
+
+            .controls-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            button {
+                width: 100%;
+            }
+        }
+
+        /* ===== UTILITY CLASSES ===== */
+        .hidden {
+            display: none;
+        }
+
+        /* Material Design Typography */
+        .md-headline-1 { font-size: 6rem; font-weight: 300; letter-spacing: -0.015625em; }
+        .md-headline-2 { font-size: 3.75rem; font-weight: 300; letter-spacing: -0.0083333333em; }
+        .md-headline-3 { font-size: 3rem; font-weight: 400; letter-spacing: 0em; }
+        .md-headline-4 { font-size: 2.125rem; font-weight: 400; letter-spacing: 0.0073529412em; }
+        .md-headline-5 { font-size: 1.5rem; font-weight: 400; letter-spacing: 0em; }
+        .md-headline-6 { font-size: 1.25rem; font-weight: 500; letter-spacing: 0.0125em; }
+        .md-body-1 { font-size: 1rem; font-weight: 400; letter-spacing: 0.03125em; }
+        .md-body-2 { font-size: 0.875rem; font-weight: 400; letter-spacing: 0.0178571429em; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="md-headline-4">Interactive Fraction Comparison Worksheet</h1>
+
+        <!-- Controls Section -->
+        <div class="controls">
+            <div class="controls-grid">
+                <div class="control-group">
+                    <label for="inputMethod">Input Method:</label>
+                    <select id="inputMethod">
+                        <option value="keyboard">Keyboard</option>
+                        <option value="buttons">Buttons</option>
+                        <option value="drawing">Drawing</option>
+                        <option value="voice">Voice</option>
+                    </select>
+                </div>
+
+                <div class="control-group">
+                    <label for="numProblems">Number of Problems:</label>
+                    <select id="numProblems">
+                        <option value="10">10</option>
+                        <option value="20" selected>20</option>
+                        <option value="30">30</option>
+                        <option value="40">40</option>
+                    </select>
+                </div>
+
+                <div class="control-group">
+                    <label for="denominators">Denominators:</label>
+                    <select id="denominators">
+                        <option value="12,20" selected>12 and 20</option>
+                        <option value="10,12,20">10, 12, and 20</option>
+                        <option value="6,8,10,12">6, 8, 10, and 12</option>
+                        <option value="2,3,4,5,6,7,8,9,10,11,12">All (2-12)</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="button-group">
+                <button class="btn-primary" onclick="generateWorksheet()">Generate New Worksheet</button>
+                <button class="btn-success" onclick="checkAnswers()">Check Answers</button>
+                <button class="btn-secondary" onclick="showAnswers()">Show Answers</button>
+                <button class="btn-danger" onclick="clearAnswers()">Clear Answers</button>
+                <button class="btn-info" onclick="printWorksheet()">Print</button>
+                <button class="btn-info" onclick="downloadPDF()">Download PDF</button>
+            </div>
+        </div>
+
+        <!-- Instructions -->
+        <div class="instructions">
+            <h3 class="md-headline-6">How to Use:</h3>
+            <ul class="md-body-2">
+                <li><strong>Keyboard:</strong> Type &lt;, &gt;, or = directly. Shortcuts: 'l' or ',' for &lt;, 'g' or '.' for &gt;, '-' for =</li>
+                <li><strong>Buttons:</strong> Click the symbol buttons to select your answer</li>
+                <li><strong>Drawing:</strong> Draw the symbol on the canvas, then click "Done" to recognize it. Click "Clear" to start over</li>
+                <li><strong>Voice:</strong> Click the microphone icon and say "less than", "greater than", or "equal" (Chrome/Edge only)</li>
+            </ul>
+        </div>
+
+        <!-- Voice Status -->
+        <div id="voiceStatus" class="voice-status"></div>
+
+        <!-- Score Display -->
+        <div id="score" class="score"></div>
+
+        <!-- Problems Container -->
+        <div id="problemsContainer" class="problems-container"></div>
+    </div>
+
+    <script>
+        // ===== GLOBAL STATE =====
+        let problems = [];
+        let currentInputMethod = 'keyboard';
+        let recognition = null;
+        let currentVoiceIndex = -1;
+
+        // ===== INITIALIZATION =====
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeVoiceRecognition();
+            generateWorksheet();
+
+            // Event listeners for controls
+            document.getElementById('inputMethod').addEventListener('change', function(e) {
+                currentInputMethod = e.target.value;
+                generateWorksheet();
+            });
+        });
+
+        // ===== VOICE RECOGNITION SETUP =====
+        function initializeVoiceRecognition() {
+            // Check for browser support
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+            if (!SpeechRecognition) {
+                console.warn('Speech recognition not supported in this browser');
+                return;
+            }
+
+            recognition = new SpeechRecognition();
+            recognition.continuous = false;
+            recognition.interimResults = false;
+            recognition.lang = 'en-US';
+
+            recognition.onstart = function() {
+                console.log('Voice recognition started');
+            };
+
+            recognition.onresult = function(event) {
+                const transcript = event.results[0][0].transcript.toLowerCase().trim();
+                const confidence = event.results[0][0].confidence;
+
+                console.log('Transcript:', transcript, 'Confidence:', confidence);
+
+                let operator = '';
+
+                // Parse various phrases
+                if (transcript.includes('less') || transcript === 'less than' || transcript === '<') {
+                    operator = '<';
+                } else if (transcript.includes('greater') || transcript === 'greater than' || transcript === '>') {
+                    operator = '>';
+                } else if (transcript.includes('equal') || transcript === 'equals' || transcript === '=') {
+                    operator = '=';
+                }
+
+                if (operator && currentVoiceIndex >= 0) {
+                    problems[currentVoiceIndex].userAnswer = operator;
+                    updateVoiceDisplay(currentVoiceIndex, operator);
+                    showVoiceStatus('Recognized: ' + getOperatorName(operator), 'success');
+                } else {
+                    showVoiceStatus('Could not understand. Please say "less than", "greater than", or "equal"', 'error');
+                }
+
+                currentVoiceIndex = -1;
+            };
+
+            recognition.onerror = function(event) {
+                console.error('Voice recognition error:', event.error);
+
+                let message = 'Voice recognition error: ';
+                switch(event.error) {
+                    case 'no-speech':
+                        message += 'No speech detected. Please try again.';
+                        break;
+                    case 'audio-capture':
+                        message += 'No microphone found. Please check your device.';
+                        break;
+                    case 'not-allowed':
+                        message += 'Microphone permission denied. Please allow microphone access.';
+                        break;
+                    case 'network':
+                        message += 'Network error occurred.';
+                        break;
+                    default:
+                        message += event.error;
+                }
+
+                showVoiceStatus(message, 'error');
+
+                // Remove listening state from button
+                if (currentVoiceIndex >= 0) {
+                    const btn = document.querySelector(`#voice-btn-${currentVoiceIndex}`);
+                    if (btn) btn.classList.remove('listening');
+                }
+
+                currentVoiceIndex = -1;
+            };
+
+            recognition.onend = function() {
+                console.log('Voice recognition ended');
+
+                // Remove listening state from button
+                if (currentVoiceIndex >= 0) {
+                    const btn = document.querySelector(`#voice-btn-${currentVoiceIndex}`);
+                    if (btn) btn.classList.remove('listening');
+                }
+            };
+        }
+
+        function showVoiceStatus(message, type = 'info') {
+            const statusDiv = document.getElementById('voiceStatus');
+            statusDiv.textContent = message;
+            statusDiv.className = 'voice-status show';
+
+            if (type === 'error') {
+                statusDiv.classList.add('error');
+            } else if (type === 'success') {
+                statusDiv.classList.add('success');
+            }
+
+            // Auto-hide after 5 seconds
+            setTimeout(() => {
+                statusDiv.classList.remove('show');
+            }, 5000);
+        }
+
+        function getOperatorName(operator) {
+            switch(operator) {
+                case '<': return 'less than';
+                case '>': return 'greater than';
+                case '=': return 'equal';
+                default: return '';
+            }
+        }
+
+        // ===== PROBLEM GENERATION =====
+        function generateWorksheet() {
+            const numProblems = parseInt(document.getElementById('numProblems').value);
+            const denominatorOptions = document.getElementById('denominators').value.split(',').map(Number);
+
+            problems = [];
+
+            for (let i = 0; i < numProblems; i++) {
+                // Generate two random fractions
+                const denom1 = denominatorOptions[Math.floor(Math.random() * denominatorOptions.length)];
+                const denom2 = denominatorOptions[Math.floor(Math.random() * denominatorOptions.length)];
+
+                // Ensure numerator < denominator for proper fractions
+                const num1 = Math.floor(Math.random() * denom1) + 1;
+                const num2 = Math.floor(Math.random() * denom2) + 1;
+
+                // Calculate correct operator using decimal comparison
+                const decimal1 = num1 / denom1;
+                const decimal2 = num2 / denom2;
+
+                let correctOperator;
+                if (Math.abs(decimal1 - decimal2) < 0.0001) {
+                    correctOperator = '=';
+                } else if (decimal1 < decimal2) {
+                    correctOperator = '<';
+                } else {
+                    correctOperator = '>';
+                }
+
+                problems.push({
+                    num1,
+                    denom1,
+                    num2,
+                    denom2,
+                    correctOperator,
+                    userAnswer: '',
+                    strokes: [] // For drawing mode
+                });
+            }
+
+            renderProblems();
+        }
+
+        // ===== PROBLEM RENDERING =====
+        function renderProblems() {
+            const container = document.getElementById('problemsContainer');
+            const method = document.getElementById('inputMethod').value;
+            container.innerHTML = '';
+
+            problems.forEach((problem, index) => {
+                const problemDiv = document.createElement('div');
+                problemDiv.className = 'problem';
+
+                const html = `
+                    <div class="problem-number">${index + 1}.</div>
+                    <div class="fraction">
+                        <div class="numerator">${problem.num1}</div>
+                        <div class="denominator">${problem.denom1}</div>
+                    </div>
+                    <div class="input-area" id="input-${index}">
+                        ${renderInputMethod(index, method)}
+                    </div>
+                    <div class="fraction">
+                        <div class="numerator">${problem.num2}</div>
+                        <div class="denominator">${problem.denom2}</div>
+                    </div>
+                `;
+
+                problemDiv.innerHTML = html;
+                container.appendChild(problemDiv);
+
+                // Initialize drawing canvas if needed
+                if (method === 'drawing') {
+                    initializeCanvas(index);
+                }
+            });
+        }
+
+        function renderInputMethod(index, method) {
+            switch(method) {
+                case 'keyboard':
+                    return `<input type="text" class="operator-input" id="input-field-${index}"
+                            maxlength="1" onkeypress="handleKeyPress(event, ${index})"
+                            onchange="handleInputChange(${index})">`;
+
+                case 'buttons':
+                    return `
+                        <div class="operator-buttons">
+                            <button class="operator-btn" onclick="selectOperator(${index}, '<')">&lt;</button>
+                            <button class="operator-btn" onclick="selectOperator(${index}, '>')">&gt;</button>
+                            <button class="operator-btn" onclick="selectOperator(${index}, '=')">=</button>
+                        </div>
+                    `;
+
+                case 'drawing':
+                    return `
+                        <div class="canvas-container">
+                            <canvas class="drawing-canvas" id="canvas-${index}" width="60" height="60"></canvas>
+                            <div class="canvas-controls">
+                                <button class="canvas-btn btn-secondary" onclick="clearCanvas(${index})">Clear</button>
+                                <button class="canvas-btn btn-primary" onclick="recognizeDrawing(${index})">Done</button>
+                            </div>
+                        </div>
+                    `;
+
+                case 'voice':
+                    return `
+                        <div class="voice-container">
+                            <button class="voice-btn" id="voice-btn-${index}" onclick="startVoiceRecognition(${index})">🎤</button>
+                            <div class="voice-result" id="voice-result-${index}"></div>
+                        </div>
+                    `;
+
+                default:
+                    return '';
+            }
+        }
+
+        // ===== KEYBOARD INPUT HANDLING =====
+        function handleKeyPress(event, index) {
+            const key = event.key.toLowerCase();
+            let operator = '';
+
+            // Direct operators
+            if (key === '<' || key === ',' || key === 'l') {
+                operator = '<';
+            } else if (key === '>' || key === '.' || key === 'g') {
+                operator = '>';
+            } else if (key === '=' || key === '-') {
+                operator = '=';
+            }
+
+            if (operator) {
+                event.preventDefault();
+                const input = document.getElementById(`input-field-${index}`);
+                input.value = operator;
+                problems[index].userAnswer = operator;
+            } else if (key !== 'Enter') {
+                event.preventDefault();
+            }
+        }
+
+        function handleInputChange(index) {
+            const input = document.getElementById(`input-field-${index}`);
+            const value = input.value.trim();
+
+            // Normalize input
+            if (value === '<' || value === ',' || value.toLowerCase() === 'l') {
+                input.value = '<';
+                problems[index].userAnswer = '<';
+            } else if (value === '>' || value === '.' || value.toLowerCase() === 'g') {
+                input.value = '>';
+                problems[index].userAnswer = '>';
+            } else if (value === '=' || value === '-') {
+                input.value = '=';
+                problems[index].userAnswer = '=';
+            } else {
+                input.value = '';
+                problems[index].userAnswer = '';
+            }
+        }
+
+        // ===== BUTTON INPUT HANDLING =====
+        function selectOperator(index, operator) {
+            problems[index].userAnswer = operator;
+
+            // Update button states
+            const container = document.getElementById(`input-${index}`);
+            const buttons = container.querySelectorAll('.operator-btn');
+            buttons.forEach(btn => {
+                btn.classList.remove('selected');
+                if (btn.textContent.trim() === operator) {
+                    btn.classList.add('selected');
+                }
+            });
+        }
+
+        // ===== DRAWING INPUT HANDLING =====
+        function initializeCanvas(index) {
+            const canvas = document.getElementById(`canvas-${index}`);
+            if (!canvas) return;
+
+            const ctx = canvas.getContext('2d');
+            let isDrawing = false;
+            let currentStroke = [];
+
+            // Set up canvas style
+            ctx.lineWidth = 3;
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+            ctx.strokeStyle = '#333';
+
+            // Mouse events
+            canvas.addEventListener('mousedown', startDrawing);
+            canvas.addEventListener('mousemove', draw);
+            canvas.addEventListener('mouseup', stopDrawing);
+            canvas.addEventListener('mouseout', stopDrawing);
+
+            // Touch events
+            canvas.addEventListener('touchstart', handleTouchStart);
+            canvas.addEventListener('touchmove', handleTouchMove);
+            canvas.addEventListener('touchend', stopDrawing);
+
+            function startDrawing(e) {
+                isDrawing = true;
+                currentStroke = [];
+                const pos = getMousePos(canvas, e);
+                currentStroke.push(pos);
+                ctx.beginPath();
+                ctx.moveTo(pos.x, pos.y);
+            }
+
+            function draw(e) {
+                if (!isDrawing) return;
+                e.preventDefault();
+
+                const pos = getMousePos(canvas, e);
+                currentStroke.push(pos);
+                ctx.lineTo(pos.x, pos.y);
+                ctx.stroke();
+            }
+
+            function stopDrawing() {
+                if (isDrawing && currentStroke.length > 0) {
+                    problems[index].strokes.push([...currentStroke]);
+                }
+                isDrawing = false;
+            }
+
+            function handleTouchStart(e) {
+                e.preventDefault();
+                const touch = e.touches[0];
+                const mouseEvent = new MouseEvent('mousedown', {
+                    clientX: touch.clientX,
+                    clientY: touch.clientY
+                });
+                canvas.dispatchEvent(mouseEvent);
+            }
+
+            function handleTouchMove(e) {
+                e.preventDefault();
+                const touch = e.touches[0];
+                const mouseEvent = new MouseEvent('mousemove', {
+                    clientX: touch.clientX,
+                    clientY: touch.clientY
+                });
+                canvas.dispatchEvent(mouseEvent);
+            }
+
+            function getMousePos(canvas, e) {
+                const rect = canvas.getBoundingClientRect();
+                return {
+                    x: e.clientX - rect.left,
+                    y: e.clientY - rect.top
+                };
+            }
+        }
+
+        function clearCanvas(index) {
+            const canvas = document.getElementById(`canvas-${index}`);
+            const ctx = canvas.getContext('2d');
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            problems[index].strokes = [];
+            problems[index].userAnswer = '';
+            canvas.classList.remove('correct', 'incorrect');
+        }
+
+        /**
+         * DRAWING RECOGNITION ALGORITHM
+         *
+         * This algorithm analyzes the drawn strokes to recognize <, >, or = symbols.
+         *
+         * Key techniques:
+         * 1. Multi-stroke support: Handles symbols drawn in multiple strokes (e.g., two lines for =)
+         * 2. Regional analysis: Divides canvas into left/center/right regions
+         * 3. Horizontal line detection: Identifies parallel horizontal lines for =
+         * 4. Directional analysis: Determines if strokes converge (< or >) based on point distribution
+         * 5. Bounding box calculation: Uses stroke dimensions to improve accuracy
+         */
+        function recognizeDrawing(index) {
+            const strokes = problems[index].strokes;
+
+            if (strokes.length === 0) {
+                alert('Please draw a symbol first!');
+                return;
+            }
+
+            // Flatten all points from all strokes
+            const allPoints = strokes.flat();
+
+            if (allPoints.length < 2) {
+                alert('Please draw a symbol!');
+                return;
+            }
+
+            // Calculate bounding box
+            const xs = allPoints.map(p => p.x);
+            const ys = allPoints.map(p => p.y);
+            const minX = Math.min(...xs);
+            const maxX = Math.max(...xs);
+            const minY = Math.min(...ys);
+            const maxY = Math.max(...ys);
+            const width = maxX - minX;
+            const height = maxY - minY;
+            const centerX = (minX + maxX) / 2;
+            const centerY = (minY + maxY) / 2;
+
+            // Check for equals sign (two horizontal strokes)
+            if (strokes.length >= 2) {
+                const horizontalStrokes = strokes.filter(stroke => {
+                    const strokeYs = stroke.map(p => p.y);
+                    const strokeHeight = Math.max(...strokeYs) - Math.min(...strokeYs);
+                    return strokeHeight < height * 0.3; // Relatively flat
+                });
+
+                if (horizontalStrokes.length >= 2) {
+                    // Check if they're parallel and separated
+                    const y1 = horizontalStrokes[0].map(p => p.y).reduce((a, b) => a + b) / horizontalStrokes[0].length;
+                    const y2 = horizontalStrokes[1].map(p => p.y).reduce((a, b) => a + b) / horizontalStrokes[1].length;
+
+                    if (Math.abs(y1 - y2) > height * 0.2) {
+                        setRecognizedOperator(index, '=');
+                        return;
+                    }
+                }
+            }
+
+            // Single stroke equals (one horizontal line)
+            if (strokes.length === 1 && height < width * 0.5) {
+                setRecognizedOperator(index, '=');
+                return;
+            }
+
+            // Analyze point distribution for < or >
+            // Divide canvas into three regions: left, center, right
+            const leftThird = minX + width / 3;
+            const rightThird = minX + 2 * width / 3;
+
+            const leftPoints = allPoints.filter(p => p.x < leftThird).length;
+            const centerPoints = allPoints.filter(p => p.x >= leftThird && p.x <= rightThird).length;
+            const rightPoints = allPoints.filter(p => p.x > rightThird).length;
+
+            // Analyze vertical distribution (top vs bottom)
+            const topHalf = allPoints.filter(p => p.y < centerY).length;
+            const bottomHalf = allPoints.filter(p => p.y >= centerY).length;
+
+            // Calculate convergence point
+            // For <: points should be denser on the right, spreading to left
+            // For >: points should be denser on the left, spreading to right
+
+            const leftDensity = leftPoints / (width / 3 + 1);
+            const rightDensity = rightPoints / (width / 3 + 1);
+
+            // Additional check: analyze first and last points of main stroke
+            const mainStroke = strokes.reduce((longest, current) =>
+                current.length > longest.length ? current : longest, strokes[0]);
+
+            const firstPoint = mainStroke[0];
+            const lastPoint = mainStroke[mainStroke.length - 1];
+            const midPoints = mainStroke.slice(Math.floor(mainStroke.length * 0.3),
+                                              Math.floor(mainStroke.length * 0.7));
+
+            // Calculate average X position of middle section
+            const midX = midPoints.reduce((sum, p) => sum + p.x, 0) / midPoints.length;
+
+            // Determine operator based on analysis
+            // If drawing starts and ends on sides, with middle more centered: likely < or >
+            if (firstPoint.x < centerX && lastPoint.x < centerX && midX > centerX) {
+                // Likely >
+                setRecognizedOperator(index, '>');
+            } else if (firstPoint.x > centerX && lastPoint.x > centerX && midX < centerX) {
+                // Likely <
+                setRecognizedOperator(index, '<');
+            } else if (leftDensity > rightDensity * 1.3) {
+                // More points on left side
+                setRecognizedOperator(index, '>');
+            } else if (rightDensity > leftDensity * 1.3) {
+                // More points on right side
+                setRecognizedOperator(index, '<');
+            } else {
+                // Default based on general shape
+                if (width > height * 1.5) {
+                    setRecognizedOperator(index, '=');
+                } else if (leftPoints > rightPoints) {
+                    setRecognizedOperator(index, '>');
+                } else {
+                    setRecognizedOperator(index, '<');
+                }
+            }
+        }
+
+        function setRecognizedOperator(index, operator) {
+            problems[index].userAnswer = operator;
+
+            // Draw the recognized symbol on the canvas
+            const canvas = document.getElementById(`canvas-${index}`);
+            const ctx = canvas.getContext('2d');
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            ctx.font = 'bold 36px Roboto';
+            ctx.fillStyle = '#6200EA';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(operator, canvas.width / 2, canvas.height / 2);
+
+            // Keep the strokes for potential re-recognition
+            // problems[index].strokes = []; // Don't clear, allow corrections
+        }
+
+        // ===== VOICE INPUT HANDLING =====
+        function startVoiceRecognition(index) {
+            if (!recognition) {
+                showVoiceStatus('Voice recognition is not supported in this browser. Please use Chrome or Edge.', 'error');
+                return;
+            }
+
+            currentVoiceIndex = index;
+
+            const btn = document.getElementById(`voice-btn-${index}`);
+            btn.classList.add('listening');
+
+            showVoiceStatus('Listening... Say "less than", "greater than", or "equal"', 'info');
+
+            try {
+                recognition.start();
+            } catch (e) {
+                console.error('Error starting recognition:', e);
+                showVoiceStatus('Could not start voice recognition. Please try again.', 'error');
+                btn.classList.remove('listening');
+                currentVoiceIndex = -1;
+            }
+        }
+
+        function updateVoiceDisplay(index, operator) {
+            const resultDiv = document.getElementById(`voice-result-${index}`);
+            if (resultDiv) {
+                resultDiv.textContent = operator;
+            }
+        }
+
+        // ===== ANSWER CHECKING =====
+        function checkAnswers() {
+            let correct = 0;
+            let incorrect = 0;
+
+            problems.forEach((problem, index) => {
+                const isCorrect = problem.userAnswer === problem.correctOperator;
+
+                if (problem.userAnswer) {
+                    if (isCorrect) {
+                        correct++;
+                    } else {
+                        incorrect++;
+                    }
+                }
+
+                // Apply visual feedback based on input method
+                applyFeedback(index, isCorrect, problem.userAnswer);
+            });
+
+            // Display score
+            const scoreDiv = document.getElementById('score');
+            scoreDiv.innerHTML = `
+                <span class="score-correct">Correct: ${correct}</span> |
+                <span class="score-incorrect">Incorrect: ${incorrect}</span> |
+                Unanswered: ${problems.length - correct - incorrect}
+            `;
+            scoreDiv.classList.add('show');
+        }
+
+        function applyFeedback(index, isCorrect, userAnswer) {
+            const method = document.getElementById('inputMethod').value;
+            const inputArea = document.getElementById(`input-${index}`);
+
+            if (!userAnswer) return; // No answer provided
+
+            switch(method) {
+                case 'keyboard':
+                    const input = document.getElementById(`input-field-${index}`);
+                    input.classList.remove('correct', 'incorrect');
+                    input.classList.add(isCorrect ? 'correct' : 'incorrect');
+                    break;
+
+                case 'buttons':
+                    const buttons = inputArea.querySelectorAll('.operator-btn');
+                    buttons.forEach(btn => {
+                        btn.classList.remove('correct', 'incorrect');
+                        if (btn.classList.contains('selected')) {
+                            btn.classList.add(isCorrect ? 'correct' : 'incorrect');
+                        }
+                    });
+                    break;
+
+                case 'drawing':
+                    const canvas = document.getElementById(`canvas-${index}`);
+                    canvas.classList.remove('correct', 'incorrect');
+                    canvas.classList.add(isCorrect ? 'correct' : 'incorrect');
+                    break;
+
+                case 'voice':
+                    const resultDiv = document.getElementById(`voice-result-${index}`);
+                    resultDiv.classList.remove('correct', 'incorrect');
+                    resultDiv.classList.add(isCorrect ? 'correct' : 'incorrect');
+                    break;
+            }
+        }
+
+        // ===== SHOW ANSWERS =====
+        function showAnswers() {
+            problems.forEach((problem, index) => {
+                const method = document.getElementById('inputMethod').value;
+
+                switch(method) {
+                    case 'keyboard':
+                        const input = document.getElementById(`input-field-${index}`);
+                        input.value = problem.correctOperator;
+                        input.classList.add('correct');
+                        input.classList.remove('incorrect');
+                        break;
+
+                    case 'buttons':
+                        const inputArea = document.getElementById(`input-${index}`);
+                        const buttons = inputArea.querySelectorAll('.operator-btn');
+                        buttons.forEach(btn => {
+                            btn.classList.remove('selected', 'correct', 'incorrect');
+                            if (btn.textContent.trim() === problem.correctOperator) {
+                                btn.classList.add('selected', 'correct');
+                            }
+                        });
+                        break;
+
+                    case 'drawing':
+                        setRecognizedOperator(index, problem.correctOperator);
+                        const canvas = document.getElementById(`canvas-${index}`);
+                        canvas.classList.add('correct');
+                        canvas.classList.remove('incorrect');
+                        break;
+
+                    case 'voice':
+                        updateVoiceDisplay(index, problem.correctOperator);
+                        const resultDiv = document.getElementById(`voice-result-${index}`);
+                        resultDiv.classList.add('correct');
+                        resultDiv.classList.remove('incorrect');
+                        break;
+                }
+
+                problem.userAnswer = problem.correctOperator;
+            });
+
+            // Show perfect score
+            const scoreDiv = document.getElementById('score');
+            scoreDiv.innerHTML = `<span class="score-correct">All answers shown correctly!</span>`;
+            scoreDiv.classList.add('show');
+        }
+
+        // ===== CLEAR ANSWERS =====
+        function clearAnswers() {
+            problems.forEach((problem, index) => {
+                problem.userAnswer = '';
+                problem.strokes = [];
+
+                const method = document.getElementById('inputMethod').value;
+
+                switch(method) {
+                    case 'keyboard':
+                        const input = document.getElementById(`input-field-${index}`);
+                        input.value = '';
+                        input.classList.remove('correct', 'incorrect');
+                        break;
+
+                    case 'buttons':
+                        const inputArea = document.getElementById(`input-${index}`);
+                        const buttons = inputArea.querySelectorAll('.operator-btn');
+                        buttons.forEach(btn => {
+                            btn.classList.remove('selected', 'correct', 'incorrect');
+                        });
+                        break;
+
+                    case 'drawing':
+                        clearCanvas(index);
+                        break;
+
+                    case 'voice':
+                        const resultDiv = document.getElementById(`voice-result-${index}`);
+                        resultDiv.textContent = '';
+                        resultDiv.classList.remove('correct', 'incorrect');
+                        break;
+                }
+            });
+
+            // Hide score
+            const scoreDiv = document.getElementById('score');
+            scoreDiv.classList.remove('show');
+        }
+
+        // ===== PRINT AND PDF =====
+        function printWorksheet() {
+            window.print();
+        }
+
+        function downloadPDF() {
+            const element = document.querySelector('.container');
+
+            // Store original styles
+            const originalContainerStyle = element.style.cssText;
+            const originalProblemsStyle = document.getElementById('problemsContainer').style.cssText;
+
+            // Apply PDF-specific styling
+            element.style.padding = '10mm';
+            element.style.maxWidth = '100%';
+
+            const opt = {
+                margin: [10, 10, 10, 10],
+                filename: 'fraction-worksheet.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: {
+                    scale: 2,
+                    useCORS: true,
+                    letterRendering: true
+                },
+                jsPDF: {
+                    unit: 'mm',
+                    format: 'a4',
+                    orientation: 'portrait',
+                    compress: true
+                },
+                pagebreak: {
+                    mode: ['avoid-all', 'css', 'legacy'],
+                    avoid: '.problem'
+                }
+            };
+
+            // Temporarily hide controls for PDF
+            const controls = document.querySelector('.controls');
+            const instructions = document.querySelector('.instructions');
+            const voiceStatus = document.getElementById('voiceStatus');
+            const score = document.getElementById('score');
+
+            const originalControlsDisplay = controls.style.display;
+            const originalInstructionsDisplay = instructions.style.display;
+            const originalVoiceDisplay = voiceStatus.style.display;
+            const originalScoreDisplay = score.style.display;
+
+            controls.style.display = 'none';
+            instructions.style.display = 'none';
+            voiceStatus.style.display = 'none';
+            score.style.display = 'none';
+
+            // Generate PDF
+            html2pdf().set(opt).from(element).save().then(() => {
+                // Restore displays
+                controls.style.display = originalControlsDisplay;
+                instructions.style.display = originalInstructionsDisplay;
+                voiceStatus.style.display = originalVoiceDisplay;
+                score.style.display = originalScoreDisplay;
+                element.style.cssText = originalContainerStyle;
+                document.getElementById('problemsContainer').style.cssText = originalProblemsStyle;
+            });
+        }
+    </script>
+</body>
+</html>
