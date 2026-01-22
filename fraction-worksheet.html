@@ -579,7 +579,7 @@
         @media print {
             @page {
                 size: A4 portrait;
-                margin: 8mm;
+                margin: 6mm;
             }
 
             body {
@@ -590,7 +590,7 @@
 
             .container {
                 box-shadow: none;
-                padding: 3mm;
+                padding: 2mm;
                 max-width: 100%;
                 margin: 0;
             }
@@ -608,25 +608,25 @@
             }
 
             h1 {
-                font-size: 13pt;
-                margin-bottom: 2mm;
+                font-size: 11pt;
+                margin-bottom: 1.5mm;
                 color: black;
                 page-break-after: avoid;
             }
 
             .problems-container {
-                gap: 2.5mm;
-                margin-top: 2mm;
+                gap: 1.8mm;
+                margin-top: 1.5mm;
                 grid-template-columns: repeat(2, 1fr);
             }
 
-            /* Compact problem styling for 20 problems on one A4 page */
+            /* Ultra-compact problem styling for 20 problems on one A4 page */
             .problem {
-                padding: 1.5mm;
+                padding: 1mm;
                 border: 0.5pt solid #ccc;
                 background: white;
                 margin-bottom: 0;
-                gap: 2.5mm;
+                gap: 2mm;
                 box-shadow: none;
                 page-break-inside: avoid;
                 break-inside: avoid;
@@ -634,63 +634,64 @@
 
             .problem-number {
                 color: black;
-                font-size: 9pt;
-                min-width: 7mm;
+                font-size: 8.5pt;
+                min-width: 6mm;
                 font-weight: 500;
             }
 
             .fraction {
-                font-size: 10pt;
+                font-size: 9pt;
             }
 
             .numerator, .denominator {
-                min-width: 7mm;
+                min-width: 6mm;
                 border-color: black;
+                padding: 0;
             }
 
             .input-area {
-                min-width: 9mm;
-                min-height: 9mm;
+                min-width: 8mm;
+                min-height: 8mm;
             }
 
             .operator-input {
-                width: 9mm;
-                height: 9mm;
+                width: 8mm;
+                height: 8mm;
                 border: 1pt solid #333;
                 background: white !important;
-                font-size: 10pt;
+                font-size: 9pt;
                 -webkit-print-color-adjust: exact;
                 print-color-adjust: exact;
             }
 
             .operator-buttons {
-                gap: 1.5mm;
+                gap: 1mm;
             }
 
             .operator-btn {
-                width: 9mm;
-                height: 9mm;
+                width: 8mm;
+                height: 8mm;
                 border: 1pt solid #333;
                 background: white !important;
-                font-size: 10pt;
+                font-size: 9pt;
             }
 
             .drawing-canvas {
-                width: 12mm !important;
-                height: 12mm !important;
+                width: 10mm !important;
+                height: 10mm !important;
                 border: 1pt solid #333;
                 background: white !important;
             }
 
             .voice-container {
-                width: 9mm;
-                height: 9mm;
+                width: 8mm;
+                height: 8mm;
                 border: 1pt solid #333;
                 background: white !important;
             }
 
             .voice-result {
-                font-size: 10pt;
+                font-size: 9pt;
             }
 
             /* Ensure maximum 20 problems per page */
@@ -1711,12 +1712,12 @@
             const originalContainerStyle = element.style.cssText;
             const originalProblemsStyle = document.getElementById('problemsContainer').style.cssText;
 
-            // Apply PDF-specific styling
-            element.style.padding = '8mm';
+            // Apply PDF-specific styling - match print styles exactly
+            element.style.padding = '2mm';
             element.style.maxWidth = '100%';
 
             const opt = {
-                margin: [8, 8, 8, 8],
+                margin: [6, 6, 6, 6],
                 filename: 'fraction-practice.pdf',
                 image: { type: 'jpeg', quality: 0.98 },
                 html2canvas: {
