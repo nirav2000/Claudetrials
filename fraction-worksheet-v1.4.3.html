@@ -235,10 +235,35 @@
             box-shadow: 0 1px 2px rgba(0,0,0,0.1);
         }
 
-        /* Icon styling for Material Icons */
-        .icon-btn .material-icons {
-            font-size: 24px;
-            color: #333;
+        /* Print Icon (CSS-based) */
+        .print-icon {
+            width: 24px;
+            height: 24px;
+            border: 2px solid #333;
+            border-radius: 2px;
+            position: relative;
+            background: white;
+        }
+
+        .print-icon::before {
+            content: '';
+            position: absolute;
+            top: -6px;
+            left: 3px;
+            right: 3px;
+            height: 6px;
+            background: #666;
+            border-radius: 2px 2px 0 0;
+        }
+
+        .print-icon::after {
+            content: '';
+            position: absolute;
+            bottom: 4px;
+            left: 4px;
+            right: 4px;
+            height: 8px;
+            background: linear-gradient(#333 2px, transparent 2px, transparent 4px, #333 4px);
         }
 
         /* PDF Icon (CSS-based) */
@@ -363,8 +388,7 @@
 
         /* Material Design Card for Problems */
         .problem {
-            display: grid;
-            grid-template-columns: auto 1fr auto 1fr;
+            display: flex;
             align-items: center;
             gap: 12px;
             padding: 16px;
@@ -918,24 +942,31 @@
                 display: none !important;
             }
 
-            /* Print header - only on first page */
-            h1 {
-                font-size: 1.2em;
-                margin-bottom: 10px;
-                padding-bottom: 8px;
+            /* Add header to every page */
+            body::before {
+                content: "Fraction Comparison Practice";
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                height: 40px;
+                background: white;
                 border-bottom: 2px solid #333;
-                color: black;
+                font-size: 1.4em;
+                font-weight: 600;
                 display: flex;
-                justify-content: space-between;
                 align-items: center;
-                page-break-after: avoid;
+                justify-content: center;
+                color: black;
+                z-index: 1000;
             }
 
-            h1::after {
-                content: "v1.4.4";
-                font-size: 0.7em;
-                color: #666;
-                font-weight: normal;
+            .container {
+                margin-top: 50px !important;
+            }
+
+            h1 {
+                display: none;
             }
 
             .problems-container {
@@ -1111,10 +1142,9 @@
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
             <h1 class="md-headline-4" style="margin: 0;">Fraction Comparison Practice</h1>
             <div style="display: flex; align-items: center; gap: 10px;">
-                <span style="font-size: 0.9rem; color: #666; font-weight: 500;">v<span id="currentVersion">1.4.4</span></span>
+                <span style="font-size: 0.9rem; color: #666; font-weight: 500;">v<span id="currentVersion">1.4.3</span></span>
                 <select id="versionSelector" style="padding: 4px 8px; border-radius: 4px; border: 1px solid var(--md-primary); background: white; color: var(--md-primary); font-size: 0.85rem; cursor: pointer;">
-                    <option value="1.4.4">Version 1.4.4 (Current)</option>
-                    <option value="1.4.3">Version 1.4.3</option>
+                    <option value="1.4.3">Version 1.4.3 (Current)</option>
                     <option value="1.4.2">Version 1.4.2</option>
                     <option value="1.4.1">Version 1.4.1</option>
                     <option value="1.4.0">Version 1.4.0</option>
@@ -1173,26 +1203,16 @@
                 </label>
             </div>
 
-            <div style="margin-top: 12px; padding: 12px; background: #E8F5E9; border-radius: 4px; border-left: 4px solid #4CAF50;">
-                <label style="display: flex; align-items: center; cursor: pointer; font-weight: 500; color: var(--md-text-primary);">
-                    <input type="checkbox" id="commonMistakesMode" style="margin-right: 8px; cursor: pointer; width: 18px; height: 18px;">
-                    Focus on Common Mistakes (with visual aids)
-                </label>
-                <p style="margin: 8px 0 0 26px; font-size: 0.85em; color: #666; line-height: 1.4;">
-                    Generates problems that target common error patterns with pizza diagrams to build correct understanding
-                </p>
-            </div>
-
             <div class="button-group">
                 <button class="btn-primary" onclick="generateWorksheet()">Generate New Practice</button>
                 <button class="btn-success" onclick="checkAnswers()">Check Answers</button>
                 <button class="btn-secondary" onclick="showAnswers()">Show Answers</button>
                 <button class="btn-danger" onclick="clearAnswers()">Clear Answers</button>
                 <button class="icon-btn" onclick="printWorksheet()" title="Print Worksheet">
-                    <span class="material-icons">print</span>
+                    <div class="print-icon"></div>
                 </button>
                 <button class="icon-btn" onclick="downloadPDF()" title="Download as PDF">
-                    <span class="material-icons">picture_as_pdf</span>
+                    <div class="pdf-icon"></div>
                 </button>
             </div>
         </div>
@@ -2015,22 +2035,7 @@
                 <h3>📦 Version History</h3>
 
                 <div class="version-item">
-                    <strong>Version 1.4.4</strong> (2026-01-22) - Current<br>
-                    🎓 <strong>Major Educational Feature:</strong> Common Mistakes mode with visual aids<br>
-                    🍕 Added pizza/circle diagrams to show fractions visually<br>
-                    🎯 <strong>Targets 5 common error patterns:</strong><br>
-                    &nbsp;&nbsp;&nbsp;• Same numerator, higher denominator trap (e.g., 2/3 vs 2/30)<br>
-                    &nbsp;&nbsp;&nbsp;• Both numbers higher trap (e.g., 1/2 vs 4/10)<br>
-                    &nbsp;&nbsp;&nbsp;• Unit fraction confusion (e.g., 1/2 vs 1/8)<br>
-                    &nbsp;&nbsp;&nbsp;• Near-whole comparison (e.g., 5/6 vs 9/10)<br>
-                    &nbsp;&nbsp;&nbsp;• Equivalent fractions (e.g., 1/4 vs 2/8)<br>
-                    💡 Each problem includes explanation of the common mistake<br>
-                    ✨ Designed to correct incorrect reasoning patterns<br>
-                    📊 Visual representations help build intuitive understanding
-                </div>
-
-                <div class="version-item">
-                    <strong>Version 1.4.3</strong> (2026-01-22)<br>
+                    <strong>Version 1.4.3</strong> (2026-01-22) - Current<br>
                     🎨 <strong>Icon redesign:</strong> Replaced Material Icons with CSS-based icons (print, PDF)<br>
                     📐 Changed buttons from circular to rectangular/square with borders<br>
                     📋 PDF icon styled like actual PDF document (red with folded corner)<br>
@@ -2305,198 +2310,49 @@
         function generateWorksheet() {
             const numProblems = parseInt(document.getElementById('numProblems').value);
             const denominatorOptions = document.getElementById('denominators').value.split(',').map(Number);
-            const commonMistakesMode = document.getElementById('commonMistakesMode').checked;
 
             problems = [];
 
-            if (commonMistakesMode) {
-                generateCommonMistakesProblems(numProblems);
-            } else {
-                for (let i = 0; i < numProblems; i++) {
-                    // Generate two random fractions
-                    const denom1 = denominatorOptions[Math.floor(Math.random() * denominatorOptions.length)];
-                    const denom2 = denominatorOptions[Math.floor(Math.random() * denominatorOptions.length)];
+            for (let i = 0; i < numProblems; i++) {
+                // Generate two random fractions
+                const denom1 = denominatorOptions[Math.floor(Math.random() * denominatorOptions.length)];
+                const denom2 = denominatorOptions[Math.floor(Math.random() * denominatorOptions.length)];
 
-                    // Ensure numerator < denominator for proper fractions
-                    const num1 = Math.floor(Math.random() * denom1) + 1;
-                    const num2 = Math.floor(Math.random() * denom2) + 1;
+                // Ensure numerator < denominator for proper fractions
+                const num1 = Math.floor(Math.random() * denom1) + 1;
+                const num2 = Math.floor(Math.random() * denom2) + 1;
 
-                    // Calculate correct operator using decimal comparison
-                    const decimal1 = num1 / denom1;
-                    const decimal2 = num2 / denom2;
+                // Calculate correct operator using decimal comparison
+                const decimal1 = num1 / denom1;
+                const decimal2 = num2 / denom2;
 
-                    let correctOperator;
-                    if (Math.abs(decimal1 - decimal2) < 0.0001) {
-                        correctOperator = '=';
-                    } else if (decimal1 < decimal2) {
-                        correctOperator = '<';
-                    } else {
-                        correctOperator = '>';
-                    }
-
-                    problems.push({
-                        num1,
-                        denom1,
-                        num2,
-                        denom2,
-                        correctOperator,
-                        userAnswer: '',
-                        strokes: [] // For drawing mode
-                    });
+                let correctOperator;
+                if (Math.abs(decimal1 - decimal2) < 0.0001) {
+                    correctOperator = '=';
+                } else if (decimal1 < decimal2) {
+                    correctOperator = '<';
+                } else {
+                    correctOperator = '>';
                 }
+
+                problems.push({
+                    num1,
+                    denom1,
+                    num2,
+                    denom2,
+                    correctOperator,
+                    userAnswer: '',
+                    strokes: [] // For drawing mode
+                });
             }
 
             renderProblems();
-        }
-
-        // Generate problems targeting common mistakes
-        function generateCommonMistakesProblems(numProblems) {
-            const mistakePatterns = [
-                'higherDenominator',  // Same numerator, higher denominator looks bigger
-                'bothHigher',         // Both numerator and denominator higher
-                'unitFraction',       // Unit fractions (1/n) confusion
-                'nearWhole',          // Near-whole fractions
-                'doubleNumerator'     // Double numerator, double denominator
-            ];
-
-            for (let i = 0; i < numProblems; i++) {
-                const pattern = mistakePatterns[i % mistakePatterns.length];
-                let problem;
-
-                switch (pattern) {
-                    case 'higherDenominator':
-                        // e.g., 2/3 vs 2/30 - same numerator, higher denominator is smaller
-                        const baseNum = Math.floor(Math.random() * 3) + 1; // 1-3
-                        const smallDenom = [2, 3, 4, 5, 6][Math.floor(Math.random() * 5)];
-                        const largeDenom = smallDenom * (Math.floor(Math.random() * 4) + 5); // 5x-8x larger
-                        problem = {
-                            num1: baseNum,
-                            denom1: smallDenom,
-                            num2: baseNum,
-                            denom2: largeDenom,
-                            correctOperator: '>',
-                            mistakeType: 'higherDenominator',
-                            mistakeExplanation: 'Same numerator, higher denominator = SMALLER fraction'
-                        };
-                        break;
-
-                    case 'bothHigher':
-                        // e.g., 1/2 vs 4/10 - both higher but actually smaller
-                        const pairs = [
-                            [1, 2, 4, 10],  // 1/2 > 4/10
-                            [1, 2, 3, 8],   // 1/2 > 3/8
-                            [2, 3, 4, 9],   // 2/3 > 4/9
-                            [3, 4, 7, 10],  // 3/4 > 7/10
-                            [1, 3, 2, 9]    // 1/3 > 2/9
-                        ];
-                        const pair = pairs[Math.floor(Math.random() * pairs.length)];
-                        problem = {
-                            num1: pair[0],
-                            denom1: pair[1],
-                            num2: pair[2],
-                            denom2: pair[3],
-                            correctOperator: '>',
-                            mistakeType: 'bothHigher',
-                            mistakeExplanation: 'Both numbers higher ≠ bigger fraction'
-                        };
-                        break;
-
-                    case 'unitFraction':
-                        // e.g., 1/2 vs 1/8 - larger denominator = smaller piece
-                        const d1 = [2, 3, 4][Math.floor(Math.random() * 3)];
-                        const d2 = [6, 8, 10, 12][Math.floor(Math.random() * 4)];
-                        problem = {
-                            num1: 1,
-                            denom1: d1,
-                            num2: 1,
-                            denom2: d2,
-                            correctOperator: '>',
-                            mistakeType: 'unitFraction',
-                            mistakeExplanation: 'More slices (higher denominator) = smaller pieces'
-                        };
-                        break;
-
-                    case 'nearWhole':
-                        // e.g., 5/6 vs 9/10 - both close to 1, need to compare carefully
-                        const nearWholePairs = [
-                            [5, 6, 9, 10, '<'],  // 5/6 < 9/10
-                            [7, 8, 9, 10, '<'],  // 7/8 < 9/10
-                            [3, 4, 7, 8, '<'],   // 3/4 < 7/8
-                            [5, 6, 7, 8, '<']    // 5/6 < 7/8
-                        ];
-                        const nwp = nearWholePairs[Math.floor(Math.random() * nearWholePairs.length)];
-                        problem = {
-                            num1: nwp[0],
-                            denom1: nwp[1],
-                            num2: nwp[2],
-                            denom2: nwp[3],
-                            correctOperator: nwp[4],
-                            mistakeType: 'nearWhole',
-                            mistakeExplanation: 'Both close to 1 - compare the missing pieces'
-                        };
-                        break;
-
-                    case 'doubleNumerator':
-                        // e.g., 1/4 vs 2/8 - doubling both = same value
-                        const bases = [[1, 2], [1, 3], [1, 4], [2, 3], [2, 5]];
-                        const base = bases[Math.floor(Math.random() * bases.length)];
-                        const multiplier = [2, 3, 4][Math.floor(Math.random() * 3)];
-                        problem = {
-                            num1: base[0],
-                            denom1: base[1],
-                            num2: base[0] * multiplier,
-                            denom2: base[1] * multiplier,
-                            correctOperator: '=',
-                            mistakeType: 'doubleNumerator',
-                            mistakeExplanation: 'Multiply/divide both by same number = equal fractions'
-                        };
-                        break;
-                }
-
-                problem.userAnswer = '';
-                problem.strokes = [];
-                problems.push(problem);
-            }
-        }
-
-        // Generate SVG pizza diagram for visual representation
-        function generatePizzaDiagram(numerator, denominator, size = 80) {
-            const radius = size / 2 - 2;
-            const centerX = size / 2;
-            const centerY = size / 2;
-            const anglePerSlice = (2 * Math.PI) / denominator;
-
-            let svg = `<svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" style="display: inline-block;">`;
-
-            // Draw circle outline
-            svg += `<circle cx="${centerX}" cy="${centerY}" r="${radius}" fill="none" stroke="#333" stroke-width="2"/>`;
-
-            // Draw slices
-            for (let i = 0; i < denominator; i++) {
-                const startAngle = i * anglePerSlice - Math.PI / 2;
-                const endAngle = startAngle + anglePerSlice;
-
-                const x1 = centerX + radius * Math.cos(startAngle);
-                const y1 = centerY + radius * Math.sin(startAngle);
-                const x2 = centerX + radius * Math.cos(endAngle);
-                const y2 = centerY + radius * Math.sin(endAngle);
-
-                // Fill slices up to numerator
-                const fill = i < numerator ? '#FF9800' : '#FFF';
-                const pathData = `M ${centerX} ${centerY} L ${x1} ${y1} A ${radius} ${radius} 0 0 1 ${x2} ${y2} Z`;
-
-                svg += `<path d="${pathData}" fill="${fill}" stroke="#333" stroke-width="1.5"/>`;
-            }
-
-            svg += '</svg>';
-            return svg;
         }
 
         // ===== PROBLEM RENDERING =====
         function renderProblems() {
             const container = document.getElementById('problemsContainer');
             const method = document.getElementById('inputMethod').value;
-            const commonMistakesMode = document.getElementById('commonMistakesMode').checked;
             container.innerHTML = '';
 
             // Add or remove page break class based on number of problems
@@ -2509,27 +2365,6 @@
             problems.forEach((problem, index) => {
                 const problemDiv = document.createElement('div');
                 problemDiv.className = 'problem';
-
-                // Add visual aids if in Common Mistakes mode
-                let visualAids = '';
-                if (commonMistakesMode && problem.mistakeType) {
-                    visualAids = `
-                        <div class="visual-aids" style="grid-column: 1 / -1; margin-top: 8px; padding: 12px; background: #F5F5F5; border-radius: 4px; display: flex; align-items: center; justify-content: center; gap: 20px;">
-                            <div style="text-align: center;">
-                                ${generatePizzaDiagram(problem.num1, problem.denom1)}
-                                <div style="font-size: 0.9em; margin-top: 4px; font-weight: 500;">${problem.num1}/${problem.denom1}</div>
-                            </div>
-                            <div style="font-size: 1.5em; color: #666;">vs</div>
-                            <div style="text-align: center;">
-                                ${generatePizzaDiagram(problem.num2, problem.denom2)}
-                                <div style="font-size: 0.9em; margin-top: 4px; font-weight: 500;">${problem.num2}/${problem.denom2}</div>
-                            </div>
-                        </div>
-                        <div style="grid-column: 1 / -1; margin-top: 8px; padding: 8px; background: #E3F2FD; border-radius: 4px; font-size: 0.85em; color: #1976D2; text-align: center;">
-                            💡 ${problem.mistakeExplanation}
-                        </div>
-                    `;
-                }
 
                 const html = `
                     <div class="problem-number">${index + 1}.</div>
@@ -2544,7 +2379,6 @@
                         <div class="numerator">${problem.num2}</div>
                         <div class="denominator">${problem.denom2}</div>
                     </div>
-                    ${visualAids}
                 `;
 
                 problemDiv.innerHTML = html;
@@ -3174,8 +3008,7 @@
 
             // Version file mapping
             const versionFiles = {
-                '1.4.4': 'fraction-worksheet.html',
-                '1.4.3': 'fraction-worksheet-v1.4.3.html',
+                '1.4.3': 'fraction-worksheet.html',
                 '1.4.2': 'fraction-worksheet-v1.4.2.html',
                 '1.4.1': 'fraction-worksheet-v1.4.1.html',
                 '1.4.0': 'fraction-worksheet-v1.4.0.html',
@@ -3189,7 +3022,6 @@
             };
 
             const versionDescriptions = {
-                '1.4.4': 'Common Mistakes mode with visual aids (pizza diagrams), targets error patterns for better understanding',
                 '1.4.3': 'CSS-based icons (PDF/print), print headers on all pages, easier defaults (2,4), ordered denominators',
                 '1.4.2': 'Fixed print bug with beforeprint/afterprint events, icon-only buttons, checkbox hides content on screen',
                 '1.4.1': 'Reverted to v1.0.0 print styles (better margins), icon buttons, timeline with 5 segments',
