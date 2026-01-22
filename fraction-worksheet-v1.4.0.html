@@ -821,19 +821,21 @@
         /* ===== OPTIMIZED PRINT STYLES FOR A4 ===== */
         @media print {
             @page {
-                size: A4;
-                margin: 15mm;
+                size: A4 portrait;
+                margin: 6mm;
             }
 
             body {
                 background: white;
                 padding: 0;
+                margin: 0;
             }
 
             .container {
                 box-shadow: none;
-                padding: 20px;
+                padding: 2mm;
                 max-width: 100%;
+                margin: 0;
             }
 
             /* Hide all interactive elements */
@@ -850,38 +852,90 @@
             }
 
             h1 {
-                font-size: 1.8em;
-                margin-bottom: 15px;
+                font-size: 11pt;
+                margin-bottom: 1.5mm;
                 color: black;
+                page-break-after: avoid;
             }
 
             .problems-container {
-                gap: 12px;
-                font-size: 0.9em;
+                gap: 1.8mm;
+                margin-top: 1.5mm;
+                grid-template-columns: repeat(2, 1fr);
             }
 
+            /* Ultra-compact problem styling for 20 problems on one A4 page */
             .problem {
-                padding: 10px;
-                border: 1px solid #dee2e6;
+                padding: 1mm;
+                border: 0.5pt solid #ccc;
                 background: white;
-                margin-bottom: 5px;
+                margin-bottom: 0;
+                gap: 2mm;
+                box-shadow: none;
+                page-break-inside: avoid;
+                break-inside: avoid;
             }
 
             .problem-number {
                 color: black;
+                font-size: 8.5pt;
+                min-width: 6mm;
+                font-weight: 500;
             }
 
-            .operator-input,
-            .operator-buttons,
-            .drawing-canvas,
-            .voice-container {
-                border: 2px solid #333;
-                background: white !important;
+            .fraction {
+                font-size: 9pt;
+            }
+
+            .numerator, .denominator {
+                min-width: 6mm;
+                border-color: black;
+                padding: 0;
+            }
+
+            .input-area {
+                min-width: 8mm;
+                min-height: 8mm;
             }
 
             .operator-input {
+                width: 8mm;
+                height: 8mm;
+                border: 1pt solid #333;
+                background: white !important;
+                font-size: 9pt;
                 -webkit-print-color-adjust: exact;
                 print-color-adjust: exact;
+            }
+
+            .operator-buttons {
+                gap: 1mm;
+            }
+
+            .operator-btn {
+                width: 8mm;
+                height: 8mm;
+                border: 1pt solid #333;
+                background: white !important;
+                font-size: 9pt;
+            }
+
+            .drawing-canvas {
+                width: 10mm !important;
+                height: 10mm !important;
+                border: 1pt solid #333;
+                background: white !important;
+            }
+
+            .voice-container {
+                width: 8mm;
+                height: 8mm;
+                border: 1pt solid #333;
+                background: white !important;
+            }
+
+            .voice-result {
+                font-size: 9pt;
             }
 
             /* Conditional page breaks - only applied when needed */
@@ -1028,10 +1082,9 @@
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
             <h1 class="md-headline-4" style="margin: 0;">Fraction Comparison Practice</h1>
             <div style="display: flex; align-items: center; gap: 10px;">
-                <span style="font-size: 0.9rem; color: #666; font-weight: 500;">v<span id="currentVersion">1.4.1</span></span>
+                <span style="font-size: 0.9rem; color: #666; font-weight: 500;">v<span id="currentVersion">1.4.0</span></span>
                 <select id="versionSelector" style="padding: 4px 8px; border-radius: 4px; border: 1px solid var(--md-primary); background: white; color: var(--md-primary); font-size: 0.85rem; cursor: pointer;">
-                    <option value="1.4.1">Version 1.4.1 (Current)</option>
-                    <option value="1.4.0">Version 1.4.0</option>
+                    <option value="1.4.0">Version 1.4.0 (Current)</option>
                     <option value="1.3.3">Version 1.3.3</option>
                     <option value="1.3.2">Version 1.3.2</option>
                     <option value="1.3.1">Version 1.3.1</option>
@@ -1089,12 +1142,8 @@
                 <button class="btn-success" onclick="checkAnswers()">Check Answers</button>
                 <button class="btn-secondary" onclick="showAnswers()">Show Answers</button>
                 <button class="btn-danger" onclick="clearAnswers()">Clear Answers</button>
-                <button class="btn-info" onclick="printWorksheet()" title="Print Worksheet">
-                    <span class="material-icons" style="font-size: 20px; vertical-align: middle;">print</span>
-                </button>
-                <button class="btn-info" onclick="downloadPDF()" title="Download as PDF">
-                    <span class="material-icons" style="font-size: 20px; vertical-align: middle;">picture_as_pdf</span>
-                </button>
+                <button class="btn-info" onclick="printWorksheet()">Print</button>
+                <button class="btn-info" onclick="downloadPDF()">Download PDF</button>
             </div>
         </div>
 
@@ -1174,79 +1223,43 @@
             <div class="timeline">
                 <p><strong>Fractions have been used for over 5,000 years!</strong> Let's see how far back 3000 BC really is compared to when you, your parents, and grandparents were born:</p>
 
-                <!-- Main Timeline with 5 Segments (1000 years each) -->
+                <!-- Main Timeline -->
                 <div style="background: linear-gradient(to right, #E8EAF6, #C5CAE9); border-radius: 8px; padding: 30px 20px; margin: 30px 0;">
-                    <div style="text-align: center; font-size: 0.85em; color: #666; margin-bottom: 15px;">
-                        Timeline divided into 5 segments of ~1000 years each for accurate placement
-                    </div>
+                    <!-- Timeline bar with markers -->
+                    <div style="position: relative; height: 100px; margin-bottom: 30px;">
+                        <!-- The line -->
+                        <div style="position: absolute; top: 50px; left: 0; right: 0; height: 4px; background: linear-gradient(to right, var(--md-primary), var(--md-secondary));"></div>
 
-                    <!-- Timeline bar with 5 segments -->
-                    <div style="position: relative; height: 120px; margin-bottom: 30px;">
-                        <!-- The main line divided into 5 colored segments -->
-                        <div style="position: absolute; top: 50px; left: 0; right: 0; height: 8px; display: flex;">
-                            <div style="flex: 1; background: #673AB7; border-right: 2px solid white;"></div>
-                            <div style="flex: 1; background: #512DA8; border-right: 2px solid white;"></div>
-                            <div style="flex: 1; background: #4527A0; border-right: 2px solid white;"></div>
-                            <div style="flex: 1; background: #311B92; border-right: 2px solid white;"></div>
-                            <div style="flex: 1.026; background: linear-gradient(to right, #1A237E, var(--md-secondary));"></div>
-                        </div>
-
-                        <!-- Segment labels at boundaries -->
-                        <div style="position: absolute; left: 0%; top: 65px; font-size: 0.65em; color: #666; font-weight: 600; text-align: center; transform: translateX(0%);">
-                            3000 BC
-                        </div>
-                        <div style="position: absolute; left: 19.9%; top: 65px; font-size: 0.65em; color: #666; font-weight: 600; text-align: center; transform: translateX(-50%);">
-                            2000 BC
-                        </div>
-                        <div style="position: absolute; left: 39.8%; top: 65px; font-size: 0.65em; color: #666; font-weight: 600; text-align: center; transform: translateX(-50%);">
-                            1000 BC
-                        </div>
-                        <div style="position: absolute; left: 59.7%; top: 65px; font-size: 0.65em; color: #666; font-weight: 600; text-align: center; transform: translateX(-50%);">
-                            0 AD
-                        </div>
-                        <div style="position: absolute; left: 79.6%; top: 65px; font-size: 0.65em; color: #666; font-weight: 600; text-align: center; transform: translateX(-50%);">
-                            1000 AD
-                        </div>
-                        <div style="position: absolute; right: 0%; top: 65px; font-size: 0.65em; color: #666; font-weight: 600; text-align: center; transform: translateX(0%);">
-                            2026 AD
-                        </div>
-
-                        <!-- Major historical markers (positioned accurately) -->
-                        <!-- 3000 BC - Egypt (0%) -->
+                        <!-- Major historical markers -->
                         <div style="position: absolute; left: 0%; top: 50px; transform: translate(0, -50%);">
                             <div style="width: 16px; height: 16px; background: white; border: 3px solid var(--md-primary); border-radius: 50%; margin: 0 auto;"></div>
-                            <div style="margin-top: -75px; text-align: center; font-size: 0.75em; font-weight: 600;">
+                            <div style="margin-top: 15px; text-align: center; font-size: 0.75em; font-weight: 600;">
                                 <div style="font-size: 1.5em;">📜</div>
-                                Egypt
+                                3000 BC<br>Egypt
                             </div>
                         </div>
 
-                        <!-- 600 BC - India (47.8% - in segment 3) -->
-                        <div style="position: absolute; left: 47.8%; top: 50px; transform: translate(-50%, -50%);">
+                        <div style="position: absolute; left: 48%; top: 50px; transform: translate(-50%, -50%);">
+                            <div style="width: 16px; height: 16px; background: white; border: 3px solid var(--md-primary); border-radius: 50%; margin: 0 auto;"></div>
+                            <div style="margin-top: -75px; text-align: center; font-size: 0.75em; font-weight: 600;">
+                                <div style="font-size: 1.5em;">🕉️</div>
+                                600 BC<br>India
+                            </div>
+                        </div>
+
+                        <div style="position: absolute; left: 89%; top: 50px; transform: translate(-50%, -50%);">
                             <div style="width: 16px; height: 16px; background: white; border: 3px solid var(--md-primary); border-radius: 50%; margin: 0 auto;"></div>
                             <div style="margin-top: 15px; text-align: center; font-size: 0.75em; font-weight: 600;">
-                                <div style="font-size: 1.5em;">🕉️</div>
-                                India<br>
-                                <span style="font-size: 0.9em;">600 BC</span>
-                            </div>
-                        </div>
-
-                        <!-- 1500 AD - Modern notation (89.5% - in segment 5) -->
-                        <div style="position: absolute; left: 89.5%; top: 50px; transform: translate(-50%, -50%);">
-                            <div style="width: 16px; height: 16px; background: white; border: 3px solid var(--md-primary); border-radius: 50%; margin: 0 auto;"></div>
-                            <div style="margin-top: -75px; text-align: center; font-size: 0.75em; font-weight: 600;">
                                 <div style="font-size: 1.5em;">📐</div>
-                                Modern<br>
-                                <span style="font-size: 0.9em;">1500 AD</span>
+                                1500 AD<br>Modern
                             </div>
                         </div>
 
-                        <!-- 2026 - Today (100%) -->
                         <div style="position: absolute; right: 0%; top: 50px; transform: translate(0, -50%);">
                             <div style="width: 20px; height: 20px; background: var(--md-secondary); border: 3px solid var(--md-primary); border-radius: 50%; margin: 0 auto; box-shadow: 0 0 10px rgba(3, 218, 198, 0.5);"></div>
-                            <div style="margin-top: 15px; text-align: center; font-size: 0.8em; font-weight: 700; color: var(--md-primary);">
+                            <div style="margin-top: -85px; text-align: center; font-size: 0.8em; font-weight: 700; color: var(--md-primary);">
                                 <div style="font-size: 1.8em;">⭐</div>
-                                TODAY!
+                                2026<br>TODAY!
                             </div>
                         </div>
                     </div>
@@ -1916,19 +1929,7 @@
                 <h3>📦 Version History</h3>
 
                 <div class="version-item">
-                    <strong>Version 1.4.1</strong> (2026-01-22) - Current<br>
-                    🖨️ <strong>Reverted to v1.0.0 print functionality</strong> - simpler, better margins (15mm)<br>
-                    📄 Print styling now cleaner with better spacing and readability<br>
-                    🖼️ Converted print/PDF buttons to Material Design icons (print icon, PDF icon)<br>
-                    📅 <strong>Timeline redesigned with 5 distinct segments</strong><br>
-                    🎨 Each segment represents ~1000 years with color coding<br>
-                    📏 Segment boundaries clearly labeled (3000 BC, 2000 BC, 1000 BC, 0 AD, 1000 AD, 2026 AD)<br>
-                    📍 Historical markers positioned accurately within correct segments<br>
-                    ✨ Makes placement verification easy and visually clear
-                </div>
-
-                <div class="version-item">
-                    <strong>Version 1.4.0</strong> (2026-01-22)<br>
+                    <strong>Version 1.4.0</strong> (2026-01-22) - Current<br>
                     🎯 <strong>Major Update:</strong> Working version switcher with actual saved version files<br>
                     📂 Created separate files for all previous versions (v1.0.0 through v1.3.3)<br>
                     🔄 Version switcher now actually loads previous versions when selected<br>
@@ -2854,8 +2855,7 @@
 
             // Version file mapping
             const versionFiles = {
-                '1.4.1': 'fraction-worksheet.html',
-                '1.4.0': 'fraction-worksheet-v1.4.0.html',
+                '1.4.0': 'fraction-worksheet.html',
                 '1.3.3': 'fraction-worksheet-v1.3.3.html',
                 '1.3.2': 'fraction-worksheet-v1.3.2.html',
                 '1.3.1': 'fraction-worksheet-v1.3.1.html',
@@ -2866,7 +2866,6 @@
             };
 
             const versionDescriptions = {
-                '1.4.1': 'Reverted to v1.0.0 print styles (better margins), icon buttons, timeline with 5 segments',
                 '1.4.0': 'Working version switcher with saved files, timeline completely redesigned with zoom box',
                 '1.3.3': 'Flag emojis, fixed homework bar, version number display and switcher',
                 '1.3.2': 'Fixed fraction visuals to show ONE whole divided into parts, conditional page breaks, timeline fixes',
