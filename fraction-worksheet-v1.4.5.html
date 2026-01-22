@@ -12,9 +12,6 @@
     <!-- External library for PDF generation -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
-    <!-- External library for markdown rendering -->
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-
     <style>
         /* ===== MATERIAL DESIGN BASE STYLES ===== */
         * {
@@ -918,100 +915,6 @@
             color: var(--md-primary);
         }
 
-        /* ===== MARKDOWN MODAL ===== */
-        .markdown-modal {
-            display: none;
-            position: fixed;
-            z-index: 10000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.7);
-            overflow: auto;
-        }
-
-        .markdown-modal-content {
-            background-color: white;
-            margin: 2% auto;
-            padding: 30px;
-            border-radius: 8px;
-            width: 90%;
-            max-width: 1000px;
-            max-height: 90vh;
-            overflow-y: auto;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
-        }
-
-        .markdown-modal-close {
-            color: #666;
-            float: right;
-            font-size: 32px;
-            font-weight: bold;
-            line-height: 20px;
-            cursor: pointer;
-            transition: color 0.3s;
-        }
-
-        .markdown-modal-close:hover {
-            color: #000;
-        }
-
-        .markdown-content h1 {
-            color: var(--md-primary);
-            border-bottom: 2px solid var(--md-primary);
-            padding-bottom: 10px;
-            margin-top: 20px;
-        }
-
-        .markdown-content h2 {
-            color: var(--md-primary);
-            margin-top: 30px;
-            border-left: 4px solid var(--md-primary);
-            padding-left: 12px;
-        }
-
-        .markdown-content h3 {
-            color: #555;
-            margin-top: 20px;
-        }
-
-        .markdown-content code {
-            background: #f5f5f5;
-            padding: 2px 6px;
-            border-radius: 3px;
-            font-family: 'Courier New', monospace;
-        }
-
-        .markdown-content pre {
-            background: #f5f5f5;
-            padding: 15px;
-            border-radius: 5px;
-            overflow-x: auto;
-        }
-
-        .markdown-content ul, .markdown-content ol {
-            margin: 10px 0;
-            padding-left: 30px;
-        }
-
-        .markdown-content li {
-            margin: 8px 0;
-        }
-
-        .markdown-content hr {
-            border: none;
-            border-top: 2px solid #ddd;
-            margin: 30px 0;
-        }
-
-        .markdown-content blockquote {
-            border-left: 4px solid #ddd;
-            margin: 15px 0;
-            padding: 10px 20px;
-            background: #f9f9f9;
-        }
-
         /* ===== OPTIMIZED PRINT STYLES FOR A4 ===== */
         @media print {
             @page {
@@ -1022,8 +925,6 @@
             body {
                 background: white;
                 padding: 0;
-                transform: scale(0.94);
-                transform-origin: top left;
             }
 
             .container {
@@ -1059,7 +960,7 @@
             }
 
             h1::after {
-                content: "v1.4.6";
+                content: "v1.4.5";
                 font-size: 0.7em;
                 color: #666;
                 font-weight: normal;
@@ -1238,10 +1139,9 @@
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
             <h1 class="md-headline-4" style="margin: 0;">Fraction Comparison Practice</h1>
             <div style="display: flex; align-items: center; gap: 10px;">
-                <span style="font-size: 0.9rem; color: #666; font-weight: 500;">v<span id="currentVersion">1.4.6</span></span>
+                <span style="font-size: 0.9rem; color: #666; font-weight: 500;">v<span id="currentVersion">1.4.5</span></span>
                 <select id="versionSelector" style="padding: 4px 8px; border-radius: 4px; border: 1px solid var(--md-primary); background: white; color: var(--md-primary); font-size: 0.85rem; cursor: pointer;">
-                    <option value="1.4.6">Version 1.4.6 (Current)</option>
-                    <option value="1.4.5">Version 1.4.5</option>
+                    <option value="1.4.5">Version 1.4.5 (Current)</option>
                     <option value="1.4.4">Version 1.4.4</option>
                     <option value="1.4.3">Version 1.4.3</option>
                     <option value="1.4.2">Version 1.4.2</option>
@@ -1392,12 +1292,8 @@
 
         <!-- Educational Content -->
         <div class="educational-content" id="educationalContent">
-            <h2 class="collapsible-header" onclick="toggleSection('learningGuideContent')" style="cursor: pointer; display: flex; align-items: center; gap: 8px;">
-                <span class="chevron" id="learningGuideChevron">▶</span>
-                Understanding Fractions: A Complete Learning Guide
-            </h2>
+            <h2>Understanding Fractions: A Complete Learning Guide</h2>
 
-            <div class="collapsible-content" id="learningGuideContent" style="display: none;">
             <div class="strategy-box">
                 <h3>What Are Fractions?</h3>
                 <p><strong>A fraction represents a part of a whole.</strong> The word "whole" means a complete unit or object that can be divided into equal parts. For example, a whole pizza, a whole hour, or a whole dollar.</p>
@@ -1537,7 +1433,7 @@
                                 <div style="width: 12px; height: 12px; background: white; border: 2px solid #FF9800; border-radius: 50%; margin: 0 auto 8px;"></div>
                                 <div style="font-size: 0.75em; font-weight: 600; color: #F57C00;">
                                     1950<br>
-                                    <span style="font-size: 1.8em;">👵🏽👴🏽</span><br>
+                                    <span style="font-size: 1.8em;">👵👴</span><br>
                                     Grandparents
                                 </div>
                             </div>
@@ -1548,7 +1444,7 @@
                                 <div style="width: 12px; height: 12px; background: white; border: 2px solid #4CAF50; border-radius: 50%; margin: 0 auto 8px;"></div>
                                 <div style="font-size: 0.75em; font-weight: 600; color: #2E7D32;">
                                     1980<br>
-                                    <span style="font-size: 1.8em;">👨🏽👩🏽</span><br>
+                                    <span style="font-size: 1.8em;">👨👩</span><br>
                                     Parents
                                 </div>
                             </div>
@@ -2180,59 +2076,13 @@
                 <p>Adults use fractions for budgeting, investing, and understanding interest rates. Saving 1/4 of your income, understanding that a mortgage is paid in 1/12th increments each month, or calculating investment returns all require fraction skills.</p>
             </div>
 
-            <div class="strategy-box" style="background: #FFEBEE; border-left-color: #E53935;">
-                <h3>⚠️ Common Misconceptions About Fractions</h3>
-
-                <h4 style="color: #D32F2F; margin-top: 16px;">Misconception #1: "Bigger denominator = bigger fraction"</h4>
-                <p><strong>What it looks like:</strong> Thinking 1/8 > 1/4 because 8 > 4</p>
-                <p><strong>Why this happens:</strong> Students apply whole number thinking (8 > 4, so 1/8 must be bigger than 1/4)</p>
-                <p><strong>Why it's wrong:</strong> Larger denominators mean MORE pieces, making each piece SMALLER. Pizza cut into 8 slices gives smaller pieces than pizza cut into 4 slices.</p>
-                <p><strong>Better approach:</strong> Think "How many pieces is the whole divided into?" More pieces = smaller size per piece.</p>
-                <p><strong>How to check:</strong> Draw or imagine the visual. 1/8 of a pizza is much smaller than 1/4 of the same pizza.</p>
-                <p><strong>Sense check:</strong> Convert to decimals: 1/8 = 0.125, 1/4 = 0.25. Clearly 0.25 > 0.125.</p>
-
-                <h4 style="color: #D32F2F; margin-top: 16px;">Misconception #2: "Both numbers bigger = bigger fraction"</h4>
-                <p><strong>What it looks like:</strong> Thinking 4/10 > 1/2 because both 4 and 10 are larger than 1 and 2</p>
-                <p><strong>Why this happens:</strong> Focusing on individual numbers rather than the relationship between them</p>
-                <p><strong>Why it's wrong:</strong> What matters is the RATIO, not the absolute size of numbers. 1/2 = 50%, but 4/10 = 40%.</p>
-                <p><strong>Better approach:</strong> Think about what fraction of the whole you're taking. 1/2 = half. Is 4/10 more or less than half?</p>
-                <p><strong>How to check:</strong> Find common denominator (20): 1/2 = 10/20, 4/10 = 8/20. Now it's clear: 10/20 > 8/20.</p>
-                <p><strong>Sense check:</strong> 4 is less than half of 10, but 1 IS half of 2, so 1/2 must be larger.</p>
-
-                <h4 style="color: #D32F2F; margin-top: 16px;">Misconception #3: "Add numerators, add denominators"</h4>
-                <p><strong>What it looks like:</strong> Thinking 1/4 + 1/4 = 2/8 (adding across)</p>
-                <p><strong>Why this happens:</strong> Applying arithmetic rules from whole numbers incorrectly</p>
-                <p><strong>Why it's wrong:</strong> You can only add fractions with the same denominator. 1/4 + 1/4 = 2/4, not 2/8.</p>
-                <p><strong>Better approach:</strong> Think: "I have 1 quarter-piece plus another 1 quarter-piece = 2 quarter-pieces = 2/4."</p>
-                <p><strong>How to check:</strong> Visual test: 1/4 + 1/4 of a pizza = half a pizza = 2/4 = 1/2, not 2/8.</p>
-                <p><strong>Sense check:</strong> Does 2/8 = 1/4? That can't be right when we're ADDING two 1/4s!</p>
-
-                <h4 style="color: #D32F2F; margin-top: 16px;">Misconception #4: "Multiply both numbers to compare fractions"</h4>
-                <p><strong>What it looks like:</strong> For 2/3 vs 3/4, calculating 2×4=8 and 3×3=9, thinking this alone determines the answer</p>
-                <p><strong>Why this happens:</strong> Partial understanding of cross-multiplication without knowing what it means</p>
-                <p><strong>Why it's wrong (or incomplete):</strong> While cross-multiplication works, you must understand WHY. You're finding common denominators: 2/3 = 8/12 and 3/4 = 9/12.</p>
-                <p><strong>Better approach:</strong> Understand you're comparing 8 twelfths vs 9 twelfths. Now it's obvious: 9/12 > 8/12, so 3/4 > 2/3.</p>
-                <p><strong>How to check:</strong> Convert to decimals: 2/3 ≈ 0.667, 3/4 = 0.75. Confirms 3/4 > 2/3.</p>
-                <p><strong>Sense check:</strong> 3/4 is very close to 1, while 2/3 is further from 1, so 3/4 should be bigger.</p>
-
-                <h4 style="color: #D32F2F; margin-top: 16px;">Misconception #5: "Fractions can't be greater than 1"</h4>
-                <p><strong>What it looks like:</strong> Thinking all fractions must be less than 1</p>
-                <p><strong>Why this happens:</strong> Early lessons focus on "proper fractions" (numerator < denominator)</p>
-                <p><strong>Why it's wrong:</strong> Improper fractions like 5/4 or 7/3 are perfectly valid and represent numbers greater than 1.</p>
-                <p><strong>Better approach:</strong> Think of fractions as division: 5/4 = 5÷4 = 1.25. You CAN divide 5 pizzas among 4 people!</p>
-                <p><strong>How to check:</strong> 5/4 = 4/4 + 1/4 = 1 + 1/4 = 1.25. Each person gets more than one whole pizza.</p>
-                <p><strong>Sense check:</strong> If numerator > denominator, the result MUST be greater than 1.</p>
-            </div>
-
             <div class="resource-links">
                 <h4>📚 Project Files & Resources</h4>
                 <a href="README.md" target="_blank">📖 README - Project Documentation</a>
                 <a href="TODO.md" target="_blank">📝 TODO - Project Planning & Design Ideas</a>
-                <a href="#" onclick="viewMarkdownFile('FEATURES_TODO.md'); return false;">✨ FEATURES TODO - Planned Features & Roadmap</a>
             </div>
 
             <p><strong>Practice makes perfect!</strong> The more you work with fractions, the easier they become. Use the strategies above to compare fractions, and remember that fractions are just another way to represent numbers – they're powerful tools that help us solve real problems every day!</p>
-            </div><!-- End of collapsible learning guide content -->
 
             <div class="version-history">
                 <h3 class="collapsible-header" onclick="toggleSection('versionHistoryContent')" style="cursor: pointer; display: flex; align-items: center; gap: 8px;">
@@ -2242,29 +2092,7 @@
 
                 <div class="collapsible-content" id="versionHistoryContent" style="display: none;">
                 <div class="version-item">
-                    <strong>Version 1.4.6</strong> (2026-01-22) - Current<br>
-                    📖 <strong>Markdown Viewer:</strong> Added FEATURES_TODO.md link with beautiful rendered view<br>
-                    📚 <strong>Collapsible Learning Guide:</strong> Made entire guide collapsible (default collapsed) to reduce visual clutter<br>
-                    ⚠️ <strong>Common Misconceptions Section:</strong> Added comprehensive section explaining 5 major mistakes:<br>
-                    &nbsp;&nbsp;&nbsp;• "Bigger denominator = bigger fraction" myth<br>
-                    &nbsp;&nbsp;&nbsp;• "Both numbers bigger = bigger fraction" fallacy<br>
-                    &nbsp;&nbsp;&nbsp;• Incorrect fraction addition/subtraction<br>
-                    &nbsp;&nbsp;&nbsp;• Cross-multiplication confusion<br>
-                    &nbsp;&nbsp;&nbsp;• "Fractions can't be > 1" misunderstanding<br>
-                    &nbsp;&nbsp;&nbsp;• Each includes: what it looks like, why it happens, why it's wrong, better approach, how to check, sense check<br>
-                    🎯 <strong>Universal Hint System:</strong> Conditional aids now work for ALL questions (not just Common Mistakes mode)<br>
-                    &nbsp;&nbsp;&nbsp;• Click any question number to toggle hint<br>
-                    &nbsp;&nbsp;&nbsp;• Hints appear automatically on incorrect answers<br>
-                    &nbsp;&nbsp;&nbsp;• Timeout-based hints work for all problems<br>
-                    &nbsp;&nbsp;&nbsp;• Pizza diagrams generated for any fraction pair<br>
-                    🖨️ <strong>Print Enhancement:</strong> Set print scaling to 94% for optimal page fit<br>
-                    🌍 <strong>Inclusive Representation:</strong> Changed timeline family icons to light brown skin tone (medium tone 🏽) for Indian origin child<br>
-                    ✨ Clicking question number now toggles hint (removes if shown again)<br>
-                    📂 Marked.js library integrated for beautiful markdown rendering
-                </div>
-
-                <div class="version-item">
-                    <strong>Version 1.4.5</strong> (2026-01-22)<br>
+                    <strong>Version 1.4.5</strong> (2026-01-22) - Current<br>
                     🎯 <strong>Conditional Visual Aids:</strong> Show hints only when needed<br>
                     ⏱️ Added hint timeout setting (Off, 30s, 45s, 60s, 90s)<br>
                     🖱️ Click question number to manually request hint<br>
@@ -2458,25 +2286,22 @@
 
         // ===== HINT SYSTEM =====
         function showHint(problemIndex) {
-            // Toggle hint visibility
-            showVisualAids[problemIndex] = !showVisualAids[problemIndex];
+            showVisualAids[problemIndex] = true;
             renderSingleProblemVisualAid(problemIndex);
         }
 
         function startProblemTimer(problemIndex) {
             const timeout = parseInt(document.getElementById('hintTimeout').value);
-            if (timeout === 0) return; // Timer disabled
+            if (timeout === 0 || !document.getElementById('commonMistakesMode').checked) return;
 
             // Clear existing timer if any
             if (problemTimers[problemIndex]) {
                 clearTimeout(problemTimers[problemIndex]);
             }
 
-            // Set new timer - works for all problems now, not just Common Mistakes mode
+            // Set new timer
             problemTimers[problemIndex] = setTimeout(() => {
-                if (!showVisualAids[problemIndex]) { // Only show if not already shown
-                    showHint(problemIndex);
-                }
+                showHint(problemIndex);
             }, timeout * 1000);
         }
 
@@ -2874,14 +2699,15 @@
                 const problemDiv = document.createElement('div');
                 problemDiv.className = 'problem';
 
-                // Question number is ALWAYS clickable to show/hide hint
-                const questionNumberStyle = 'cursor: pointer; user-select: none; color: var(--md-primary); text-decoration: underline;';
-                const questionNumberOnClick = `onclick="showHint(${index})" title="Click for hint"`;
+                // Question number is clickable to show hint in Common Mistakes mode
+                const questionNumberStyle = commonMistakesMode && problem.mistakeType ?
+                    'cursor: pointer; user-select: none; color: var(--md-primary); text-decoration: underline;' : '';
+                const questionNumberOnClick = commonMistakesMode && problem.mistakeType ?
+                    `onclick="showHint(${index})" title="Click for hint"` : '';
 
-                // Add visual aids if they should be shown
+                // Add visual aids if in Common Mistakes mode AND they should be shown
                 let visualAids = '';
-                if (showVisualAids[index]) {
-                    const explanation = problem.mistakeExplanation || 'Compare the visual representations to see which fraction is larger';
+                if (commonMistakesMode && problem.mistakeType && showVisualAids[index]) {
                     visualAids = `
                         <div class="visual-aids" style="grid-column: 1 / -1; margin-top: 8px; padding: 12px; background: #F5F5F5; border-radius: 4px; display: flex; align-items: center; justify-content: center; gap: 20px;">
                             <div style="text-align: center;">
@@ -2895,7 +2721,7 @@
                             </div>
                         </div>
                         <div style="grid-column: 1 / -1; margin-top: 8px; padding: 8px; background: #E3F2FD; border-radius: 4px; font-size: 0.85em; color: #1976D2; text-align: center;">
-                            💡 ${explanation}
+                            💡 ${problem.mistakeExplanation}
                         </div>
                     `;
                 }
@@ -3315,8 +3141,8 @@
                         }
                     } else {
                         incorrect++;
-                        // Show hint on incorrect answer for ALL problems
-                        if (!showVisualAids[index]) {
+                        // Show hint on incorrect answer in Common Mistakes mode
+                        if (commonMistakesMode && problem.mistakeType && !showVisualAids[index]) {
                             showHint(index);
                         }
                     }
@@ -3613,8 +3439,7 @@
 
             // Version file mapping
             const versionFiles = {
-                '1.4.6': 'fraction-worksheet.html',
-                '1.4.5': 'fraction-worksheet-v1.4.5.html',
+                '1.4.5': 'fraction-worksheet.html',
                 '1.4.4': 'fraction-worksheet-v1.4.4.html',
                 '1.4.3': 'fraction-worksheet-v1.4.3.html',
                 '1.4.2': 'fraction-worksheet-v1.4.2.html',
@@ -3630,7 +3455,6 @@
             };
 
             const versionDescriptions = {
-                '1.4.6': 'Markdown viewer, collapsible Learning Guide, common misconceptions section, hints for ALL questions, 94% print scale, inclusive skin tones',
                 '1.4.5': 'Conditional visual aids (show hints only when needed), collapsible sections, print enhancements, selective mistake types',
                 '1.4.4': 'Common Mistakes mode with visual aids (pizza diagrams), targets error patterns for better understanding',
                 '1.4.3': 'CSS-based icons (PDF/print), print headers on all pages, easier defaults (2,4), ordered denominators',
@@ -3660,42 +3484,6 @@
                 e.target.value = currentVersion;
             }
         });
-
-        // ===== MARKDOWN VIEWER =====
-        async function viewMarkdownFile(filename) {
-            try {
-                const response = await fetch(filename);
-                if (!response.ok) {
-                    throw new Error('File not found');
-                }
-                const markdown = await response.text();
-                const html = marked.parse(markdown);
-                document.getElementById('markdownContent').innerHTML = html;
-                document.getElementById('markdownModal').style.display = 'block';
-            } catch (error) {
-                alert('Could not load ' + filename + ': ' + error.message);
-            }
-        }
-
-        function closeMarkdownModal() {
-            document.getElementById('markdownModal').style.display = 'none';
-        }
-
-        // Close modal when clicking outside of it
-        window.onclick = function(event) {
-            const modal = document.getElementById('markdownModal');
-            if (event.target === modal) {
-                closeMarkdownModal();
-            }
-        }
     </script>
-
-    <!-- Markdown Modal -->
-    <div id="markdownModal" class="markdown-modal">
-        <div class="markdown-modal-content">
-            <span class="markdown-modal-close" onclick="closeMarkdownModal()">&times;</span>
-            <div id="markdownContent" class="markdown-content"></div>
-        </div>
-    </div>
 </body>
 </html>
