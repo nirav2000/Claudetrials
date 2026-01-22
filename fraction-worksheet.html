@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interactive Fraction Comparison Worksheet</title>
+    <title>Interactive Fraction Comparison Practice</title>
 
     <!-- Google Fonts - Roboto (Material Design) -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
@@ -521,11 +521,65 @@
             color: var(--md-error);
         }
 
+        /* ===== EDUCATIONAL CONTENT ===== */
+        .educational-content {
+            margin-top: 40px;
+            page-break-before: always;
+        }
+
+        .educational-content h2 {
+            color: var(--md-primary);
+            font-size: 1.75rem;
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        .educational-content h3 {
+            color: var(--md-primary);
+            font-size: 1.25rem;
+            margin-top: 24px;
+            margin-bottom: 12px;
+            font-weight: 500;
+        }
+
+        .educational-content p {
+            line-height: 1.6;
+            margin-bottom: 12px;
+            color: var(--md-text-primary);
+        }
+
+        .educational-content ul {
+            margin-left: 24px;
+            margin-bottom: 16px;
+        }
+
+        .educational-content li {
+            line-height: 1.6;
+            margin-bottom: 8px;
+            color: var(--md-text-primary);
+        }
+
+        .strategy-box {
+            background: #E8EAF6;
+            padding: 16px;
+            border-radius: 4px;
+            margin-bottom: 16px;
+            border-left: 4px solid var(--md-primary);
+        }
+
+        .example-box {
+            background: #FFF3E0;
+            padding: 16px;
+            border-radius: 4px;
+            margin: 16px 0;
+            border-left: 4px solid var(--md-warning);
+        }
+
         /* ===== OPTIMIZED PRINT STYLES FOR A4 ===== */
         @media print {
             @page {
                 size: A4 portrait;
-                margin: 10mm;
+                margin: 8mm;
             }
 
             body {
@@ -536,7 +590,7 @@
 
             .container {
                 box-shadow: none;
-                padding: 5mm;
+                padding: 3mm;
                 max-width: 100%;
                 margin: 0;
             }
@@ -554,25 +608,25 @@
             }
 
             h1 {
-                font-size: 16pt;
-                margin-bottom: 3mm;
+                font-size: 13pt;
+                margin-bottom: 2mm;
                 color: black;
                 page-break-after: avoid;
             }
 
             .problems-container {
-                gap: 3mm;
-                margin-top: 3mm;
+                gap: 2.5mm;
+                margin-top: 2mm;
                 grid-template-columns: repeat(2, 1fr);
             }
 
             /* Compact problem styling for 20 problems on one A4 page */
             .problem {
-                padding: 2mm;
+                padding: 1.5mm;
                 border: 0.5pt solid #ccc;
                 background: white;
                 margin-bottom: 0;
-                gap: 3mm;
+                gap: 2.5mm;
                 box-shadow: none;
                 page-break-inside: avoid;
                 break-inside: avoid;
@@ -580,68 +634,102 @@
 
             .problem-number {
                 color: black;
-                font-size: 10pt;
-                min-width: 8mm;
+                font-size: 9pt;
+                min-width: 7mm;
                 font-weight: 500;
             }
 
             .fraction {
-                font-size: 11pt;
+                font-size: 10pt;
             }
 
             .numerator, .denominator {
-                min-width: 8mm;
+                min-width: 7mm;
                 border-color: black;
             }
 
             .input-area {
-                min-width: 10mm;
-                min-height: 10mm;
+                min-width: 9mm;
+                min-height: 9mm;
             }
 
             .operator-input {
-                width: 10mm;
-                height: 10mm;
+                width: 9mm;
+                height: 9mm;
                 border: 1pt solid #333;
                 background: white !important;
-                font-size: 11pt;
+                font-size: 10pt;
                 -webkit-print-color-adjust: exact;
                 print-color-adjust: exact;
             }
 
             .operator-buttons {
-                gap: 2mm;
+                gap: 1.5mm;
             }
 
             .operator-btn {
-                width: 10mm;
-                height: 10mm;
+                width: 9mm;
+                height: 9mm;
                 border: 1pt solid #333;
                 background: white !important;
-                font-size: 11pt;
+                font-size: 10pt;
             }
 
             .drawing-canvas {
-                width: 15mm !important;
-                height: 15mm !important;
+                width: 12mm !important;
+                height: 12mm !important;
                 border: 1pt solid #333;
                 background: white !important;
             }
 
             .voice-container {
-                width: 10mm;
-                height: 10mm;
+                width: 9mm;
+                height: 9mm;
                 border: 1pt solid #333;
                 background: white !important;
             }
 
             .voice-result {
-                font-size: 11pt;
+                font-size: 10pt;
             }
 
-            /* Ensure 10 rows per column fit on one page */
+            /* Ensure maximum 20 problems per page */
             .problem:nth-child(n+21) {
                 page-break-before: always;
+            }
+
+            /* Educational content on separate page */
+            .educational-content {
+                page-break-before: always;
+                margin-top: 0;
+            }
+
+            .educational-content h2 {
+                font-size: 14pt;
+                margin-bottom: 3mm;
+                color: black;
+            }
+
+            .educational-content h3 {
+                font-size: 11pt;
+                margin-top: 4mm;
+                margin-bottom: 2mm;
+                color: black;
+            }
+
+            .educational-content p,
+            .educational-content li {
+                font-size: 9pt;
+                line-height: 1.5;
+            }
+
+            .strategy-box,
+            .example-box {
+                border: 1pt solid #999;
+                padding: 3mm;
+                margin-bottom: 3mm;
+                background: #f5f5f5 !important;
+                page-break-inside: avoid;
             }
         }
 
@@ -690,7 +778,7 @@
 </head>
 <body>
     <div class="container">
-        <h1 class="md-headline-4">Interactive Fraction Comparison Worksheet</h1>
+        <h1 class="md-headline-4">Fraction Comparison Practice</h1>
 
         <!-- Controls Section -->
         <div class="controls">
@@ -727,7 +815,7 @@
             </div>
 
             <div class="button-group">
-                <button class="btn-primary" onclick="generateWorksheet()">Generate New Worksheet</button>
+                <button class="btn-primary" onclick="generateWorksheet()">Generate New Practice</button>
                 <button class="btn-success" onclick="checkAnswers()">Check Answers</button>
                 <button class="btn-secondary" onclick="showAnswers()">Show Answers</button>
                 <button class="btn-danger" onclick="clearAnswers()">Clear Answers</button>
@@ -755,6 +843,130 @@
 
         <!-- Problems Container -->
         <div id="problemsContainer" class="problems-container"></div>
+
+        <!-- Educational Content -->
+        <div class="educational-content">
+            <h2>Understanding Fractions: A Complete Guide</h2>
+
+            <div class="strategy-box">
+                <h3>What Are Fractions?</h3>
+                <p>A fraction represents a part of a whole. It consists of two numbers separated by a line:</p>
+                <ul>
+                    <li><strong>Numerator (top number):</strong> How many parts you have</li>
+                    <li><strong>Denominator (bottom number):</strong> How many equal parts make up the whole</li>
+                </ul>
+                <p>For example, in the fraction 3/4, you have 3 parts out of 4 equal parts total.</p>
+            </div>
+
+            <h3>Brief History of Fractions</h3>
+            <p>Fractions have been used for thousands of years! The ancient Egyptians used fractions around 3000 BC to divide food, land, and supplies fairly. They mostly used unit fractions (fractions with 1 as the numerator, like 1/2, 1/3, 1/4). The Babylonians and Romans also developed their own fraction systems. The fraction notation we use today (with the horizontal bar) became popular in the 1500s.</p>
+
+            <h3>Strategies for Comparing Fractions</h3>
+
+            <div class="strategy-box">
+                <h4>Strategy 1: Same Denominator (Bottom Number)</h4>
+                <p>When fractions have the same denominator, just compare the numerators!</p>
+                <div class="example-box">
+                    <strong>Example:</strong> Compare 3/8 and 5/8<br>
+                    Both have 8 as denominator. Since 3 &lt; 5, we know 3/8 &lt; 5/8
+                </div>
+            </div>
+
+            <div class="strategy-box">
+                <h4>Strategy 2: Same Numerator (Top Number)</h4>
+                <p>When fractions have the same numerator, the one with the smaller denominator is larger!</p>
+                <div class="example-box">
+                    <strong>Example:</strong> Compare 2/3 and 2/5<br>
+                    Both have 2 as numerator. Pieces of 1/3 are bigger than pieces of 1/5, so 2/3 &gt; 2/5
+                </div>
+            </div>
+
+            <div class="strategy-box">
+                <h4>Strategy 3: Benchmark Fractions</h4>
+                <p>Compare both fractions to 1/2. Is each fraction more than, less than, or equal to 1/2?</p>
+                <div class="example-box">
+                    <strong>Example:</strong> Compare 2/5 and 7/10<br>
+                    2/5 is less than 1/2 (since 2.5/5 = 1/2)<br>
+                    7/10 is greater than 1/2 (since 5/10 = 1/2)<br>
+                    Therefore, 2/5 &lt; 7/10
+                </div>
+            </div>
+
+            <div class="strategy-box">
+                <h4>Strategy 4: Convert to Decimals</h4>
+                <p>Divide the numerator by the denominator to get a decimal, then compare.</p>
+                <div class="example-box">
+                    <strong>Example:</strong> Compare 3/4 and 4/5<br>
+                    3 ÷ 4 = 0.75<br>
+                    4 ÷ 5 = 0.80<br>
+                    Since 0.75 &lt; 0.80, we know 3/4 &lt; 4/5
+                </div>
+            </div>
+
+            <div class="strategy-box">
+                <h4>Strategy 5: Find Common Denominators</h4>
+                <p>Convert both fractions to equivalent fractions with the same denominator, then compare.</p>
+                <div class="example-box">
+                    <strong>Example:</strong> Compare 2/3 and 3/4<br>
+                    Common denominator is 12:<br>
+                    2/3 = 8/12 (multiply by 4/4)<br>
+                    3/4 = 9/12 (multiply by 3/3)<br>
+                    Since 8 &lt; 9, we know 2/3 &lt; 3/4
+                </div>
+            </div>
+
+            <h3>Fractions in Everyday Life</h3>
+
+            <div class="example-box">
+                <h4>🍕 For 9-Year-Olds: Pizza Time!</h4>
+                <p>If you order a pizza and eat 3 out of 8 slices, you've eaten 3/8 of the pizza. Your friend eats 5/8. Who ate more? Your friend did, because 5/8 &gt; 3/8!</p>
+            </div>
+
+            <div class="example-box">
+                <h4>🍣 Sushi Sharing</h4>
+                <p>You order a sushi platter with 12 pieces. If you eat 5 pieces (5/12) and your friend eats 7 pieces (7/12), your friend ate more of the platter. This helps you split the bill fairly!</p>
+            </div>
+
+            <div class="example-box">
+                <h4>📚 Reading Progress</h4>
+                <p>If you've read 150 pages of a 200-page book, you've completed 150/200 or 3/4 of the book. Your friend read 120 pages of a 150-page book (120/150 = 4/5). Who's read more of their book? Your friend has! (4/5 = 0.80, 3/4 = 0.75)</p>
+            </div>
+
+            <div class="example-box">
+                <h4>⏰ Time Management</h4>
+                <p>An hour has 60 minutes. If you spend 15 minutes on homework, that's 15/60 or 1/4 of an hour. If you play video games for 30 minutes, that's 30/60 or 1/2 of an hour. You spent more time gaming than on homework!</p>
+            </div>
+
+            <div class="example-box">
+                <h4>🚗 Car Trips</h4>
+                <p>Your family is driving 240 miles to grandma's house. After 180 miles, you've completed 180/240 or 3/4 of the trip. You have 60 miles left, which is 60/240 or 1/4 of the journey. Understanding fractions helps you know how much farther you need to go!</p>
+            </div>
+
+            <div class="example-box">
+                <h4>💼 For Adults: Budgeting</h4>
+                <p>If you spend 1/4 of your monthly income on rent, 1/6 on groceries, and 1/12 on transportation, fractions help you track where your money goes and ensure you're saving enough.</p>
+            </div>
+
+            <div class="example-box">
+                <h4>🍳 Cooking & Recipes</h4>
+                <p>Recipes use fractions constantly! If a recipe calls for 3/4 cup of flour but you want to make half the recipe, you need to calculate 1/2 of 3/4, which is 3/8 cup. Understanding fractions is essential in the kitchen!</p>
+            </div>
+
+            <h3>Why Fractions Matter</h3>
+            <p>Fractions are everywhere in our daily lives! They help us:</p>
+            <ul>
+                <li>Share things fairly with friends and family</li>
+                <li>Follow recipes and cook delicious food</li>
+                <li>Understand discounts and sales when shopping</li>
+                <li>Measure materials for building and crafts</li>
+                <li>Tell time and plan our schedules</li>
+                <li>Calculate distances and fuel for travel</li>
+                <li>Understand sports statistics and scores</li>
+                <li>Work with money and budgets</li>
+            </ul>
+
+            <p><strong>Practice makes perfect!</strong> The more you work with fractions, the easier they become. Use the strategies above to compare fractions, and remember that fractions are just another way to represent numbers – they're your friends, not something to fear!</p>
+        </div>
     </div>
 
     <script>
@@ -1500,12 +1712,12 @@
             const originalProblemsStyle = document.getElementById('problemsContainer').style.cssText;
 
             // Apply PDF-specific styling
-            element.style.padding = '10mm';
+            element.style.padding = '8mm';
             element.style.maxWidth = '100%';
 
             const opt = {
-                margin: [10, 10, 10, 10],
-                filename: 'fraction-worksheet.pdf',
+                margin: [8, 8, 8, 8],
+                filename: 'fraction-practice.pdf',
                 image: { type: 'jpeg', quality: 0.98 },
                 html2canvas: {
                     scale: 2,
