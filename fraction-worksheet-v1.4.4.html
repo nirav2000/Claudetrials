@@ -600,10 +600,6 @@
             display: none;
         }
 
-        .visual-aids.hidden-for-print {
-            display: none !important;
-        }
-
         .educational-content h2 {
             color: var(--md-primary);
             font-size: 1.75rem;
@@ -879,30 +875,6 @@
             margin-bottom: 16px;
         }
 
-        /* ===== COLLAPSIBLE SECTIONS ===== */
-        .collapsible-header {
-            user-select: none;
-            transition: background-color 0.2s;
-            padding: 4px;
-            border-radius: 4px;
-        }
-
-        .collapsible-header:hover {
-            background-color: rgba(0,0,0,0.05);
-        }
-
-        .chevron {
-            display: inline-block;
-            transition: transform 0.2s;
-            font-size: 0.8em;
-            color: var(--md-primary);
-        }
-
-        .collapsible-content {
-            transition: max-height 0.3s ease-out;
-            overflow: hidden;
-        }
-
         .version-item {
             background: white;
             padding: 12px 16px;
@@ -960,7 +932,7 @@
             }
 
             h1::after {
-                content: "v1.4.5";
+                content: "v1.4.4";
                 font-size: 0.7em;
                 color: #666;
                 font-weight: normal;
@@ -1139,10 +1111,9 @@
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
             <h1 class="md-headline-4" style="margin: 0;">Fraction Comparison Practice</h1>
             <div style="display: flex; align-items: center; gap: 10px;">
-                <span style="font-size: 0.9rem; color: #666; font-weight: 500;">v<span id="currentVersion">1.4.5</span></span>
+                <span style="font-size: 0.9rem; color: #666; font-weight: 500;">v<span id="currentVersion">1.4.4</span></span>
                 <select id="versionSelector" style="padding: 4px 8px; border-radius: 4px; border: 1px solid var(--md-primary); background: white; color: var(--md-primary); font-size: 0.85rem; cursor: pointer;">
-                    <option value="1.4.5">Version 1.4.5 (Current)</option>
-                    <option value="1.4.4">Version 1.4.4</option>
+                    <option value="1.4.4">Version 1.4.4 (Current)</option>
                     <option value="1.4.3">Version 1.4.3</option>
                     <option value="1.4.2">Version 1.4.2</option>
                     <option value="1.4.1">Version 1.4.1</option>
@@ -1193,17 +1164,6 @@
                         <option value="2,3,4,5,6,7,8,9,10,11,12">All (2-12) (Hardest)</option>
                     </select>
                 </div>
-
-                <div class="control-group">
-                    <label for="hintTimeout">Hint Timeout:</label>
-                    <select id="hintTimeout">
-                        <option value="0">Off</option>
-                        <option value="30" selected>30 seconds</option>
-                        <option value="45">45 seconds</option>
-                        <option value="60">60 seconds</option>
-                        <option value="90">90 seconds</option>
-                    </select>
-                </div>
             </div>
 
             <div style="margin-top: 16px; padding: 12px; background: #FFF3E0; border-radius: 4px; border-left: 4px solid #FF9800;">
@@ -1211,46 +1171,16 @@
                     <input type="checkbox" id="includeLearningGuide" checked style="margin-right: 8px; cursor: pointer; width: 18px; height: 18px;">
                     Include Learning Guide in Print/PDF
                 </label>
-                <label style="display: flex; align-items: center; cursor: pointer; font-weight: 500; color: var(--md-text-primary); margin-top: 8px;">
-                    <input type="checkbox" id="includeVisualAids" checked style="margin-right: 8px; cursor: pointer; width: 18px; height: 18px;">
-                    Include Visual Aids in Print/PDF
-                </label>
             </div>
 
             <div style="margin-top: 12px; padding: 12px; background: #E8F5E9; border-radius: 4px; border-left: 4px solid #4CAF50;">
                 <label style="display: flex; align-items: center; cursor: pointer; font-weight: 500; color: var(--md-text-primary);">
-                    <input type="checkbox" id="commonMistakesMode" style="margin-right: 8px; cursor: pointer; width: 18px; height: 18px;" onchange="toggleMistakeTypes()">
+                    <input type="checkbox" id="commonMistakesMode" style="margin-right: 8px; cursor: pointer; width: 18px; height: 18px;">
                     Focus on Common Mistakes (with visual aids)
                 </label>
                 <p style="margin: 8px 0 0 26px; font-size: 0.85em; color: #666; line-height: 1.4;">
                     Generates problems that target common error patterns with pizza diagrams to build correct understanding
                 </p>
-
-                <div id="mistakeTypeSelection" style="margin: 12px 0 0 26px; padding: 12px; background: white; border-radius: 4px; display: none;">
-                    <p style="font-size: 0.85em; font-weight: 500; margin-bottom: 8px; color: #333;">Select mistake types to practice:</p>
-                    <div style="display: grid; grid-template-columns: 1fr; gap: 8px;">
-                        <label style="display: flex; align-items: start; cursor: pointer; font-size: 0.85em;">
-                            <input type="checkbox" id="mistakeHigherDenominator" checked style="margin-right: 8px; margin-top: 2px; cursor: pointer;">
-                            <span><strong>Higher Denominator Trap:</strong> Same numerator, higher denominator (e.g., 2/3 vs 2/30)</span>
-                        </label>
-                        <label style="display: flex; align-items: start; cursor: pointer; font-size: 0.85em;">
-                            <input type="checkbox" id="mistakeBothHigher" checked style="margin-right: 8px; margin-top: 2px; cursor: pointer;">
-                            <span><strong>Both Numbers Higher:</strong> Both numerator and denominator higher (e.g., 1/2 vs 4/10)</span>
-                        </label>
-                        <label style="display: flex; align-items: start; cursor: pointer; font-size: 0.85em;">
-                            <input type="checkbox" id="mistakeUnitFraction" checked style="margin-right: 8px; margin-top: 2px; cursor: pointer;">
-                            <span><strong>Unit Fraction Confusion:</strong> More slices = smaller pieces (e.g., 1/2 vs 1/8)</span>
-                        </label>
-                        <label style="display: flex; align-items: start; cursor: pointer; font-size: 0.85em;">
-                            <input type="checkbox" id="mistakeNearWhole" checked style="margin-right: 8px; margin-top: 2px; cursor: pointer;">
-                            <span><strong>Near-Whole Comparison:</strong> Both close to 1 (e.g., 5/6 vs 9/10)</span>
-                        </label>
-                        <label style="display: flex; align-items: start; cursor: pointer; font-size: 0.85em;">
-                            <input type="checkbox" id="mistakeDoubleNumerator" checked style="margin-right: 8px; margin-top: 2px; cursor: pointer;">
-                            <span><strong>Equivalent Fractions:</strong> Multiply/divide both numbers (e.g., 1/4 vs 2/8)</span>
-                        </label>
-                    </div>
-                </div>
             </div>
 
             <div class="button-group">
@@ -1269,11 +1199,8 @@
 
         <!-- Instructions -->
         <div class="instructions">
-            <h3 class="md-headline-6 collapsible-header" onclick="toggleSection('howToUseContent')" style="cursor: pointer; display: flex; align-items: center; gap: 8px;">
-                <span class="chevron" id="howToUseChevron">▶</span>
-                How to Use:
-            </h3>
-            <ul class="md-body-2 collapsible-content" id="howToUseContent" style="display: none;">
+            <h3 class="md-headline-6">How to Use:</h3>
+            <ul class="md-body-2">
                 <li><strong>Keyboard:</strong> Type &lt;, &gt;, or = directly. Shortcuts: 'l' or ',' for &lt;, 'g' or '.' for &gt;, '-' for =</li>
                 <li><strong>Buttons:</strong> Click the symbol buttons to select your answer</li>
                 <li><strong>Drawing:</strong> Draw the symbol on the canvas, then click "Done" to recognize it. Click "Clear" to start over</li>
@@ -2085,33 +2012,10 @@
             <p><strong>Practice makes perfect!</strong> The more you work with fractions, the easier they become. Use the strategies above to compare fractions, and remember that fractions are just another way to represent numbers – they're powerful tools that help us solve real problems every day!</p>
 
             <div class="version-history">
-                <h3 class="collapsible-header" onclick="toggleSection('versionHistoryContent')" style="cursor: pointer; display: flex; align-items: center; gap: 8px;">
-                    <span class="chevron" id="versionHistoryChevron">▶</span>
-                    📦 Version History
-                </h3>
-
-                <div class="collapsible-content" id="versionHistoryContent" style="display: none;">
-                <div class="version-item">
-                    <strong>Version 1.4.5</strong> (2026-01-22) - Current<br>
-                    🎯 <strong>Conditional Visual Aids:</strong> Show hints only when needed<br>
-                    ⏱️ Added hint timeout setting (Off, 30s, 45s, 60s, 90s)<br>
-                    🖱️ Click question number to manually request hint<br>
-                    ❌ Visual aids automatically appear on incorrect answer<br>
-                    ⏰ Automatic hint after timeout if problem takes too long<br>
-                    🎛️ <strong>UI Improvements:</strong><br>
-                    &nbsp;&nbsp;&nbsp;• Made "How to Use" collapsible (default collapsed)<br>
-                    &nbsp;&nbsp;&nbsp;• Made "Version History" collapsible<br>
-                    &nbsp;&nbsp;&nbsp;• Added checkboxes to select specific common mistake types<br>
-                    🖨️ <strong>Print Enhancements:</strong><br>
-                    &nbsp;&nbsp;&nbsp;• Added "Include Visual Aids in Print/PDF" checkbox<br>
-                    &nbsp;&nbsp;&nbsp;• Auto-switch to keyboard input when printing (shows answer boxes)<br>
-                    &nbsp;&nbsp;&nbsp;• Restores original input method after printing<br>
-                    📝 Created FEATURES_TODO.md to track pending features<br>
-                    ✨ Encourages independent problem-solving before showing hints
-                </div>
+                <h3>📦 Version History</h3>
 
                 <div class="version-item">
-                    <strong>Version 1.4.4</strong> (2026-01-22)<br>
+                    <strong>Version 1.4.4</strong> (2026-01-22) - Current<br>
                     🎓 <strong>Major Educational Feature:</strong> Common Mistakes mode with visual aids<br>
                     🍕 Added pizza/circle diagrams to show fractions visually<br>
                     🎯 <strong>Targets 5 common error patterns:</strong><br>
@@ -2248,7 +2152,6 @@
                     📊 Score tracking and answer checking<br>
                     🖨️ Print functionality with A4 optimization
                 </div>
-                </div>
             </div>
         </div>
     </div>
@@ -2259,86 +2162,6 @@
         let currentInputMethod = 'keyboard';
         let recognition = null;
         let currentVoiceIndex = -1;
-        let problemStartTimes = {};  // Track when each problem was first focused
-        let problemTimers = {};      // Track timeout timers for each problem
-        let showVisualAids = {};     // Track which problems should show visual aids
-
-        // ===== COLLAPSIBLE SECTIONS =====
-        function toggleSection(contentId) {
-            const content = document.getElementById(contentId);
-            const chevronId = contentId.replace('Content', 'Chevron');
-            const chevron = document.getElementById(chevronId);
-
-            if (content.style.display === 'none') {
-                content.style.display = '';
-                chevron.textContent = '▼';
-            } else {
-                content.style.display = 'none';
-                chevron.textContent = '▶';
-            }
-        }
-
-        function toggleMistakeTypes() {
-            const commonMistakesMode = document.getElementById('commonMistakesMode').checked;
-            const mistakeTypeSelection = document.getElementById('mistakeTypeSelection');
-            mistakeTypeSelection.style.display = commonMistakesMode ? 'block' : 'none';
-        }
-
-        // ===== HINT SYSTEM =====
-        function showHint(problemIndex) {
-            showVisualAids[problemIndex] = true;
-            renderSingleProblemVisualAid(problemIndex);
-        }
-
-        function startProblemTimer(problemIndex) {
-            const timeout = parseInt(document.getElementById('hintTimeout').value);
-            if (timeout === 0 || !document.getElementById('commonMistakesMode').checked) return;
-
-            // Clear existing timer if any
-            if (problemTimers[problemIndex]) {
-                clearTimeout(problemTimers[problemIndex]);
-            }
-
-            // Set new timer
-            problemTimers[problemIndex] = setTimeout(() => {
-                showHint(problemIndex);
-            }, timeout * 1000);
-        }
-
-        function renderSingleProblemVisualAid(problemIndex) {
-            const problem = problems[problemIndex];
-            if (!problem || !problem.mistakeType) return;
-
-            const problemDiv = document.querySelector(`.problem:nth-child(${problemIndex + 1})`);
-            if (!problemDiv) return;
-
-            // Remove existing visual aid if any
-            const existingAid = problemDiv.querySelector('.visual-aids');
-            if (existingAid) {
-                existingAid.remove();
-            }
-
-            // Add visual aid if it should be shown
-            if (showVisualAids[problemIndex]) {
-                const visualAidsHTML = `
-                    <div class="visual-aids" style="grid-column: 1 / -1; margin-top: 8px; padding: 12px; background: #F5F5F5; border-radius: 4px; display: flex; align-items: center; justify-content: center; gap: 20px;">
-                        <div style="text-align: center;">
-                            ${generatePizzaDiagram(problem.num1, problem.denom1)}
-                            <div style="font-size: 0.9em; margin-top: 4px; font-weight: 500;">${problem.num1}/${problem.denom1}</div>
-                        </div>
-                        <div style="font-size: 1.5em; color: #666;">vs</div>
-                        <div style="text-align: center;">
-                            ${generatePizzaDiagram(problem.num2, problem.denom2)}
-                            <div style="font-size: 0.9em; margin-top: 4px; font-weight: 500;">${problem.num2}/${problem.denom2}</div>
-                        </div>
-                    </div>
-                    <div style="grid-column: 1 / -1; margin-top: 8px; padding: 8px; background: #E3F2FD; border-radius: 4px; font-size: 0.85em; color: #1976D2; text-align: center;">
-                        💡 ${problem.mistakeExplanation}
-                    </div>
-                `;
-                problemDiv.insertAdjacentHTML('beforeend', visualAidsHTML);
-            }
-        }
 
         // ===== INITIALIZATION =====
         document.addEventListener('DOMContentLoaded', function() {
@@ -2528,21 +2351,16 @@
 
         // Generate problems targeting common mistakes
         function generateCommonMistakesProblems(numProblems) {
-            // Get selected mistake types
-            const selectedPatterns = [];
-            if (document.getElementById('mistakeHigherDenominator').checked) selectedPatterns.push('higherDenominator');
-            if (document.getElementById('mistakeBothHigher').checked) selectedPatterns.push('bothHigher');
-            if (document.getElementById('mistakeUnitFraction').checked) selectedPatterns.push('unitFraction');
-            if (document.getElementById('mistakeNearWhole').checked) selectedPatterns.push('nearWhole');
-            if (document.getElementById('mistakeDoubleNumerator').checked) selectedPatterns.push('doubleNumerator');
-
-            // If no patterns selected, select all
-            if (selectedPatterns.length === 0) {
-                selectedPatterns.push('higherDenominator', 'bothHigher', 'unitFraction', 'nearWhole', 'doubleNumerator');
-            }
+            const mistakePatterns = [
+                'higherDenominator',  // Same numerator, higher denominator looks bigger
+                'bothHigher',         // Both numerator and denominator higher
+                'unitFraction',       // Unit fractions (1/n) confusion
+                'nearWhole',          // Near-whole fractions
+                'doubleNumerator'     // Double numerator, double denominator
+            ];
 
             for (let i = 0; i < numProblems; i++) {
-                const pattern = selectedPatterns[i % selectedPatterns.length];
+                const pattern = mistakePatterns[i % mistakePatterns.length];
                 let problem;
 
                 switch (pattern) {
@@ -2681,13 +2499,6 @@
             const commonMistakesMode = document.getElementById('commonMistakesMode').checked;
             container.innerHTML = '';
 
-            // Reset visual aids tracking
-            showVisualAids = {};
-            problemStartTimes = {};
-            // Clear all timers
-            Object.values(problemTimers).forEach(timer => clearTimeout(timer));
-            problemTimers = {};
-
             // Add or remove page break class based on number of problems
             if (problems.length > 20) {
                 container.classList.add('has-page-breaks');
@@ -2699,15 +2510,9 @@
                 const problemDiv = document.createElement('div');
                 problemDiv.className = 'problem';
 
-                // Question number is clickable to show hint in Common Mistakes mode
-                const questionNumberStyle = commonMistakesMode && problem.mistakeType ?
-                    'cursor: pointer; user-select: none; color: var(--md-primary); text-decoration: underline;' : '';
-                const questionNumberOnClick = commonMistakesMode && problem.mistakeType ?
-                    `onclick="showHint(${index})" title="Click for hint"` : '';
-
-                // Add visual aids if in Common Mistakes mode AND they should be shown
+                // Add visual aids if in Common Mistakes mode
                 let visualAids = '';
-                if (commonMistakesMode && problem.mistakeType && showVisualAids[index]) {
+                if (commonMistakesMode && problem.mistakeType) {
                     visualAids = `
                         <div class="visual-aids" style="grid-column: 1 / -1; margin-top: 8px; padding: 12px; background: #F5F5F5; border-radius: 4px; display: flex; align-items: center; justify-content: center; gap: 20px;">
                             <div style="text-align: center;">
@@ -2727,7 +2532,7 @@
                 }
 
                 const html = `
-                    <div class="problem-number" style="${questionNumberStyle}" ${questionNumberOnClick}>${index + 1}.</div>
+                    <div class="problem-number">${index + 1}.</div>
                     <div class="fraction">
                         <div class="numerator">${problem.num1}</div>
                         <div class="denominator">${problem.denom1}</div>
@@ -2752,34 +2557,26 @@
             });
         }
 
-        function onProblemFocus(index) {
-            if (!problemStartTimes[index]) {
-                problemStartTimes[index] = Date.now();
-                startProblemTimer(index);
-            }
-        }
-
         function renderInputMethod(index, method) {
             switch(method) {
                 case 'keyboard':
                     return `<input type="text" class="operator-input" id="input-field-${index}"
                             maxlength="1" onkeypress="handleKeyPress(event, ${index})"
-                            onchange="handleInputChange(${index})"
-                            onfocus="onProblemFocus(${index})">`;
+                            onchange="handleInputChange(${index})">`;
 
                 case 'buttons':
                     return `
                         <div class="operator-buttons">
-                            <button class="operator-btn" onclick="onProblemFocus(${index}); selectOperator(${index}, '<')">&lt;</button>
-                            <button class="operator-btn" onclick="onProblemFocus(${index}); selectOperator(${index}, '>')">&gt;</button>
-                            <button class="operator-btn" onclick="onProblemFocus(${index}); selectOperator(${index}, '=')">=</button>
+                            <button class="operator-btn" onclick="selectOperator(${index}, '<')">&lt;</button>
+                            <button class="operator-btn" onclick="selectOperator(${index}, '>')">&gt;</button>
+                            <button class="operator-btn" onclick="selectOperator(${index}, '=')">=</button>
                         </div>
                     `;
 
                 case 'drawing':
                     return `
                         <div class="canvas-container">
-                            <canvas class="drawing-canvas" id="canvas-${index}" width="60" height="60" onmousedown="onProblemFocus(${index})" ontouchstart="onProblemFocus(${index})"></canvas>
+                            <canvas class="drawing-canvas" id="canvas-${index}" width="60" height="60"></canvas>
                             <div class="canvas-controls">
                                 <button class="canvas-btn btn-secondary" onclick="clearCanvas(${index})">Clear</button>
                                 <button class="canvas-btn btn-primary" onclick="recognizeDrawing(${index})">Done</button>
@@ -2790,7 +2587,7 @@
                 case 'voice':
                     return `
                         <div class="voice-container">
-                            <button class="voice-btn" id="voice-btn-${index}" onclick="onProblemFocus(${index}); startVoiceRecognition(${index})">🎤</button>
+                            <button class="voice-btn" id="voice-btn-${index}" onclick="startVoiceRecognition(${index})">🎤</button>
                             <div class="voice-result" id="voice-result-${index}"></div>
                         </div>
                     `;
@@ -3126,7 +2923,6 @@
         function checkAnswers() {
             let correct = 0;
             let incorrect = 0;
-            const commonMistakesMode = document.getElementById('commonMistakesMode').checked;
 
             problems.forEach((problem, index) => {
                 const isCorrect = problem.userAnswer === problem.correctOperator;
@@ -3134,17 +2930,8 @@
                 if (problem.userAnswer) {
                     if (isCorrect) {
                         correct++;
-                        // Clear timer if answer is correct
-                        if (problemTimers[index]) {
-                            clearTimeout(problemTimers[index]);
-                            delete problemTimers[index];
-                        }
                     } else {
                         incorrect++;
-                        // Show hint on incorrect answer in Common Mistakes mode
-                        if (commonMistakesMode && problem.mistakeType && !showVisualAids[index]) {
-                            showHint(index);
-                        }
                     }
                 }
 
@@ -3292,49 +3079,19 @@
             window.print();
         }
 
-        // Store original input method before print
-        let originalInputMethod = null;
-
         // Listen to print events for proper hiding/showing
         window.onbeforeprint = function() {
             const includeLearningGuide = document.getElementById('includeLearningGuide').checked;
-            const includeVisualAids = document.getElementById('includeVisualAids').checked;
             const educationalContent = document.querySelector('.educational-content');
-            const visualAids = document.querySelectorAll('.visual-aids');
 
-            // Hide learning guide if not included
             if (!includeLearningGuide) {
                 educationalContent.classList.add('hidden-for-print');
-            }
-
-            // Hide visual aids if not included
-            if (!includeVisualAids) {
-                visualAids.forEach(aid => aid.classList.add('hidden-for-print'));
-            }
-
-            // Switch to keyboard input method for printing (shows answer boxes)
-            const currentMethod = document.getElementById('inputMethod').value;
-            if (currentMethod !== 'keyboard') {
-                originalInputMethod = currentMethod;
-                document.getElementById('inputMethod').value = 'keyboard';
-                renderProblems();
             }
         };
 
         window.onafterprint = function() {
             const educationalContent = document.querySelector('.educational-content');
-            const visualAids = document.querySelectorAll('.visual-aids');
-
-            // Remove hidden classes
             educationalContent.classList.remove('hidden-for-print');
-            visualAids.forEach(aid => aid.classList.remove('hidden-for-print'));
-
-            // Restore original input method
-            if (originalInputMethod !== null) {
-                document.getElementById('inputMethod').value = originalInputMethod;
-                renderProblems();
-                originalInputMethod = null;
-            }
         };
 
         function downloadPDF() {
@@ -3371,25 +3128,10 @@
 
             // Check if learning guide should be hidden
             const includeLearningGuide = document.getElementById('includeLearningGuide').checked;
-            const includeVisualAids = document.getElementById('includeVisualAids').checked;
             const educationalContent = document.querySelector('.educational-content');
-            const visualAids = document.querySelectorAll('.visual-aids');
 
             if (!includeLearningGuide) {
                 educationalContent.classList.add('hidden-for-print');
-            }
-
-            // Hide visual aids if not included
-            if (!includeVisualAids) {
-                visualAids.forEach(aid => aid.classList.add('hidden-for-print'));
-            }
-
-            // Switch to keyboard input method for PDF
-            const currentMethod = document.getElementById('inputMethod').value;
-            const needsMethodSwitch = currentMethod !== 'keyboard';
-            if (needsMethodSwitch) {
-                document.getElementById('inputMethod').value = 'keyboard';
-                renderProblems();
             }
 
             // Temporarily hide controls for PDF
@@ -3418,13 +3160,6 @@
                 element.style.cssText = originalContainerStyle;
                 document.getElementById('problemsContainer').style.cssText = originalProblemsStyle;
                 educationalContent.classList.remove('hidden-for-print');
-                visualAids.forEach(aid => aid.classList.remove('hidden-for-print'));
-
-                // Restore original input method
-                if (needsMethodSwitch) {
-                    document.getElementById('inputMethod').value = currentMethod;
-                    renderProblems();
-                }
             });
         }
 
@@ -3439,8 +3174,7 @@
 
             // Version file mapping
             const versionFiles = {
-                '1.4.5': 'fraction-worksheet.html',
-                '1.4.4': 'fraction-worksheet-v1.4.4.html',
+                '1.4.4': 'fraction-worksheet.html',
                 '1.4.3': 'fraction-worksheet-v1.4.3.html',
                 '1.4.2': 'fraction-worksheet-v1.4.2.html',
                 '1.4.1': 'fraction-worksheet-v1.4.1.html',
@@ -3455,7 +3189,6 @@
             };
 
             const versionDescriptions = {
-                '1.4.5': 'Conditional visual aids (show hints only when needed), collapsible sections, print enhancements, selective mistake types',
                 '1.4.4': 'Common Mistakes mode with visual aids (pizza diagrams), targets error patterns for better understanding',
                 '1.4.3': 'CSS-based icons (PDF/print), print headers on all pages, easier defaults (2,4), ordered denominators',
                 '1.4.2': 'Fixed print bug with beforeprint/afterprint events, icon-only buttons, checkbox hides content on screen',
