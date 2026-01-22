@@ -906,17 +906,17 @@
                 font-size: 9pt;
             }
 
-            /* Ensure maximum 20 problems per page */
-            .problem:nth-child(20) {
+            /* Conditional page breaks - only applied when needed */
+            .problems-container.has-page-breaks .problem:nth-child(20) {
                 page-break-after: always;
             }
 
-            .problem:nth-child(n+21) {
+            .problems-container.has-page-breaks .problem:nth-child(n+21) {
                 page-break-before: always;
             }
 
-            /* Force page break after problems container */
-            .problems-container {
+            /* Only add page break after problems container when needed */
+            .problems-container.has-page-breaks {
                 page-break-after: always;
             }
 
@@ -1184,7 +1184,7 @@
                     <!-- 1950 - Grandparents (98.5%) -->
                     <div style="position: absolute; left: calc(20px + 98.5% * (100% - 40px)); top: 50%; transform: translateY(-50%);">
                         <div style="width: 12px; height: 12px; background: white; border: 2px solid #FF9800; border-radius: 50%;"></div>
-                        <div style="position: absolute; top: 25px; left: 50%; transform: translateX(-50%); text-align: center; white-space: nowrap; font-size: 0.75em; color: #F57C00;">
+                        <div style="position: absolute; top: 25px; left: 0; transform: translateX(-120%); text-align: right; white-space: nowrap; font-size: 0.75em; color: #F57C00;">
                             1950<br>👵👴
                         </div>
                     </div>
@@ -1192,7 +1192,7 @@
                     <!-- 1980 - Parents (99.1%) -->
                     <div style="position: absolute; left: calc(20px + 99.1% * (100% - 40px)); top: 50%; transform: translateY(-50%);">
                         <div style="width: 12px; height: 12px; background: white; border: 2px solid #4CAF50; border-radius: 50%;"></div>
-                        <div style="position: absolute; top: -70px; left: 50%; transform: translateX(-50%); text-align: center; white-space: nowrap; font-size: 0.75em; color: #2E7D32;">
+                        <div style="position: absolute; top: -70px; left: 0; transform: translateX(-50%); text-align: center; white-space: nowrap; font-size: 0.75em; color: #2E7D32;">
                             1980<br>👨👩
                         </div>
                     </div>
@@ -1200,7 +1200,7 @@
                     <!-- 2016 - 9-year-old born (99.8%) -->
                     <div style="position: absolute; left: calc(20px + 99.8% * (100% - 40px)); top: 50%; transform: translateY(-50%);">
                         <div style="width: 12px; height: 12px; background: white; border: 2px solid #2196F3; border-radius: 50%;"></div>
-                        <div style="position: absolute; top: 25px; left: 50%; transform: translateX(-50%); text-align: center; white-space: nowrap; font-size: 0.75em; color: #1565C0;">
+                        <div style="position: absolute; top: 25px; left: 0; transform: translateX(20%); text-align: left; white-space: nowrap; font-size: 0.75em; color: #1565C0;">
                             2016<br>🧒
                         </div>
                     </div>
@@ -2069,6 +2069,13 @@
             const container = document.getElementById('problemsContainer');
             const method = document.getElementById('inputMethod').value;
             container.innerHTML = '';
+
+            // Add or remove page break class based on number of problems
+            if (problems.length > 20) {
+                container.classList.add('has-page-breaks');
+            } else {
+                container.classList.remove('has-page-breaks');
+            }
 
             problems.forEach((problem, index) => {
                 const problemDiv = document.createElement('div');
