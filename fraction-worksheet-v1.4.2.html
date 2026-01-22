@@ -209,95 +209,29 @@
 
         /* ===== ICON BUTTONS ===== */
         .icon-btn {
-            background: #f5f5f5;
-            border: 1px solid #ddd;
+            background: none;
+            border: none;
             cursor: pointer;
-            padding: 8px 12px;
-            border-radius: 4px;
+            padding: 8px;
+            border-radius: 50%;
             display: inline-flex;
             align-items: center;
             justify-content: center;
             transition: all 0.2s ease;
-            color: #333;
-            min-width: 44px;
-            min-height: 44px;
+            color: var(--md-primary);
         }
 
         .icon-btn:hover {
-            background: #e8e8e8;
-            border-color: var(--md-primary);
-            transform: translateY(-2px);
-            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            background: rgba(103, 58, 183, 0.1);
+            transform: scale(1.1);
         }
 
         .icon-btn:active {
-            transform: translateY(0);
-            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+            transform: scale(0.95);
         }
 
-        /* Print Icon (CSS-based) */
-        .print-icon {
-            width: 24px;
-            height: 24px;
-            border: 2px solid #333;
-            border-radius: 2px;
-            position: relative;
-            background: white;
-        }
-
-        .print-icon::before {
-            content: '';
-            position: absolute;
-            top: -6px;
-            left: 3px;
-            right: 3px;
-            height: 6px;
-            background: #666;
-            border-radius: 2px 2px 0 0;
-        }
-
-        .print-icon::after {
-            content: '';
-            position: absolute;
-            bottom: 4px;
-            left: 4px;
-            right: 4px;
-            height: 8px;
-            background: linear-gradient(#333 2px, transparent 2px, transparent 4px, #333 4px);
-        }
-
-        /* PDF Icon (CSS-based) */
-        .pdf-icon {
-            width: 24px;
-            height: 28px;
-            background: linear-gradient(135deg, #dc3545 0%, #dc3545 70%, #fff 70%, #fff 100%);
-            border-radius: 2px;
-            position: relative;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.3);
-        }
-
-        .pdf-icon::before {
-            content: 'PDF';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: white;
-            font-weight: bold;
-            font-size: 8px;
-            letter-spacing: -0.5px;
-        }
-
-        .pdf-icon::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 6px;
-            height: 6px;
-            background: #fff;
-            border-left: 1px solid #ccc;
-            border-bottom: 1px solid #ccc;
+        .icon-btn .material-icons {
+            font-size: 28px;
         }
 
         /* ===== INSTRUCTIONS (MATERIAL CARD) ===== */
@@ -942,31 +876,10 @@
                 display: none !important;
             }
 
-            /* Add header to every page */
-            body::before {
-                content: "Fraction Comparison Practice";
-                position: fixed;
-                top: 0;
-                left: 0;
-                right: 0;
-                height: 40px;
-                background: white;
-                border-bottom: 2px solid #333;
-                font-size: 1.4em;
-                font-weight: 600;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                color: black;
-                z-index: 1000;
-            }
-
-            .container {
-                margin-top: 50px !important;
-            }
-
             h1 {
-                display: none;
+                font-size: 1.8em;
+                margin-bottom: 15px;
+                color: black;
             }
 
             .problems-container {
@@ -1142,10 +1055,9 @@
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
             <h1 class="md-headline-4" style="margin: 0;">Fraction Comparison Practice</h1>
             <div style="display: flex; align-items: center; gap: 10px;">
-                <span style="font-size: 0.9rem; color: #666; font-weight: 500;">v<span id="currentVersion">1.4.3</span></span>
+                <span style="font-size: 0.9rem; color: #666; font-weight: 500;">v<span id="currentVersion">1.4.2</span></span>
                 <select id="versionSelector" style="padding: 4px 8px; border-radius: 4px; border: 1px solid var(--md-primary); background: white; color: var(--md-primary); font-size: 0.85rem; cursor: pointer;">
-                    <option value="1.4.3">Version 1.4.3 (Current)</option>
-                    <option value="1.4.2">Version 1.4.2</option>
+                    <option value="1.4.2">Version 1.4.2 (Current)</option>
                     <option value="1.4.1">Version 1.4.1</option>
                     <option value="1.4.0">Version 1.4.0</option>
                     <option value="1.3.3">Version 1.3.3</option>
@@ -1185,13 +1097,10 @@
                 <div class="control-group">
                     <label for="denominators">Denominators:</label>
                     <select id="denominators">
-                        <option value="2,4" selected>2 and 4 (Easiest)</option>
-                        <option value="3,6">3 and 6 (Easy)</option>
-                        <option value="4,8">4 and 8 (Medium)</option>
-                        <option value="5,10">5 and 10 (Medium)</option>
-                        <option value="6,8,10,12">6, 8, 10, and 12 (Hard)</option>
-                        <option value="10,12,20">10, 12, and 20 (Harder)</option>
-                        <option value="2,3,4,5,6,7,8,9,10,11,12">All (2-12) (Hardest)</option>
+                        <option value="12,20" selected>12 and 20</option>
+                        <option value="10,12,20">10, 12, and 20</option>
+                        <option value="6,8,10,12">6, 8, 10, and 12</option>
+                        <option value="2,3,4,5,6,7,8,9,10,11,12">All (2-12)</option>
                     </select>
                 </div>
             </div>
@@ -1209,10 +1118,10 @@
                 <button class="btn-secondary" onclick="showAnswers()">Show Answers</button>
                 <button class="btn-danger" onclick="clearAnswers()">Clear Answers</button>
                 <button class="icon-btn" onclick="printWorksheet()" title="Print Worksheet">
-                    <div class="print-icon"></div>
+                    <span class="material-icons">print</span>
                 </button>
                 <button class="icon-btn" onclick="downloadPDF()" title="Download as PDF">
-                    <div class="pdf-icon"></div>
+                    <span class="material-icons">picture_as_pdf</span>
                 </button>
             </div>
         </div>
@@ -2035,19 +1944,7 @@
                 <h3>📦 Version History</h3>
 
                 <div class="version-item">
-                    <strong>Version 1.4.3</strong> (2026-01-22) - Current<br>
-                    🎨 <strong>Icon redesign:</strong> Replaced Material Icons with CSS-based icons (print, PDF)<br>
-                    📐 Changed buttons from circular to rectangular/square with borders<br>
-                    📋 PDF icon styled like actual PDF document (red with folded corner)<br>
-                    🖨️ Print icon styled like actual printer<br>
-                    📄 <strong>Print headers:</strong> Added "Fraction Comparison Practice" header to every printed page<br>
-                    🎯 <strong>Easier defaults:</strong> Changed default denominators from 12,20 to 2,4 (much easier)<br>
-                    📊 <strong>Ordered denominators:</strong> Sorted from easiest to hardest with difficulty labels<br>
-                    ✨ New order: 2,4 (Easiest) → 3,6 (Easy) → 4,8 (Medium) → 5,10 (Medium) → 6,8,10,12 (Hard) → 10,12,20 (Harder) → All 2-12 (Hardest)
-                </div>
-
-                <div class="version-item">
-                    <strong>Version 1.4.2</strong> (2026-01-22)<br>
+                    <strong>Version 1.4.2</strong> (2026-01-22) - Current<br>
                     🖨️ <strong>Fixed print bug:</strong> Learning Guide now stays hidden when changing scale/settings<br>
                     ✅ Implemented proper beforeprint/afterprint events instead of setTimeout<br>
                     📦 Learning Guide checkbox now hides/shows content on screen (not just print)<br>
@@ -3008,8 +2905,7 @@
 
             // Version file mapping
             const versionFiles = {
-                '1.4.3': 'fraction-worksheet.html',
-                '1.4.2': 'fraction-worksheet-v1.4.2.html',
+                '1.4.2': 'fraction-worksheet.html',
                 '1.4.1': 'fraction-worksheet-v1.4.1.html',
                 '1.4.0': 'fraction-worksheet-v1.4.0.html',
                 '1.3.3': 'fraction-worksheet-v1.3.3.html',
@@ -3022,7 +2918,6 @@
             };
 
             const versionDescriptions = {
-                '1.4.3': 'CSS-based icons (PDF/print), print headers on all pages, easier defaults (2,4), ordered denominators',
                 '1.4.2': 'Fixed print bug with beforeprint/afterprint events, icon-only buttons, checkbox hides content on screen',
                 '1.4.1': 'Reverted to v1.0.0 print styles (better margins), icon buttons, timeline with 5 segments',
                 '1.4.0': 'Working version switcher with saved files, timeline completely redesigned with zoom box',
