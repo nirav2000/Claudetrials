@@ -846,7 +846,8 @@
             .score,
             .canvas-controls,
             .voice-btn,
-            button {
+            button,
+            #versionSelector {
                 display: none !important;
             }
 
@@ -1078,7 +1079,21 @@
 </head>
 <body>
     <div class="container">
-        <h1 class="md-headline-4">Fraction Comparison Practice</h1>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+            <h1 class="md-headline-4" style="margin: 0;">Fraction Comparison Practice</h1>
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <span style="font-size: 0.9rem; color: #666; font-weight: 500;">v<span id="currentVersion">1.3.3</span></span>
+                <select id="versionSelector" style="padding: 4px 8px; border-radius: 4px; border: 1px solid var(--md-primary); background: white; color: var(--md-primary); font-size: 0.85rem; cursor: pointer;">
+                    <option value="1.3.3">Version 1.3.3 (Current)</option>
+                    <option value="1.3.2">Version 1.3.2</option>
+                    <option value="1.3.1">Version 1.3.1</option>
+                    <option value="1.3.0">Version 1.3.0</option>
+                    <option value="1.2.0">Version 1.2.0</option>
+                    <option value="1.1.0">Version 1.1.0</option>
+                    <option value="1.0.0">Version 1.0.0</option>
+                </select>
+            </div>
+        </div>
 
         <!-- Controls Section -->
         <div class="controls">
@@ -1278,7 +1293,7 @@
             <div class="strategy-box">
                 <div style="display: flex; align-items: flex-start; gap: 20px;">
                     <div style="flex: 1;">
-                        <h4>📜 Ancient Egypt (~3000 BC)</h4>
+                        <h4>📜 Ancient Egypt 🇪🇬 (~3000 BC)</h4>
                         <p>The ancient Egyptians were among the first to use fractions. They needed fractions to divide food, land, and supplies fairly among people. They mainly used "unit fractions" (fractions with 1 as the numerator), like 1/2, 1/3, 1/4.</p>
 
                         <p><strong>Egyptian Hieroglyph for Fractions:</strong></p>
@@ -1291,8 +1306,6 @@
                                 </div>
                             </div>
                         </div>
-
-                        <p><strong>Egyptian Flag Colors:</strong> <span style="display: inline-block; width: 30px; height: 20px; background: linear-gradient(to bottom, #CE1126 33%, #FFFFFF 33%, #FFFFFF 66%, #000000 66%); border: 1px solid #999; vertical-align: middle;"></span> Red, White, and Black with golden eagle</p>
                     </div>
                 </div>
             </div>
@@ -1300,21 +1313,8 @@
             <div class="strategy-box">
                 <div style="display: flex; align-items: flex-start; gap: 20px;">
                     <div style="flex: 1;">
-                        <h4>🕉️ Ancient India (~600 BC to 500 AD)</h4>
+                        <h4>🕉️ Ancient India 🇮🇳 (~600 BC to 500 AD)</h4>
                         <p><strong>Indian mathematicians made huge contributions to fractions!</strong> In ancient India, mathematicians like <strong>Aryabhata</strong> (476-550 AD) and <strong>Brahmagupta</strong> (598-668 AD) developed advanced fraction systems.</p>
-
-                        <div style="background: #FFF3E0; padding: 15px; border-radius: 4px; border: 2px solid #FF9800; margin: 10px 0;">
-                            <div style="text-align: center;">
-                                <div style="font-size: 2em; margin-bottom: 10px;">🕉️ ☸️ 📿</div>
-                                <div style="font-size: 0.9em;">
-                                    <strong>Indian Flag Colors:</strong><br>
-                                    <span style="display: inline-block; width: 40px; height: 10px; background: #FF9933; vertical-align: middle;"></span>
-                                    <span style="display: inline-block; width: 40px; height: 10px; background: #FFFFFF; border: 1px solid #999; vertical-align: middle;"></span>
-                                    <span style="display: inline-block; width: 40px; height: 10px; background: #138808; vertical-align: middle;"></span>
-                                    with ⚫ Ashoka Chakra (24 spokes)
-                                </div>
-                            </div>
-                        </div>
 
                         <p><strong>Key Contributions:</strong></p>
                         <ul>
@@ -1679,37 +1679,37 @@
                 <h4>⏰ Time Management</h4>
                 <p>An hour has 60 minutes. Let's see how fractions help us understand time:</p>
 
-                <div class="visual-fraction-demo" style="flex-direction: column; align-items: flex-start;">
-                    <strong>Your afternoon:</strong><br>
-                    <div style="display: flex; margin: 10px 0;">
-                        <div><strong>Homework:</strong></div>
-                        <div style="display: flex; margin-left: 10px;">
-                            <div class="book-page filled"></div>
-                            <div class="book-page filled"></div>
-                            <div class="book-page filled"></div>
-                            <div class="book-page"></div>
+                <div class="visual-fraction-demo" style="flex-direction: column; align-items: flex-start; gap: 15px;">
+                    <strong>Your afternoon (each bar = 1 hour):</strong><br>
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <div style="min-width: 100px;"><strong>Homework:</strong></div>
+                        <div class="fraction-bar">
+                            <div class="fraction-part filled" style="width: 35px; height: 30px;"></div>
+                            <div class="fraction-part" style="width: 35px; height: 30px;"></div>
+                            <div class="fraction-part" style="width: 35px; height: 30px;"></div>
+                            <div class="fraction-part" style="width: 35px; height: 30px;"></div>
                         </div>
-                        <span style="margin-left: 10px;">15 min = 15/60 = 1/4 hour</span>
+                        <span>15 min = 15/60 = 1/4 hour</span>
                     </div>
-                    <div style="display: flex; margin: 10px 0;">
-                        <div><strong>Video games:</strong></div>
-                        <div style="display: flex; margin-left: 10px;">
-                            <div class="book-page filled"></div>
-                            <div class="book-page filled"></div>
-                            <div class="book-page"></div>
-                            <div class="book-page"></div>
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <div style="min-width: 100px;"><strong>Video games:</strong></div>
+                        <div class="fraction-bar">
+                            <div class="fraction-part filled" style="width: 35px; height: 30px;"></div>
+                            <div class="fraction-part filled" style="width: 35px; height: 30px;"></div>
+                            <div class="fraction-part" style="width: 35px; height: 30px;"></div>
+                            <div class="fraction-part" style="width: 35px; height: 30px;"></div>
                         </div>
-                        <span style="margin-left: 10px;">30 min = 30/60 = 1/2 hour</span>
+                        <span>30 min = 30/60 = 1/2 hour</span>
                     </div>
-                    <div style="display: flex; margin: 10px 0;">
-                        <div><strong>Reading:</strong></div>
-                        <div style="display: flex; margin-left: 10px;">
-                            <div class="book-page filled"></div>
-                            <div class="book-page"></div>
-                            <div class="book-page"></div>
-                            <div class="book-page"></div>
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <div style="min-width: 100px;"><strong>Reading:</strong></div>
+                        <div class="fraction-bar">
+                            <div class="fraction-part filled" style="width: 35px; height: 30px;"></div>
+                            <div class="fraction-part" style="width: 35px; height: 30px;"></div>
+                            <div class="fraction-part" style="width: 35px; height: 30px;"></div>
+                            <div class="fraction-part" style="width: 35px; height: 30px;"></div>
                         </div>
-                        <span style="margin-left: 10px;">15 min = 15/60 = 1/4 hour</span>
+                        <span>15 min = 15/60 = 1/4 hour</span>
                     </div>
                 </div>
 
@@ -1895,7 +1895,18 @@
                 <h3>📦 Version History</h3>
 
                 <div class="version-item">
-                    <strong>Version 1.3.2</strong> (2026-01-22) - Current<br>
+                    <strong>Version 1.3.3</strong> (2026-01-22) - Current<br>
+                    🏁 Added flag emojis next to country names (Egypt 🇪🇬, India 🇮🇳)<br>
+                    🗑️ Removed flag description text for cleaner presentation<br>
+                    ⏰ Fixed homework bar to correctly show 1/4 hour (not 3/4)<br>
+                    📊 Updated all time management bars to use new fraction-bar design<br>
+                    📌 Added version number display in top right corner<br>
+                    🔄 Added version switcher dropdown for navigating between versions<br>
+                    ✅ Version switcher includes descriptions and navigation guidance
+                </div>
+
+                <div class="version-item">
+                    <strong>Version 1.3.2</strong> (2026-01-22)<br>
                     🎯 Fixed fraction visuals to show ONE whole divided into parts (not separate squares)<br>
                     📊 Redesigned all fraction bars to clearly display single shapes divided into sections<br>
                     🧮 Added numbered parts to make counting easier<br>
@@ -2785,6 +2796,63 @@
                 educationalContent.classList.remove('hidden-for-print');
             });
         }
+
+        // ===== VERSION SWITCHER =====
+        document.getElementById('versionSelector').addEventListener('change', function(e) {
+            const selectedVersion = e.target.value;
+            const currentVersion = document.getElementById('currentVersion').textContent;
+
+            if (selectedVersion === currentVersion) {
+                return; // Already on this version
+            }
+
+            // Version file mapping
+            const versionFiles = {
+                '1.3.3': 'fraction-worksheet.html',
+                '1.3.2': 'fraction-worksheet-v1.3.2.html',
+                '1.3.1': 'fraction-worksheet-v1.3.1.html',
+                '1.3.0': 'fraction-worksheet-v1.3.0.html',
+                '1.2.0': 'fraction-worksheet-v1.2.0.html',
+                '1.1.0': 'fraction-worksheet-v1.1.0.html',
+                '1.0.0': 'fraction-worksheet-v1.0.0.html'
+            };
+
+            const versionDescriptions = {
+                '1.3.3': 'Flag emojis, fixed homework bar, version number display and switcher',
+                '1.3.2': 'Fixed fraction visuals to show ONE whole divided into parts, conditional page breaks, timeline fixes',
+                '1.3.1': 'Fixed page breaks, to-scale timeline, historical illustrations',
+                '1.3.0': 'Enhanced educational content with visual aids',
+                '1.2.0': 'Material Design and A4 optimization',
+                '1.1.0': 'Added README and TODO files',
+                '1.0.0': 'Initial release with 4 input methods'
+            };
+
+            const confirmSwitch = confirm(
+                `Switch to Version ${selectedVersion}?\n\n` +
+                `${versionDescriptions[selectedVersion]}\n\n` +
+                `Note: To access previous versions, you can:\n` +
+                `1. Use git to checkout previous commits\n` +
+                `2. Save copies of each version as separate files (e.g., ${versionFiles[selectedVersion]})\n` +
+                `3. Check the Version History section for details\n\n` +
+                `This feature requires version files to exist. Currently scrolling to version history.`
+            );
+
+            if (confirmSwitch) {
+                // Scroll to version history section
+                const versionHistory = document.querySelector('.version-history');
+                if (versionHistory) {
+                    versionHistory.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    // Highlight the version history temporarily
+                    versionHistory.style.backgroundColor = '#FFF9C4';
+                    setTimeout(() => {
+                        versionHistory.style.backgroundColor = '';
+                    }, 2000);
+                }
+            }
+
+            // Reset selector to current version
+            e.target.value = currentVersion;
+        });
     </script>
 </body>
 </html>
