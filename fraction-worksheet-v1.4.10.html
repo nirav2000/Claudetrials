@@ -2502,18 +2502,18 @@
                 <div class="collapsible-content" id="versionHistoryContent" style="display: none;">
                 <div class="version-item">
                     <strong>Version 1.4.10</strong> (2026-01-23) - Current<br>
-                    🖨️ <strong>Fixed Print Issues (Actually Fixed):</strong> Collapsed sections forced hidden with inline styles<br>
-                    &nbsp;&nbsp;&nbsp;• Previous CSS class approach didn't work - specificity issues<br>
-                    &nbsp;&nbsp;&nbsp;• Now using inline `style="display: none !important"` via setAttribute<br>
-                    &nbsp;&nbsp;&nbsp;• Stores original styles and restores after print<br>
-                    &nbsp;&nbsp;&nbsp;• Works for both window.print() and PDF download<br>
-                    📱 <strong>Fixed Mobile Layout (No Cutting Off Text):</strong> Content fits naturally without hiding overflow<br>
-                    &nbsp;&nbsp;&nbsp;• REMOVED overflow-x: hidden (was cutting off text/bars)<br>
-                    &nbsp;&nbsp;&nbsp;• Scaled pizza SVGs to 60px on mobile<br>
-                    &nbsp;&nbsp;&nbsp;• Changed comparison boxes to stack vertically (flex-direction: column)<br>
-                    &nbsp;&nbsp;&nbsp;• Reduced gaps and padding to fit 390px viewport<br>
-                    &nbsp;&nbsp;&nbsp;• Made fraction-part flexible with min-width<br>
-                    &nbsp;&nbsp;&nbsp;• All content now fits AND is readable
+                    🖨️ <strong>Fixed Print Issues (Properly):</strong> Collapsed sections now truly hidden when printing<br>
+                    &nbsp;&nbsp;&nbsp;• Added .collapsible-content.hidden-for-print CSS rule<br>
+                    &nbsp;&nbsp;&nbsp;• Previous version added class but CSS rule was missing<br>
+                    &nbsp;&nbsp;&nbsp;• Now works correctly for all collapsed sections<br>
+                    📱 <strong>Fixed Mobile Horizontal Scroll:</strong> No more horizontal scrolling on small screens<br>
+                    &nbsp;&nbsp;&nbsp;• Reduced comparison box gaps from 40px to 15px on mobile<br>
+                    &nbsp;&nbsp;&nbsp;• Scaled pizza SVGs to max 70px on mobile<br>
+                    &nbsp;&nbsp;&nbsp;• Made all flex containers wrap on mobile<br>
+                    &nbsp;&nbsp;&nbsp;• Reduced padding on strategy boxes<br>
+                    &nbsp;&nbsp;&nbsp;• Scaled "vs" text from 2em to 1.2em<br>
+                    &nbsp;&nbsp;&nbsp;• Added overflow-x: hidden to body and containers<br>
+                    &nbsp;&nbsp;&nbsp;• All content now fits within 390px viewport (iPhone 13)
                 </div>
 
                 <div class="version-item">
@@ -4160,7 +4160,7 @@
             };
 
             const versionDescriptions = {
-                '1.4.10': 'Print: Inline style approach. Mobile: Vertical stacking, no overflow-x hidden, content fits naturally at 390px',
+                '1.4.10': 'PROPERLY fixed print and mobile issues: Added missing CSS rule for collapsed sections, scaled pizza SVGs to 70px, reduced gaps, no horizontal scroll',
                 '1.4.9': 'Incomplete fixes - JavaScript logic correct but CSS rule missing, mobile improvements partial',
                 '1.4.8': 'Fixed child icon to light brown skin tone, fixed misconceptions diagram rendering bug, updated FEATURES_TODO with timestamps',
                 '1.4.7': 'Visual misconceptions illustrations, unified markdown viewer, collapsible resources, fixed hint toggle and visual aids',
