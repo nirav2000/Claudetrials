@@ -1059,7 +1059,7 @@
             }
 
             h1::after {
-                content: "v1.4.10";
+                content: "v1.4.9";
                 font-size: 0.7em;
                 color: #666;
                 font-weight: normal;
@@ -1310,10 +1310,9 @@
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
             <h1 class="md-headline-4" style="margin: 0;">Fraction Comparison Practice</h1>
             <div style="display: flex; align-items: center; gap: 10px;">
-                <span style="font-size: 0.9rem; color: #666; font-weight: 500;">v<span id="currentVersion">1.4.10</span></span>
+                <span style="font-size: 0.9rem; color: #666; font-weight: 500;">v<span id="currentVersion">1.4.9</span></span>
                 <select id="versionSelector" style="padding: 4px 8px; border-radius: 4px; border: 1px solid var(--md-primary); background: white; color: var(--md-primary); font-size: 0.85rem; cursor: pointer;">
-                    <option value="1.4.10">Version 1.4.10 (Current)</option>
-                    <option value="1.4.9">Version 1.4.9</option>
+                    <option value="1.4.9">Version 1.4.9 (Current)</option>
                     <option value="1.4.8">Version 1.4.8</option>
                     <option value="1.4.7">Version 1.4.7</option>
                     <option value="1.4.6">Version 1.4.6</option>
@@ -2438,25 +2437,16 @@
 
                 <div class="collapsible-content" id="versionHistoryContent" style="display: none;">
                 <div class="version-item">
-                    <strong>Version 1.4.10</strong> (2026-01-23) - Current<br>
-                    🖨️ <strong>Fixed Print Issues (Properly):</strong> Collapsed sections truly respect display state now<br>
-                    &nbsp;&nbsp;&nbsp;• Added class-based approach with 'collapsed-section' class<br>
-                    &nbsp;&nbsp;&nbsp;• Class automatically added/removed by toggleSection()<br>
-                    &nbsp;&nbsp;&nbsp;• Initialized on page load for all collapsed sections<br>
-                    &nbsp;&nbsp;&nbsp;• Print CSS now properly hides .collapsed-section elements<br>
-                    📱 <strong>Fixed Mobile Text Overflow:</strong> Content no longer cuts off on small screens<br>
-                    &nbsp;&nbsp;&nbsp;• Added overflow-x: hidden to body and container<br>
-                    &nbsp;&nbsp;&nbsp;• Added word-wrap and overflow-wrap for all text elements<br>
-                    &nbsp;&nbsp;&nbsp;• Limited max-width to 100vw/100% throughout<br>
-                    &nbsp;&nbsp;&nbsp;• Ensured strategy boxes and fraction bars fit mobile screens
-                </div>
-
-                <div class="version-item">
-                    <strong>Version 1.4.9</strong> (2026-01-23)<br>
-                    🖨️ <strong>Print Issues (Initial Attempt):</strong> First attempt at fixing collapsed sections<br>
-                    &nbsp;&nbsp;&nbsp;• Added attribute selector for display:none (insufficient)<br>
-                    📱 <strong>Mobile Improvements (Initial):</strong> First mobile fixes<br>
-                    &nbsp;&nbsp;&nbsp;• Header stacking and sizing adjustments
+                    <strong>Version 1.4.9</strong> (2026-01-23) - Current<br>
+                    🖨️ <strong>Fixed Print Issues:</strong> Collapsed sections now respect display state<br>
+                    &nbsp;&nbsp;&nbsp;• Collapsed sections no longer print when hidden<br>
+                    &nbsp;&nbsp;&nbsp;• Added print styles to honor inline display:none<br>
+                    &nbsp;&nbsp;&nbsp;• Respects "Include Learning Guide in Print/PDF" checkbox<br>
+                    📱 <strong>Mobile Improvements:</strong> Fixed header and content display on mobile devices<br>
+                    &nbsp;&nbsp;&nbsp;• Header now stacks vertically on mobile (version selector visible)<br>
+                    &nbsp;&nbsp;&nbsp;• Learning guide headings sized appropriately for mobile<br>
+                    &nbsp;&nbsp;&nbsp;• Better padding and spacing on small screens<br>
+                    &nbsp;&nbsp;&nbsp;• Timeline scrolls horizontally if needed on mobile
                 </div>
 
                 <div class="version-item">
@@ -4040,8 +4030,7 @@
 
             // Version file mapping
             const versionFiles = {
-                '1.4.10': 'fraction-worksheet.html',
-                '1.4.9': 'fraction-worksheet-v1.4.9.html',
+                '1.4.9': 'fraction-worksheet.html',
                 '1.4.8': 'fraction-worksheet-v1.4.8.html',
                 '1.4.7': 'fraction-worksheet-v1.4.7.html',
                 '1.4.6': 'fraction-worksheet-v1.4.6.html',
@@ -4061,8 +4050,7 @@
             };
 
             const versionDescriptions = {
-                '1.4.10': 'Fixed collapsed sections printing (class-based), fixed mobile text overflow with word-wrap and max-width constraints',
-                '1.4.9': 'Initial attempt at print and mobile fixes (attribute selectors, insufficient)',
+                '1.4.9': 'Fixed print issues with collapsed sections, mobile header and content improvements, better responsive design',
                 '1.4.8': 'Fixed child icon to light brown skin tone, fixed misconceptions diagram rendering bug, updated FEATURES_TODO with timestamps',
                 '1.4.7': 'Visual misconceptions illustrations, unified markdown viewer, collapsible resources, fixed hint toggle and visual aids',
                 '1.4.6': 'Markdown viewer, collapsible Learning Guide, common misconceptions section, hints for ALL questions, 94% print scale, inclusive skin tones',
