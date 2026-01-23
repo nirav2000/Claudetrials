@@ -1059,7 +1059,7 @@
             }
 
             h1::after {
-                content: "v1.4.9";
+                content: "v1.4.8";
                 font-size: 0.7em;
                 color: #666;
                 font-weight: normal;
@@ -1280,10 +1280,9 @@
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
             <h1 class="md-headline-4" style="margin: 0;">Fraction Comparison Practice</h1>
             <div style="display: flex; align-items: center; gap: 10px;">
-                <span style="font-size: 0.9rem; color: #666; font-weight: 500;">v<span id="currentVersion">1.4.9</span></span>
+                <span style="font-size: 0.9rem; color: #666; font-weight: 500;">v<span id="currentVersion">1.4.8</span></span>
                 <select id="versionSelector" style="padding: 4px 8px; border-radius: 4px; border: 1px solid var(--md-primary); background: white; color: var(--md-primary); font-size: 0.85rem; cursor: pointer;">
-                    <option value="1.4.9">Version 1.4.9 (Current)</option>
-                    <option value="1.4.8">Version 1.4.8</option>
+                    <option value="1.4.8">Version 1.4.8 (Current)</option>
                     <option value="1.4.7">Version 1.4.7</option>
                     <option value="1.4.6">Version 1.4.6</option>
                     <option value="1.4.5">Version 1.4.5</option>
@@ -2407,20 +2406,7 @@
 
                 <div class="collapsible-content" id="versionHistoryContent" style="display: none;">
                 <div class="version-item">
-                    <strong>Version 1.4.9</strong> (2026-01-23) - Current<br>
-                    🖨️ <strong>Fixed Print Issues:</strong> Collapsed sections now respect display state<br>
-                    &nbsp;&nbsp;&nbsp;• Collapsed sections no longer print when hidden<br>
-                    &nbsp;&nbsp;&nbsp;• Added print styles to honor inline display:none<br>
-                    &nbsp;&nbsp;&nbsp;• Respects "Include Learning Guide in Print/PDF" checkbox<br>
-                    📱 <strong>Mobile Improvements:</strong> Fixed header and content display on mobile devices<br>
-                    &nbsp;&nbsp;&nbsp;• Header now stacks vertically on mobile (version selector visible)<br>
-                    &nbsp;&nbsp;&nbsp;• Learning guide headings sized appropriately for mobile<br>
-                    &nbsp;&nbsp;&nbsp;• Better padding and spacing on small screens<br>
-                    &nbsp;&nbsp;&nbsp;• Timeline scrolls horizontally if needed on mobile
-                </div>
-
-                <div class="version-item">
-                    <strong>Version 1.4.8</strong> (2026-01-22)<br>
+                    <strong>Version 1.4.8</strong> (2026-01-22) - Current<br>
                     🎨 <strong>Inclusive Representation:</strong> Updated child icon to light brown skin tone (🧒🏽)<br>
                     &nbsp;&nbsp;&nbsp;• Matches parent and grandparent skin tones in Modern Timeline<br>
                     &nbsp;&nbsp;&nbsp;• Better representation for Indian origin child<br>
@@ -3990,8 +3976,7 @@
 
             // Version file mapping
             const versionFiles = {
-                '1.4.9': 'fraction-worksheet.html',
-                '1.4.8': 'fraction-worksheet-v1.4.8.html',
+                '1.4.8': 'fraction-worksheet.html',
                 '1.4.7': 'fraction-worksheet-v1.4.7.html',
                 '1.4.6': 'fraction-worksheet-v1.4.6.html',
                 '1.4.5': 'fraction-worksheet-v1.4.5.html',
@@ -4010,7 +3995,6 @@
             };
 
             const versionDescriptions = {
-                '1.4.9': 'Fixed print issues with collapsed sections, mobile header and content improvements, better responsive design',
                 '1.4.8': 'Fixed child icon to light brown skin tone, fixed misconceptions diagram rendering bug, updated FEATURES_TODO with timestamps',
                 '1.4.7': 'Visual misconceptions illustrations, unified markdown viewer, collapsible resources, fixed hint toggle and visual aids',
                 '1.4.6': 'Markdown viewer, collapsible Learning Guide, common misconceptions section, hints for ALL questions, 94% print scale, inclusive skin tones',
