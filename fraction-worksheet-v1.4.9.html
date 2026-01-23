@@ -607,10 +607,6 @@
             display: none !important;
         }
 
-        .collapsible-content.hidden-for-print {
-            display: none !important;
-        }
-
         .educational-content h2 {
             color: var(--md-primary);
             font-size: 1.75rem;
@@ -1063,7 +1059,7 @@
             }
 
             h1::after {
-                content: "v1.4.10";
+                content: "v1.4.8";
                 font-size: 0.7em;
                 color: #666;
                 font-weight: normal;
@@ -1119,10 +1115,6 @@
             }
 
             .educational-content.hidden-for-print {
-                display: none !important;
-            }
-
-            .collapsible-content.hidden-for-print {
                 display: none !important;
             }
 
@@ -1265,71 +1257,6 @@
             .timeline {
                 overflow-x: auto;
             }
-
-            /* Comprehensive mobile fixes to prevent horizontal scroll */
-            body {
-                overflow-x: hidden;
-            }
-
-            .educational-content {
-                overflow-x: hidden;
-                max-width: 100%;
-                box-sizing: border-box;
-            }
-
-            .educational-content p,
-            .educational-content li,
-            .educational-content h2,
-            .educational-content h3,
-            .educational-content h4 {
-                word-wrap: break-word;
-                overflow-wrap: break-word;
-            }
-
-            /* Scale fraction bars */
-            .fraction-bar {
-                max-width: 100%;
-                overflow-x: auto;
-            }
-
-            .fraction-part {
-                width: 25px;
-                height: 25px;
-                font-size: 0.75rem;
-            }
-
-            .strategy-box, .example-box {
-                overflow-x: hidden;
-                max-width: 100%;
-                box-sizing: border-box;
-                padding: 10px !important;
-            }
-
-            /* Fix misconceptions comparison boxes */
-            .educational-content div[style*="display: flex"][style*="gap: 40px"] {
-                gap: 15px !important;
-                padding: 10px !important;
-                margin: 10px 0 !important;
-                flex-wrap: wrap;
-            }
-
-            .educational-content div[style*="display: flex"][style*="gap: 20px"] {
-                gap: 10px !important;
-                flex-wrap: wrap;
-            }
-
-            /* Scale pizza diagrams on mobile */
-            .educational-content svg {
-                max-width: 70px !important;
-                max-height: 70px !important;
-                width: auto !important;
-                height: auto !important;
-            }
-
-            /* Make "vs" text smaller */
-            .educational-content div[style*="font-size: 2em"] {
-                font-size: 1.2em !important;
-            }
         }
 
         /* ===== UTILITY CLASSES ===== */
@@ -1353,11 +1280,9 @@
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
             <h1 class="md-headline-4" style="margin: 0;">Fraction Comparison Practice</h1>
             <div style="display: flex; align-items: center; gap: 10px;">
-                <span style="font-size: 0.9rem; color: #666; font-weight: 500;">v<span id="currentVersion">1.4.10</span></span>
+                <span style="font-size: 0.9rem; color: #666; font-weight: 500;">v<span id="currentVersion">1.4.8</span></span>
                 <select id="versionSelector" style="padding: 4px 8px; border-radius: 4px; border: 1px solid var(--md-primary); background: white; color: var(--md-primary); font-size: 0.85rem; cursor: pointer;">
-                    <option value="1.4.10">Version 1.4.10 (Current)</option>
-                    <option value="1.4.9">Version 1.4.9</option>
-                    <option value="1.4.8">Version 1.4.8</option>
+                    <option value="1.4.8">Version 1.4.8 (Current)</option>
                     <option value="1.4.7">Version 1.4.7</option>
                     <option value="1.4.6">Version 1.4.6</option>
                     <option value="1.4.5">Version 1.4.5</option>
@@ -2481,31 +2406,7 @@
 
                 <div class="collapsible-content" id="versionHistoryContent" style="display: none;">
                 <div class="version-item">
-                    <strong>Version 1.4.10</strong> (2026-01-23) - Current<br>
-                    🖨️ <strong>Fixed Print Issues (Properly):</strong> Collapsed sections now truly hidden when printing<br>
-                    &nbsp;&nbsp;&nbsp;• Added .collapsible-content.hidden-for-print CSS rule<br>
-                    &nbsp;&nbsp;&nbsp;• Previous version added class but CSS rule was missing<br>
-                    &nbsp;&nbsp;&nbsp;• Now works correctly for all collapsed sections<br>
-                    📱 <strong>Fixed Mobile Horizontal Scroll:</strong> No more horizontal scrolling on small screens<br>
-                    &nbsp;&nbsp;&nbsp;• Reduced comparison box gaps from 40px to 15px on mobile<br>
-                    &nbsp;&nbsp;&nbsp;• Scaled pizza SVGs to max 70px on mobile<br>
-                    &nbsp;&nbsp;&nbsp;• Made all flex containers wrap on mobile<br>
-                    &nbsp;&nbsp;&nbsp;• Reduced padding on strategy boxes<br>
-                    &nbsp;&nbsp;&nbsp;• Scaled "vs" text from 2em to 1.2em<br>
-                    &nbsp;&nbsp;&nbsp;• Added overflow-x: hidden to body and containers<br>
-                    &nbsp;&nbsp;&nbsp;• All content now fits within 390px viewport (iPhone 13)
-                </div>
-
-                <div class="version-item">
-                    <strong>Version 1.4.9</strong> (2026-01-23)<br>
-                    ⚠️ <strong>Incomplete Fixes:</strong> JavaScript added class but CSS rule was missing<br>
-                    &nbsp;&nbsp;&nbsp;• Print issue: Class added but no matching CSS rule<br>
-                    &nbsp;&nbsp;&nbsp;• Mobile: Partial fixes, horizontal scroll remained<br>
-                    &nbsp;&nbsp;&nbsp;• Superseded by v1.4.10
-                </div>
-
-                <div class="version-item">
-                    <strong>Version 1.4.8</strong> (2026-01-22)<br>
+                    <strong>Version 1.4.8</strong> (2026-01-22) - Current<br>
                     🎨 <strong>Inclusive Representation:</strong> Updated child icon to light brown skin tone (🧒🏽)<br>
                     &nbsp;&nbsp;&nbsp;• Matches parent and grandparent skin tones in Modern Timeline<br>
                     &nbsp;&nbsp;&nbsp;• Better representation for Indian origin child<br>
@@ -3930,7 +3831,6 @@
 
         // Store original input method before print
         let originalInputMethod = null;
-        let collapsedSectionsBeforePrint = []; // Track collapsed sections for print
 
         // Listen to print events for proper hiding/showing
         window.onbeforeprint = function() {
@@ -3949,15 +3849,6 @@
                 visualAids.forEach(aid => aid.classList.add('hidden-for-print'));
             }
 
-            // Find and hide all collapsed sections
-            collapsedSectionsBeforePrint = [];
-            document.querySelectorAll('.collapsible-content').forEach(el => {
-                if (el.style.display === 'none') {
-                    collapsedSectionsBeforePrint.push(el.id);
-                    el.classList.add('hidden-for-print');
-                }
-            });
-
             // Switch to keyboard input method for printing (shows answer boxes)
             const currentMethod = document.getElementById('inputMethod').value;
             if (currentMethod !== 'keyboard') {
@@ -3974,15 +3865,6 @@
             // Remove hidden classes
             educationalContent.classList.remove('hidden-for-print');
             visualAids.forEach(aid => aid.classList.remove('hidden-for-print'));
-
-            // Restore collapsed sections
-            collapsedSectionsBeforePrint.forEach(id => {
-                const el = document.getElementById(id);
-                if (el) {
-                    el.classList.remove('hidden-for-print');
-                }
-            });
-            collapsedSectionsBeforePrint = [];
 
             // Restore original input method
             if (originalInputMethod !== null) {
@@ -4039,15 +3921,6 @@
                 visualAids.forEach(aid => aid.classList.add('hidden-for-print'));
             }
 
-            // Find and hide all collapsed sections
-            const collapsedSectionsForPDF = [];
-            document.querySelectorAll('.collapsible-content').forEach(el => {
-                if (el.style.display === 'none') {
-                    collapsedSectionsForPDF.push(el);
-                    el.classList.add('hidden-for-print');
-                }
-            });
-
             // Switch to keyboard input method for PDF
             const currentMethod = document.getElementById('inputMethod').value;
             const needsMethodSwitch = currentMethod !== 'keyboard';
@@ -4084,11 +3957,6 @@
                 educationalContent.classList.remove('hidden-for-print');
                 visualAids.forEach(aid => aid.classList.remove('hidden-for-print'));
 
-                // Restore collapsed sections
-                collapsedSectionsForPDF.forEach(el => {
-                    el.classList.remove('hidden-for-print');
-                });
-
                 // Restore original input method
                 if (needsMethodSwitch) {
                     document.getElementById('inputMethod').value = currentMethod;
@@ -4108,9 +3976,7 @@
 
             // Version file mapping
             const versionFiles = {
-                '1.4.10': 'fraction-worksheet.html',
-                '1.4.9': 'fraction-worksheet-v1.4.9.html',
-                '1.4.8': 'fraction-worksheet-v1.4.8.html',
+                '1.4.8': 'fraction-worksheet.html',
                 '1.4.7': 'fraction-worksheet-v1.4.7.html',
                 '1.4.6': 'fraction-worksheet-v1.4.6.html',
                 '1.4.5': 'fraction-worksheet-v1.4.5.html',
@@ -4129,8 +3995,6 @@
             };
 
             const versionDescriptions = {
-                '1.4.10': 'PROPERLY fixed print and mobile issues: Added missing CSS rule for collapsed sections, scaled pizza SVGs to 70px, reduced gaps, no horizontal scroll',
-                '1.4.9': 'Incomplete fixes - JavaScript logic correct but CSS rule missing, mobile improvements partial',
                 '1.4.8': 'Fixed child icon to light brown skin tone, fixed misconceptions diagram rendering bug, updated FEATURES_TODO with timestamps',
                 '1.4.7': 'Visual misconceptions illustrations, unified markdown viewer, collapsible resources, fixed hint toggle and visual aids',
                 '1.4.6': 'Markdown viewer, collapsible Learning Guide, common misconceptions section, hints for ALL questions, 94% print scale, inclusive skin tones',
