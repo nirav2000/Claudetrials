@@ -607,9 +607,6 @@
             display: none !important;
         }
 
-        .collapsible-content.hidden-for-print {
-            display: none !important;
-        }
 
         .educational-content h2 {
             color: var(--md-primary);
@@ -1122,9 +1119,6 @@
                 display: none !important;
             }
 
-            .collapsible-content.hidden-for-print {
-                display: none !important;
-            }
 
             .educational-content h2 {
                 font-size: 14pt;
@@ -1195,14 +1189,6 @@
                 background: #FFA726 !important;
                 print-color-adjust: exact;
                 -webkit-print-color-adjust: exact;
-            }
-
-            /* Hide collapsed sections - respect display:none on collapsible-content */
-            .collapsible-content[style*="display: none"],
-            .collapsible-content[style*="display:none"] {
-                display: none !important;
-            }
-        }
 
         /* ===== RESPONSIVE DESIGN ===== */
         @media (max-width: 768px) {
@@ -2326,155 +2312,6 @@
                 </div>
             </div>
 
-            <div style="display:none;">
-            <!-- OLD VERSION KEEP FOR REFERENCE
-                <h4 style="color: #D32F2F; margin-top: 16px;">Misconception #1: "Bigger denominator = bigger fraction"</h4>
-                <p><strong>What it looks like:</strong> Thinking 1/8 > 1/4 because 8 > 4</p>
-                <div style="display: flex; align-items: center; justify-content: center; gap: 40px; margin: 20px 0; padding: 20px; background: white; border-radius: 8px;">
-                    <div style="text-align: center;">
-                        <div style="font-weight: 600; color: #D32F2F; margin-bottom: 10px;">❌ Wrong Thinking</div>
-                        ${generatePizzaDiagram(1, 8, 100)}
-                        <div style="margin-top: 8px; font-weight: 600;">1/8</div>
-                        <div style="font-size: 0.85em; color: #666;">8 > 4, so 1/8 must be bigger?</div>
-                    </div>
-                    <div style="font-size: 2em; color: #666;">vs</div>
-                    <div style="text-align: center;">
-                        <div style="font-weight: 600; color: #4CAF50; margin-bottom: 10px;">✓ Reality</div>
-                        ${generatePizzaDiagram(1, 4, 100)}
-                        <div style="margin-top: 8px; font-weight: 600;">1/4</div>
-                        <div style="font-size: 0.85em; color: #666;">Actually BIGGER!</div>
-                    </div>
-                </div>
-                <p><strong>Why this happens:</strong> Students apply whole number thinking (8 > 4, so 1/8 must be bigger than 1/4)</p>
-                <p><strong>Why it's wrong:</strong> Larger denominators mean MORE pieces, making each piece SMALLER. Pizza cut into 8 slices gives smaller pieces than pizza cut into 4 slices.</p>
-                <p><strong>Better approach:</strong> Think "How many pieces is the whole divided into?" More pieces = smaller size per piece.</p>
-                <p><strong>How to check:</strong> Draw or imagine the visual. 1/8 of a pizza is much smaller than 1/4 of the same pizza.</p>
-                <p><strong>Sense check:</strong> Convert to decimals: 1/8 = 0.125, 1/4 = 0.25. Clearly 0.25 > 0.125.</p>
-
-                <h4 style="color: #D32F2F; margin-top: 16px;">Misconception #2: "Both numbers bigger = bigger fraction"</h4>
-                <p><strong>What it looks like:</strong> Thinking 4/10 > 1/2 because both 4 and 10 are larger than 1 and 2</p>
-                <div style="display: flex; align-items: center; justify-content: center; gap: 40px; margin: 20px 0; padding: 20px; background: white; border-radius: 8px;">
-                    <div style="text-align: center;">
-                        <div style="font-weight: 600; color: #D32F2F; margin-bottom: 10px;">❌ Wrong Thinking</div>
-                        ${generatePizzaDiagram(4, 10, 100)}
-                        <div style="margin-top: 8px; font-weight: 600;">4/10</div>
-                        <div style="font-size: 0.85em; color: #666;">4 > 1 and 10 > 2, so bigger?</div>
-                    </div>
-                    <div style="font-size: 2em; color: #666;">vs</div>
-                    <div style="text-align: center;">
-                        <div style="font-weight: 600; color: #4CAF50; margin-bottom: 10px;">✓ Reality</div>
-                        ${generatePizzaDiagram(1, 2, 100)}
-                        <div style="margin-top: 8px; font-weight: 600;">1/2</div>
-                        <div style="font-size: 0.85em; color: #666;">Actually BIGGER!</div>
-                    </div>
-                </div>
-                <p><strong>Why this happens:</strong> Focusing on individual numbers rather than the relationship between them</p>
-                <p><strong>Why it's wrong:</strong> What matters is the RATIO, not the absolute size of numbers. 1/2 = 50%, but 4/10 = 40%.</p>
-                <p><strong>Better approach:</strong> Think about what fraction of the whole you're taking. 1/2 = half. Is 4/10 more or less than half?</p>
-                <p><strong>How to check:</strong> Find common denominator (20): 1/2 = 10/20, 4/10 = 8/20. Now it's clear: 10/20 > 8/20.</p>
-                <p><strong>Sense check:</strong> 4 is less than half of 10, but 1 IS half of 2, so 1/2 must be larger.</p>
-
-                <h4 style="color: #D32F2F; margin-top: 16px;">Misconception #3: "Add numerators, add denominators"</h4>
-                <p><strong>What it looks like:</strong> Thinking 1/4 + 1/4 = 2/8 (adding across)</p>
-                <div style="display: flex; align-items: center; justify-content: center; gap: 40px; margin: 20px 0; padding: 20px; background: white; border-radius: 8px;">
-                    <div style="text-align: center;">
-                        <div style="font-weight: 600; color: #D32F2F; margin-bottom: 10px;">❌ Wrong Method</div>
-                        <div style="display: flex; gap: 10px; align-items: center; justify-content: center;">
-                            ${generatePizzaDiagram(1, 4, 80)}
-                            <span style="font-size: 1.5em;">+</span>
-                            ${generatePizzaDiagram(1, 4, 80)}
-                            <span style="font-size: 1.5em;">=</span>
-                            ${generatePizzaDiagram(2, 8, 80)}
-                        </div>
-                        <div style="margin-top: 8px;">1/4 + 1/4 = 2/8 ❌</div>
-                        <div style="font-size: 0.85em; color: #666;">Adding across is WRONG</div>
-                    </div>
-                    <div style="font-size: 2em; color: #666;">vs</div>
-                    <div style="text-align: center;">
-                        <div style="font-weight: 600; color: #4CAF50; margin-bottom: 10px;">✓ Correct Method</div>
-                        <div style="display: flex; gap: 10px; align-items: center; justify-content: center;">
-                            ${generatePizzaDiagram(1, 4, 80)}
-                            <span style="font-size: 1.5em;">+</span>
-                            ${generatePizzaDiagram(1, 4, 80)}
-                            <span style="font-size: 1.5em;">=</span>
-                            ${generatePizzaDiagram(2, 4, 80)}
-                        </div>
-                        <div style="margin-top: 8px;">1/4 + 1/4 = 2/4 ✓</div>
-                        <div style="font-size: 0.85em; color: #666;">Same denominator!</div>
-                    </div>
-                </div>
-                <p><strong>Why this happens:</strong> Applying arithmetic rules from whole numbers incorrectly</p>
-                <p><strong>Why it's wrong:</strong> You can only add fractions with the same denominator. 1/4 + 1/4 = 2/4, not 2/8.</p>
-                <p><strong>Better approach:</strong> Think: "I have 1 quarter-piece plus another 1 quarter-piece = 2 quarter-pieces = 2/4."</p>
-                <p><strong>How to check:</strong> Visual test: 1/4 + 1/4 of a pizza = half a pizza = 2/4 = 1/2, not 2/8.</p>
-                <p><strong>Sense check:</strong> Does 2/8 = 1/4? That can't be right when we're ADDING two 1/4s!</p>
-
-                <h4 style="color: #D32F2F; margin-top: 16px;">Misconception #4: "Multiply both numbers to compare fractions"</h4>
-                <p><strong>What it looks like:</strong> For 2/3 vs 3/4, calculating 2×4=8 and 3×3=9, thinking this alone determines the answer</p>
-                <div style="display: flex; align-items: center; justify-content: center; gap: 40px; margin: 20px 0; padding: 20px; background: white; border-radius: 8px;">
-                    <div style="text-align: center;">
-                        <div style="font-weight: 600; color: #FF9800; margin-bottom: 10px;">⚠️ Incomplete Understanding</div>
-                        <div style="padding: 15px; background: #FFF3E0; border-radius: 4px; margin-bottom: 10px;">
-                            <div style="font-size: 1.1em; font-weight: 600;">2×4 = 8</div>
-                            <div style="font-size: 1.1em; font-weight: 600;">3×3 = 9</div>
-                            <div style="margin-top: 8px; color: #F57C00;">So 3/4 > 2/3?</div>
-                        </div>
-                        <div style="font-size: 0.85em; color: #666;">But WHY does this work?</div>
-                    </div>
-                    <div style="font-size: 2em; color: #666;">→</div>
-                    <div style="text-align: center;">
-                        <div style="font-weight: 600; color: #4CAF50; margin-bottom: 10px;">✓ Full Understanding</div>
-                        <div style="display: flex; gap: 20px; align-items: center; justify-content: center; margin-bottom: 10px;">
-                            ${generatePizzaDiagram(8, 12, 90)}
-                            <div style="text-align: left;">
-                                <div style="font-weight: 600;">2/3 = 8/12</div>
-                                <div style="font-size: 0.85em; color: #666;">8 twelfths</div>
-                            </div>
-                        </div>
-                        <div style="display: flex; gap: 20px; align-items: center; justify-content: center;">
-                            ${generatePizzaDiagram(9, 12, 90)}
-                            <div style="text-align: left;">
-                                <div style="font-weight: 600;">3/4 = 9/12</div>
-                                <div style="font-size: 0.85em; color: #666;">9 twelfths</div>
-                            </div>
-                        </div>
-                        <div style="margin-top: 10px; font-size: 0.85em; color: #666;">Now clearly 9/12 > 8/12!</div>
-                    </div>
-                </div>
-                <p><strong>Why this happens:</strong> Partial understanding of cross-multiplication without knowing what it means</p>
-                <p><strong>Why it's wrong (or incomplete):</strong> While cross-multiplication works, you must understand WHY. You're finding common denominators: 2/3 = 8/12 and 3/4 = 9/12.</p>
-                <p><strong>Better approach:</strong> Understand you're comparing 8 twelfths vs 9 twelfths. Now it's obvious: 9/12 > 8/12, so 3/4 > 2/3.</p>
-                <p><strong>How to check:</strong> Convert to decimals: 2/3 ≈ 0.667, 3/4 = 0.75. Confirms 3/4 > 2/3.</p>
-                <p><strong>Sense check:</strong> 3/4 is very close to 1, while 2/3 is further from 1, so 3/4 should be bigger.</p>
-
-                <h4 style="color: #D32F2F; margin-top: 16px;">Misconception #5: "Fractions can't be greater than 1"</h4>
-                <p><strong>What it looks like:</strong> Thinking all fractions must be less than 1</p>
-                <div style="display: flex; align-items: center; justify-content: center; gap: 40px; margin: 20px 0; padding: 20px; background: white; border-radius: 8px;">
-                    <div style="text-align: center;">
-                        <div style="font-weight: 600; color: #D32F2F; margin-bottom: 10px;">❌ Limited View</div>
-                        ${generatePizzaDiagram(3, 4, 100)}
-                        <div style="margin-top: 8px; font-weight: 600;">3/4 < 1</div>
-                        <div style="font-size: 0.85em; color: #666;">All fractions must be less than 1?</div>
-                    </div>
-                    <div style="font-size: 2em; color: #666;">vs</div>
-                    <div style="text-align: center;">
-                        <div style="font-weight: 600; color: #4CAF50; margin-bottom: 10px;">✓ Reality</div>
-                        <div style="display: flex; gap: 10px; align-items: center; justify-content: center;">
-                            ${generatePizzaDiagram(4, 4, 90)}
-                            <span style="font-size: 1.5em;">+</span>
-                            ${generatePizzaDiagram(1, 4, 90)}
-                        </div>
-                        <div style="margin-top: 8px; font-weight: 600;">5/4 = 1.25</div>
-                        <div style="font-size: 0.85em; color: #666;">Greater than 1 is OK!</div>
-                    </div>
-                </div>
-                <p><strong>Why this happens:</strong> Early lessons focus on "proper fractions" (numerator < denominator)</p>
-                <p><strong>Why it's wrong:</strong> Improper fractions like 5/4 or 7/3 are perfectly valid and represent numbers greater than 1.</p>
-                <p><strong>Better approach:</strong> Think of fractions as division: 5/4 = 5÷4 = 1.25. You CAN divide 5 pizzas among 4 people!</p>
-                <p><strong>How to check:</strong> 5/4 = 4/4 + 1/4 = 1 + 1/4 = 1.25. Each person gets more than one whole pizza.</p>
-                <p><strong>Sense check:</strong> If numerator > denominator, the result MUST be greater than 1.</p>
-            END OF OLD VERSION -->
-            </div>
 
             <p><strong>Practice makes perfect!</strong> The more you work with fractions, the easier they become. Use the strategies above to compare fractions, and remember that fractions are just another way to represent numbers – they're powerful tools that help us solve real problems every day!</p>
             </div><!-- End of collapsible learning guide content -->
@@ -3948,6 +3785,31 @@
             window.print();
         }
 
+        // ===== HELPER FUNCTIONS FOR PRINT/PDF =====
+        // Helper function to hide collapsed sections for print/PDF
+        function hideCollapsedSections() {
+            const collapsedStates = [];
+            document.querySelectorAll('.collapsible-content').forEach(el => {
+                const computedDisplay = window.getComputedStyle(el).display;
+                if (el.style.display === 'none' || computedDisplay === 'none') {
+                    collapsedStates.push({
+                        element: el,
+                        originalStyle: el.getAttribute('style') || ''
+                    });
+                    // Force hide with inline style
+                    el.setAttribute('style', (el.getAttribute('style') || '') + '; display: none !important;');
+                }
+            });
+            return collapsedStates;
+        }
+
+        // Helper function to restore collapsed sections after print/PDF
+        function restoreCollapsedSections(collapsedStates) {
+            collapsedStates.forEach(({element, originalStyle}) => {
+                element.setAttribute('style', originalStyle);
+            });
+        }
+
         // Store original input method before print
         let originalInputMethod = null;
         let collapsedSectionsStates = []; // Store {id, originalDisplay} for collapsed sections
@@ -3969,19 +3831,8 @@
                 visualAids.forEach(aid => aid.classList.add('hidden-for-print'));
             }
 
-            // Find all collapsed sections and force them to stay hidden during print
-            collapsedSectionsStates = [];
-            document.querySelectorAll('.collapsible-content').forEach(el => {
-                const computedDisplay = window.getComputedStyle(el).display;
-                if (el.style.display === 'none' || computedDisplay === 'none') {
-                    collapsedSectionsStates.push({
-                        element: el,
-                        originalDisplay: el.style.display
-                    });
-                    // Force hide with inline style and !important via setAttribute
-                    el.setAttribute('style', el.getAttribute('style') + '; display: none !important;');
-                }
-            });
+            // Hide all collapsed sections
+            collapsedSectionsStates = hideCollapsedSections();
 
             // Switch to keyboard input method for printing (shows answer boxes)
             const currentMethod = document.getElementById('inputMethod').value;
@@ -4000,14 +3851,8 @@
             educationalContent.classList.remove('hidden-for-print');
             visualAids.forEach(aid => aid.classList.remove('hidden-for-print'));
 
-            // Restore collapsed sections to original state
-            collapsedSectionsStates.forEach(({element, originalDisplay}) => {
-                // Remove the forced !important style and restore original
-                const currentStyle = element.getAttribute('style') || '';
-                const cleanedStyle = currentStyle.replace(/;\s*display:\s*none\s*!important;?/gi, '');
-                element.setAttribute('style', cleanedStyle);
-                element.style.display = originalDisplay;
-            });
+            // Restore collapsed sections
+            restoreCollapsedSections(collapsedSectionsStates);
             collapsedSectionsStates = [];
 
             // Restore original input method
@@ -4065,19 +3910,8 @@
                 visualAids.forEach(aid => aid.classList.add('hidden-for-print'));
             }
 
-            // Find and hide all collapsed sections with inline styles
-            const collapsedSectionsForPDF = [];
-            document.querySelectorAll('.collapsible-content').forEach(el => {
-                const computedDisplay = window.getComputedStyle(el).display;
-                if (el.style.display === 'none' || computedDisplay === 'none') {
-                    collapsedSectionsForPDF.push({
-                        element: el,
-                        originalStyle: el.getAttribute('style') || ''
-                    });
-                    // Force hide with inline style
-                    el.setAttribute('style', (el.getAttribute('style') || '') + '; display: none !important;');
-                }
-            });
+            // Hide all collapsed sections
+            const collapsedSectionsForPDF = hideCollapsedSections();
 
             // Switch to keyboard input method for PDF
             const currentMethod = document.getElementById('inputMethod').value;
@@ -4115,10 +3949,8 @@
                 educationalContent.classList.remove('hidden-for-print');
                 visualAids.forEach(aid => aid.classList.remove('hidden-for-print'));
 
-                // Restore collapsed sections to original state
-                collapsedSectionsForPDF.forEach(({element, originalStyle}) => {
-                    element.setAttribute('style', originalStyle);
-                });
+                // Restore collapsed sections
+                restoreCollapsedSections(collapsedSectionsForPDF);
 
                 // Restore original input method
                 if (needsMethodSwitch) {
