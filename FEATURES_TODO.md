@@ -196,6 +196,15 @@
 
 ## Recently Completed ✅
 
+### Print and Mobile Fixes (v1.4.9 - v1.4.10)
+- ✅ Fixed collapsed sections printing when they should stay hidden
+- ✅ Implemented inline style approach with `display: none !important`
+- ✅ Fixed mobile horizontal scroll issues
+- ✅ Made comparison boxes stack vertically on mobile (flex-direction: column)
+- ✅ Scaled pizza SVGs to 60px on mobile
+- ✅ All content fits naturally within 390px viewport (iPhone 13)
+- ✅ Refactored duplicate code with helper functions (reduced 168 lines)
+
 ### Common Mistakes Mode with Visual Aids (v1.4.4)
 - ✅ Generates targeted problem sets for 5 common error patterns
 - ✅ Pizza/circle diagrams for visual representation
@@ -236,5 +245,5 @@
 
 ---
 
-Last Updated: 2026-01-22 22:00
-Current Version: 1.4.8
+Last Updated: 2026-01-23 23:00
+Current Version: 1.4.10
