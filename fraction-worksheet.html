@@ -707,17 +707,22 @@
             display: flex;
             width: 100%;
             margin-bottom: 15px;
+            min-height: 32px; /* Allow for double-height labels */
         }
 
         .carousel-tab-label {
             flex: 1;
             text-align: center;
-            font-size: 0.75em;
+            font-size: 0.7em;
+            line-height: 1.3;
             color: #666;
             cursor: pointer;
-            padding: 5px 2px;
+            padding: 3px 2px;
             transition: all 0.2s;
             font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .carousel-tab-label.active {
@@ -751,8 +756,7 @@
         /* Side navigation buttons */
         .carousel-btn-side {
             position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
+            top: 200px; /* Fixed position from top instead of 50% */
             background: var(--md-primary);
             color: white;
             border: none;
@@ -771,7 +775,7 @@
 
         .carousel-btn-side:hover:not(:disabled) {
             background: #1976D2;
-            transform: translateY(-50%) scale(1.1);
+            transform: scale(1.1);
             box-shadow: 0 4px 12px rgba(0,0,0,0.4);
         }
 
@@ -782,11 +786,11 @@
         }
 
         .carousel-btn-prev {
-            left: -24px;
+            left: 10px;
         }
 
         .carousel-btn-next {
-            right: -24px;
+            right: 10px;
         }
 
         /* Mobile carousel adjustments */
@@ -1715,7 +1719,15 @@
 
             <h3>Brief History of Fractions</h3>
 
-            <div class="timeline">
+            <div class="carousel-container" id="historyCarousel">
+                <div class="carousel-tab-labels"></div>
+                <div class="carousel-progress-bar"></div>
+                <div class="carousel-content-wrapper">
+                    <button class="carousel-btn-side carousel-btn-prev" aria-label="Previous">◀</button>
+                    <button class="carousel-btn-side carousel-btn-next" aria-label="Next">▶</button>
+                    <div class="carousel-wrapper">
+                        <div class="carousel-slide">
+                            <div class="timeline">
                 <p><strong>Fractions have been used for over 5,000 years!</strong> Let's see how far back 3000 BC really is compared to when you, your parents, and grandparents were born:</p>
 
                 <!-- Main Timeline with 5 Segments (1000 years each) -->
@@ -1853,12 +1865,12 @@
                     <strong>💡 Scale Perspective:</strong> This timeline is drawn to scale! The top bar shows 5,026 years from 3000 BC to 2026 AD.
                     Notice how ALL of modern history (grandparents, parents, you) is squeezed into the tiniest space at the right end - that's why we created the zoom box below to see it clearly!
                 </p>
-            </div>
+                            </div>
+                        </div>
 
-            <div class="strategy-box">
-                <div style="display: flex; align-items: flex-start; gap: 20px;">
-                    <div style="flex: 1;">
-                        <h4>📜 Ancient Egypt 🇪🇬 (~3000 BC)</h4>
+                        <div class="carousel-slide">
+                            <div class="strategy-box">
+                                <h4>📜 Ancient Egypt 🇪🇬 (~3000 BC)</h4>
                         <p>The ancient Egyptians were among the first to use fractions. They needed fractions to divide food, land, and supplies fairly among people. They mainly used "unit fractions" (fractions with 1 as the numerator), like 1/2, 1/3, 1/4.</p>
 
                         <p><strong>Egyptian Hieroglyph for Fractions:</strong></p>
@@ -1870,15 +1882,12 @@
                                     For example: 1/2, 1/3, 1/4 each had their own hieroglyph.
                                 </div>
                             </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-            </div>
 
-            <div class="strategy-box">
-                <div style="display: flex; align-items: flex-start; gap: 20px;">
-                    <div style="flex: 1;">
-                        <h4>🕉️ Ancient India 🇮🇳 (~600 BC to 500 AD)</h4>
+                        <div class="carousel-slide">
+                            <div class="strategy-box">
+                                <h4>🕉️ Ancient India 🇮🇳 (~600 BC to 500 AD)</h4>
                         <p><strong>Indian mathematicians made huge contributions to fractions!</strong> In ancient India, mathematicians like <strong>Aryabhata</strong> (476-550 AD) and <strong>Brahmagupta</strong> (598-668 AD) developed advanced fraction systems.</p>
 
                         <p><strong>Key Contributions:</strong></p>
@@ -1898,15 +1907,13 @@
                             <p style="font-size: 0.9em; text-align: center;">This notation spread to the Arab world and then to Europe!</p>
                         </div>
 
-                        <p>The Indian numeral system and fraction notation spread to the Arab world and then to Europe, forming the basis of the math we use today!</p>
-                    </div>
-                </div>
-            </div>
+                                <p>The Indian numeral system and fraction notation spread to the Arab world and then to Europe, forming the basis of the math we use today!</p>
+                            </div>
+                        </div>
 
-            <div class="strategy-box">
-                <div style="display: flex; align-items: flex-start; gap: 20px;">
-                    <div style="flex: 1;">
-                        <h4>🏛️ Greeks, Romans, and Babylonians</h4>
+                        <div class="carousel-slide">
+                            <div class="strategy-box">
+                                <h4>🏛️ Greeks, Romans, and Babylonians</h4>
 
                         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 15px 0;">
                             <div style="background: #E8F5E9; padding: 12px; border-radius: 4px; border: 2px solid #4CAF50;">
@@ -1936,15 +1943,12 @@
                                     This is why we have 12 inches in a foot!
                                 </div>
                             </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-            </div>
 
-            <div class="strategy-box">
-                <div style="display: flex; align-items: flex-start; gap: 20px;">
-                    <div style="flex: 1;">
-                        <h4>📐 Modern Notation (~1500 AD)</h4>
+                        <div class="carousel-slide">
+                            <div class="strategy-box">
+                                <h4>📐 Modern Notation (~1500 AD)</h4>
                         <p>The fraction notation we use today (with the horizontal bar between numerator and denominator) became popular in Europe during the 1500s, about 500 years ago.</p>
 
                         <div style="background: #E3F2FD; padding: 15px; border-radius: 4px; border: 2px solid #2196F3; margin: 15px 0; text-align: center;">
@@ -1977,7 +1981,9 @@
                                 </div>
                             </div>
 
-                            <p style="margin-top: 15px; font-size: 0.95em;">📚 The horizontal bar (called a "vinculum") made fractions clearer and easier to work with in complex equations!</p>
+                                <p style="margin-top: 15px; font-size: 0.95em;">📚 The horizontal bar (called a "vinculum") made fractions clearer and easier to work with in complex equations!</p>
+                            </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -4335,15 +4341,24 @@
             }
 
             shortenTitle(title) {
-                // Remove emojis and numbers from title
-                title = title.replace(/[\u{1F300}-\u{1F9FF}]/gu, '').trim();
+                // Remove emojis (including flags, symbols, etc.)
+                title = title.replace(/[\u{1F000}-\u{1FFFF}]/gu, '').trim();
+                title = title.replace(/[\u{2600}-\u{26FF}]/gu, '').trim();
+                title = title.replace(/[\u{2700}-\u{27BF}]/gu, '').trim();
+
+                // Remove prefix like "Strategy #1:" or "Misconception #2:"
                 title = title.replace(/^(Strategy|Misconception)\s*#?\d+:\s*/i, '');
 
-                // Truncate long titles
-                if (title.length > 20) {
-                    title = title.substring(0, 17) + '...';
-                }
+                // Remove parenthetical content e.g. "(Top Number)" or "(~3000 BC)"
+                title = title.replace(/\s*\([^)]*\)/g, '');
 
+                // Remove tilde and date ranges like "~600 BC to 500 AD"
+                title = title.replace(/\s*~?[\d\s]+(?:BC|AD)(?:\s*to\s*[\d\s]+(?:BC|AD))?/gi, '');
+
+                // Clean up extra whitespace
+                title = title.replace(/\s+/g, ' ').trim();
+
+                // No truncation - let CSS handle wrapping with line breaks
                 return title;
             }
 
