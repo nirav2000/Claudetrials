@@ -238,11 +238,6 @@
             box-shadow: 0 1px 2px rgba(0,0,0,0.1);
         }
 
-        .icon-btn:focus {
-            outline: 2px solid var(--md-primary);
-            outline-offset: 2px;
-        }
-
         /* Icon styling for Material Icons */
         .icon-btn .material-icons {
             font-size: 24px;
@@ -747,7 +742,7 @@
 
         .carousel-wrapper {
             display: flex;
-            transition: transform 0.3s ease-in-out, height 0.3s ease-in-out;
+            transition: transform 0.3s ease-in-out;
             width: 100%;
         }
 
@@ -761,8 +756,7 @@
         /* Side navigation buttons */
         .carousel-btn-side {
             position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
+            top: 200px; /* Fixed position from top instead of 50% */
             background: var(--md-primary);
             color: white;
             border: none;
@@ -781,7 +775,7 @@
 
         .carousel-btn-side:hover:not(:disabled) {
             background: #1976D2;
-            transform: translateY(-50%) scale(1.1);
+            transform: scale(1.1);
             box-shadow: 0 4px 12px rgba(0,0,0,0.4);
         }
 
@@ -789,8 +783,6 @@
             background: #ccc;
             cursor: not-allowed;
             opacity: 0.3;
-            transform: translateY(-50%);
-        }
         }
 
         .carousel-btn-prev {
@@ -1182,15 +1174,9 @@
             }
 
             .container {
-                box-shadow: none !important;
+                box-shadow: none;
                 padding: 20px;
                 max-width: 100%;
-                background: #fff !important;
-                color: #000 !important;
-            }
-
-            .hidden-for-print {
-                display: none !important;
             }
 
             /* Hide all interactive elements */
@@ -1378,12 +1364,6 @@
                 grid-template-columns: 1fr;
             }
 
-            .problem {
-                grid-template-columns: 1fr;
-                grid-auto-rows: auto;
-                gap: 8px;
-            }
-
             .controls-grid {
                 grid-template-columns: 1fr;
             }
@@ -1504,18 +1484,6 @@
             }
         }
 
-        /* ===== REDUCED MOTION SUPPORT ===== */
-        @media (prefers-reduced-motion: reduce) {
-            *,
-            *::before,
-            *::after {
-                animation-duration: 0.001ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.001ms !important;
-                scroll-behavior: auto !important;
-            }
-        }
-
         /* ===== UTILITY CLASSES ===== */
         .hidden {
             display: none;
@@ -1537,10 +1505,9 @@
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
             <h1 class="md-headline-4" style="margin: 0;">Fraction Comparison Practice</h1>
             <div style="display: flex; align-items: center; gap: 10px;">
-                <span style="font-size: 0.9rem; color: #666; font-weight: 500;">v<span id="currentVersion">1.4.13</span></span>
+                <span style="font-size: 0.9rem; color: #666; font-weight: 500;">v<span id="currentVersion">1.4.12</span></span>
                 <select id="versionSelector" style="padding: 4px 8px; border-radius: 4px; border: 1px solid var(--md-primary); background: white; color: var(--md-primary); font-size: 0.85rem; cursor: pointer;">
-                    <option value="1.4.13">Version 1.4.13 (Current)</option>
-                    <option value="1.4.12">Version 1.4.12</option>
+                    <option value="1.4.12">Version 1.4.12 (Current)</option>
                     <option value="1.4.11">Version 1.4.11</option>
                     <option value="1.4.10">Version 1.4.10</option>
                     <option value="1.4.9">Version 1.4.9</option>
@@ -1664,11 +1631,11 @@
                 <button class="btn-success" onclick="checkAnswers()">Check Answers</button>
                 <button class="btn-secondary" onclick="showAnswers()">Show Answers</button>
                 <button class="btn-danger" onclick="clearAnswers()">Clear Answers</button>
-                <button class="icon-btn" onclick="printWorksheet()" title="Print Worksheet" aria-label="Print Worksheet">
-                    <span class="material-icons" aria-hidden="true">print</span>
+                <button class="icon-btn" onclick="printWorksheet()" title="Print Worksheet">
+                    <span class="material-icons">print</span>
                 </button>
-                <button class="icon-btn" onclick="downloadPDF()" title="Download as PDF" aria-label="Download as PDF">
-                    <span class="material-icons" aria-hidden="true">picture_as_pdf</span>
+                <button class="icon-btn" onclick="downloadPDF()" title="Download as PDF">
+                    <span class="material-icons">picture_as_pdf</span>
                 </button>
             </div>
         </div>
@@ -1762,7 +1729,6 @@
                     <div class="carousel-wrapper">
                         <div class="carousel-slide">
                             <div class="timeline">
-                                <h4>📅 Timeline Introduction</h4>
                 <p><strong>Fractions have been used for over 5,000 years!</strong> Let's see how far back 3000 BC really is compared to when you, your parents, and grandparents were born:</p>
 
                 <!-- Main Timeline with 5 Segments (1000 years each) -->
@@ -1902,7 +1868,6 @@
                 </p>
                             </div>
                         </div>
-                        </div>
 
                         <div class="carousel-slide">
                             <div class="strategy-box">
@@ -1919,7 +1884,6 @@
                                 </div>
                             </div>
                             </div>
-                        </div>
                         </div>
 
                         <div class="carousel-slide">
@@ -1981,7 +1945,6 @@
                                 </div>
                             </div>
                             </div>
-                        </div>
                         </div>
 
                         <div class="carousel-slide">
@@ -2175,6 +2138,7 @@
                     </div>
                 </div>
             </div>
+        </div>
 
             <h3>How to Simplify Fractions (Step-by-Step)</h3>
 
@@ -2536,7 +2500,7 @@
             </div>
         </div>
 
-        <div class="version-history">
+            <div class="version-history">
                 <h3 class="collapsible-header" onclick="toggleSection('versionHistoryContent')" style="cursor: pointer; display: flex; align-items: center; gap: 8px;">
                     <span class="chevron" id="versionHistoryChevron">▶</span>
                     📦 Version History
@@ -2544,21 +2508,7 @@
 
                 <div class="collapsible-content" id="versionHistoryContent" style="display: none;">
                 <div class="version-item">
-                    <strong>Version 1.4.13</strong> (2026-01-25) - Current<br>
-                    ♿ <strong>Accessibility, Responsiveness & UX:</strong> Comprehensive improvements<br>
-                    &nbsp;&nbsp;&nbsp;• Fixed carousel arrows: now properly centered with top:50% + translateY(-50%)<br>
-                    &nbsp;&nbsp;&nbsp;• Added aria-label to icon buttons (Print, PDF) for screen readers<br>
-                    &nbsp;&nbsp;&nbsp;• Added aria-hidden="true" to decorative Material Icons<br>
-                    &nbsp;&nbsp;&nbsp;• Added visible :focus outline (2px) for keyboard navigation<br>
-                    &nbsp;&nbsp;&nbsp;• Enhanced mobile: .problem grid now 1fr with auto rows and 8px gap<br>
-                    &nbsp;&nbsp;&nbsp;• Added @media (prefers-reduced-motion: reduce) support<br>
-                    &nbsp;&nbsp;&nbsp;• Enhanced print CSS: .hidden-for-print with !important<br>
-                    &nbsp;&nbsp;&nbsp;• Print: explicit white background and black text with !important<br>
-                    &nbsp;&nbsp;&nbsp;• Arrows now scale and center correctly on hover/disabled states
-                </div>
-
-                <div class="version-item">
-                    <strong>Version 1.4.12</strong> (2026-01-25)<br>
+                    <strong>Version 1.4.12</strong> (2026-01-25) - Current<br>
                     ✨ <strong>Carousel UI Improvements:</strong> Better design and more sections<br>
                     &nbsp;&nbsp;&nbsp;• Fixed arrow positioning: arrows now at fixed 200px from top (not cut off)<br>
                     &nbsp;&nbsp;&nbsp;• Moved arrows to 10px from sides instead of outside container<br>
@@ -4237,8 +4187,7 @@
 
             // Version file mapping
             const versionFiles = {
-                '1.4.13': 'fraction-worksheet.html',
-                '1.4.12': 'fraction-worksheet-v1.4.12.html',
+                '1.4.12': 'fraction-worksheet.html',
                 '1.4.11': 'fraction-worksheet-v1.4.11.html',
                 '1.4.10': 'fraction-worksheet-v1.4.10.html',
                 '1.4.9': 'fraction-worksheet-v1.4.9.html',
@@ -4261,7 +4210,6 @@
             };
 
             const versionDescriptions = {
-                '1.4.13': 'Accessibility & UX: Properly centered carousel arrows, aria-labels, focus styling, reduced motion support, enhanced print CSS',
                 '1.4.12': 'Carousel improvements: Fixed arrows, simplified labels, added Brief History carousel (5 slides)',
                 '1.4.11': 'Carousel UI for Learning Guide: Common Misconceptions and Comparison Strategies now use horizontal carousels with touch/swipe support',
                 '1.4.10': 'Print: Inline style approach. Mobile: Vertical stacking, no overflow-x hidden, content fits naturally at 390px',
@@ -4480,15 +4428,8 @@
                 if (this.prevBtn) this.prevBtn.disabled = this.currentIndex === 0;
                 if (this.nextBtn) this.nextBtn.disabled = this.currentIndex === this.slides.length - 1;
 
-                // Set wrapper height to current slide height to eliminate white space
-                const currentSlide = this.slides[this.currentIndex];
-                if (currentSlide) {
-                    // Use setTimeout to ensure DOM has rendered
-                    setTimeout(() => {
-                        const slideHeight = currentSlide.offsetHeight;
-                        this.wrapper.style.height = slideHeight + 'px';
-                    }, 50);
-                }
+                // Don't set minHeight to avoid white space - let it auto-adjust
+                this.contentWrapper.style.minHeight = 'auto';
             }
 
             isInViewport() {

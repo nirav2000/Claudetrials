@@ -196,6 +196,19 @@
 
 ## Recently Completed ✅
 
+### Accessibility, Responsiveness & UX Improvements (v1.4.13)
+- ✅ Fixed carousel arrows to properly center using top:50% + translateY(-50%)
+- ✅ Added transform composition on hover: translateY(-50%) scale(1.1)
+- ✅ Added aria-label="Print Worksheet" and aria-label="Download as PDF" to icon buttons
+- ✅ Added aria-hidden="true" to decorative Material Icons
+- ✅ Added visible :focus outline (2px solid, 2px offset) for keyboard navigation
+- ✅ Enhanced mobile .problem grid: grid-template-columns: 1fr, grid-auto-rows: auto, gap: 8px
+- ✅ Added @media (prefers-reduced-motion: reduce) support
+- ✅ Disables animations/transitions (0.001ms) for motion-sensitive users
+- ✅ Added .hidden-for-print { display: none !important; } in @media print
+- ✅ Enhanced print .container with !important flags for white background and black text
+- ✅ Carousel arrows now work at any viewport height and scale correctly
+
 ### Carousel UI Improvements (v1.4.12)
 - ✅ Fixed arrow positioning: arrows at fixed 200px from top (not cut off)
 - ✅ Moved arrows to 10px from sides (aesthetically better)
@@ -267,4 +280,4 @@
 ---
 
 Last Updated: 2026-01-25
-Current Version: 1.4.12
+Current Version: 1.4.13
