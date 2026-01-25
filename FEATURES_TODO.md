@@ -196,6 +196,15 @@
 
 ## Recently Completed ✅
 
+### Carousel UI Improvements (v1.4.12)
+- ✅ Fixed arrow positioning: arrows at fixed 200px from top (not cut off)
+- ✅ Moved arrows to 10px from sides (aesthetically better)
+- ✅ Simplified tab labels: removed parenthetical content and date ranges
+- ✅ Tab labels can wrap to double height for better readability
+- ✅ Converted Brief History of Fractions to carousel (5 slides)
+- ✅ Total of 3 carousels with 15 slides across Learning Guide
+- ✅ Much more user-friendly and aesthetically pleasing design
+
 ### Carousel UI for Learning Guide (v1.4.11)
 - ✅ Implemented horizontal carousel for Common Misconceptions section (5 slides)
 - ✅ Implemented horizontal carousel for Comparison Strategies section (5 slides)
@@ -258,4 +267,4 @@
 ---
 
 Last Updated: 2026-01-25
-Current Version: 1.4.11
+Current Version: 1.4.12
