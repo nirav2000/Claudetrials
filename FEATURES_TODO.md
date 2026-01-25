@@ -196,6 +196,18 @@
 
 ## Recently Completed ✅
 
+### Carousel UI for Learning Guide (v1.4.11)
+- ✅ Implemented horizontal carousel for Common Misconceptions section (5 slides)
+- ✅ Implemented horizontal carousel for Comparison Strategies section (5 slides)
+- ✅ Touch/swipe support for mobile devices
+- ✅ Keyboard navigation with arrow keys
+- ✅ Navigation buttons (prev/next) with disabled states
+- ✅ Dot indicators showing current position
+- ✅ Slide counter (e.g., "1 / 5")
+- ✅ Smooth transitions with CSS transforms
+- ✅ Auto-height adjustment per slide
+- ✅ Reduces vertical length of Learning Guide while keeping all educational content
+
 ### Print and Mobile Fixes (v1.4.9 - v1.4.10)
 - ✅ Fixed collapsed sections printing when they should stay hidden
 - ✅ Implemented inline style approach with `display: none !important`
@@ -245,5 +257,5 @@
 
 ---
 
-Last Updated: 2026-01-23 23:00
-Current Version: 1.4.10
+Last Updated: 2026-01-25
+Current Version: 1.4.11
