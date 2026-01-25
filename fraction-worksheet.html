@@ -742,7 +742,7 @@
 
         .carousel-wrapper {
             display: flex;
-            transition: transform 0.3s ease-in-out;
+            transition: transform 0.3s ease-in-out, height 0.3s ease-in-out;
             width: 100%;
         }
 
@@ -2503,7 +2503,7 @@
             </div>
         </div>
 
-            <div class="version-history">
+        <div class="version-history">
                 <h3 class="collapsible-header" onclick="toggleSection('versionHistoryContent')" style="cursor: pointer; display: flex; align-items: center; gap: 8px;">
                     <span class="chevron" id="versionHistoryChevron">▶</span>
                     📦 Version History
@@ -4431,8 +4431,15 @@
                 if (this.prevBtn) this.prevBtn.disabled = this.currentIndex === 0;
                 if (this.nextBtn) this.nextBtn.disabled = this.currentIndex === this.slides.length - 1;
 
-                // Don't set minHeight to avoid white space - let it auto-adjust
-                this.contentWrapper.style.minHeight = 'auto';
+                // Set wrapper height to current slide height to eliminate white space
+                const currentSlide = this.slides[this.currentIndex];
+                if (currentSlide) {
+                    // Use setTimeout to ensure DOM has rendered
+                    setTimeout(() => {
+                        const slideHeight = currentSlide.offsetHeight;
+                        this.wrapper.style.height = slideHeight + 'px';
+                    }, 50);
+                }
             }
 
             isInViewport() {
