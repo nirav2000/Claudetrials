@@ -1,0 +1,59 @@
+/* Material Design Base Styles & Variables */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    /* Material Design Color Palette */
+    --md-primary: #6200EA;
+    --md-primary-dark: #4615B2;
+    --md-primary-light: #7C4DFF;
+    --md-secondary: #03DAC6;
+    --md-secondary-dark: #00A896;
+    --md-error: #B00020;
+    --md-success: #4CAF50;
+    --md-warning: #FF9800;
+    --md-surface: #FFFFFF;
+    --md-background: #FAFAFA;
+    --md-on-primary: #FFFFFF;
+    --md-on-surface: #000000;
+    --md-text-primary: rgba(0, 0, 0, 0.87);
+    --md-text-secondary: rgba(0, 0, 0, 0.60);
+    --md-text-disabled: rgba(0, 0, 0, 0.38);
+    --md-divider: rgba(0, 0, 0, 0.12);
+}
+
+body {
+    font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    padding: 24px;
+    color: var(--md-text-primary);
+}
+
+/* Material Elevation (Shadows) */
+.elevation-0 { box-shadow: none; }
+.elevation-1 { box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); }
+.elevation-2 { box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23); }
+.elevation-3 { box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23); }
+.elevation-4 { box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22); }
+.elevation-5 { box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22); }
+
+/* Accessibility */
+*:focus {
+    outline: 2px solid var(--md-primary);
+    outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}

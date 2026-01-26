@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Fraction Comparison Practice</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!-- External Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+    <!-- Modular CSS -->
+    <!-- Layout -->
+    <link rel="stylesheet" href="css/layout/base.css">
+    <link rel="stylesheet" href="css/layout/header.css">
+    <link rel="stylesheet" href="css/layout/main-container.css">
+
+    <!-- Components -->
+    <link rel="stylesheet" href="css/components/buttons.css">
+    <link rel="stylesheet" href="css/components/forms.css">
+    <link rel="stylesheet" href="css/components/modals.css">
+    <link rel="stylesheet" href="css/components/cards.css">
+
+    <!-- Features -->
+    <link rel="stylesheet" href="css/features/problem-grid.css">
+    <link rel="stylesheet" href="css/features/input-methods.css">
+    <link rel="stylesheet" href="css/features/visual-aids.css">
+    <link rel="stylesheet" href="css/features/carousel.css">
+    <link rel="stylesheet" href="css/features/educational-content.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Fraction Comparison Practice</h1>
+
+        <!-- Controls Section -->
+        <div class="controls">
+            <div class="controls-grid">
+                <div class="control-group">
+                    <label for="input-method">Input Method:</label>
+                    <select id="input-method">
+                        <option value="keyboard">Keyboard</option>
+                        <option value="buttons">Buttons</option>
+                        <option value="drawing">Drawing</option>
+                        <option value="voice">Voice</option>
+                    </select>
+                </div>
+
+                <div class="control-group">
+                    <label for="problem-count">Number of Problems:</label>
+                    <select id="problem-count">
+                        <option value="10">10</option>
+                        <option value="20" selected>20</option>
+                        <option value="30">30</option>
+                        <option value="40">40</option>
+                    </select>
+                </div>
+
+                <div class="control-group">
+                    <label for="denominator-set">Denominators:</label>
+                    <select id="denominator-set">
+                        <option value="default" selected>12 and 20 (Medium)</option>
+                        <option value="basic">10, 12, and 20 (Medium-Hard)</option>
+                        <option value="intermediate">6, 8, 10, and 12 (Hard)</option>
+                        <option value="all">All (2-12) (Hardest)</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Common Mistakes Mode -->
+            <div class="checkbox-group" style="margin-top: 16px; padding: 12px; background: #E8F5E9; border-radius: 4px;">
+                <input type="checkbox" id="common-mistakes">
+                <label for="common-mistakes">
+                    <strong>Focus on Common Mistakes</strong> - Generates problems targeting specific error patterns
+                </label>
+            </div>
+
+            <div id="mistake-types-section" class="mistake-types">
+                <h4>Select mistake types to practice:</h4>
+                <div class="mistake-type-item">
+                    <input type="checkbox" class="mistake-type-checkbox" value="higher-denominator" id="mistake-higher-denominator" checked>
+                    <label class="mistake-type-label" for="mistake-higher-denominator">
+                        <strong>Higher Denominator Trap</strong>
+                        <small>Same numerator, higher denominator (e.g., 2/3 vs 2/30)</small>
+                    </label>
+                </div>
+                <div class="mistake-type-item">
+                    <input type="checkbox" class="mistake-type-checkbox" value="both-higher" id="mistake-both-higher" checked>
+                    <label class="mistake-type-label" for="mistake-both-higher">
+                        <strong>Both Numbers Higher</strong>
+                        <small>Both numerator and denominator higher (e.g., 1/2 vs 4/10)</small>
+                    </label>
+                </div>
+                <div class="mistake-type-item">
+                    <input type="checkbox" class="mistake-type-checkbox" value="unit-fraction" id="mistake-unit-fraction" checked>
+                    <label class="mistake-type-label" for="mistake-unit-fraction">
+                        <strong>Unit Fraction Confusion</strong>
+                        <small>More slices = smaller pieces (e.g., 1/2 vs 1/8)</small>
+                    </label>
+                </div>
+                <div class="mistake-type-item">
+                    <input type="checkbox" class="mistake-type-checkbox" value="near-whole" id="mistake-near-whole" checked>
+                    <label class="mistake-type-label" for="mistake-near-whole">
+                        <strong>Near-Whole Comparison</strong>
+                        <small>Both close to 1 (e.g., 5/6 vs 9/10)</small>
+                    </label>
+                </div>
+                <div class="mistake-type-item">
+                    <input type="checkbox" class="mistake-type-checkbox" value="equivalent" id="mistake-equivalent" checked>
+                    <label class="mistake-type-label" for="mistake-equivalent">
+                        <strong>Equivalent Fractions</strong>
+                        <small>Multiply/divide both numbers (e.g., 1/4 vs 2/8)</small>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Print Options -->
+            <div class="checkbox-group" style="margin-top: 16px; padding: 12px; background: #FFF3E0; border-radius: 4px;">
+                <input type="checkbox" id="print-visual-aids" checked>
+                <label for="print-visual-aids">Include Visual Aids in Print/PDF</label>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="button-group">
+                <button class="btn-primary" id="generate-btn">Generate New Practice</button>
+                <button class="btn-success" id="check-btn">Check Answers</button>
+                <button class="btn-secondary" id="show-answers-btn">Show Answers</button>
+                <button class="btn-danger" id="clear-btn">Clear Answers</button>
+                <button class="icon-btn" id="print-btn" title="Print Worksheet" aria-label="Print Worksheet">
+                    <span class="material-icons">print</span>
+                </button>
+                <button class="icon-btn" id="pdf-btn" title="Download as PDF" aria-label="Download as PDF">
+                    <span class="material-icons">picture_as_pdf</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Instructions -->
+        <div class="collapsible-section">
+            <div class="collapsible-header">
+                <h3>How to Use</h3>
+                <span class="chevron">▼</span>
+            </div>
+            <div class="collapsible-content">
+                <div class="instructions">
+                    <ul>
+                        <li><strong>Keyboard:</strong> Type &lt;, &gt;, or = directly</li>
+                        <li><strong>Buttons:</strong> Click the symbol buttons to select your answer</li>
+                        <li><strong>Drawing:</strong> Draw the symbol on the canvas</li>
+                        <li><strong>Voice:</strong> Click the microphone icon and say "less than", "greater than", or "equal" (Chrome/Edge only)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Score Display -->
+        <div class="score" id="score"></div>
+
+        <!-- Problems Container -->
+        <div id="problems-container" class="problems-container"></div>
+
+        <!-- Educational Content -->
+        <div class="educational-content">
+            <div class="collapsible-section">
+                <div class="collapsible-header">
+                    <h2>Learning Guide: Understanding Fractions</h2>
+                    <span class="chevron">▼</span>
+                </div>
+                <div class="collapsible-content">
+                    <!-- Brief History Carousel -->
+                    <h3>Brief History of Fractions</h3>
+                    <div class="carousel-container" id="history-carousel">
+                        <div class="carousel-tab-labels"></div>
+                        <div class="carousel-progress-bar"></div>
+                        <div class="carousel-content-wrapper">
+                            <button class="carousel-btn-side carousel-btn-prev" aria-label="Previous">◀</button>
+                            <button class="carousel-btn-side carousel-btn-next" aria-label="Next">▶</button>
+                        </div>
+                    </div>
+
+                    <!-- Comparison Strategies Carousel -->
+                    <h3>Comparison Strategies</h3>
+                    <div class="carousel-container" id="strategies-carousel">
+                        <div class="carousel-tab-labels"></div>
+                        <div class="carousel-progress-bar"></div>
+                        <div class="carousel-content-wrapper">
+                            <button class="carousel-btn-side carousel-btn-prev" aria-label="Previous">◀</button>
+                            <button class="carousel-btn-side carousel-btn-next" aria-label="Next">▶</button>
+                        </div>
+                    </div>
+
+                    <!-- Common Misconceptions Carousel -->
+                    <h3>Common Misconceptions</h3>
+                    <div class="carousel-container" id="misconceptions-carousel">
+                        <div class="carousel-tab-labels"></div>
+                        <div class="carousel-progress-bar"></div>
+                        <div class="carousel-content-wrapper">
+                            <button class="carousel-btn-side carousel-btn-prev" aria-label="Previous">◀</button>
+                            <button class="carousel-btn-side carousel-btn-next" aria-label="Next">▶</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Application Script -->
+    <script type="module" src="js/app.js"></script>
+</body>
+</html>

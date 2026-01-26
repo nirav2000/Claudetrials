@@ -1,0 +1,11 @@
+{
+  "current": "2.0.0",
+  "versions": [
+    {
+      "number": "2.0.0",
+      "date": "2026-01-26",
+      "changelogFile": "changelogs/v2.0.0.md",
+      "type": "major"
+    }
+  ]
+}
