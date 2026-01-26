@@ -57,13 +57,14 @@ export async function downloadPDF() {
  * Hide collapsible sections for printing
  */
 function hideCollapsibleSections() {
-    // Hide educational content if not expanded
-    const educationalContent = qsa('.educational-content');
-    educationalContent.forEach(section => {
-        if (!section.classList.contains('show')) {
+    // Hide Learning Guide unless print option is checked
+    const printLearningGuide = qs('#print-learning-guide');
+    if (!printLearningGuide || !printLearningGuide.checked) {
+        const educationalContent = qsa('.educational-content');
+        educationalContent.forEach(section => {
             addClass(section, 'hidden-for-print');
-        }
-    });
+        });
+    }
 
     // Hide visual aids unless print option is checked
     const printVisualAids = qs('#print-visual-aids');

@@ -57,3 +57,10 @@ body {
         transition-duration: 0.01ms !important;
     }
 }
+
+/* Print Styles */
+@media print {
+    .no-print {
+        display: none !important;
+    }
+}
