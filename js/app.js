@@ -19,6 +19,7 @@ import { initializeVersionUI } from './version/versionUI.js';
 // Application State
 let problems = [];
 let currentInputMethod = CONFIG.DEFAULT_INPUT_METHOD;
+let problemTimers = {}; // Track timers for hint timeout
 
 /**
  * Initialize application
@@ -93,6 +94,7 @@ function attachEventListeners() {
         const { index, operator } = e.detail;
         if (problems[index]) {
             problems[index].userAnswer = operator;
+            clearProblemTimer(index); // Clear timer when answer is selected
         }
     });
 
@@ -108,6 +110,7 @@ function attachEventListeners() {
             const index = parseInt(e.target.dataset.problemIndex);
             if (problems[index]) {
                 problems[index].userAnswer = e.target.value;
+                clearProblemTimer(index); // Clear timer when answer is entered
             }
         }
     });
@@ -118,9 +121,12 @@ function attachEventListeners() {
  */
 function generateWorksheet() {
     const problemCount = parseInt(qs('#problem-count')?.value || CONFIG.DEFAULT_PROBLEM_COUNT);
-    const denominatorSet = qs('#denominator-set')?.value || 'default';
+    const denominatorSet = qs('#denominator-set')?.value || 'easiest';
     const denominators = CONFIG.DENOMINATOR_SETS[denominatorSet];
     const useCommonMistakes = qs('#common-mistakes')?.checked || false;
+
+    // Clear existing timers
+    clearAllTimers();
 
     if (useCommonMistakes) {
         const enabledMistakes = Array.from(qsa('.mistake-type-checkbox:checked'))
@@ -134,6 +140,9 @@ function generateWorksheet() {
 
     // Hide score
     qs('.score')?.classList.remove('show');
+
+    // Start timers for hint timeout
+    startAllTimers();
 }
 
 /**
@@ -185,17 +194,20 @@ function renderProblems() {
  * Render input based on method
  */
 function renderInput(index, method, value = '') {
+    // Ensure value is never null or undefined
+    const safeValue = value || '';
+
     switch (method) {
         case CONFIG.INPUT_METHODS.KEYBOARD:
-            return renderKeyboardInput(index, value);
+            return renderKeyboardInput(index, safeValue);
         case CONFIG.INPUT_METHODS.BUTTONS:
-            return renderButtonInput(index, value);
+            return renderButtonInput(index, safeValue);
         case CONFIG.INPUT_METHODS.DRAWING:
-            return renderDrawingInput(index, value);
+            return renderDrawingInput(index, safeValue);
         case CONFIG.INPUT_METHODS.VOICE:
             return renderVoiceInput(index);
         default:
-            return renderKeyboardInput(index, value);
+            return renderKeyboardInput(index, safeValue);
     }
 }
 
@@ -236,6 +248,61 @@ function setupCollapsibleSections() {
             }
         });
     });
+}
+
+/**
+ * Start hint timeout timer for a specific problem
+ * @param {number} index - Problem index
+ */
+function startProblemTimer(index) {
+    const timeout = parseInt(qs('#hint-timeout')?.value || 0);
+    if (timeout === 0) return; // Timer disabled
+
+    // Clear existing timer if any
+    if (problemTimers[index]) {
+        clearTimeout(problemTimers[index]);
+    }
+
+    // Start new timer
+    problemTimers[index] = setTimeout(() => {
+        // Only show hint if problem hasn't been answered yet
+        if (!problems[index]?.userAnswer) {
+            showHint(index, problems[index]);
+        }
+    }, timeout * 1000); // Convert seconds to milliseconds
+}
+
+/**
+ * Start timers for all problems
+ */
+function startAllTimers() {
+    const timeout = parseInt(qs('#hint-timeout')?.value || 0);
+    if (timeout === 0) return; // Timer disabled
+
+    problems.forEach((_, index) => {
+        startProblemTimer(index);
+    });
+}
+
+/**
+ * Clear timer for a specific problem
+ * @param {number} index - Problem index
+ */
+function clearProblemTimer(index) {
+    if (problemTimers[index]) {
+        clearTimeout(problemTimers[index]);
+        delete problemTimers[index];
+    }
+}
+
+/**
+ * Clear all timers
+ */
+function clearAllTimers() {
+    Object.keys(problemTimers).forEach(index => {
+        clearTimeout(problemTimers[index]);
+    });
+    problemTimers = {};
 }
 
 // Initialize on DOMContentLoaded

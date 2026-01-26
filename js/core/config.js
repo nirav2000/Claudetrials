@@ -14,9 +14,12 @@ export const CONFIG = {
 
     // Denominator Sets
     DENOMINATOR_SETS: {
-        'default': [12, 20],
-        'basic': [10, 12, 20],
-        'intermediate': [6, 8, 10, 12],
+        'easiest': [2, 4],
+        'easy': [3, 6],
+        'medium': [4, 8],
+        'medium2': [5, 10],
+        'hard': [6, 8, 10, 12],
+        'harder': [10, 12, 20],
         'all': [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
     },
 
@@ -79,15 +82,15 @@ export const CONFIG = {
         STROKE_COLOR: '#000000'
     },
 
-    // Timer Settings
-    TIMER_OPTIONS: [
+    // Timer Settings (Hint Timeout)
+    HINT_TIMEOUT_OPTIONS: [
         { value: 0, label: 'Off' },
-        { value: 30000, label: '30 seconds' },
-        { value: 45000, label: '45 seconds' },
-        { value: 60000, label: '60 seconds' },
-        { value: 90000, label: '90 seconds' }
+        { value: 30, label: '30 seconds' },
+        { value: 45, label: '45 seconds' },
+        { value: 60, label: '60 seconds' },
+        { value: 90, label: '90 seconds' }
     ],
-    DEFAULT_TIMER: 0,
+    DEFAULT_HINT_TIMEOUT: 30,
 
     // Common Mistakes
     MISTAKE_TYPES: {

@@ -62,10 +62,24 @@
                 <div class="control-group">
                     <label for="denominator-set">Denominators:</label>
                     <select id="denominator-set">
-                        <option value="default" selected>12 and 20 (Medium)</option>
-                        <option value="basic">10, 12, and 20 (Medium-Hard)</option>
-                        <option value="intermediate">6, 8, 10, and 12 (Hard)</option>
+                        <option value="easiest" selected>2 and 4 (Easiest)</option>
+                        <option value="easy">3 and 6 (Easy)</option>
+                        <option value="medium">4 and 8 (Medium)</option>
+                        <option value="medium2">5 and 10 (Medium)</option>
+                        <option value="hard">6, 8, 10, and 12 (Hard)</option>
+                        <option value="harder">10, 12, and 20 (Harder)</option>
                         <option value="all">All (2-12) (Hardest)</option>
+                    </select>
+                </div>
+
+                <div class="control-group">
+                    <label for="hint-timeout">Hint Timeout:</label>
+                    <select id="hint-timeout">
+                        <option value="0">Off</option>
+                        <option value="30" selected>30 seconds</option>
+                        <option value="45">45 seconds</option>
+                        <option value="60">60 seconds</option>
+                        <option value="90">90 seconds</option>
                     </select>
                 </div>
             </div>
@@ -119,6 +133,9 @@
 
             <!-- Print Options -->
             <div class="checkbox-group" style="margin-top: 16px; padding: 12px; background: #FFF3E0; border-radius: 4px;">
+                <input type="checkbox" id="print-learning-guide" checked>
+                <label for="print-learning-guide">Include Learning Guide in Print/PDF</label>
+                <br>
                 <input type="checkbox" id="print-visual-aids" checked>
                 <label for="print-visual-aids">Include Visual Aids in Print/PDF</label>
             </div>
