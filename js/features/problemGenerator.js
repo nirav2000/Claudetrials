@@ -70,26 +70,56 @@ function generateMistakeProblem(mistakeType, denominators) {
     switch (mistakeType) {
         case CONFIG.MISTAKE_TYPES.HIGHER_DENOMINATOR: {
             // Higher denominator but smaller value
-            denom1 = randomElement(denominators.filter(d => d > 4));
-            denom2 = randomElement(denominators.filter(d => d < denom1 && d > 2));
-            num1 = randomInt(1, Math.floor(denom1 / 2));
-            num2 = randomInt(Math.ceil(denom2 / 2), denom2 - 1);
+            const largeDenoms = denominators.filter(d => d > 4);
+            if (largeDenoms.length === 0) {
+                // Fallback: use largest and smallest available denominators
+                const sorted = [...denominators].sort((a, b) => b - a);
+                denom1 = sorted[0];
+                denom2 = sorted[sorted.length - 1];
+            } else {
+                denom1 = randomElement(largeDenoms);
+                const smallerDenoms = denominators.filter(d => d < denom1 && d > 2);
+                if (smallerDenoms.length === 0) {
+                    // Fallback: use any smaller denominator
+                    const fallbackDenoms = denominators.filter(d => d < denom1);
+                    denom2 = fallbackDenoms.length > 0 ? randomElement(fallbackDenoms) : denominators[0];
+                } else {
+                    denom2 = randomElement(smallerDenoms);
+                }
+            }
+            num1 = randomInt(1, Math.max(1, Math.floor(denom1 / 2)));
+            num2 = randomInt(Math.max(1, Math.ceil(denom2 / 2)), Math.max(1, denom2 - 1));
             break;
         }
 
         case CONFIG.MISTAKE_TYPES.BOTH_HIGHER: {
             // Both numerator and denominator higher
-            denom1 = randomElement(denominators.filter(d => d > 4));
-            denom2 = randomElement(denominators.filter(d => d < denom1 - 2));
-            num1 = randomInt(Math.ceil(denom1 * 0.6), denom1 - 1);
-            num2 = randomInt(1, Math.floor(denom2 * 0.4));
+            const largeDenoms = denominators.filter(d => d > 4);
+            if (largeDenoms.length === 0) {
+                // Fallback: use two different denominators
+                denom1 = randomElement(denominators);
+                const otherDenoms = denominators.filter(d => d !== denom1);
+                denom2 = otherDenoms.length > 0 ? randomElement(otherDenoms) : denominators[0];
+            } else {
+                denom1 = randomElement(largeDenoms);
+                const smallerDenoms = denominators.filter(d => d < denom1 - 2);
+                if (smallerDenoms.length === 0) {
+                    const fallbackDenoms = denominators.filter(d => d < denom1);
+                    denom2 = fallbackDenoms.length > 0 ? randomElement(fallbackDenoms) : denominators[0];
+                } else {
+                    denom2 = randomElement(smallerDenoms);
+                }
+            }
+            num1 = randomInt(Math.max(1, Math.ceil(denom1 * 0.6)), Math.max(1, denom1 - 1));
+            num2 = randomInt(1, Math.max(1, Math.floor(denom2 * 0.4)));
             break;
         }
 
         case CONFIG.MISTAKE_TYPES.UNIT_FRACTION: {
             // Unit fractions (numerator = 1)
             denom1 = randomElement(denominators);
-            denom2 = randomElement(denominators.filter(d => d !== denom1));
+            const otherDenoms = denominators.filter(d => d !== denom1);
+            denom2 = otherDenoms.length > 0 ? randomElement(otherDenoms) : denominators[0];
             num1 = 1;
             num2 = 1;
             break;
@@ -97,17 +127,27 @@ function generateMistakeProblem(mistakeType, denominators) {
 
         case CONFIG.MISTAKE_TYPES.NEAR_WHOLE: {
             // Fractions close to 1
-            denom1 = randomElement(denominators.filter(d => d > 3));
-            denom2 = randomElement(denominators.filter(d => d > 3 && d !== denom1));
-            num1 = denom1 - randomInt(1, 2);
-            num2 = denom2 - randomInt(1, 2);
+            const largeDenoms = denominators.filter(d => d > 3);
+            if (largeDenoms.length < 2) {
+                // Fallback: use any two different denominators
+                denom1 = randomElement(denominators);
+                const otherDenoms = denominators.filter(d => d !== denom1);
+                denom2 = otherDenoms.length > 0 ? randomElement(otherDenoms) : denominators[0];
+            } else {
+                denom1 = randomElement(largeDenoms);
+                const otherLargeDenoms = largeDenoms.filter(d => d !== denom1);
+                denom2 = otherLargeDenoms.length > 0 ? randomElement(otherLargeDenoms) : largeDenoms[0];
+            }
+            num1 = Math.max(1, denom1 - randomInt(1, 2));
+            num2 = Math.max(1, denom2 - randomInt(1, 2));
             break;
         }
 
         case CONFIG.MISTAKE_TYPES.EQUIVALENT: {
             // Equivalent fractions
-            const baseDenom = randomElement(denominators.filter(d => d > 3));
-            const baseNum = randomInt(1, baseDenom - 1);
+            const largeDenoms = denominators.filter(d => d > 3);
+            const baseDenom = largeDenoms.length > 0 ? randomElement(largeDenoms) : randomElement(denominators);
+            const baseNum = randomInt(1, Math.max(1, baseDenom - 1));
             const multiplier = randomInt(2, 3);
 
             num1 = baseNum;

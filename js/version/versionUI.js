@@ -25,6 +25,9 @@ export function initializeVersionUI() {
 
     // Create changelog modal
     createChangelogModal();
+
+    // Add version selector to controls
+    addVersionSelectorToControls();
 }
 
 /**
@@ -226,25 +229,44 @@ export function createVersionSelector() {
     const currentVersion = getCurrentVersion();
 
     const container = createElement('div', { className: 'control-group' });
-    const label = createElement('label', {}, 'Version');
+    const label = createElement('label', { htmlFor: 'version-selector' }, 'Version:');
 
     const select = createElement('select', { id: 'version-selector' });
 
     versions.forEach(version => {
+        const icon = version.type === 'major' ? '🎉' : version.type === 'minor' ? '✨' : '🔧';
         const option = createElement('option', {
-            value: version.number,
-            selected: version.number === currentVersion
-        }, `v${version.number} (${version.date})`);
+            value: version.number
+        }, `${icon} v${version.number} - ${version.description || version.date}`);
+
+        if (version.number === currentVersion) {
+            option.selected = true;
+        }
 
         select.appendChild(option);
     });
 
     select.addEventListener('change', (e) => {
-        showChangelog(e.target.value);
+        const selectedVersion = versions.find(v => v.number === e.target.value);
+        if (selectedVersion && selectedVersion.file) {
+            // Navigate to the version file
+            window.location.href = selectedVersion.file;
+        }
     });
 
     container.appendChild(label);
     container.appendChild(select);
 
     return container;
+}
+
+/**
+ * Add version selector to controls section
+ */
+function addVersionSelectorToControls() {
+    const controlsGrid = qs('.controls-grid');
+    if (!controlsGrid) return;
+
+    const versionSelector = createVersionSelector();
+    controlsGrid.appendChild(versionSelector);
 }

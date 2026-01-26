@@ -5,7 +5,149 @@
       "number": "2.0.0",
       "date": "2026-01-26",
       "changelogFile": "changelogs/v2.0.0.md",
-      "type": "major"
+      "type": "major",
+      "description": "Complete modular ES6 architecture",
+      "file": "index.html"
+    },
+    {
+      "number": "1.4.12",
+      "date": "2026-01-25",
+      "type": "patch",
+      "description": "Carousel UI polish",
+      "file": "fraction-worksheet-v1.4.12.html"
+    },
+    {
+      "number": "1.4.11",
+      "date": "2026-01-25",
+      "type": "minor",
+      "description": "Carousel UI implementation",
+      "file": "fraction-worksheet-v1.4.11.html"
+    },
+    {
+      "number": "1.4.10",
+      "date": "2026-01-25",
+      "type": "patch",
+      "description": "Print & mobile fixes",
+      "file": "fraction-worksheet-v1.4.10.html"
+    },
+    {
+      "number": "1.4.9",
+      "date": "2026-01-23",
+      "type": "patch",
+      "description": "Print & mobile improvements",
+      "file": "fraction-worksheet-v1.4.9.html"
+    },
+    {
+      "number": "1.4.8",
+      "date": "2026-01-23",
+      "type": "patch",
+      "description": "Inclusive design",
+      "file": "fraction-worksheet-v1.4.8.html"
+    },
+    {
+      "number": "1.4.7",
+      "date": "2026-01-22",
+      "type": "minor",
+      "description": "Visual illustrations",
+      "file": "fraction-worksheet-v1.4.7.html"
+    },
+    {
+      "number": "1.4.6",
+      "date": "2026-01-22",
+      "type": "minor",
+      "description": "Enhanced educational content",
+      "file": "fraction-worksheet-v1.4.6.html"
+    },
+    {
+      "number": "1.4.5",
+      "date": "2026-01-22",
+      "type": "minor",
+      "description": "Conditional visual aids",
+      "file": "fraction-worksheet-v1.4.5.html"
+    },
+    {
+      "number": "1.4.4",
+      "date": "2026-01-22",
+      "type": "minor",
+      "description": "Common mistakes mode",
+      "file": "fraction-worksheet-v1.4.4.html"
+    },
+    {
+      "number": "1.4.3",
+      "date": "2026-01-22",
+      "type": "patch",
+      "description": "Ease of use improvements",
+      "file": "fraction-worksheet-v1.4.3.html"
+    },
+    {
+      "number": "1.4.2",
+      "date": "2026-01-22",
+      "type": "patch",
+      "description": "Print & UI refinements",
+      "file": "fraction-worksheet-v1.4.2.html"
+    },
+    {
+      "number": "1.4.1",
+      "date": "2026-01-22",
+      "type": "patch",
+      "description": "Timeline redesign",
+      "file": "fraction-worksheet-v1.4.1.html"
+    },
+    {
+      "number": "1.4.0",
+      "date": "2026-01-22",
+      "type": "minor",
+      "description": "Version management",
+      "file": "fraction-worksheet-v1.4.0.html"
+    },
+    {
+      "number": "1.3.3",
+      "date": "2026-01-22",
+      "type": "patch",
+      "description": "Bug fixes",
+      "file": "fraction-worksheet-v1.3.3.html"
+    },
+    {
+      "number": "1.3.2",
+      "date": "2026-01-22",
+      "type": "patch",
+      "description": "Historical content",
+      "file": "fraction-worksheet-v1.3.2.html"
+    },
+    {
+      "number": "1.3.1",
+      "date": "2026-01-22",
+      "type": "patch",
+      "description": "Educational enhancements",
+      "file": "fraction-worksheet-v1.3.1.html"
+    },
+    {
+      "number": "1.3.0",
+      "date": "2026-01-22",
+      "type": "minor",
+      "description": "PDF optimization",
+      "file": "fraction-worksheet-v1.3.0.html"
+    },
+    {
+      "number": "1.2.0",
+      "date": "2026-01-22",
+      "type": "minor",
+      "description": "Documentation",
+      "file": "fraction-worksheet-v1.2.0.html"
+    },
+    {
+      "number": "1.1.0",
+      "date": "2026-01-22",
+      "type": "minor",
+      "description": "Material Design",
+      "file": "fraction-worksheet-v1.1.0.html"
+    },
+    {
+      "number": "1.0.0",
+      "date": "2026-01-22",
+      "type": "major",
+      "description": "Initial release",
+      "file": "fraction-worksheet-v1.0.0.html"
     }
   ]
 }

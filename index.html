@@ -216,21 +216,83 @@
 
                         <p><strong>Example:</strong> In the fraction 3/4, you have 3 parts out of 4 equal parts that make up the whole.</p>
 
-                        <div class="visual-fraction-demo">
+                        <div class="visual-fraction-demo" style="flex-direction: column;">
                             <strong>Visual - One Whole Divided into 4 Equal Parts:</strong>
-                            <div style="margin: 15px 0;">
-                                <div class="fraction-bar">
-                                    <div class="fraction-part filled">1</div>
-                                    <div class="fraction-part filled">2</div>
-                                    <div class="fraction-part filled">3</div>
-                                    <div class="fraction-part">4</div>
+                            <div style="display: flex; gap: 30px; align-items: center; justify-content: center; margin: 20px 0; flex-wrap: wrap;">
+                                <div style="text-align: center;">
+                                    <svg width="120" height="120" viewBox="0 0 120 120">
+                                        <circle cx="60" cy="60" r="58" fill="none" stroke="#333" stroke-width="2"/>
+                                        <path d="M 60 60 L 60 2 A 58 58 0 0 1 118 60 Z" fill="#FFA726" stroke="#333" stroke-width="2"/>
+                                        <path d="M 60 60 L 118 60 A 58 58 0 0 1 60 118 Z" fill="#FFA726" stroke="#333" stroke-width="2"/>
+                                        <path d="M 60 60 L 60 118 A 58 58 0 0 1 2 60 Z" fill="#FFA726" stroke="#333" stroke-width="2"/>
+                                        <path d="M 60 60 L 2 60 A 58 58 0 0 1 60 2 Z" fill="#FFF" stroke="#333" stroke-width="2"/>
+                                    </svg>
+                                    <div style="margin-top: 10px; font-weight: bold; font-size: 1.2em;">3/4 (Three Fourths)</div>
+                                    <div style="color: #666;">3 out of 4 parts filled</div>
+                                </div>
+                                <div style="text-align: center;">
+                                    <div class="fraction-bar">
+                                        <div class="fraction-part filled">1</div>
+                                        <div class="fraction-part filled">2</div>
+                                        <div class="fraction-part filled">3</div>
+                                        <div class="fraction-part">4</div>
+                                    </div>
+                                    <div style="margin-top: 10px; font-weight: bold; font-size: 1.2em;">3/4 (Bar Model)</div>
+                                    <div style="color: #666;">Same fraction, different view!</div>
                                 </div>
                             </div>
-                            <span style="margin-top: 8px; display: block;">
+                            <span style="margin-top: 8px; display: block; text-align: center;">
                                 ☝️ <strong>This is ONE whole shape</strong> divided into 4 equal parts<br>
                                 <strong>Filled parts (orange) = 3/4</strong> (three out of four parts)<br>
                                 <strong>Empty parts (white) = 1/4</strong> (one out of four parts)
                             </span>
+                        </div>
+
+                        <div style="margin: 20px 0; padding: 20px; background: #E8F5E9; border-radius: 8px;">
+                            <h4 style="color: #2E7D32;">🎯 More Examples with Circle Diagrams:</h4>
+                            <div style="display: flex; gap: 20px; justify-content: center; margin: 15px 0; flex-wrap: wrap;">
+                                <div style="text-align: center;">
+                                    <svg width="80" height="80" viewBox="0 0 80 80">
+                                        <circle cx="40" cy="40" r="38" fill="none" stroke="#333" stroke-width="2"/>
+                                        <path d="M 40 40 L 40 2 A 38 38 0 0 1 78 40 Z" fill="#FFA726" stroke="#333" stroke-width="2"/>
+                                        <path d="M 40 40 L 78 40 A 38 38 0 0 1 40 78 Z" fill="#FFF" stroke="#333" stroke-width="2"/>
+                                        <path d="M 40 40 L 40 78 A 38 38 0 0 1 2 40 Z" fill="#FFF" stroke="#333" stroke-width="2"/>
+                                        <path d="M 40 40 L 2 40 A 38 38 0 0 1 40 2 Z" fill="#FFF" stroke="#333" stroke-width="2"/>
+                                    </svg>
+                                    <div><strong>1/4</strong><br><small>one fourth</small></div>
+                                </div>
+                                <div style="text-align: center;">
+                                    <svg width="80" height="80" viewBox="0 0 80 80">
+                                        <circle cx="40" cy="40" r="38" fill="none" stroke="#333" stroke-width="2"/>
+                                        <path d="M 40 40 L 40 2 A 38 38 0 0 1 78 40 Z" fill="#FFA726" stroke="#333" stroke-width="2"/>
+                                        <path d="M 40 40 L 78 40 A 38 38 0 0 1 40 78 Z" fill="#FFA726" stroke="#333" stroke-width="2"/>
+                                        <path d="M 40 40 L 40 78 A 38 38 0 0 1 2 40 Z" fill="#FFF" stroke="#333" stroke-width="2"/>
+                                        <path d="M 40 40 L 2 40 A 38 38 0 0 1 40 2 Z" fill="#FFF" stroke="#333" stroke-width="2"/>
+                                    </svg>
+                                    <div><strong>1/2</strong><br><small>one half</small></div>
+                                </div>
+                                <div style="text-align: center;">
+                                    <svg width="80" height="80" viewBox="0 0 80 80">
+                                        <circle cx="40" cy="40" r="38" fill="none" stroke="#333" stroke-width="2"/>
+                                        <path d="M 40 40 L 40 2 A 38 38 0 0 1 78 40 Z" fill="#FFA726" stroke="#333" stroke-width="2"/>
+                                        <path d="M 40 40 L 78 40 A 38 38 0 0 1 40 78 Z" fill="#FFA726" stroke="#333" stroke-width="2"/>
+                                        <path d="M 40 40 L 40 78 A 38 38 0 0 1 2 40 Z" fill="#FFA726" stroke="#333" stroke-width="2"/>
+                                        <path d="M 40 40 L 2 40 A 38 38 0 0 1 40 2 Z" fill="#FFF" stroke="#333" stroke-width="2"/>
+                                    </svg>
+                                    <div><strong>3/4</strong><br><small>three fourths</small></div>
+                                </div>
+                                <div style="text-align: center;">
+                                    <svg width="80" height="80" viewBox="0 0 80 80">
+                                        <circle cx="40" cy="40" r="38" fill="none" stroke="#333" stroke-width="2"/>
+                                        <path d="M 40 40 L 40 2 A 38 38 0 0 1 78 40 Z" fill="#FFA726" stroke="#333" stroke-width="2"/>
+                                        <path d="M 40 40 L 78 40 A 38 38 0 0 1 40 78 Z" fill="#FFA726" stroke="#333" stroke-width="2"/>
+                                        <path d="M 40 40 L 40 78 A 38 38 0 0 1 2 40 Z" fill="#FFA726" stroke="#333" stroke-width="2"/>
+                                        <path d="M 40 40 L 2 40 A 38 38 0 0 1 40 2 Z" fill="#FFA726" stroke="#333" stroke-width="2"/>
+                                    </svg>
+                                    <div><strong>4/4 = 1</strong><br><small>one whole</small></div>
+                                </div>
+                            </div>
+                            <p style="text-align: center; color: #2E7D32;"><strong>Notice:</strong> As we fill more parts, the fraction gets larger! 1/4 < 1/2 < 3/4 < 4/4</p>
                         </div>
                     </div>
 
@@ -312,12 +374,74 @@
                     <div class="example-box">
                         <h4>🍕 For 9-Year-Olds: Pizza Time!</h4>
                         <p>Imagine you and your friend order a pizza cut into 8 equal slices.</p>
-                        <p><strong>Who ate more?</strong> Compare fractions to find out! Understanding fractions helps you understand fair sharing and portion sizes.</p>
+                        <div style="display: flex; gap: 30px; align-items: center; justify-content: center; margin: 20px 0; flex-wrap: wrap;">
+                            <div style="text-align: center;">
+                                <svg width="100" height="100" viewBox="0 0 100 100">
+                                    <circle cx="50" cy="50" r="48" fill="none" stroke="#333" stroke-width="2"/>
+                                    <path d="M 50 50 L 50 2 A 48 48 0 0 1 98 50 Z" fill="#FFA726" stroke="#333"/>
+                                    <path d="M 50 50 L 98 50 A 48 48 0 0 1 83.9 83.9 Z" fill="#FFA726" stroke="#333"/>
+                                    <path d="M 50 50 L 83.9 83.9 A 48 48 0 0 1 50 98 Z" fill="#FFA726" stroke="#333"/>
+                                    <path d="M 50 50 L 50 98 A 48 48 0 0 1 16.1 83.9 Z" fill="#FFF" stroke="#333"/>
+                                    <path d="M 50 50 L 16.1 83.9 A 48 48 0 0 1 2 50 Z" fill="#FFF" stroke="#333"/>
+                                    <path d="M 50 50 L 2 50 A 48 48 0 0 1 16.1 16.1 Z" fill="#FFF" stroke="#333"/>
+                                    <path d="M 50 50 L 16.1 16.1 A 48 48 0 0 1 50 2 Z" fill="#FFF" stroke="#333"/>
+                                    <path d="M 50 50 L 50 2 A 48 48 0 0 1 83.9 16.1 Z" fill="#FFF" stroke="#333"/>
+                                </svg>
+                                <div><strong>You: 3/8</strong></div>
+                            </div>
+                            <div style="text-align: center;">
+                                <svg width="100" height="100" viewBox="0 0 100 100">
+                                    <circle cx="50" cy="50" r="48" fill="none" stroke="#333" stroke-width="2"/>
+                                    <path d="M 50 50 L 50 2 A 48 48 0 0 1 98 50 Z" fill="#FFA726" stroke="#333"/>
+                                    <path d="M 50 50 L 98 50 A 48 48 0 0 1 83.9 83.9 Z" fill="#FFA726" stroke="#333"/>
+                                    <path d="M 50 50 L 83.9 83.9 A 48 48 0 0 1 50 98 Z" fill="#FFF" stroke="#333"/>
+                                    <path d="M 50 50 L 50 98 A 48 48 0 0 1 16.1 83.9 Z" fill="#FFF" stroke="#333"/>
+                                    <path d="M 50 50 L 16.1 83.9 A 48 48 0 0 1 2 50 Z" fill="#FFF" stroke="#333"/>
+                                    <path d="M 50 50 L 2 50 A 48 48 0 0 1 16.1 16.1 Z" fill="#FFF" stroke="#333"/>
+                                    <path d="M 50 50 L 16.1 16.1 A 48 48 0 0 1 50 2 Z" fill="#FFF" stroke="#333"/>
+                                    <path d="M 50 50 L 50 2 A 48 48 0 0 1 83.9 16.1 Z" fill="#FFF" stroke="#333"/>
+                                </svg>
+                                <div><strong>Friend: 2/8</strong></div>
+                            </div>
+                        </div>
+                        <p><strong>Who ate more?</strong> You did! 3/8 > 2/8. Understanding fractions helps you understand fair sharing and portion sizes.</p>
                     </div>
 
                     <div class="example-box">
                         <h4>⏰ Time Management</h4>
                         <p>An hour has 60 minutes. Let's see how fractions help us understand time:</p>
+                        <div style="display: flex; gap: 20px; justify-content: center; margin: 15px 0; flex-wrap: wrap;">
+                            <div style="text-align: center;">
+                                <svg width="80" height="80" viewBox="0 0 80 80">
+                                    <circle cx="40" cy="40" r="38" fill="none" stroke="#333" stroke-width="2"/>
+                                    <path d="M 40 40 L 40 2 A 38 38 0 0 1 78 40 Z" fill="#4CAF50" stroke="#333"/>
+                                    <path d="M 40 40 L 78 40 A 38 38 0 0 1 40 78 Z" fill="#FFF" stroke="#333"/>
+                                    <path d="M 40 40 L 40 78 A 38 38 0 0 1 2 40 Z" fill="#FFF" stroke="#333"/>
+                                    <path d="M 40 40 L 2 40 A 38 38 0 0 1 40 2 Z" fill="#FFF" stroke="#333"/>
+                                </svg>
+                                <div><small>Homework</small><br><strong>1/4 hour</strong></div>
+                            </div>
+                            <div style="text-align: center;">
+                                <svg width="80" height="80" viewBox="0 0 80 80">
+                                    <circle cx="40" cy="40" r="38" fill="none" stroke="#333" stroke-width="2"/>
+                                    <path d="M 40 40 L 40 2 A 38 38 0 0 1 78 40 Z" fill="#2196F3" stroke="#333"/>
+                                    <path d="M 40 40 L 78 40 A 38 38 0 0 1 40 78 Z" fill="#2196F3" stroke="#333"/>
+                                    <path d="M 40 40 L 40 78 A 38 38 0 0 1 2 40 Z" fill="#FFF" stroke="#333"/>
+                                    <path d="M 40 40 L 2 40 A 38 38 0 0 1 40 2 Z" fill="#FFF" stroke="#333"/>
+                                </svg>
+                                <div><small>Video games</small><br><strong>1/2 hour</strong></div>
+                            </div>
+                            <div style="text-align: center;">
+                                <svg width="80" height="80" viewBox="0 0 80 80">
+                                    <circle cx="40" cy="40" r="38" fill="none" stroke="#333" stroke-width="2"/>
+                                    <path d="M 40 40 L 40 2 A 38 38 0 0 1 78 40 Z" fill="#FF9800" stroke="#333"/>
+                                    <path d="M 40 40 L 78 40 A 38 38 0 0 1 40 78 Z" fill="#FFF" stroke="#333"/>
+                                    <path d="M 40 40 L 40 78 A 38 38 0 0 1 2 40 Z" fill="#FFF" stroke="#333"/>
+                                    <path d="M 40 40 L 2 40 A 38 38 0 0 1 40 2 Z" fill="#FFF" stroke="#333"/>
+                                </svg>
+                                <div><small>Reading</small><br><strong>1/4 hour</strong></div>
+                            </div>
+                        </div>
                         <ul>
                             <li>Homework: 15 min = 15/60 = 1/4 hour</li>
                             <li>Video games: 30 min = 30/60 = 1/2 hour</li>
@@ -329,6 +453,39 @@
                     <div class="example-box">
                         <h4>🍳 Cooking & Recipes</h4>
                         <p>Recipes use fractions constantly! Understanding fractions is essential for adjusting recipe sizes.</p>
+                        <div style="display: flex; gap: 20px; justify-content: center; margin: 15px 0; flex-wrap: wrap;">
+                            <div style="text-align: center;">
+                                <svg width="60" height="60" viewBox="0 0 60 60">
+                                    <circle cx="30" cy="30" r="28" fill="none" stroke="#333" stroke-width="2"/>
+                                    <path d="M 30 30 L 30 2 A 28 28 0 0 1 58 30 Z" fill="#8BC34A" stroke="#333"/>
+                                    <path d="M 30 30 L 58 30 A 28 28 0 0 1 30 58 Z" fill="#8BC34A" stroke="#333"/>
+                                    <path d="M 30 30 L 30 58 A 28 28 0 0 1 2 30 Z" fill="#8BC34A" stroke="#333"/>
+                                    <path d="M 30 30 L 2 30 A 28 28 0 0 1 30 2 Z" fill="#FFF" stroke="#333"/>
+                                </svg>
+                                <div><strong>3/4 cup</strong><br><small>flour</small></div>
+                            </div>
+                            <div style="text-align: center;">
+                                <svg width="60" height="60" viewBox="0 0 60 60">
+                                    <circle cx="30" cy="30" r="28" fill="none" stroke="#333" stroke-width="2"/>
+                                    <path d="M 30 30 L 30 2 A 28 28 0 0 1 58 30 Z" fill="#FF5722" stroke="#333"/>
+                                    <path d="M 30 30 L 58 30 A 28 28 0 0 1 30 58 Z" fill="#FF5722" stroke="#333"/>
+                                    <path d="M 30 30 L 30 58 A 28 28 0 0 1 2 30 Z" fill="#FFF" stroke="#333"/>
+                                    <path d="M 30 30 L 2 30 A 28 28 0 0 1 30 2 Z" fill="#FFF" stroke="#333"/>
+                                </svg>
+                                <div><strong>1/2 cup</strong><br><small>sugar</small></div>
+                            </div>
+                            <div style="text-align: center;">
+                                <svg width="60" height="60" viewBox="0 0 60 60">
+                                    <circle cx="30" cy="30" r="28" fill="none" stroke="#333" stroke-width="2"/>
+                                    <path d="M 30 30 L 30 2 A 28 28 0 0 1 58 30 Z" fill="#FFD54F" stroke="#333"/>
+                                    <path d="M 30 30 L 58 30 A 28 28 0 0 1 44.1 44.1 Z" fill="#FFF" stroke="#333"/>
+                                    <path d="M 30 30 L 44.1 44.1 A 28 28 0 0 1 30 58 Z" fill="#FFF" stroke="#333"/>
+                                    <path d="M 30 30 L 30 58 A 28 28 0 0 1 2 30 Z" fill="#FFF" stroke="#333"/>
+                                    <path d="M 30 30 L 2 30 A 28 28 0 0 1 30 2 Z" fill="#FFF" stroke="#333"/>
+                                </svg>
+                                <div><strong>1/3 cup</strong><br><small>butter</small></div>
+                            </div>
+                        </div>
                         <p><strong>Original recipe (serves 4):</strong></p>
                         <ul>
                             <li>3/4 cup flour</li>
@@ -337,6 +494,55 @@
                         </ul>
                         <p><strong>What if you want to make half the recipe (serves 2)?</strong></p>
                         <p>Multiply each ingredient by 1/2: Flour becomes 3/8 cup, Sugar becomes 1/4 cup, Butter becomes 1/6 cup</p>
+                    </div>
+
+                    <div class="example-box">
+                        <h4>💵 Money and Shopping</h4>
+                        <p>Understanding fractions helps you calculate discounts and compare prices!</p>
+                        <div style="display: flex; gap: 20px; justify-content: center; margin: 15px 0; flex-wrap: wrap;">
+                            <div style="text-align: center;">
+                                <svg width="80" height="80" viewBox="0 0 80 80">
+                                    <circle cx="40" cy="40" r="38" fill="none" stroke="#333" stroke-width="2"/>
+                                    <path d="M 40 40 L 40 2 A 38 38 0 0 1 78 40 Z" fill="#E91E63" stroke="#333"/>
+                                    <path d="M 40 40 L 78 40 A 38 38 0 0 1 40 78 Z" fill="#E91E63" stroke="#333"/>
+                                    <path d="M 40 40 L 40 78 A 38 38 0 0 1 2 40 Z" fill="#FFF" stroke="#333"/>
+                                    <path d="M 40 40 L 2 40 A 38 38 0 0 1 40 2 Z" fill="#FFF" stroke="#333"/>
+                                </svg>
+                                <div><strong>50% OFF</strong><br><small>= 1/2 off</small></div>
+                            </div>
+                            <div style="text-align: center;">
+                                <svg width="80" height="80" viewBox="0 0 80 80">
+                                    <circle cx="40" cy="40" r="38" fill="none" stroke="#333" stroke-width="2"/>
+                                    <path d="M 40 40 L 40 2 A 38 38 0 0 1 78 40 Z" fill="#9C27B0" stroke="#333"/>
+                                    <path d="M 40 40 L 78 40 A 38 38 0 0 1 40 78 Z" fill="#FFF" stroke="#333"/>
+                                    <path d="M 40 40 L 40 78 A 38 38 0 0 1 2 40 Z" fill="#FFF" stroke="#333"/>
+                                    <path d="M 40 40 L 2 40 A 38 38 0 0 1 40 2 Z" fill="#FFF" stroke="#333"/>
+                                </svg>
+                                <div><strong>25% OFF</strong><br><small>= 1/4 off</small></div>
+                            </div>
+                        </div>
+                        <p><strong>Example:</strong> A $20 toy is 50% off (1/2 off). You pay 1/2 of $20 = $10!</p>
+                        <p>A $12 book is 25% off (1/4 off). You save 1/4 of $12 = $3, so you pay $9.</p>
+                    </div>
+
+                    <div class="example-box">
+                        <h4>📏 Sports and Measurements</h4>
+                        <p>Athletes and coaches use fractions all the time to measure performance and distances.</p>
+                        <div style="display: flex; gap: 20px; justify-content: center; margin: 15px 0; flex-wrap: wrap;">
+                            <div style="text-align: center;">
+                                <svg width="80" height="80" viewBox="0 0 80 80">
+                                    <circle cx="40" cy="40" r="38" fill="none" stroke="#333" stroke-width="2"/>
+                                    <path d="M 40 40 L 40 2 A 38 38 0 0 1 78 40 Z" fill="#00BCD4" stroke="#333"/>
+                                    <path d="M 40 40 L 78 40 A 38 38 0 0 1 59.1 59.1 Z" fill="#00BCD4" stroke="#333"/>
+                                    <path d="M 40 40 L 59.1 59.1 A 38 38 0 0 1 40 78 Z" fill="#00BCD4" stroke="#333"/>
+                                    <path d="M 40 40 L 40 78 A 38 38 0 0 1 2 40 Z" fill="#FFF" stroke="#333"/>
+                                    <path d="M 40 40 L 2 40 A 38 38 0 0 1 40 2 Z" fill="#FFF" stroke="#333"/>
+                                </svg>
+                                <div><strong>3/8 mile</strong><br><small>track distance</small></div>
+                            </div>
+                        </div>
+                        <p><strong>Example:</strong> A running track might be 3/8 of a mile. If you run 3 laps, you've run 3 × 3/8 = 9/8 = 1 1/8 miles!</p>
+                        <p><strong>Basketball:</strong> Free throw percentage of 3/4 means making 3 out of every 4 shots (75% success rate).</p>
                     </div>
 
                     <!-- Why Fractions Matter -->
@@ -371,98 +577,114 @@
                     <p><strong>Practice makes perfect!</strong> The more you work with fractions, the easier they become.</p>
 
                     <!-- Version History -->
-                    <h3>Version History</h3>
-                    <div class="strategy-box">
-                        <div class="version-entry">
-                            <h4>v1.4.13 (January 2026) - Accessibility & Responsiveness</h4>
+                    <h3>📚 Version History</h3>
+                    <div class="strategy-box" style="background: linear-gradient(135deg, #E8EAF6 0%, #F5F5F5 100%);">
+                        <p style="text-align: center; color: #666; margin-bottom: 20px; padding: 15px; background: #FFF3E0; border-radius: 4px; border-left: 4px solid #FF9800;">
+                            <strong>💡 Switch Versions!</strong> Use the <strong>Version selector</strong> dropdown in the controls above to try different versions of this app!
+                        </p>
+
+                        <div class="version-entry" style="border-left: 4px solid #6200EA; background: linear-gradient(135deg, #EDE7F6 0%, #F3E5F5 100%);">
+                            <h4>🎉 v2.0.0 (January 2026) - Complete Modular ES6 Architecture</h4>
                             <ul>
-                                <li>✅ Fixed carousel arrows to properly center using top:50% + translateY(-50%)</li>
-                                <li>✅ Added transform composition on hover: translateY(-50%) scale(1.1)</li>
-                                <li>✅ Added aria-label attributes to icon buttons for screen readers</li>
-                                <li>✅ Added aria-hidden="true" to decorative Material Icons</li>
-                                <li>✅ Added visible :focus outline (2px solid, 2px offset) for keyboard navigation</li>
-                                <li>✅ Enhanced mobile problem grid: grid-template-columns: 1fr, gap: 8px</li>
-                                <li>✅ Added @media (prefers-reduced-motion: reduce) support</li>
-                                <li>✅ Disables animations/transitions (0.001ms) for motion-sensitive users</li>
-                                <li>✅ Enhanced print styles with !important flags for white background and black text</li>
+                                <li>✨ <strong>Major refactor:</strong> Split monolithic HTML into modular ES6 modules</li>
+                                <li>📁 <strong>Modular CSS:</strong> Separated into layout/, components/, and features/</li>
+                                <li>📦 <strong>Modular JavaScript:</strong> Core, features, and version management modules</li>
+                                <li>🚀 <strong>Better maintainability:</strong> Clear separation of concerns</li>
+                                <li>🔧 <strong>Improved scalability:</strong> Easy to add new features and fix bugs</li>
+                                <li>📚 <strong>Enhanced documentation:</strong> Comprehensive project files listing</li>
+                            </ul>
+                        </div>
+
+                        <div class="version-entry">
+                            <h4>🔧 v1.4.13 (January 2026) - Accessibility & Responsiveness</h4>
+                            <ul>
+                                <li>♿ Fixed carousel arrows to properly center using top:50% + translateY(-50%)</li>
+                                <li>🎨 Added transform composition on hover: translateY(-50%) scale(1.1)</li>
+                                <li>🔊 Added aria-label attributes to icon buttons for screen readers</li>
+                                <li>🙈 Added aria-hidden="true" to decorative Material Icons</li>
+                                <li>⌨️ Added visible :focus outline (2px solid, 2px offset) for keyboard navigation</li>
+                                <li>📱 Enhanced mobile problem grid: grid-template-columns: 1fr, gap: 8px</li>
+                                <li>🎭 Added @media (prefers-reduced-motion: reduce) support</li>
+                                <li>🚫 Disables animations/transitions (0.001ms) for motion-sensitive users</li>
+                                <li>🖨️ Enhanced print styles with !important flags for white background and black text</li>
                                 <li>✅ Carousel arrows now work at any viewport height and scale correctly</li>
                             </ul>
                         </div>
 
                         <div class="version-entry">
-                            <h4>v1.4.12 (January 2026) - Carousel UI Polish</h4>
+                            <h4>🔧 v1.4.12 (January 2026) - Carousel UI Polish</h4>
                             <ul>
-                                <li>✅ Fixed arrow positioning: arrows at fixed 200px from top</li>
-                                <li>✅ Moved arrows to 10px from sides for better aesthetics</li>
-                                <li>✅ Simplified tab labels: removed parenthetical content and date ranges</li>
-                                <li>✅ Tab labels can wrap to double height for better readability</li>
-                                <li>✅ Converted Brief History of Fractions to carousel (5 slides)</li>
-                                <li>✅ Total of 3 carousels with 15 slides across Learning Guide</li>
+                                <li>🎯 Fixed arrow positioning: arrows at fixed 200px from top</li>
+                                <li>📐 Moved arrows to 10px from sides for better aesthetics</li>
+                                <li>🏷️ Simplified tab labels: removed parenthetical content and date ranges</li>
+                                <li>📏 Tab labels can wrap to double height for better readability</li>
+                                <li>🎠 Converted Brief History of Fractions to carousel (5 slides)</li>
+                                <li>🎪 Total of 3 carousels with 15 slides across Learning Guide</li>
                             </ul>
                         </div>
 
                         <div class="version-entry">
-                            <h4>v1.4.11 (January 2026) - Carousel UI Implementation</h4>
+                            <h4>✨ v1.4.11 (January 2026) - Carousel UI Implementation</h4>
                             <ul>
-                                <li>✅ Implemented horizontal carousel for Common Misconceptions (5 slides)</li>
-                                <li>✅ Implemented horizontal carousel for Comparison Strategies (5 slides)</li>
-                                <li>✅ Touch/swipe support for mobile devices</li>
-                                <li>✅ Keyboard navigation with arrow keys</li>
-                                <li>✅ Navigation buttons (prev/next) with disabled states</li>
-                                <li>✅ Dot indicators showing current position</li>
-                                <li>✅ Slide counter (e.g., "1 / 5")</li>
-                                <li>✅ Smooth transitions with CSS transforms</li>
-                                <li>✅ Auto-height adjustment per slide</li>
+                                <li>🎠 Implemented horizontal carousel for Common Misconceptions (5 slides)</li>
+                                <li>🎪 Implemented horizontal carousel for Comparison Strategies (5 slides)</li>
+                                <li>👆 Touch/swipe support for mobile devices</li>
+                                <li>⌨️ Keyboard navigation with arrow keys</li>
+                                <li>🔘 Navigation buttons (prev/next) with disabled states</li>
+                                <li>⚪ Dot indicators showing current position</li>
+                                <li>🔢 Slide counter (e.g., "1 / 5")</li>
+                                <li>✨ Smooth transitions with CSS transforms</li>
+                                <li>📏 Auto-height adjustment per slide</li>
                             </ul>
                         </div>
 
                         <div class="version-entry">
-                            <h4>v1.4.10 (January 2026) - Print & Mobile Fixes</h4>
+                            <h4>🔧 v1.4.10 (January 2026) - Print & Mobile Fixes</h4>
                             <ul>
-                                <li>✅ Fixed collapsed sections printing when they should stay hidden</li>
-                                <li>✅ Implemented inline style approach with display: none !important</li>
-                                <li>✅ Fixed mobile horizontal scroll issues</li>
-                                <li>✅ Made comparison boxes stack vertically on mobile</li>
-                                <li>✅ Scaled pizza SVGs to 60px on mobile</li>
-                                <li>✅ All content fits naturally within 390px viewport (iPhone 13)</li>
-                                <li>✅ Refactored duplicate code with helper functions (reduced 168 lines)</li>
+                                <li>🖨️ Fixed collapsed sections printing when they should stay hidden</li>
+                                <li>💻 Implemented inline style approach with display: none !important</li>
+                                <li>📱 Fixed mobile horizontal scroll issues</li>
+                                <li>📦 Made comparison boxes stack vertically on mobile</li>
+                                <li>🍕 Scaled pizza SVGs to 60px on mobile</li>
+                                <li>📲 All content fits naturally within 390px viewport (iPhone 13)</li>
+                                <li>♻️ Refactored duplicate code with helper functions (reduced 168 lines)</li>
                             </ul>
                         </div>
 
                         <div class="version-entry">
-                            <h4>v1.4.9 (January 2026) - Print & Mobile Improvements</h4>
+                            <h4>🔧 v1.4.9 (January 2026) - Print & Mobile Improvements</h4>
                             <ul>
-                                <li>✅ Additional print and mobile fixes</li>
-                                <li>✅ Improved responsive layout</li>
+                                <li>🖨️ Additional print and mobile fixes</li>
+                                <li>📐 Improved responsive layout</li>
                             </ul>
                         </div>
 
                         <div class="version-entry">
-                            <h4>v1.4.8 (January 2026) - Inclusive Design</h4>
+                            <h4>🔧 v1.4.8 (January 2026) - Inclusive Design</h4>
                             <ul>
-                                <li>✅ Inclusive representation in visual content</li>
-                                <li>✅ Bug fixes and stability improvements</li>
-                                <li>✅ Documentation updates</li>
+                                <li>🌍 Inclusive representation in visual content</li>
+                                <li>🐛 Bug fixes and stability improvements</li>
+                                <li>📚 Documentation updates</li>
                             </ul>
                         </div>
 
                         <div class="version-entry">
-                            <h4>v1.4.7 (January 2026) - Visual Illustrations</h4>
+                            <h4>✨ v1.4.7 (January 2026) - Visual Illustrations</h4>
                             <ul>
-                                <li>✅ Added visual illustrations to Learning Guide</li>
-                                <li>✅ Unified markdown viewer for educational content</li>
-                                <li>✅ Fixed hint system functionality</li>
+                                <li>🎨 Added visual illustrations to Learning Guide</li>
+                                <li>📝 Unified markdown viewer for educational content</li>
+                                <li>💡 Fixed hint system functionality</li>
                             </ul>
                         </div>
 
                         <div class="version-entry">
-                            <h4>v1.4.6 (January 2026) - Enhanced Educational Content</h4>
+                            <h4>✨ v1.4.6 (January 2026) - Enhanced Educational Content</h4>
                             <ul>
-                                <li>✅ Markdown viewer for formatted content</li>
-                                <li>✅ Collapsible Learning Guide</li>
-                                <li>✅ Common misconceptions section</li>
-                                <li>✅ Universal hint system for all problems</li>
-                                <li>✅ Inclusive design improvements</li>
+                                <li>📝 Markdown viewer for formatted content</li>
+                                <li>📂 Collapsible Learning Guide</li>
+                                <li>⚠️ Common misconceptions section</li>
+                                <li>💡 Universal hint system for all problems</li>
+                                <li>🌍 Inclusive design improvements</li>
                             </ul>
                         </div>
 

@@ -118,7 +118,8 @@
 }
 
 .collapsible-content.show {
-    max-height: 5000px;
+    max-height: none;
+    overflow: visible;
     padding: 16px 0;
 }
 
