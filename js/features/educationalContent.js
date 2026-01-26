@@ -8,18 +8,142 @@
  */
 export const historySlides = [
     {
+        title: '📅 Timeline Introduction',
+        content: `
+            <h4>📅 Timeline Introduction</h4>
+            <p><strong>Fractions have been used for over 5,000 years!</strong> Let's see how far back 3000 BC really is compared to when you, your parents, and grandparents were born:</p>
+
+            <div style="background: linear-gradient(to right, #E8EAF6, #C5CAE9); border-radius: 8px; padding: 30px 20px; margin: 30px 0;">
+                <div style="text-align: center; font-size: 0.85em; color: #666; margin-bottom: 15px;">
+                    Timeline divided into 5 segments of ~1000 years each for accurate placement
+                </div>
+
+                <div style="position: relative; height: 120px; margin-bottom: 30px;">
+                    <div style="position: absolute; top: 50px; left: 0; right: 0; height: 8px; display: flex;">
+                        <div style="flex: 1; background: #673AB7; border-right: 2px solid white;"></div>
+                        <div style="flex: 1; background: #512DA8; border-right: 2px solid white;"></div>
+                        <div style="flex: 1; background: #4527A0; border-right: 2px solid white;"></div>
+                        <div style="flex: 1; background: #311B92; border-right: 2px solid white;"></div>
+                        <div style="flex: 1.026; background: linear-gradient(to right, #1A237E, #03DAC6);"></div>
+                    </div>
+
+                    <div style="position: absolute; left: 0%; top: 65px; font-size: 0.65em; color: #666; font-weight: 600;">
+                        3000 BC
+                    </div>
+                    <div style="position: absolute; left: 19.9%; top: 65px; font-size: 0.65em; color: #666; font-weight: 600; transform: translateX(-50%);">
+                        2000 BC
+                    </div>
+                    <div style="position: absolute; left: 39.8%; top: 65px; font-size: 0.65em; color: #666; font-weight: 600; transform: translateX(-50%);">
+                        1000 BC
+                    </div>
+                    <div style="position: absolute; left: 59.7%; top: 65px; font-size: 0.65em; color: #666; font-weight: 600; transform: translateX(-50%);">
+                        0 AD
+                    </div>
+                    <div style="position: absolute; left: 79.6%; top: 65px; font-size: 0.65em; color: #666; font-weight: 600; transform: translateX(-50%);">
+                        1000 AD
+                    </div>
+                    <div style="position: absolute; right: 0%; top: 65px; font-size: 0.65em; color: #666; font-weight: 600;">
+                        2026 AD
+                    </div>
+
+                    <div style="position: absolute; left: 0%; top: 50px; transform: translate(0, -50%);">
+                        <div style="width: 16px; height: 16px; background: white; border: 3px solid #6200EA; border-radius: 50%; margin: 0 auto;"></div>
+                        <div style="margin-top: -75px; text-align: center; font-size: 0.75em; font-weight: 600;">
+                            <div style="font-size: 1.5em;">📜</div>
+                            Egypt
+                        </div>
+                    </div>
+
+                    <div style="position: absolute; left: 47.8%; top: 50px; transform: translate(-50%, -50%);">
+                        <div style="width: 16px; height: 16px; background: white; border: 3px solid #6200EA; border-radius: 50%; margin: 0 auto;"></div>
+                        <div style="margin-top: 15px; text-align: center; font-size: 0.75em; font-weight: 600;">
+                            <div style="font-size: 1.5em;">🕉️</div>
+                            India<br>
+                            <span style="font-size: 0.9em;">600 BC</span>
+                        </div>
+                    </div>
+
+                    <div style="position: absolute; left: 89.5%; top: 50px; transform: translate(-50%, -50%);">
+                        <div style="width: 16px; height: 16px; background: white; border: 3px solid #6200EA; border-radius: 50%; margin: 0 auto;"></div>
+                        <div style="margin-top: -75px; text-align: center; font-size: 0.75em; font-weight: 600;">
+                            <div style="font-size: 1.5em;">📐</div>
+                            Modern<br>
+                            <span style="font-size: 0.9em;">1500 AD</span>
+                        </div>
+                    </div>
+
+                    <div style="position: absolute; right: 0%; top: 50px; transform: translate(0, -50%);">
+                        <div style="width: 20px; height: 20px; background: #03DAC6; border: 3px solid #6200EA; border-radius: 50%; margin: 0 auto; box-shadow: 0 0 10px rgba(3, 218, 198, 0.5);"></div>
+                        <div style="margin-top: 15px; text-align: center; font-size: 0.8em; font-weight: 700; color: #6200EA;">
+                            <div style="font-size: 1.8em;">⭐</div>
+                            TODAY!
+                        </div>
+                    </div>
+                </div>
+
+                <div style="display: flex; justify-content: space-around; align-items: center; gap: 15px; flex-wrap: wrap;">
+                    <div style="text-align: center; padding: 10px;">
+                        <div style="width: 12px; height: 12px; background: white; border: 2px solid #FF9800; border-radius: 50%; margin: 0 auto 8px;"></div>
+                        <div style="font-size: 0.75em; font-weight: 600; color: #F57C00;">
+                            1950<br>
+                            <span style="font-size: 1.8em;">👵🏽👴🏽</span><br>
+                            Grandparents
+                        </div>
+                    </div>
+
+                    <div style="font-size: 1.5em; color: #999;">→</div>
+
+                    <div style="text-align: center; padding: 10px;">
+                        <div style="width: 12px; height: 12px; background: white; border: 2px solid #4CAF50; border-radius: 50%; margin: 0 auto 8px;"></div>
+                        <div style="font-size: 0.75em; font-weight: 600; color: #2E7D32;">
+                            1980<br>
+                            <span style="font-size: 1.8em;">👨🏽👩🏽</span><br>
+                            Parents
+                        </div>
+                    </div>
+
+                    <div style="font-size: 1.5em; color: #999;">→</div>
+
+                    <div style="text-align: center; padding: 10px;">
+                        <div style="width: 12px; height: 12px; background: white; border: 2px solid #2196F3; border-radius: 50%; margin: 0 auto 8px;"></div>
+                        <div style="font-size: 0.75em; font-weight: 600; color: #1565C0;">
+                            2016<br>
+                            <span style="font-size: 1.8em;">🧒🏽</span><br>
+                            You (9 yrs)
+                        </div>
+                    </div>
+
+                    <div style="font-size: 1.5em; color: #999;">→</div>
+
+                    <div style="text-align: center; padding: 10px;">
+                        <div style="width: 14px; height: 14px; background: #03DAC6; border: 2px solid #6200EA; border-radius: 50%; margin: 0 auto 8px;"></div>
+                        <div style="font-size: 0.75em; font-weight: 700; color: #6200EA;">
+                            2026<br>
+                            <span style="font-size: 1.8em;">⭐</span><br>
+                            Today!
+                        </div>
+                    </div>
+                </div>
+                <div style="text-align: center; margin-top: 15px; font-size: 0.85em; color: #666;">
+                    These 76 years represent only <strong>1.5%</strong> of the 5,026-year timeline above!
+                </div>
+            </div>
+
+            <p style="margin-top: 20px; font-size: 0.95em; color: #666;">
+                <strong>💡 Scale Perspective:</strong> This timeline is drawn to scale! The top bar shows 5,026 years from 3000 BC to 2026 AD.
+                Notice how ALL of modern history (grandparents, parents, you) is squeezed into the tiniest space at the right end - that's why we created the zoom box below to see it clearly!
+            </p>
+        `
+    },
+    {
         title: '🏺 Ancient Egypt (2000 BCE)',
         content: `
             <h4>🏺 Ancient Egypt (2000 BCE)</h4>
             <p>Ancient Egyptians were among the first to use fractions. They primarily used unit fractions
             (fractions with numerator 1) and had special symbols for common fractions like 1/2, 1/3, and 1/4.</p>
-            <div class="timeline">
-                <div class="timeline-bar">
-                    <div class="timeline-item">
-                        <div class="timeline-point"></div>
-                        <div class="timeline-label">2000 BCE<br>Egyptian Fractions</div>
-                    </div>
-                </div>
+            <div class="example-box">
+                <strong>Egyptian Hieroglyphs:</strong> They used the Eye of Horus symbol to represent fractions!
+                Different parts of the eye represented different fractions: 1/2, 1/4, 1/8, 1/16, 1/32, and 1/64.
             </div>
         `
     },
@@ -178,7 +302,7 @@ export const misconceptionsSlides = [
                 <p><strong>Remember:</strong> For unit fractions (numerator = 1), larger denominator = smaller fraction!</p>
             </div>
             <div class="example-box">
-                Think of pizza: 1 slice from an 8-slice pizza is smaller than 1 slice from a 4-slice pizza!
+                Think of pizza: 1 slice from an 8-slice pizza is smaller than 1 slice from a 4-slice pizza! 🍕
             </div>
         `
     },
