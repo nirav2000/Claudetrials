@@ -369,6 +369,344 @@
                     </div>
 
                     <p><strong>Practice makes perfect!</strong> The more you work with fractions, the easier they become.</p>
+
+                    <!-- Version History -->
+                    <h3>Version History</h3>
+                    <div class="strategy-box">
+                        <div class="version-entry">
+                            <h4>v1.4.13 (January 2026) - Accessibility & Responsiveness</h4>
+                            <ul>
+                                <li>✅ Fixed carousel arrows to properly center using top:50% + translateY(-50%)</li>
+                                <li>✅ Added transform composition on hover: translateY(-50%) scale(1.1)</li>
+                                <li>✅ Added aria-label attributes to icon buttons for screen readers</li>
+                                <li>✅ Added aria-hidden="true" to decorative Material Icons</li>
+                                <li>✅ Added visible :focus outline (2px solid, 2px offset) for keyboard navigation</li>
+                                <li>✅ Enhanced mobile problem grid: grid-template-columns: 1fr, gap: 8px</li>
+                                <li>✅ Added @media (prefers-reduced-motion: reduce) support</li>
+                                <li>✅ Disables animations/transitions (0.001ms) for motion-sensitive users</li>
+                                <li>✅ Enhanced print styles with !important flags for white background and black text</li>
+                                <li>✅ Carousel arrows now work at any viewport height and scale correctly</li>
+                            </ul>
+                        </div>
+
+                        <div class="version-entry">
+                            <h4>v1.4.12 (January 2026) - Carousel UI Polish</h4>
+                            <ul>
+                                <li>✅ Fixed arrow positioning: arrows at fixed 200px from top</li>
+                                <li>✅ Moved arrows to 10px from sides for better aesthetics</li>
+                                <li>✅ Simplified tab labels: removed parenthetical content and date ranges</li>
+                                <li>✅ Tab labels can wrap to double height for better readability</li>
+                                <li>✅ Converted Brief History of Fractions to carousel (5 slides)</li>
+                                <li>✅ Total of 3 carousels with 15 slides across Learning Guide</li>
+                            </ul>
+                        </div>
+
+                        <div class="version-entry">
+                            <h4>v1.4.11 (January 2026) - Carousel UI Implementation</h4>
+                            <ul>
+                                <li>✅ Implemented horizontal carousel for Common Misconceptions (5 slides)</li>
+                                <li>✅ Implemented horizontal carousel for Comparison Strategies (5 slides)</li>
+                                <li>✅ Touch/swipe support for mobile devices</li>
+                                <li>✅ Keyboard navigation with arrow keys</li>
+                                <li>✅ Navigation buttons (prev/next) with disabled states</li>
+                                <li>✅ Dot indicators showing current position</li>
+                                <li>✅ Slide counter (e.g., "1 / 5")</li>
+                                <li>✅ Smooth transitions with CSS transforms</li>
+                                <li>✅ Auto-height adjustment per slide</li>
+                            </ul>
+                        </div>
+
+                        <div class="version-entry">
+                            <h4>v1.4.10 (January 2026) - Print & Mobile Fixes</h4>
+                            <ul>
+                                <li>✅ Fixed collapsed sections printing when they should stay hidden</li>
+                                <li>✅ Implemented inline style approach with display: none !important</li>
+                                <li>✅ Fixed mobile horizontal scroll issues</li>
+                                <li>✅ Made comparison boxes stack vertically on mobile</li>
+                                <li>✅ Scaled pizza SVGs to 60px on mobile</li>
+                                <li>✅ All content fits naturally within 390px viewport (iPhone 13)</li>
+                                <li>✅ Refactored duplicate code with helper functions (reduced 168 lines)</li>
+                            </ul>
+                        </div>
+
+                        <div class="version-entry">
+                            <h4>v1.4.9 (January 2026) - Print & Mobile Improvements</h4>
+                            <ul>
+                                <li>✅ Additional print and mobile fixes</li>
+                                <li>✅ Improved responsive layout</li>
+                            </ul>
+                        </div>
+
+                        <div class="version-entry">
+                            <h4>v1.4.8 (January 2026) - Inclusive Design</h4>
+                            <ul>
+                                <li>✅ Inclusive representation in visual content</li>
+                                <li>✅ Bug fixes and stability improvements</li>
+                                <li>✅ Documentation updates</li>
+                            </ul>
+                        </div>
+
+                        <div class="version-entry">
+                            <h4>v1.4.7 (January 2026) - Visual Illustrations</h4>
+                            <ul>
+                                <li>✅ Added visual illustrations to Learning Guide</li>
+                                <li>✅ Unified markdown viewer for educational content</li>
+                                <li>✅ Fixed hint system functionality</li>
+                            </ul>
+                        </div>
+
+                        <div class="version-entry">
+                            <h4>v1.4.6 (January 2026) - Enhanced Educational Content</h4>
+                            <ul>
+                                <li>✅ Markdown viewer for formatted content</li>
+                                <li>✅ Collapsible Learning Guide</li>
+                                <li>✅ Common misconceptions section</li>
+                                <li>✅ Universal hint system for all problems</li>
+                                <li>✅ Inclusive design improvements</li>
+                            </ul>
+                        </div>
+
+                        <div class="version-entry">
+                            <h4>v1.4.5 (January 2026) - Conditional Visual Aids</h4>
+                            <ul>
+                                <li>✅ Conditional visual aids display (on incorrect answer or timeout)</li>
+                                <li>✅ Configurable hint timeout (Off, 30s, 45s, 60s, 90s)</li>
+                                <li>✅ Clickable question numbers for manual hints</li>
+                                <li>✅ Print visual aids option</li>
+                                <li>✅ Auto-switch input method for printing</li>
+                                <li>✅ Selective common mistake types with checkboxes</li>
+                                <li>✅ UI improvements</li>
+                            </ul>
+                        </div>
+
+                        <div class="version-entry">
+                            <h4>v1.4.4 (January 2026) - Common Mistakes Mode</h4>
+                            <ul>
+                                <li>✅ Added Common Mistakes mode with visual aids</li>
+                                <li>✅ Pizza/circle diagrams for visual representation</li>
+                                <li>✅ Targeted problem sets for 5 common error patterns</li>
+                                <li>✅ Side-by-side visual comparison</li>
+                                <li>✅ Explanations for each mistake type</li>
+                            </ul>
+                        </div>
+
+                        <div class="version-entry">
+                            <h4>v1.4.3 (January 2026) - Ease of Use</h4>
+                            <ul>
+                                <li>✅ CSS Material Design icons instead of icon fonts</li>
+                                <li>✅ Print headers on first page with version</li>
+                                <li>✅ Easier default denominators (2 and 4 instead of 12 and 20)</li>
+                                <li>✅ Ordered denominators by difficulty with labels</li>
+                            </ul>
+                        </div>
+
+                        <div class="version-entry">
+                            <h4>v1.4.2 (January 2026) - Print & UI Refinements</h4>
+                            <ul>
+                                <li>✅ Fixed print bug with beforeprint/afterprint events</li>
+                                <li>✅ Icon-only print and PDF buttons</li>
+                                <li>✅ Learning Guide toggle for cleaner view</li>
+                                <li>✅ Reduced padding for more compact layout</li>
+                            </ul>
+                        </div>
+
+                        <div class="version-entry">
+                            <h4>v1.4.1 (January 2026) - Timeline Redesign</h4>
+                            <ul>
+                                <li>✅ Reverted print styles for better output</li>
+                                <li>✅ Added icon-only buttons</li>
+                                <li>✅ Redesigned timeline with 5 historical segments</li>
+                            </ul>
+                        </div>
+
+                        <div class="version-entry">
+                            <h4>v1.4.0 (January 2026) - Version Management</h4>
+                            <ul>
+                                <li>✅ Working version switcher functionality</li>
+                                <li>✅ All versions saved as separate files</li>
+                                <li>✅ Seamless version switching capability</li>
+                                <li>✅ Redesigned historical timeline</li>
+                            </ul>
+                        </div>
+
+                        <div class="version-entry">
+                            <h4>v1.3.3 (January 2026) - Bug Fixes</h4>
+                            <ul>
+                                <li>✅ Fixed timeline overlap issues</li>
+                                <li>✅ Conditional page breaks for better print layout</li>
+                                <li>✅ Minor UI improvements</li>
+                            </ul>
+                        </div>
+
+                        <div class="version-entry">
+                            <h4>v1.3.2 (January 2026) - Historical Content</h4>
+                            <ul>
+                                <li>✅ Fixed fraction visuals to show one whole divided into parts</li>
+                                <li>✅ Added to-scale historical timeline</li>
+                                <li>✅ Historical illustrations</li>
+                            </ul>
+                        </div>
+
+                        <div class="version-entry">
+                            <h4>v1.3.1 (January 2026) - Educational Enhancements</h4>
+                            <ul>
+                                <li>✅ Added comprehensive educational content</li>
+                                <li>✅ Visual aids for fraction understanding</li>
+                                <li>✅ Version tracking in UI</li>
+                            </ul>
+                        </div>
+
+                        <div class="version-entry">
+                            <h4>v1.3.0 (January 2026) - PDF Optimization</h4>
+                            <ul>
+                                <li>✅ Fixed PDF page break issues</li>
+                                <li>✅ Ensured 20 problems fit on one page</li>
+                                <li>✅ Optimized print/PDF layout</li>
+                                <li>✅ Comprehensive educational content</li>
+                            </ul>
+                        </div>
+
+                        <div class="version-entry">
+                            <h4>v1.2.0 (January 2026) - Documentation</h4>
+                            <ul>
+                                <li>✅ Added comprehensive documentation</li>
+                                <li>✅ Usage guides and examples</li>
+                            </ul>
+                        </div>
+
+                        <div class="version-entry">
+                            <h4>v1.1.0 (January 2026) - Material Design</h4>
+                            <ul>
+                                <li>✅ Applied Material Design principles</li>
+                                <li>✅ Optimized print layout (20 problems per A4 page)</li>
+                                <li>✅ Enhanced PDF export</li>
+                                <li>✅ Improved color scheme</li>
+                                <li>✅ Compact spacing for print</li>
+                            </ul>
+                        </div>
+
+                        <div class="version-entry">
+                            <h4>v1.0.0 (January 2026) - Initial Release</h4>
+                            <ul>
+                                <li>🎉 Interactive fraction comparison worksheet</li>
+                                <li>⌨️ Keyboard input method</li>
+                                <li>🖱️ Button selection method</li>
+                                <li>✏️ Drawing recognition with canvas</li>
+                                <li>🗣️ Voice recognition (Chrome/Edge)</li>
+                                <li>📊 Real-time score tracking</li>
+                                <li>🖨️ Print functionality</li>
+                                <li>📄 PDF export capability</li>
+                                <li>🎲 Random problem generation</li>
+                                <li>✅ Answer checking and feedback</li>
+                                <li>🎨 Clean, responsive design</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Project Files & Resources -->
+                    <h3>Project Files & Resources</h3>
+                    <div class="strategy-box">
+                        <h4>📂 Main Files</h4>
+                        <ul>
+                            <li><strong>index.html</strong> - Main application entry point with modular architecture</li>
+                            <li><strong>fraction-worksheet.html</strong> - Standalone single-file version</li>
+                            <li><strong>README.md</strong> - Project documentation and usage guide</li>
+                            <li><strong>FEATURES_TODO.md</strong> - Feature roadmap and development progress</li>
+                            <li><strong>project-guidelines.md</strong> - Development guidelines and standards</li>
+                        </ul>
+
+                        <h4>📁 Modular CSS Architecture</h4>
+                        <p><strong>css/layout/</strong> - Layout-related styles</p>
+                        <ul>
+                            <li>base.css - Global styles, resets, and typography</li>
+                            <li>header.css - Header and title styles</li>
+                            <li>main-container.css - Main container and section layouts</li>
+                        </ul>
+
+                        <p><strong>css/components/</strong> - Reusable UI components</p>
+                        <ul>
+                            <li>buttons.css - Button styles (primary, secondary, icon buttons)</li>
+                            <li>forms.css - Form controls and inputs</li>
+                            <li>modals.css - Modal dialogs and overlays</li>
+                            <li>cards.css - Card components and boxes</li>
+                        </ul>
+
+                        <p><strong>css/features/</strong> - Feature-specific styles</p>
+                        <ul>
+                            <li>problem-grid.css - Problem display grid layout</li>
+                            <li>input-methods.css - Input method controls and styling</li>
+                            <li>visual-aids.css - Visual aids and fraction diagrams</li>
+                            <li>carousel.css - Carousel UI components</li>
+                            <li>educational-content.css - Learning guide and educational sections</li>
+                        </ul>
+
+                        <h4>📁 Modular JavaScript Architecture (ES6 Modules)</h4>
+                        <p><strong>js/app.js</strong> - Main application entry point and initialization</p>
+
+                        <p><strong>js/core/</strong> - Core application logic</p>
+                        <ul>
+                            <li>state.js - Application state management</li>
+                            <li>problemGenerator.js - Problem generation algorithms</li>
+                        </ul>
+
+                        <p><strong>js/features/</strong> - Feature implementations</p>
+                        <ul>
+                            <li>inputMethods.js - Keyboard, button, drawing, voice input handlers</li>
+                            <li>answerChecking.js - Answer validation and scoring</li>
+                            <li>printExport.js - Print and PDF export functionality</li>
+                            <li>visualAids.js - Hint system and visual representations</li>
+                            <li>carousel.js - Carousel UI component logic</li>
+                            <li>collapsible.js - Collapsible sections functionality</li>
+                            <li>educationalContent.js - Learning guide content and data</li>
+                        </ul>
+
+                        <p><strong>js/version/</strong> - Version management</p>
+                        <ul>
+                            <li>versionManager.js - Version switching and display</li>
+                        </ul>
+
+                        <h4>📁 Version Files</h4>
+                        <p><strong>versions/</strong> - Version management</p>
+                        <ul>
+                            <li>version-manifest.json - Version metadata and changelog</li>
+                            <li>archived/ - Archived older versions</li>
+                            <li>changelogs/ - Detailed version changelogs</li>
+                        </ul>
+
+                        <p><strong>Standalone Version Files:</strong></p>
+                        <ul>
+                            <li>fraction-worksheet-v1.0.0.html through v1.4.12.html</li>
+                            <li>Each version is a complete, self-contained HTML file</li>
+                        </ul>
+
+                        <h4>🔗 External Dependencies</h4>
+                        <ul>
+                            <li><strong>html2pdf.js</strong> (CDN) - PDF generation functionality</li>
+                            <li><strong>marked.js</strong> (CDN) - Markdown rendering</li>
+                            <li><strong>Google Fonts</strong> - Roboto font family</li>
+                            <li><strong>Material Icons</strong> - Icon font for UI elements</li>
+                        </ul>
+
+                        <h4>🎨 Design Resources</h4>
+                        <ul>
+                            <li><strong>Material Design</strong> - Design system and principles</li>
+                            <li><strong>Color Palette</strong> - Primary: #6200EA, Secondary: #03DAC6, Success: #4CAF50</li>
+                            <li><strong>Typography</strong> - Roboto font (300, 400, 500, 700 weights)</li>
+                        </ul>
+
+                        <h4>📖 Documentation</h4>
+                        <ul>
+                            <li><strong>README.md</strong> - Complete feature list, usage guide, technical details</li>
+                            <li><strong>FEATURES_TODO.md</strong> - Development roadmap and completed features</li>
+                            <li><strong>In-App Learning Guide</strong> - Interactive educational content</li>
+                        </ul>
+
+                        <h4>🌐 Repository</h4>
+                        <ul>
+                            <li><strong>GitHub:</strong> <a href="https://github.com/nirav2000/Claudetrials" target="_blank">github.com/nirav2000/Claudetrials</a></li>
+                            <li><strong>Author:</strong> Nirav Patel (@nirav2000)</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>

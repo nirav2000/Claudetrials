@@ -121,3 +121,31 @@
     max-height: 5000px;
     padding: 16px 0;
 }
+
+/* Version History Entries */
+.version-entry {
+    background: #FFFFFF;
+    padding: 16px;
+    border-radius: 4px;
+    margin-bottom: 16px;
+    border-left: 4px solid var(--md-secondary);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+
+.version-entry h4 {
+    color: var(--md-primary);
+    margin: 0 0 12px 0;
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+.version-entry ul {
+    margin: 8px 0 0 20px;
+    padding: 0;
+}
+
+.version-entry li {
+    margin-bottom: 6px;
+    color: var(--md-text-primary);
+    line-height: 1.6;
+}
