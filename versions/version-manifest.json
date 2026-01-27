@@ -2,6 +2,16 @@
   "current": "2.2.0",
   "versions": [
     {
+      "number": "2.2.2",
+      "date": "2026-01-27",
+      "changelogFile": "changelogs/v2.2.2.md",
+      "type": "patch",
+      "description": "Replace hardcoded SVG circles with dynamic utility generation",
+      "file": "fraction-worksheet-v2.2.2.html",
+      "path": "versions/v2.2.2/index.html",
+      "commit": "refactor: Replace hardcoded SVG circles with dynamic utility generation\n\nPreviously, fraction circle"
+    },
+    {
       "number": "2.2.1",
       "date": "2026-01-27",
       "changelogFile": "changelogs/v2.2.1.md",
@@ -200,6 +210,6 @@
       "file": "fraction-worksheet-v1.0.0.html"
     }
   ],
-  "currentVersion": "2.2.1",
+  "currentVersion": "2.2.2",
   "lastUpdated": "2026-01-27"
 }
