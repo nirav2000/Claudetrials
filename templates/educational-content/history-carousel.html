@@ -1,0 +1,32 @@
+<!-- History Carousel Template -->
+<!-- Generic carousel for historical context of any math topic -->
+
+<h3>Brief History of {{TOPIC_NAME}}</h3>
+<div class="carousel-container" id="{{CAROUSEL_ID}}-history">
+    <div class="carousel-tab-labels"></div>
+    <div class="carousel-progress-bar"></div>
+    <div class="carousel-content-wrapper">
+        <button class="carousel-btn-side carousel-btn-prev" aria-label="Previous">◀</button>
+        <button class="carousel-btn-side carousel-btn-next" aria-label="Next">▶</button>
+    </div>
+</div>
+
+<!--
+    JavaScript Integration:
+    - The carousel content should be defined in educationalContent.js
+    - Use the initCarousel() function to populate this carousel
+    - Example data structure:
+
+    const historyCarouselData = [
+        {
+            tab: 'Ancient Times',
+            title: 'Ancient Civilizations',
+            content: 'Historical content here...'
+        },
+        {
+            tab: 'Medieval',
+            title: 'Medieval Period',
+            content: 'Historical content here...'
+        }
+    ];
+-->

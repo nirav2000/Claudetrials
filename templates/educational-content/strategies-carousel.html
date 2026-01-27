@@ -1,0 +1,32 @@
+<!-- Strategies Carousel Template -->
+<!-- Generic carousel for learning strategies -->
+
+<h3>{{TOPIC_NAME}} Strategies</h3>
+<div class="carousel-container" id="{{CAROUSEL_ID}}-strategies">
+    <div class="carousel-tab-labels"></div>
+    <div class="carousel-progress-bar"></div>
+    <div class="carousel-content-wrapper">
+        <button class="carousel-btn-side carousel-btn-prev" aria-label="Previous">◀</button>
+        <button class="carousel-btn-side carousel-btn-next" aria-label="Next">▶</button>
+    </div>
+</div>
+
+<!--
+    JavaScript Integration:
+    - Define strategy content in educationalContent.js
+    - Each strategy should include:
+      * tab: Short label for the tab
+      * title: Full strategy name
+      * content: Detailed explanation with examples
+      * Optional: visual aids, examples, step-by-step guides
+
+    Example data structure:
+
+    const strategiesCarouselData = [
+        {
+            tab: 'Strategy 1',
+            title: 'Strategy Name',
+            content: '<p>Explanation...</p><div class="example-box">Example...</div>'
+        }
+    ];
+-->

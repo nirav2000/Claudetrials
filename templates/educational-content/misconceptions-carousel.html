@@ -1,0 +1,36 @@
+<!-- Misconceptions Carousel Template -->
+<!-- Generic carousel for common mistakes and misconceptions -->
+
+<h3>Common Misconceptions</h3>
+<div class="carousel-container" id="{{CAROUSEL_ID}}-misconceptions">
+    <div class="carousel-tab-labels"></div>
+    <div class="carousel-progress-bar"></div>
+    <div class="carousel-content-wrapper">
+        <button class="carousel-btn-side carousel-btn-prev" aria-label="Previous">◀</button>
+        <button class="carousel-btn-side carousel-btn-next" aria-label="Next">▶</button>
+    </div>
+</div>
+
+<!--
+    JavaScript Integration:
+    - Define misconception content in educationalContent.js
+    - Each misconception should include:
+      * tab: Short label (e.g., "Mistake #1")
+      * title: Misconception name
+      * content: Wrong thinking, correct thinking, examples
+      * Optional: visual comparisons
+
+    Example data structure:
+
+    const misconceptionsCarouselData = [
+        {
+            tab: 'Mistake #1',
+            title: 'Common Error Name',
+            content: `
+                <p><strong>Wrong thinking:</strong> Incorrect approach...</p>
+                <p><strong>Correct thinking:</strong> Right approach...</p>
+                <div class="example-box">Example demonstrating the mistake...</div>
+            `
+        }
+    ];
+-->

@@ -1,0 +1,64 @@
+<!-- Topic Introduction Template -->
+<!-- Replace {{TOPIC_NAME}}, {{TOPIC_LOWERCASE}}, etc. with actual values -->
+
+<div class="strategy-box">
+    <h3>What Are {{TOPIC_NAME}}?</h3>
+    <p><strong>A {{TOPIC_LOWERCASE}} represents a part of a whole.</strong> The word "whole" means a complete unit or object that can be divided into equal parts. For example, a whole pizza, a whole hour, or a whole dollar.</p>
+
+    <p>A {{TOPIC_LOWERCASE}} consists of two numbers separated by a line:</p>
+
+    <div style="text-align: center; margin: 24px 0; font-size: 3em; position: relative;">
+        <div style="display: inline-block; position: relative; padding: 40px 20px;">
+            <div style="color: #6200EA; font-weight: bold;">3</div>
+            <div style="border-top: 3px solid #333; margin: 5px 0;"></div>
+            <div style="color: #6200EA; font-weight: bold;">4</div>
+
+            <div style="position: absolute; top: 0; left: 50%; transform: translateX(-50%); color: #6200EA; font-size: 0.3em; font-weight: 600; white-space: nowrap;">
+                ↑ NUMERATOR<br>(parts you have)
+            </div>
+            <div style="position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); color: #6200EA; font-size: 0.3em; font-weight: 600; white-space: nowrap;">
+                ↓ DENOMINATOR<br>(total equal parts)
+            </div>
+        </div>
+    </div>
+
+    <ul>
+        <li><strong>Numerator (top number):</strong> Tells you how many parts you have</li>
+        <li><strong>Denominator (bottom number):</strong> Tells you how many equal parts make up one whole</li>
+    </ul>
+
+    <p><strong>Example:</strong> In the {{TOPIC_LOWERCASE}} 3/4, you have 3 parts out of 4 equal parts that make up the whole.</p>
+
+    <!-- Visual demonstrations with dynamic chart generation -->
+    <div class="visual-fraction-demo" style="flex-direction: column;">
+        <strong>Visual - One Whole Divided into 4 Equal Parts:</strong>
+        <div style="display: flex; gap: 30px; align-items: center; justify-content: center; margin: 20px 0; flex-wrap: wrap;">
+            <div style="text-align: center;">
+                <div id="{{VISUAL_AIDS_ID}}-main-circle"></div>
+                <div style="margin-top: 10px; font-weight: bold; font-size: 1.2em;">3/4 (Three Fourths)</div>
+                <div style="color: #666;">3 out of 4 parts filled</div>
+            </div>
+            <div style="text-align: center;">
+                <div class="fraction-bar">
+                    <div class="fraction-part filled">1</div>
+                    <div class="fraction-part filled">2</div>
+                    <div class="fraction-part filled">3</div>
+                    <div class="fraction-part">4</div>
+                </div>
+                <div style="margin-top: 10px; font-weight: bold; font-size: 1.2em;">3/4 (Bar Model)</div>
+                <div style="color: #666;">Same {{TOPIC_LOWERCASE}}, different view!</div>
+            </div>
+        </div>
+        <span style="margin-top: 8px; display: block; text-align: center;">
+            <strong>This is ONE whole shape</strong> divided into 4 equal parts<br>
+            <strong>Filled parts (orange) = 3/4</strong> (three out of four parts)<br>
+            <strong>Empty parts (white) = 1/4</strong> (one out of four parts)
+        </span>
+    </div>
+
+    <div style="margin: 20px 0; padding: 20px; background: #E8F5E9; border-radius: 8px;">
+        <h4 style="color: #2E7D32;">More Examples with Circle Diagrams:</h4>
+        <div id="{{VISUAL_AIDS_ID}}-more-examples" style="display: flex; gap: 20px; justify-content: center; margin: 15px 0; flex-wrap: wrap;"></div>
+        <p style="text-align: center; color: #2E7D32;"><strong>Notice:</strong> As we fill more parts, the {{TOPIC_LOWERCASE}} gets larger! 1/4 &lt; 1/2 &lt; 3/4 &lt; 4/4</p>
+    </div>
+</div>
