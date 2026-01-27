@@ -2,6 +2,16 @@
   "current": "2.2.0",
   "versions": [
     {
+      "number": "2.2.1",
+      "date": "2026-01-27",
+      "changelogFile": "changelogs/v2.2.1.md",
+      "type": "patch",
+      "description": "Correct 1/3 cup circle illustration in cooking section",
+      "file": "fraction-worksheet-v2.2.1.html",
+      "path": "versions/v2.2.1/index.html",
+      "commit": "fix: Correct 1/3 cup circle illustration in cooking section\n\nThe 1/3 cup circle was incorrectly disp"
+    },
+    {
       "number": "2.2.0",
       "date": "2026-01-27",
       "changelogFile": "changelogs/v2.2.0.md",
@@ -190,6 +200,6 @@
       "file": "fraction-worksheet-v1.0.0.html"
     }
   ],
-  "currentVersion": "2.2.0",
+  "currentVersion": "2.2.1",
   "lastUpdated": "2026-01-27"
 }
