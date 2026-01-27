@@ -1,6 +1,16 @@
 {
-  "current": "2.3.1",
+  "current": "2.3.2",
   "versions": [
+    {
+      "number": "2.3.2",
+      "date": "2026-01-27",
+      "changelogFile": "changelogs/v2.3.2.md",
+      "type": "patch",
+      "description": "Add comprehensive AI project guide for future sessions",
+      "file": "fraction-worksheet-v2.3.2.html",
+      "path": "versions/v2.3.2/index.html",
+      "commit": "docs: Add comprehensive AI project guide for future sessions\n\nThis guide provides critical informati"
+    },
     {
       "number": "2.3.1",
       "date": "2026-01-27",
@@ -270,6 +280,6 @@
       "file": "fraction-worksheet-v1.0.0.html"
     }
   ],
-  "currentVersion": "2.3.1",
+  "currentVersion": "2.3.2",
   "lastUpdated": "2026-01-27"
 }
