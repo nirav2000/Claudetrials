@@ -1,6 +1,14 @@
 {
-  "current": "2.0.0",
+  "current": "2.1.0",
   "versions": [
+    {
+      "number": "2.1.0",
+      "date": "2026-01-27",
+      "changelogFile": "changelogs/v2.1.0.md",
+      "type": "minor",
+      "description": "Enhanced educational content & UX improvements",
+      "file": "index.html"
+    },
     {
       "number": "2.0.0",
       "date": "2026-01-26",

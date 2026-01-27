@@ -6,7 +6,7 @@
 export const CONFIG = {
     // App Information
     APP_NAME: 'Interactive Fraction Comparison Practice',
-    VERSION: '2.0.0',
+    VERSION: '2.1.0',
 
     // Problem Generation
     PROBLEM_COUNTS: [10, 20, 30, 40],
