@@ -90,7 +90,7 @@ export const CONFIG = {
         { value: 60, label: '60 seconds' },
         { value: 90, label: '90 seconds' }
     ],
-    DEFAULT_HINT_TIMEOUT: 30,
+    DEFAULT_HINT_TIMEOUT: 0,
 
     // Common Mistakes
     MISTAKE_TYPES: {
