@@ -33,6 +33,10 @@ class VersionComponent {
         this.createVersionModal();
       }
 
+      if (this.config.enableVersionSelector !== false) {
+        this.createVersionSelector();
+      }
+
       // Show notification if version changed
       this.checkVersionChange();
 
@@ -478,6 +482,68 @@ class VersionComponent {
     });
 
     this.modalElement = overlay;
+  }
+
+  /**
+   * Create version selector dropdown
+   */
+  createVersionSelector() {
+    const controlsGrid = document.querySelector('.controls-grid');
+    if (!controlsGrid) {
+      console.warn('Version selector: .controls-grid not found');
+      return;
+    }
+
+    const container = document.createElement('div');
+    container.className = 'control-group';
+
+    const label = document.createElement('label');
+    label.htmlFor = 'version-selector';
+    label.textContent = 'Version:';
+
+    const select = document.createElement('select');
+    select.id = 'version-selector';
+
+    // Add "Latest Version" option at the top
+    const latestOption = document.createElement('option');
+    latestOption.value = 'latest';
+    latestOption.textContent = `🚀 Latest Version (v${this.currentVersion}) - Current Development`;
+    latestOption.selected = true;
+    select.appendChild(latestOption);
+
+    // Add version options
+    this.versions.forEach(version => {
+      const icon = this.getTypeIcon(version.type);
+      const option = document.createElement('option');
+      option.value = version.number;
+      option.textContent = `${icon} v${version.number} - ${version.description || version.date}`;
+      select.appendChild(option);
+    });
+
+    // Add change handler
+    select.addEventListener('change', (e) => {
+      const selectedValue = e.target.value;
+
+      if (selectedValue === 'latest') {
+        // Navigate to the latest version (index.html)
+        window.location.href = 'index.html';
+      } else {
+        const selectedVersion = this.versions.find(v => v.number === selectedValue);
+        if (selectedVersion) {
+          // Use path if available (new folder structure), otherwise fall back to file (old standalone HTML)
+          const versionURL = selectedVersion.path || selectedVersion.file;
+          if (versionURL) {
+            window.location.href = versionURL;
+          }
+        }
+      }
+    });
+
+    container.appendChild(label);
+    container.appendChild(select);
+    controlsGrid.appendChild(container);
+
+    this.selectorElement = select;
   }
 
   /**
