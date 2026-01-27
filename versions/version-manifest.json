@@ -1,6 +1,16 @@
 {
-  "current": "2.2.0",
+  "current": "2.2.3",
   "versions": [
+    {
+      "number": "2.2.4",
+      "date": "2026-01-27",
+      "changelogFile": "changelogs/v2.2.4.md",
+      "type": "patch",
+      "description": "Update manifest.current field to match currentVersion 2.2.3",
+      "file": "fraction-worksheet-v2.2.4.html",
+      "path": "versions/v2.2.4/index.html",
+      "commit": "fix: Update manifest.current field to match currentVersion 2.2.3"
+    },
     {
       "number": "2.2.3",
       "date": "2026-01-27",
@@ -220,6 +230,6 @@
       "file": "fraction-worksheet-v1.0.0.html"
     }
   ],
-  "currentVersion": "2.2.3",
+  "currentVersion": "2.2.4",
   "lastUpdated": "2026-01-27"
 }
