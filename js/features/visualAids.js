@@ -6,6 +6,7 @@
 import { createElement } from '../core/domHelpers.js';
 import { getOperatorName } from '../core/utils.js';
 import { CONFIG } from '../core/config.js';
+import { createCircleChart } from '../utils/circleChart.js';
 
 /**
  * Generate SVG pizza diagram
@@ -15,56 +16,14 @@ import { CONFIG } from '../core/config.js';
  * @returns {SVGElement} SVG element
  */
 export function generatePizzaDiagram(numerator, denominator, size = 80) {
-    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-    svg.setAttribute('width', size);
-    svg.setAttribute('height', size);
-    svg.setAttribute('viewBox', `0 0 ${size} ${size}`);
-
-    const centerX = size / 2;
-    const centerY = size / 2;
-    const radius = (size / 2) - 2;
-
-    // Draw outer circle
-    const outerCircle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-    outerCircle.setAttribute('cx', centerX);
-    outerCircle.setAttribute('cy', centerY);
-    outerCircle.setAttribute('r', radius);
-    outerCircle.setAttribute('fill', 'none');
-    outerCircle.setAttribute('stroke', CONFIG.PIZZA_COLORS.BORDER);
-    outerCircle.setAttribute('stroke-width', '2');
-    svg.appendChild(outerCircle);
-
-    // Draw slices
-    const anglePerSlice = (2 * Math.PI) / denominator;
-
-    for (let i = 0; i < denominator; i++) {
-        const startAngle = i * anglePerSlice - Math.PI / 2;
-        const endAngle = startAngle + anglePerSlice;
-
-        const x1 = centerX + radius * Math.cos(startAngle);
-        const y1 = centerY + radius * Math.sin(startAngle);
-        const x2 = centerX + radius * Math.cos(endAngle);
-        const y2 = centerY + radius * Math.sin(endAngle);
-
-        // Create slice path
-        const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-        const largeArc = anglePerSlice > Math.PI ? 1 : 0;
-
-        const d = [
-            `M ${centerX} ${centerY}`,
-            `L ${x1} ${y1}`,
-            `A ${radius} ${radius} 0 ${largeArc} 1 ${x2} ${y2}`,
-            'Z'
-        ].join(' ');
-
-        path.setAttribute('d', d);
-        path.setAttribute('fill', i < numerator ? CONFIG.PIZZA_COLORS.FILLED : CONFIG.PIZZA_COLORS.EMPTY);
-        path.setAttribute('stroke', CONFIG.PIZZA_COLORS.BORDER);
-        path.setAttribute('stroke-width', '1');
-        svg.appendChild(path);
-    }
-
-    return svg;
+    return createCircleChart({
+        numerator,
+        denominator,
+        size,
+        filledColor: CONFIG.PIZZA_COLORS.FILLED,
+        emptyColor: CONFIG.PIZZA_COLORS.EMPTY,
+        borderColor: CONFIG.PIZZA_COLORS.BORDER
+    });
 }
 
 /**
@@ -178,4 +137,25 @@ export function showHint(index, problem) {
 export function hideAllHints() {
     const hints = document.querySelectorAll('.visual-aids');
     hints.forEach(hint => hint.remove());
+}
+
+/**
+ * Toggle hint visibility for a specific problem
+ * @param {number} index - Problem index
+ * @param {Object} problem - Problem object
+ */
+export function toggleHint(index, problem) {
+    const problemElement = document.querySelector(`[data-problem-index="${index}"]`);
+    if (!problemElement) return;
+
+    // Check if hint already exists
+    const existingHint = problemElement.querySelector('.visual-aids');
+    if (existingHint) {
+        // Hint exists, remove it
+        existingHint.remove();
+    } else {
+        // Hint doesn't exist, create and show it
+        const hint = createVisualAid(problem);
+        problemElement.appendChild(hint);
+    }
 }

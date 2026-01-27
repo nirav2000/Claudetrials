@@ -75,8 +75,8 @@
                 <div class="control-group">
                     <label for="hint-timeout">Hint Timeout:</label>
                     <select id="hint-timeout">
-                        <option value="0">Off</option>
-                        <option value="30" selected>30 seconds</option>
+                        <option value="0" selected>Off</option>
+                        <option value="30">30 seconds</option>
                         <option value="45">45 seconds</option>
                         <option value="60">60 seconds</option>
                         <option value="90">90 seconds</option>
@@ -220,13 +220,7 @@
                             <strong>Visual - One Whole Divided into 4 Equal Parts:</strong>
                             <div style="display: flex; gap: 30px; align-items: center; justify-content: center; margin: 20px 0; flex-wrap: wrap;">
                                 <div style="text-align: center;">
-                                    <svg width="120" height="120" viewBox="0 0 120 120">
-                                        <circle cx="60" cy="60" r="58" fill="none" stroke="#333" stroke-width="2"/>
-                                        <path d="M 60 60 L 60 2 A 58 58 0 0 1 118 60 Z" fill="#FFA726" stroke="#333" stroke-width="2"/>
-                                        <path d="M 60 60 L 118 60 A 58 58 0 0 1 60 118 Z" fill="#FFA726" stroke="#333" stroke-width="2"/>
-                                        <path d="M 60 60 L 60 118 A 58 58 0 0 1 2 60 Z" fill="#FFA726" stroke="#333" stroke-width="2"/>
-                                        <path d="M 60 60 L 2 60 A 58 58 0 0 1 60 2 Z" fill="#FFF" stroke="#333" stroke-width="2"/>
-                                    </svg>
+                                    <div id="fraction-basics-main-circle"></div>
                                     <div style="margin-top: 10px; font-weight: bold; font-size: 1.2em;">3/4 (Three Fourths)</div>
                                     <div style="color: #666;">3 out of 4 parts filled</div>
                                 </div>
@@ -250,48 +244,7 @@
 
                         <div style="margin: 20px 0; padding: 20px; background: #E8F5E9; border-radius: 8px;">
                             <h4 style="color: #2E7D32;">🎯 More Examples with Circle Diagrams:</h4>
-                            <div style="display: flex; gap: 20px; justify-content: center; margin: 15px 0; flex-wrap: wrap;">
-                                <div style="text-align: center;">
-                                    <svg width="80" height="80" viewBox="0 0 80 80">
-                                        <circle cx="40" cy="40" r="38" fill="none" stroke="#333" stroke-width="2"/>
-                                        <path d="M 40 40 L 40 2 A 38 38 0 0 1 78 40 Z" fill="#FFA726" stroke="#333" stroke-width="2"/>
-                                        <path d="M 40 40 L 78 40 A 38 38 0 0 1 40 78 Z" fill="#FFF" stroke="#333" stroke-width="2"/>
-                                        <path d="M 40 40 L 40 78 A 38 38 0 0 1 2 40 Z" fill="#FFF" stroke="#333" stroke-width="2"/>
-                                        <path d="M 40 40 L 2 40 A 38 38 0 0 1 40 2 Z" fill="#FFF" stroke="#333" stroke-width="2"/>
-                                    </svg>
-                                    <div><strong>1/4</strong><br><small>one fourth</small></div>
-                                </div>
-                                <div style="text-align: center;">
-                                    <svg width="80" height="80" viewBox="0 0 80 80">
-                                        <circle cx="40" cy="40" r="38" fill="none" stroke="#333" stroke-width="2"/>
-                                        <path d="M 40 40 L 40 2 A 38 38 0 0 1 78 40 Z" fill="#FFA726" stroke="#333" stroke-width="2"/>
-                                        <path d="M 40 40 L 78 40 A 38 38 0 0 1 40 78 Z" fill="#FFA726" stroke="#333" stroke-width="2"/>
-                                        <path d="M 40 40 L 40 78 A 38 38 0 0 1 2 40 Z" fill="#FFF" stroke="#333" stroke-width="2"/>
-                                        <path d="M 40 40 L 2 40 A 38 38 0 0 1 40 2 Z" fill="#FFF" stroke="#333" stroke-width="2"/>
-                                    </svg>
-                                    <div><strong>1/2</strong><br><small>one half</small></div>
-                                </div>
-                                <div style="text-align: center;">
-                                    <svg width="80" height="80" viewBox="0 0 80 80">
-                                        <circle cx="40" cy="40" r="38" fill="none" stroke="#333" stroke-width="2"/>
-                                        <path d="M 40 40 L 40 2 A 38 38 0 0 1 78 40 Z" fill="#FFA726" stroke="#333" stroke-width="2"/>
-                                        <path d="M 40 40 L 78 40 A 38 38 0 0 1 40 78 Z" fill="#FFA726" stroke="#333" stroke-width="2"/>
-                                        <path d="M 40 40 L 40 78 A 38 38 0 0 1 2 40 Z" fill="#FFA726" stroke="#333" stroke-width="2"/>
-                                        <path d="M 40 40 L 2 40 A 38 38 0 0 1 40 2 Z" fill="#FFF" stroke="#333" stroke-width="2"/>
-                                    </svg>
-                                    <div><strong>3/4</strong><br><small>three fourths</small></div>
-                                </div>
-                                <div style="text-align: center;">
-                                    <svg width="80" height="80" viewBox="0 0 80 80">
-                                        <circle cx="40" cy="40" r="38" fill="none" stroke="#333" stroke-width="2"/>
-                                        <path d="M 40 40 L 40 2 A 38 38 0 0 1 78 40 Z" fill="#FFA726" stroke="#333" stroke-width="2"/>
-                                        <path d="M 40 40 L 78 40 A 38 38 0 0 1 40 78 Z" fill="#FFA726" stroke="#333" stroke-width="2"/>
-                                        <path d="M 40 40 L 40 78 A 38 38 0 0 1 2 40 Z" fill="#FFA726" stroke="#333" stroke-width="2"/>
-                                        <path d="M 40 40 L 2 40 A 38 38 0 0 1 40 2 Z" fill="#FFA726" stroke="#333" stroke-width="2"/>
-                                    </svg>
-                                    <div><strong>4/4 = 1</strong><br><small>one whole</small></div>
-                                </div>
-                            </div>
+                            <div id="more-examples-circles" style="display: flex; gap: 20px; justify-content: center; margin: 15px 0; flex-wrap: wrap;"></div>
                             <p style="text-align: center; color: #2E7D32;"><strong>Notice:</strong> As we fill more parts, the fraction gets larger! 1/4 < 1/2 < 3/4 < 4/4</p>
                         </div>
                     </div>

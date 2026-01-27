@@ -42,20 +42,13 @@ function createVersionDisplay(version) {
 
     const badge = createElement('span', {
         className: 'version-badge',
-        title: 'Click to view changelog'
+        title: 'Click to view changelog',
+        style: 'cursor: pointer;'
     }, `v${version}`);
 
     badge.addEventListener('click', () => showChangelog(version));
 
-    const viewBtn = createElement('button', {
-        className: 'view-changelog-btn',
-        type: 'button'
-    }, 'View Changelog');
-
-    viewBtn.addEventListener('click', () => showChangelog(version));
-
     versionContainer.appendChild(badge);
-    versionContainer.appendChild(viewBtn);
 
     header.parentNode.insertBefore(versionContainer, header.nextSibling);
 }
@@ -233,24 +226,34 @@ export function createVersionSelector() {
 
     const select = createElement('select', { id: 'version-selector' });
 
+    // Add "Latest Version" option at the top
+    const latestOption = createElement('option', {
+        value: 'latest'
+    }, `🚀 Latest Version (v${currentVersion}) - Current Development`);
+    latestOption.selected = true;
+    select.appendChild(latestOption);
+
     versions.forEach(version => {
         const icon = version.type === 'major' ? '🎉' : version.type === 'minor' ? '✨' : '🔧';
         const option = createElement('option', {
             value: version.number
         }, `${icon} v${version.number} - ${version.description || version.date}`);
 
-        if (version.number === currentVersion) {
-            option.selected = true;
-        }
-
         select.appendChild(option);
     });
 
     select.addEventListener('change', (e) => {
-        const selectedVersion = versions.find(v => v.number === e.target.value);
-        if (selectedVersion && selectedVersion.file) {
-            // Navigate to the version file
-            window.location.href = selectedVersion.file;
+        const selectedValue = e.target.value;
+
+        if (selectedValue === 'latest') {
+            // Navigate to the latest version (index.html)
+            window.location.href = 'index.html';
+        } else {
+            const selectedVersion = versions.find(v => v.number === selectedValue);
+            if (selectedVersion && selectedVersion.file) {
+                // Navigate to the version file
+                window.location.href = selectedVersion.file;
+            }
         }
     });
 

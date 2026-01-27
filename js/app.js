@@ -10,11 +10,12 @@ import { renderKeyboardInput, renderButtonInput, renderDrawingInput, renderVoice
 import { checkAnswers, showAnswers, clearAnswers, updateScoreDisplay } from './features/checkAnswers.js';
 import { initializeVoiceRecognition, startVoiceRecognition, isVoiceSupported } from './features/voiceRecognition.js';
 import { printWorksheet, downloadPDF, setupPrintListeners } from './features/printExport.js';
-import { showHint } from './features/visualAids.js';
+import { showHint, toggleHint } from './features/visualAids.js';
 import { Carousel } from './features/carousel.js';
 import { historySlides, strategiesSlides, misconceptionsSlides } from './features/educationalContent.js';
 import { loadVersionManifest } from './version/versionManager.js';
 import { initializeVersionUI } from './version/versionUI.js';
+import { initializeEducationalVisuals } from './features/educationalVisuals.js';
 
 // Application State
 let problems = [];
@@ -43,6 +44,9 @@ async function init() {
 
     // Initialize carousels
     initializeCarousels();
+
+    // Initialize educational visuals
+    initializeEducationalVisuals();
 
     // Attach event listeners
     attachEventListeners();
@@ -163,11 +167,11 @@ function renderProblems() {
         // Problem number (clickable for hint)
         const number = createElement('span', {
             className: 'problem-number',
-            title: 'Click for hint'
+            title: 'Click to toggle hint'
         }, `${index + 1}.`);
 
         number.addEventListener('click', () => {
-            showHint(index, problem);
+            toggleHint(index, problem);
         });
 
         // First fraction
