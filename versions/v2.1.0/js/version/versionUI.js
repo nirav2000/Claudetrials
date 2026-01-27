@@ -402,12 +402,9 @@ export function createVersionSelector() {
             window.location.href = 'index.html';
         } else {
             const selectedVersion = versions.find(v => v.number === selectedValue);
-            if (selectedVersion) {
-                // Use path if available (new folder structure), otherwise fall back to file (old standalone HTML)
-                const versionURL = selectedVersion.path || selectedVersion.file;
-                if (versionURL) {
-                    window.location.href = versionURL;
-                }
+            if (selectedVersion && selectedVersion.file) {
+                // Navigate to the version file
+                window.location.href = selectedVersion.file;
             }
         }
     });

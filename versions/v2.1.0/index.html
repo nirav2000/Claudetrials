@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Fraction Comparison Practice</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!-- External Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+    <!-- Modular CSS -->
+    <!-- Layout -->
+    <link rel="stylesheet" href="css/layout/base.css">
+    <link rel="stylesheet" href="css/layout/header.css">
+    <link rel="stylesheet" href="css/layout/main-container.css">
+
+    <!-- Components -->
+    <link rel="stylesheet" href="css/components/buttons.css">
+    <link rel="stylesheet" href="css/components/forms.css">
+    <link rel="stylesheet" href="css/components/modals.css">
+    <link rel="stylesheet" href="css/components/cards.css">
+
+    <!-- Features -->
+    <link rel="stylesheet" href="css/features/problem-grid.css">
+    <link rel="stylesheet" href="css/features/input-methods.css">
+    <link rel="stylesheet" href="css/features/visual-aids.css">
+    <link rel="stylesheet" href="css/features/carousel.css">
+    <link rel="stylesheet" href="css/features/educational-content.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Fraction Comparison Practice</h1>
+
+        <!-- Controls Section -->
+        <div class="controls">
+            <div class="controls-grid">
+                <div class="control-group">
+                    <label for="input-method">Input Method:</label>
+                    <select id="input-method">
+                        <option value="keyboard">Keyboard</option>
+                        <option value="buttons">Buttons</option>
+                        <option value="drawing">Drawing</option>
+                        <option value="voice">Voice</option>
+                    </select>
+                </div>
+
+                <div class="control-group">
+                    <label for="problem-count">Number of Problems:</label>
+                    <select id="problem-count">
+                        <option value="10">10</option>
+                        <option value="20" selected>20</option>
+                        <option value="30">30</option>
+                        <option value="40">40</option>
+                    </select>
+                </div>
+
+                <div class="control-group">
+                    <label for="denominator-set">Denominators:</label>
+                    <select id="denominator-set">
+                        <option value="easiest" selected>2 and 4 (Easiest)</option>
+                        <option value="easy">3 and 6 (Easy)</option>
+                        <option value="medium">4 and 8 (Medium)</option>
+                        <option value="medium2">5 and 10 (Medium)</option>
+                        <option value="hard">6, 8, 10, and 12 (Hard)</option>
+                        <option value="harder">10, 12, and 20 (Harder)</option>
+                        <option value="all">All (2-12) (Hardest)</option>
+                    </select>
+                </div>
+
+                <div class="control-group">
+                    <label for="hint-timeout">Hint Timeout:</label>
+                    <select id="hint-timeout">
+                        <option value="0" selected>Off</option>
+                        <option value="30">30 seconds</option>
+                        <option value="45">45 seconds</option>
+                        <option value="60">60 seconds</option>
+                        <option value="90">90 seconds</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Common Mistakes Mode -->
+            <div class="checkbox-group" style="margin-top: 16px; padding: 12px; background: #E8F5E9; border-radius: 4px;">
+                <input type="checkbox" id="common-mistakes">
+                <label for="common-mistakes">
+                    <strong>Focus on Common Mistakes</strong> - Generates problems targeting specific error patterns
+                </label>
+            </div>
+
+            <div id="mistake-types-section" class="mistake-types">
+                <h4>Select mistake types to practice:</h4>
+                <div class="mistake-type-item">
+                    <input type="checkbox" class="mistake-type-checkbox" value="higher-denominator" id="mistake-higher-denominator" checked>
+                    <label class="mistake-type-label" for="mistake-higher-denominator">
+                        <strong>Higher Denominator Trap</strong>
+                        <small>Same numerator, higher denominator (e.g., 2/3 vs 2/30)</small>
+                    </label>
+                </div>
+                <div class="mistake-type-item">
+                    <input type="checkbox" class="mistake-type-checkbox" value="both-higher" id="mistake-both-higher" checked>
+                    <label class="mistake-type-label" for="mistake-both-higher">
+                        <strong>Both Numbers Higher</strong>
+                        <small>Both numerator and denominator higher (e.g., 1/2 vs 4/10)</small>
+                    </label>
+                </div>
+                <div class="mistake-type-item">
+                    <input type="checkbox" class="mistake-type-checkbox" value="unit-fraction" id="mistake-unit-fraction" checked>
+                    <label class="mistake-type-label" for="mistake-unit-fraction">
+                        <strong>Unit Fraction Confusion</strong>
+                        <small>More slices = smaller pieces (e.g., 1/2 vs 1/8)</small>
+                    </label>
+                </div>
+                <div class="mistake-type-item">
+                    <input type="checkbox" class="mistake-type-checkbox" value="near-whole" id="mistake-near-whole" checked>
+                    <label class="mistake-type-label" for="mistake-near-whole">
+                        <strong>Near-Whole Comparison</strong>
+                        <small>Both close to 1 (e.g., 5/6 vs 9/10)</small>
+                    </label>
+                </div>
+                <div class="mistake-type-item">
+                    <input type="checkbox" class="mistake-type-checkbox" value="equivalent" id="mistake-equivalent" checked>
+                    <label class="mistake-type-label" for="mistake-equivalent">
+                        <strong>Equivalent Fractions</strong>
+                        <small>Multiply/divide both numbers (e.g., 1/4 vs 2/8)</small>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Print Options -->
+            <div class="checkbox-group" style="margin-top: 16px; padding: 12px; background: #FFF3E0; border-radius: 4px;">
+                <input type="checkbox" id="print-learning-guide" checked>
+                <label for="print-learning-guide">Include Learning Guide in Print/PDF</label>
+                <br>
+                <input type="checkbox" id="print-visual-aids" checked>
+                <label for="print-visual-aids">Include Visual Aids in Print/PDF</label>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="button-group">
+                <button class="btn-primary" id="generate-btn">Generate New Practice</button>
+                <button class="btn-success" id="check-btn">Check Answers</button>
+                <button class="btn-secondary" id="show-answers-btn">Show Answers</button>
+                <button class="btn-danger" id="clear-btn">Clear Answers</button>
+                <button class="icon-btn" id="print-btn" title="Print Worksheet" aria-label="Print Worksheet">
+                    <span class="material-icons">print</span>
+                </button>
+                <button class="icon-btn" id="pdf-btn" title="Download as PDF" aria-label="Download as PDF">
+                    <span class="material-icons">picture_as_pdf</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Instructions -->
+        <div class="collapsible-section no-print">
+            <div class="collapsible-header">
+                <h3>How to Use</h3>
+                <span class="chevron">▼</span>
+            </div>
+            <div class="collapsible-content">
+                <div class="instructions">
+                    <ul>
+                        <li><strong>Keyboard:</strong> Type &lt;, &gt;, or = directly</li>
+                        <li><strong>Buttons:</strong> Click the symbol buttons to select your answer</li>
+                        <li><strong>Drawing:</strong> Draw the symbol on the canvas</li>
+                        <li><strong>Voice:</strong> Click the microphone icon and say "less than", "greater than", or "equal" (Chrome/Edge only)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Score Display -->
+        <div class="score" id="score"></div>
+
+        <!-- Problems Container -->
+        <div id="problems-container" class="problems-container"></div>
+
+        <!-- Educational Content -->
+        <div class="educational-content">
+            <div class="collapsible-section">
+                <div class="collapsible-header">
+                    <h2>Learning Guide: Understanding Fractions</h2>
+                    <span class="chevron">▼</span>
+                </div>
+                <div class="collapsible-content">
+                    <!-- What Are Fractions -->
+                    <div class="strategy-box">
+                        <h3>What Are Fractions?</h3>
+                        <p><strong>A fraction represents a part of a whole.</strong> The word "whole" means a complete unit or object that can be divided into equal parts. For example, a whole pizza, a whole hour, or a whole dollar.</p>
+
+                        <p>A fraction consists of two numbers separated by a line:</p>
+
+                        <div style="text-align: center; margin: 24px 0; font-size: 3em; position: relative;">
+                            <div style="display: inline-block; position: relative; padding: 40px 20px;">
+                                <div style="color: #6200EA; font-weight: bold;">3</div>
+                                <div style="border-top: 3px solid #333; margin: 5px 0;"></div>
+                                <div style="color: #6200EA; font-weight: bold;">4</div>
+
+                                <div style="position: absolute; top: 0; left: 50%; transform: translateX(-50%); color: #6200EA; font-size: 0.3em; font-weight: 600; white-space: nowrap;">
+                                    ↑ NUMERATOR<br>(parts you have)
+                                </div>
+                                <div style="position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); color: #6200EA; font-size: 0.3em; font-weight: 600; white-space: nowrap;">
+                                    ↓ DENOMINATOR<br>(total equal parts)
+                                </div>
+                            </div>
+                        </div>
+
+                        <ul>
+                            <li><strong>Numerator (top number):</strong> Tells you how many parts you have</li>
+                            <li><strong>Denominator (bottom number):</strong> Tells you how many equal parts make up one whole</li>
+                        </ul>
+
+                        <p><strong>Example:</strong> In the fraction 3/4, you have 3 parts out of 4 equal parts that make up the whole.</p>
+
+                        <div class="visual-fraction-demo" style="flex-direction: column;">
+                            <strong>Visual - One Whole Divided into 4 Equal Parts:</strong>
+                            <div style="display: flex; gap: 30px; align-items: center; justify-content: center; margin: 20px 0; flex-wrap: wrap;">
+                                <div style="text-align: center;">
+                                    <div id="fraction-basics-main-circle"></div>
+                                    <div style="margin-top: 10px; font-weight: bold; font-size: 1.2em;">3/4 (Three Fourths)</div>
+                                    <div style="color: #666;">3 out of 4 parts filled</div>
+                                </div>
+                                <div style="text-align: center;">
+                                    <div class="fraction-bar">
+                                        <div class="fraction-part filled">1</div>
+                                        <div class="fraction-part filled">2</div>
+                                        <div class="fraction-part filled">3</div>
+                                        <div class="fraction-part">4</div>
+                                    </div>
+                                    <div style="margin-top: 10px; font-weight: bold; font-size: 1.2em;">3/4 (Bar Model)</div>
+                                    <div style="color: #666;">Same fraction, different view!</div>
+                                </div>
+                            </div>
+                            <span style="margin-top: 8px; display: block; text-align: center;">
+                                ☝️ <strong>This is ONE whole shape</strong> divided into 4 equal parts<br>
+                                <strong>Filled parts (orange) = 3/4</strong> (three out of four parts)<br>
+                                <strong>Empty parts (white) = 1/4</strong> (one out of four parts)
+                            </span>
+                        </div>
+
+                        <div style="margin: 20px 0; padding: 20px; background: #E8F5E9; border-radius: 8px;">
+                            <h4 style="color: #2E7D32;">🎯 More Examples with Circle Diagrams:</h4>
+                            <div id="more-examples-circles" style="display: flex; gap: 20px; justify-content: center; margin: 15px 0; flex-wrap: wrap;"></div>
+                            <p style="text-align: center; color: #2E7D32;"><strong>Notice:</strong> As we fill more parts, the fraction gets larger! 1/4 < 1/2 < 3/4 < 4/4</p>
+                        </div>
+                    </div>
+
+                    <!-- Brief History Carousel -->
+                    <h3>Brief History of Fractions</h3>
+                    <div class="carousel-container" id="history-carousel">
+                        <div class="carousel-tab-labels"></div>
+                        <div class="carousel-progress-bar"></div>
+                        <div class="carousel-content-wrapper">
+                            <button class="carousel-btn-side carousel-btn-prev" aria-label="Previous">◀</button>
+                            <button class="carousel-btn-side carousel-btn-next" aria-label="Next">▶</button>
+                        </div>
+                    </div>
+
+                    <!-- Comparison Strategies Carousel -->
+                    <h3>Comparison Strategies</h3>
+                    <div class="carousel-container" id="strategies-carousel">
+                        <div class="carousel-tab-labels"></div>
+                        <div class="carousel-progress-bar"></div>
+                        <div class="carousel-content-wrapper">
+                            <button class="carousel-btn-side carousel-btn-prev" aria-label="Previous">◀</button>
+                            <button class="carousel-btn-side carousel-btn-next" aria-label="Next">▶</button>
+                        </div>
+                    </div>
+
+                    <!-- Common Misconceptions Carousel -->
+                    <h3>Common Misconceptions</h3>
+                    <div class="carousel-container" id="misconceptions-carousel">
+                        <div class="carousel-tab-labels"></div>
+                        <div class="carousel-progress-bar"></div>
+                        <div class="carousel-content-wrapper">
+                            <button class="carousel-btn-side carousel-btn-prev" aria-label="Previous">◀</button>
+                            <button class="carousel-btn-side carousel-btn-next" aria-label="Next">▶</button>
+                        </div>
+                    </div>
+
+                    <!-- How to Simplify Fractions -->
+                    <h3>How to Simplify Fractions (Step-by-Step)</h3>
+                    <div class="strategy-box">
+                        <p>Simplifying a fraction means writing it in its simplest form by dividing both the numerator and denominator by their <strong>common factors</strong> (numbers that divide evenly into both).</p>
+
+                        <div class="example-box">
+                            <strong>Example:</strong> Simplify 15/60<br><br>
+
+                            <div class="simplification-steps">
+                                <div class="step"><strong>Method 1: Factor by factor</strong></div>
+                                <div class="step">15/60 = ?</div>
+                                <div class="step">• Both 15 and 60 are divisible by 5</div>
+                                <div class="step">• 15 ÷ 5 = 3</div>
+                                <div class="step">• 60 ÷ 5 = 12</div>
+                                <div class="step">• So 15/60 = 3/12</div>
+                                <div class="step"><br></div>
+                                <div class="step">• Both 3 and 12 are divisible by 3</div>
+                                <div class="step">• 3 ÷ 3 = 1</div>
+                                <div class="step">• 12 ÷ 3 = 4</div>
+                                <div class="step">• So 3/12 = 1/4</div>
+                                <div class="step"><br></div>
+                                <div class="step"><strong>Answer: 15/60 = 1/4</strong></div>
+                            </div>
+
+                            <div class="simplification-steps">
+                                <div class="step"><strong>Method 2: Find the Greatest Common Factor (GCF)</strong></div>
+                                <div class="step">• Factors of 15: 1, 3, 5, 15</div>
+                                <div class="step">• Factors of 60: 1, 2, 3, 4, 5, 6, 10, 12, 15, 20, 30, 60</div>
+                                <div class="step">• Common factors: 1, 3, 5, <strong>15</strong></div>
+                                <div class="step">• Greatest Common Factor (GCF) = 15</div>
+                                <div class="step"><br></div>
+                                <div class="step">• 15 ÷ 15 = 1</div>
+                                <div class="step">• 60 ÷ 15 = 4</div>
+                                <div class="step"><strong>Answer: 15/60 = 1/4</strong></div>
+                            </div>
+
+                            <p><strong>Why both methods work:</strong> We divided by 5 then by 3, which is the same as dividing by 15 (since 5 × 3 = 15)!</p>
+                        </div>
+                    </div>
+
+                    <!-- Fractions in Everyday Life -->
+                    <h3>Fractions in Everyday Life</h3>
+                    <div class="example-box">
+                        <h4>🍕 For 9-Year-Olds: Pizza Time!</h4>
+                        <p>Imagine you and your friend order a pizza cut into 8 equal slices.</p>
+                        <div style="display: flex; gap: 30px; align-items: center; justify-content: center; margin: 20px 0; flex-wrap: wrap;">
+                            <div style="text-align: center;">
+                                <svg width="100" height="100" viewBox="0 0 100 100">
+                                    <circle cx="50" cy="50" r="48" fill="none" stroke="#333" stroke-width="2"/>
+                                    <path d="M 50 50 L 50 2 A 48 48 0 0 1 98 50 Z" fill="#FFA726" stroke="#333"/>
+                                    <path d="M 50 50 L 98 50 A 48 48 0 0 1 83.9 83.9 Z" fill="#FFA726" stroke="#333"/>
+                                    <path d="M 50 50 L 83.9 83.9 A 48 48 0 0 1 50 98 Z" fill="#FFA726" stroke="#333"/>
+                                    <path d="M 50 50 L 50 98 A 48 48 0 0 1 16.1 83.9 Z" fill="#FFF" stroke="#333"/>
+                                    <path d="M 50 50 L 16.1 83.9 A 48 48 0 0 1 2 50 Z" fill="#FFF" stroke="#333"/>
+                                    <path d="M 50 50 L 2 50 A 48 48 0 0 1 16.1 16.1 Z" fill="#FFF" stroke="#333"/>
+                                    <path d="M 50 50 L 16.1 16.1 A 48 48 0 0 1 50 2 Z" fill="#FFF" stroke="#333"/>
+                                    <path d="M 50 50 L 50 2 A 48 48 0 0 1 83.9 16.1 Z" fill="#FFF" stroke="#333"/>
+                                </svg>
+                                <div><strong>You: 3/8</strong></div>
+                            </div>
+                            <div style="text-align: center;">
+                                <svg width="100" height="100" viewBox="0 0 100 100">
+                                    <circle cx="50" cy="50" r="48" fill="none" stroke="#333" stroke-width="2"/>
+                                    <path d="M 50 50 L 50 2 A 48 48 0 0 1 98 50 Z" fill="#FFA726" stroke="#333"/>
+                                    <path d="M 50 50 L 98 50 A 48 48 0 0 1 83.9 83.9 Z" fill="#FFA726" stroke="#333"/>
+                                    <path d="M 50 50 L 83.9 83.9 A 48 48 0 0 1 50 98 Z" fill="#FFF" stroke="#333"/>
+                                    <path d="M 50 50 L 50 98 A 48 48 0 0 1 16.1 83.9 Z" fill="#FFF" stroke="#333"/>
+                                    <path d="M 50 50 L 16.1 83.9 A 48 48 0 0 1 2 50 Z" fill="#FFF" stroke="#333"/>
+                                    <path d="M 50 50 L 2 50 A 48 48 0 0 1 16.1 16.1 Z" fill="#FFF" stroke="#333"/>
+                                    <path d="M 50 50 L 16.1 16.1 A 48 48 0 0 1 50 2 Z" fill="#FFF" stroke="#333"/>
+                                    <path d="M 50 50 L 50 2 A 48 48 0 0 1 83.9 16.1 Z" fill="#FFF" stroke="#333"/>
+                                </svg>
+                                <div><strong>Friend: 2/8</strong></div>
+                            </div>
+                        </div>
+                        <p><strong>Who ate more?</strong> You did! 3/8 > 2/8. Understanding fractions helps you understand fair sharing and portion sizes.</p>
+                    </div>
+
+                    <div class="example-box">
+                        <h4>⏰ Time Management</h4>
+                        <p>An hour has 60 minutes. Let's see how fractions help us understand time:</p>
+                        <div style="display: flex; gap: 20px; justify-content: center; margin: 15px 0; flex-wrap: wrap;">
+                            <div style="text-align: center;">
+                                <svg width="80" height="80" viewBox="0 0 80 80">
+                                    <circle cx="40" cy="40" r="38" fill="none" stroke="#333" stroke-width="2"/>
+                                    <path d="M 40 40 L 40 2 A 38 38 0 0 1 78 40 Z" fill="#4CAF50" stroke="#333"/>
+                                    <path d="M 40 40 L 78 40 A 38 38 0 0 1 40 78 Z" fill="#FFF" stroke="#333"/>
+                                    <path d="M 40 40 L 40 78 A 38 38 0 0 1 2 40 Z" fill="#FFF" stroke="#333"/>
+                                    <path d="M 40 40 L 2 40 A 38 38 0 0 1 40 2 Z" fill="#FFF" stroke="#333"/>
+                                </svg>
+                                <div><small>Homework</small><br><strong>1/4 hour</strong></div>
+                            </div>
+                            <div style="text-align: center;">
+                                <svg width="80" height="80" viewBox="0 0 80 80">
+                                    <circle cx="40" cy="40" r="38" fill="none" stroke="#333" stroke-width="2"/>
+                                    <path d="M 40 40 L 40 2 A 38 38 0 0 1 78 40 Z" fill="#2196F3" stroke="#333"/>
+                                    <path d="M 40 40 L 78 40 A 38 38 0 0 1 40 78 Z" fill="#2196F3" stroke="#333"/>
+                                    <path d="M 40 40 L 40 78 A 38 38 0 0 1 2 40 Z" fill="#FFF" stroke="#333"/>
+                                    <path d="M 40 40 L 2 40 A 38 38 0 0 1 40 2 Z" fill="#FFF" stroke="#333"/>
+                                </svg>
+                                <div><small>Video games</small><br><strong>1/2 hour</strong></div>
+                            </div>
+                            <div style="text-align: center;">
+                                <svg width="80" height="80" viewBox="0 0 80 80">
+                                    <circle cx="40" cy="40" r="38" fill="none" stroke="#333" stroke-width="2"/>
+                                    <path d="M 40 40 L 40 2 A 38 38 0 0 1 78 40 Z" fill="#FF9800" stroke="#333"/>
+                                    <path d="M 40 40 L 78 40 A 38 38 0 0 1 40 78 Z" fill="#FFF" stroke="#333"/>
+                                    <path d="M 40 40 L 40 78 A 38 38 0 0 1 2 40 Z" fill="#FFF" stroke="#333"/>
+                                    <path d="M 40 40 L 2 40 A 38 38 0 0 1 40 2 Z" fill="#FFF" stroke="#333"/>
+                                </svg>
+                                <div><small>Reading</small><br><strong>1/4 hour</strong></div>
+                            </div>
+                        </div>
+                        <ul>
+                            <li>Homework: 15 min = 15/60 = 1/4 hour</li>
+                            <li>Video games: 30 min = 30/60 = 1/2 hour</li>
+                            <li>Reading: 15 min = 15/60 = 1/4 hour</li>
+                        </ul>
+                        <p><strong>Real-world use:</strong> Planning your day, understanding that you spent twice as long gaming (1/2 hour) than on homework (1/4 hour).</p>
+                    </div>
+
+                    <div class="example-box">
+                        <h4>🍳 Cooking & Recipes</h4>
+                        <p>Recipes use fractions constantly! Understanding fractions is essential for adjusting recipe sizes.</p>
+                        <div style="display: flex; gap: 20px; justify-content: center; margin: 15px 0; flex-wrap: wrap;">
+                            <div style="text-align: center;">
+                                <svg width="60" height="60" viewBox="0 0 60 60">
+                                    <circle cx="30" cy="30" r="28" fill="none" stroke="#333" stroke-width="2"/>
+                                    <path d="M 30 30 L 30 2 A 28 28 0 0 1 58 30 Z" fill="#8BC34A" stroke="#333"/>
+                                    <path d="M 30 30 L 58 30 A 28 28 0 0 1 30 58 Z" fill="#8BC34A" stroke="#333"/>
+                                    <path d="M 30 30 L 30 58 A 28 28 0 0 1 2 30 Z" fill="#8BC34A" stroke="#333"/>
+                                    <path d="M 30 30 L 2 30 A 28 28 0 0 1 30 2 Z" fill="#FFF" stroke="#333"/>
+                                </svg>
+                                <div><strong>3/4 cup</strong><br><small>flour</small></div>
+                            </div>
+                            <div style="text-align: center;">
+                                <svg width="60" height="60" viewBox="0 0 60 60">
+                                    <circle cx="30" cy="30" r="28" fill="none" stroke="#333" stroke-width="2"/>
+                                    <path d="M 30 30 L 30 2 A 28 28 0 0 1 58 30 Z" fill="#FF5722" stroke="#333"/>
+                                    <path d="M 30 30 L 58 30 A 28 28 0 0 1 30 58 Z" fill="#FF5722" stroke="#333"/>
+                                    <path d="M 30 30 L 30 58 A 28 28 0 0 1 2 30 Z" fill="#FFF" stroke="#333"/>
+                                    <path d="M 30 30 L 2 30 A 28 28 0 0 1 30 2 Z" fill="#FFF" stroke="#333"/>
+                                </svg>
+                                <div><strong>1/2 cup</strong><br><small>sugar</small></div>
+                            </div>
+                            <div style="text-align: center;">
+                                <svg width="60" height="60" viewBox="0 0 60 60">
+                                    <circle cx="30" cy="30" r="28" fill="none" stroke="#333" stroke-width="2"/>
+                                    <path d="M 30 30 L 30 2 A 28 28 0 0 1 58 30 Z" fill="#FFD54F" stroke="#333"/>
+                                    <path d="M 30 30 L 58 30 A 28 28 0 0 1 44.1 44.1 Z" fill="#FFF" stroke="#333"/>
+                                    <path d="M 30 30 L 44.1 44.1 A 28 28 0 0 1 30 58 Z" fill="#FFF" stroke="#333"/>
+                                    <path d="M 30 30 L 30 58 A 28 28 0 0 1 2 30 Z" fill="#FFF" stroke="#333"/>
+                                    <path d="M 30 30 L 2 30 A 28 28 0 0 1 30 2 Z" fill="#FFF" stroke="#333"/>
+                                </svg>
+                                <div><strong>1/3 cup</strong><br><small>butter</small></div>
+                            </div>
+                        </div>
+                        <p><strong>Original recipe (serves 4):</strong></p>
+                        <ul>
+                            <li>3/4 cup flour</li>
+                            <li>1/2 cup sugar</li>
+                            <li>1/3 cup butter</li>
+                        </ul>
+                        <p><strong>What if you want to make half the recipe (serves 2)?</strong></p>
+                        <p>Multiply each ingredient by 1/2: Flour becomes 3/8 cup, Sugar becomes 1/4 cup, Butter becomes 1/6 cup</p>
+                    </div>
+
+                    <div class="example-box">
+                        <h4>💵 Money and Shopping</h4>
+                        <p>Understanding fractions helps you calculate discounts and compare prices!</p>
+                        <div style="display: flex; gap: 20px; justify-content: center; margin: 15px 0; flex-wrap: wrap;">
+                            <div style="text-align: center;">
+                                <svg width="80" height="80" viewBox="0 0 80 80">
+                                    <circle cx="40" cy="40" r="38" fill="none" stroke="#333" stroke-width="2"/>
+                                    <path d="M 40 40 L 40 2 A 38 38 0 0 1 78 40 Z" fill="#E91E63" stroke="#333"/>
+                                    <path d="M 40 40 L 78 40 A 38 38 0 0 1 40 78 Z" fill="#E91E63" stroke="#333"/>
+                                    <path d="M 40 40 L 40 78 A 38 38 0 0 1 2 40 Z" fill="#FFF" stroke="#333"/>
+                                    <path d="M 40 40 L 2 40 A 38 38 0 0 1 40 2 Z" fill="#FFF" stroke="#333"/>
+                                </svg>
+                                <div><strong>50% OFF</strong><br><small>= 1/2 off</small></div>
+                            </div>
+                            <div style="text-align: center;">
+                                <svg width="80" height="80" viewBox="0 0 80 80">
+                                    <circle cx="40" cy="40" r="38" fill="none" stroke="#333" stroke-width="2"/>
+                                    <path d="M 40 40 L 40 2 A 38 38 0 0 1 78 40 Z" fill="#9C27B0" stroke="#333"/>
+                                    <path d="M 40 40 L 78 40 A 38 38 0 0 1 40 78 Z" fill="#FFF" stroke="#333"/>
+                                    <path d="M 40 40 L 40 78 A 38 38 0 0 1 2 40 Z" fill="#FFF" stroke="#333"/>
+                                    <path d="M 40 40 L 2 40 A 38 38 0 0 1 40 2 Z" fill="#FFF" stroke="#333"/>
+                                </svg>
+                                <div><strong>25% OFF</strong><br><small>= 1/4 off</small></div>
+                            </div>
+                        </div>
+                        <p><strong>Example:</strong> A $20 toy is 50% off (1/2 off). You pay 1/2 of $20 = $10!</p>
+                        <p>A $12 book is 25% off (1/4 off). You save 1/4 of $12 = $3, so you pay $9.</p>
+                    </div>
+
+                    <div class="example-box">
+                        <h4>📏 Sports and Measurements</h4>
+                        <p>Athletes and coaches use fractions all the time to measure performance and distances.</p>
+                        <div style="display: flex; gap: 20px; justify-content: center; margin: 15px 0; flex-wrap: wrap;">
+                            <div style="text-align: center;">
+                                <svg width="80" height="80" viewBox="0 0 80 80">
+                                    <circle cx="40" cy="40" r="38" fill="none" stroke="#333" stroke-width="2"/>
+                                    <path d="M 40 40 L 40 2 A 38 38 0 0 1 78 40 Z" fill="#00BCD4" stroke="#333"/>
+                                    <path d="M 40 40 L 78 40 A 38 38 0 0 1 59.1 59.1 Z" fill="#00BCD4" stroke="#333"/>
+                                    <path d="M 40 40 L 59.1 59.1 A 38 38 0 0 1 40 78 Z" fill="#00BCD4" stroke="#333"/>
+                                    <path d="M 40 40 L 40 78 A 38 38 0 0 1 2 40 Z" fill="#FFF" stroke="#333"/>
+                                    <path d="M 40 40 L 2 40 A 38 38 0 0 1 40 2 Z" fill="#FFF" stroke="#333"/>
+                                </svg>
+                                <div><strong>3/8 mile</strong><br><small>track distance</small></div>
+                            </div>
+                        </div>
+                        <p><strong>Example:</strong> A running track might be 3/8 of a mile. If you run 3 laps, you've run 3 × 3/8 = 9/8 = 1 1/8 miles!</p>
+                        <p><strong>Basketball:</strong> Free throw percentage of 3/4 means making 3 out of every 4 shots (75% success rate).</p>
+                    </div>
+
+                    <!-- Why Fractions Matter -->
+                    <h3>Why Fractions Matter</h3>
+                    <p>Fractions are <strong>everywhere</strong> in our daily lives! Here's why learning fractions is so important:</p>
+
+                    <div class="strategy-box">
+                        <h4>🍰 Sharing and Fairness</h4>
+                        <p>Fractions help us divide things equally among people. Whether it's splitting a pizza, sharing candy, or dividing chores, fractions ensure everyone gets their fair share.</p>
+                    </div>
+
+                    <div class="strategy-box">
+                        <h4>👨‍🍳 Cooking and Baking</h4>
+                        <p>Nearly every recipe uses fractions! Measuring cups come in 1/4, 1/3, 1/2, and 1 cup sizes. Professional chefs use fractions constantly to scale recipes and maintain perfect proportions.</p>
+                    </div>
+
+                    <div class="strategy-box">
+                        <h4>💰 Money and Shopping</h4>
+                        <p>Sales and discounts use fractions: "50% off" means paying 1/2 the original price. Understanding fractions helps you calculate the best deals.</p>
+                    </div>
+
+                    <div class="strategy-box">
+                        <h4>⏱️ Time Management</h4>
+                        <p>We use fractions to describe time constantly: "Meet me in half an hour" (1/2 hour = 30 minutes). Understanding these helps you plan your schedule effectively.</p>
+                    </div>
+
+                    <div class="strategy-box">
+                        <h4>⚽ Sports and Statistics</h4>
+                        <p>Baseball batting averages, basketball shooting percentages, and football completion rates are all fractions! A batting average of .333 means the player gets a hit 1/3 of the time.</p>
+                    </div>
+
+                    <p><strong>Practice makes perfect!</strong> The more you work with fractions, the easier they become.</p>
+
+                    <!-- Why Fractions Matter -->
+                    <h3>Why Fractions Matter</h3>
+                    <p>Fractions are <strong>everywhere</strong> in our daily lives! Here's why learning fractions is so important:</p>
+
+                    <div class="strategy-box">
+                        <h4>🍰 Sharing and Fairness</h4>
+                        <p>Fractions help us divide things equally among people. Whether it's splitting a pizza, sharing candy, or dividing chores, fractions ensure everyone gets their fair share.</p>
+                    </div>
+
+                    <div class="strategy-box">
+                        <h4>👨‍🍳 Cooking and Baking</h4>
+                        <p>Nearly every recipe uses fractions! Measuring cups come in 1/4, 1/3, 1/2, and 1 cup sizes. Professional chefs use fractions constantly to scale recipes and maintain perfect proportions.</p>
+                    </div>
+
+                    <div class="strategy-box">
+                        <h4>💰 Money and Shopping</h4>
+                        <p>Sales and discounts use fractions: "50% off" means paying 1/2 the original price. Understanding fractions helps you calculate the best deals.</p>
+                    </div>
+
+                    <div class="strategy-box">
+                        <h4>⏱️ Time Management</h4>
+                        <p>We use fractions to describe time constantly: "Meet me in half an hour" (1/2 hour = 30 minutes). Understanding these helps you plan your schedule effectively.</p>
+                    </div>
+
+                    <div class="strategy-box">
+                        <h4>⚽ Sports and Statistics</h4>
+                        <p>Baseball batting averages, basketball shooting percentages, and football completion rates are all fractions! A batting average of .333 means the player gets a hit 1/3 of the time.</p>
+                    </div>
+
+                    <p><strong>Practice makes perfect!</strong> The more you work with fractions, the easier they become.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Project Files & Resources (Separate Collapsible Section) -->
+        <div class="collapsible-section no-print">
+            <div class="collapsible-header">
+                <h2>📁 Project Files & Resources</h2>
+                <span class="chevron">▼</span>
+            </div>
+            <div class="collapsible-content">
+                <div class="strategy-box">
+                    <h4>📂 Main Files</h4>
+                    <ul>
+                        <li><strong>index.html</strong> - Main application entry point with modular architecture</li>
+                        <li><strong>fraction-worksheet.html</strong> - Standalone single-file version</li>
+                        <li><strong>README.md</strong> - Project documentation and usage guide</li>
+                        <li><strong>FEATURES_TODO.md</strong> - Feature roadmap and development progress</li>
+                        <li><strong>project-guidelines.md</strong> - Development guidelines and standards</li>
+                    </ul>
+
+                    <h4>📁 Modular CSS Architecture</h4>
+                    <p><strong>css/layout/</strong> - Layout-related styles</p>
+                    <ul>
+                        <li>base.css - Global styles, resets, and typography</li>
+                        <li>header.css - Header and title styles</li>
+                        <li>main-container.css - Main container and section layouts</li>
+                    </ul>
+
+                    <p><strong>css/components/</strong> - Reusable UI components</p>
+                    <ul>
+                        <li>buttons.css - Button styles (primary, secondary, icon buttons)</li>
+                        <li>forms.css - Form controls and inputs</li>
+                        <li>modals.css - Modal dialogs and overlays</li>
+                        <li>cards.css - Card components and boxes</li>
+                    </ul>
+
+                    <p><strong>css/features/</strong> - Feature-specific styles</p>
+                    <ul>
+                        <li>problem-grid.css - Problem display grid layout</li>
+                        <li>input-methods.css - Input method controls and styling</li>
+                        <li>visual-aids.css - Visual aids and fraction diagrams</li>
+                        <li>carousel.css - Carousel UI components</li>
+                        <li>educational-content.css - Learning guide and educational sections</li>
+                    </ul>
+
+                    <h4>📁 Modular JavaScript Architecture (ES6 Modules)</h4>
+                    <p><strong>js/app.js</strong> - Main application entry point and initialization</p>
+
+                    <p><strong>js/core/</strong> - Core application logic</p>
+                    <ul>
+                        <li>state.js - Application state management</li>
+                        <li>problemGenerator.js - Problem generation algorithms</li>
+                    </ul>
+
+                    <p><strong>js/features/</strong> - Feature implementations</p>
+                    <ul>
+                        <li>inputMethods.js - Keyboard, button, drawing, voice input handlers</li>
+                        <li>answerChecking.js - Answer validation and scoring</li>
+                        <li>printExport.js - Print and PDF export functionality</li>
+                        <li>visualAids.js - Hint system and visual representations</li>
+                        <li>carousel.js - Carousel UI component logic</li>
+                        <li>collapsible.js - Collapsible sections functionality</li>
+                        <li>educationalContent.js - Learning guide content and data</li>
+                    </ul>
+
+                    <p><strong>js/version/</strong> - Version management</p>
+                    <ul>
+                        <li>versionManager.js - Version switching and display</li>
+                    </ul>
+
+                    <h4>📁 Version Files</h4>
+                    <p><strong>versions/</strong> - Version management</p>
+                    <ul>
+                        <li>version-manifest.json - Version metadata and changelog</li>
+                        <li>archived/ - Archived older versions</li>
+                        <li>changelogs/ - Detailed version changelogs</li>
+                    </ul>
+
+                    <p><strong>Standalone Version Files:</strong></p>
+                    <ul>
+                        <li>fraction-worksheet-v1.0.0.html through v1.4.12.html</li>
+                        <li>Each version is a complete, self-contained HTML file</li>
+                    </ul>
+
+                    <h4>🔗 External Dependencies</h4>
+                    <ul>
+                        <li><strong>html2pdf.js</strong> (CDN) - PDF generation functionality</li>
+                        <li><strong>marked.js</strong> (CDN) - Markdown rendering</li>
+                        <li><strong>Google Fonts</strong> - Roboto font family</li>
+                        <li><strong>Material Icons</strong> - Icon font for UI elements</li>
+                    </ul>
+
+                    <h4>🎨 Design Resources</h4>
+                    <ul>
+                        <li><strong>Material Design</strong> - Design system and principles</li>
+                        <li><strong>Color Palette</strong> - Primary: #6200EA, Secondary: #03DAC6, Success: #4CAF50</li>
+                        <li><strong>Typography</strong> - Roboto font (300, 400, 500, 700 weights)</li>
+                    </ul>
+
+                    <h4>📖 Documentation</h4>
+                    <ul>
+                        <li><strong>README.md</strong> - Complete feature list, usage guide, technical details</li>
+                        <li><strong>FEATURES_TODO.md</strong> - Development roadmap and completed features</li>
+                        <li><strong>In-App Learning Guide</strong> - Interactive educational content</li>
+                    </ul>
+
+                    <h4>🌐 Repository</h4>
+                    <ul>
+                        <li><strong>GitHub:</strong> <a href="https://github.com/nirav2000/Claudetrials" target="_blank">github.com/nirav2000/Claudetrials</a></li>
+                        <li><strong>Author:</strong> Nirav Patel (@nirav2000)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Application Script -->
+    <script type="module" src="js/app.js"></script>
+</body>
+</html>
