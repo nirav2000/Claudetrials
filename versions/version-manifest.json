@@ -1,6 +1,16 @@
 {
-  "current": "2.3.2",
+  "current": "2.4.0",
   "versions": [
+    {
+      "number": "2.4.0",
+      "date": "2026-01-27",
+      "changelogFile": "changelogs/v2.4.0.md",
+      "type": "minor",
+      "description": "Add visual diagrams to Common Misconceptions carousel",
+      "file": "fraction-worksheet-v2.4.0.html",
+      "path": "versions/v2.4.0/index.html",
+      "commit": "feat: Add visual diagrams to Common Misconceptions carousel\n\n- Add container divs to all 5 misconcep"
+    },
     {
       "number": "2.3.2",
       "date": "2026-01-27",
@@ -280,6 +290,6 @@
       "file": "fraction-worksheet-v1.0.0.html"
     }
   ],
-  "currentVersion": "2.3.2",
+  "currentVersion": "2.4.0",
   "lastUpdated": "2026-01-27"
 }
