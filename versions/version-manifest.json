@@ -7,7 +7,7 @@
       "changelogFile": "changelogs/v2.1.0.md",
       "type": "minor",
       "description": "Enhanced educational content & UX improvements",
-      "file": "index.html"
+      "file": "fraction-worksheet-v2.1.0.html"
     },
     {
       "number": "2.0.0",
@@ -15,7 +15,7 @@
       "changelogFile": "changelogs/v2.0.0.md",
       "type": "major",
       "description": "Complete modular ES6 architecture",
-      "file": "index.html"
+      "file": "fraction-worksheet-v2.0.0.html"
     },
     {
       "number": "1.4.12",

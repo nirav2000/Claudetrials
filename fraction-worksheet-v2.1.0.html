@@ -1,0 +1,4162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Fraction Comparison Practice</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <!-- External Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+    <style>
+/* ===== css/layout/base.css ===== */
+/* Material Design Base Styles & Variables */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    /* Material Design Color Palette */
+    --md-primary: #6200EA;
+    --md-primary-dark: #4615B2;
+    --md-primary-light: #7C4DFF;
+    --md-secondary: #03DAC6;
+    --md-secondary-dark: #00A896;
+    --md-error: #B00020;
+    --md-success: #4CAF50;
+    --md-warning: #FF9800;
+    --md-surface: #FFFFFF;
+    --md-background: #FAFAFA;
+    --md-on-primary: #FFFFFF;
+    --md-on-surface: #000000;
+    --md-text-primary: rgba(0, 0, 0, 0.87);
+    --md-text-secondary: rgba(0, 0, 0, 0.60);
+    --md-text-disabled: rgba(0, 0, 0, 0.38);
+    --md-divider: rgba(0, 0, 0, 0.12);
+}
+
+body {
+    font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    padding: 24px;
+    color: var(--md-text-primary);
+}
+
+/* Material Elevation (Shadows) */
+.elevation-0 { box-shadow: none; }
+.elevation-1 { box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); }
+.elevation-2 { box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23); }
+.elevation-3 { box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23); }
+.elevation-4 { box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22); }
+.elevation-5 { box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22); }
+
+/* Accessibility */
+*:focus {
+    outline: 2px solid var(--md-primary);
+    outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* Print Styles */
+@media print {
+    .no-print {
+        display: none !important;
+    }
+}
+
+
+/* ===== css/layout/header.css ===== */
+/* Header Styles */
+
+h1 {
+    text-align: center;
+    color: var(--md-primary);
+    margin-bottom: 24px;
+    font-size: 2.125rem;
+    font-weight: 500;
+    letter-spacing: 0.0073529412em;
+}
+
+.header-version {
+    text-align: center;
+    color: var(--md-text-secondary);
+    font-size: 0.875rem;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.version-badge {
+    background: var(--md-primary);
+    color: white;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.version-badge:hover {
+    background: var(--md-primary-dark);
+    transform: scale(1.05);
+}
+
+.view-changelog-btn {
+    background: transparent;
+    color: var(--md-primary);
+    border: 1px solid var(--md-primary);
+    padding: 4px 12px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.view-changelog-btn:hover {
+    background: var(--md-primary);
+    color: white;
+}
+
+
+/* ===== css/layout/main-container.css ===== */
+/* Main Container Layout */
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    background: var(--md-surface);
+    border-radius: 8px;
+    padding: 32px 20px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2), 0 16px 32px rgba(0,0,0,0.15);
+}
+
+.controls {
+    background: var(--md-background);
+    padding: 24px;
+    border-radius: 4px;
+    margin-bottom: 24px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.controls-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin-bottom: 16px;
+}
+
+.control-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.control-group label {
+    font-weight: 500;
+    color: var(--md-text-secondary);
+    margin-bottom: 8px;
+    font-size: 0.75rem;
+    letter-spacing: 0.0333333333em;
+    text-transform: uppercase;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 20px 16px;
+    }
+
+    .controls {
+        padding: 16px;
+    }
+
+    .controls-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+/* ===== css/components/buttons.css ===== */
+/* Material Design Buttons */
+
+button {
+    padding: 10px 24px;
+    border: none;
+    border-radius: 4px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    font-family: 'Roboto', sans-serif;
+    letter-spacing: 0.0892857143em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+button:active {
+    transform: scale(0.98);
+}
+
+button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.button-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 16px;
+}
+
+/* Button Variants */
+.btn-primary {
+    background: var(--md-primary);
+    color: var(--md-on-primary);
+}
+
+.btn-primary:hover:not(:disabled) {
+    background: var(--md-primary-dark);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+.btn-secondary {
+    background: #6c757d;
+    color: white;
+}
+
+.btn-secondary:hover:not(:disabled) {
+    background: #5a6268;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+.btn-success {
+    background: var(--md-success);
+    color: white;
+}
+
+.btn-success:hover:not(:disabled) {
+    background: #45a049;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+.btn-danger {
+    background: var(--md-error);
+    color: white;
+}
+
+.btn-danger:hover:not(:disabled) {
+    background: #8e0018;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+.btn-info {
+    background: #0288D1;
+    color: white;
+}
+
+.btn-info:hover:not(:disabled) {
+    background: #0277BD;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+/* Icon Buttons */
+.icon-btn {
+    background: #f5f5f5;
+    border: 1px solid #ddd;
+    cursor: pointer;
+    padding: 8px 12px;
+    border-radius: 4px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    color: #333;
+    min-width: 44px;
+    min-height: 44px;
+}
+
+.icon-btn:hover:not(:disabled) {
+    background: #e8e8e8;
+    border-color: var(--md-primary);
+    transform: translateY(-2px);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.icon-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+
+.icon-btn .material-icons {
+    font-size: 24px;
+    color: #333;
+}
+
+/* PDF Icon (CSS-based) */
+.pdf-icon {
+    width: 24px;
+    height: 28px;
+    background: linear-gradient(135deg, #dc3545 0%, #dc3545 70%, #fff 70%, #fff 100%);
+    border-radius: 2px;
+    position: relative;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+}
+
+.pdf-icon::before {
+    content: 'PDF';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-weight: bold;
+    font-size: 8px;
+    letter-spacing: -0.5px;
+}
+
+.pdf-icon::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 6px;
+    height: 6px;
+    background: #fff;
+    border-left: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+}
+
+
+/* ===== css/components/forms.css ===== */
+/* Form Elements */
+
+.control-group select {
+    padding: 12px 16px;
+    border: 1px solid var(--md-divider);
+    border-radius: 4px;
+    font-size: 1rem;
+    font-family: 'Roboto', sans-serif;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    background: var(--md-surface);
+    color: var(--md-text-primary);
+    cursor: pointer;
+}
+
+.control-group select:hover {
+    border-color: var(--md-text-secondary);
+}
+
+.control-group select:focus {
+    outline: none;
+    border-color: var(--md-primary);
+    box-shadow: 0 0 0 2px rgba(98, 0, 234, 0.1);
+}
+
+/* Checkbox Styling */
+.checkbox-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 8px 0;
+}
+
+.checkbox-group input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    accent-color: var(--md-primary);
+}
+
+.checkbox-group label {
+    font-size: 0.875rem;
+    color: var(--md-text-primary);
+    cursor: pointer;
+}
+
+/* Mistake Types Checkboxes */
+.mistake-types {
+    display: none;
+    padding: 16px;
+    background: #F5F5F5;
+    border-radius: 4px;
+    margin-top: 12px;
+}
+
+.mistake-types.show {
+    display: block;
+}
+
+.mistake-types h4 {
+    color: var(--md-primary);
+    font-size: 0.875rem;
+    margin-bottom: 12px;
+    font-weight: 500;
+}
+
+.mistake-type-item {
+    display: flex;
+    align-items: start;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.mistake-type-item input[type="checkbox"] {
+    margin-top: 2px;
+}
+
+.mistake-type-label {
+    flex: 1;
+}
+
+.mistake-type-label strong {
+    display: block;
+    margin-bottom: 4px;
+    color: var(--md-text-primary);
+}
+
+.mistake-type-label small {
+    display: block;
+    color: var(--md-text-secondary);
+    font-size: 0.75rem;
+    line-height: 1.4;
+}
+
+
+/* ===== css/components/modals.css ===== */
+/* Modal Styles */
+
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.modal-overlay.show {
+    display: flex;
+}
+
+.modal-content {
+    background: var(--md-surface);
+    border-radius: 8px;
+    max-width: 800px;
+    max-height: 90vh;
+    width: 100%;
+    overflow: hidden;
+    box-shadow: 0 24px 38px rgba(0,0,0,0.3);
+    display: flex;
+    flex-direction: column;
+    animation: modalSlideIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.modal-header {
+    padding: 20px 24px;
+    border-bottom: 1px solid var(--md-divider);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.modal-header h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    color: var(--md-primary);
+    font-weight: 500;
+}
+
+.modal-close {
+    background: transparent;
+    border: none;
+    font-size: 1.5rem;
+    color: var(--md-text-secondary);
+    cursor: pointer;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.2s;
+    padding: 0;
+    box-shadow: none;
+}
+
+.modal-close:hover {
+    background: var(--md-background);
+    color: var(--md-primary);
+}
+
+.modal-body {
+    padding: 24px;
+    overflow-y: auto;
+    flex: 1;
+}
+
+.modal-footer {
+    padding: 16px 24px;
+    border-top: 1px solid var(--md-divider);
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .modal-content {
+        max-width: 100%;
+        max-height: 100vh;
+        border-radius: 0;
+    }
+
+    .modal-overlay {
+        padding: 0;
+    }
+}
+
+
+/* ===== css/components/cards.css ===== */
+/* Material Design Cards */
+
+.instructions {
+    background: #E8EAF6;
+    padding: 16px;
+    border-radius: 4px;
+    margin-bottom: 24px;
+    border-left: 4px solid var(--md-primary);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.instructions h3 {
+    color: var(--md-primary);
+    margin-bottom: 12px;
+    font-size: 1.25rem;
+    font-weight: 500;
+}
+
+.instructions ul {
+    margin-left: 20px;
+}
+
+.instructions li {
+    margin-bottom: 8px;
+    color: var(--md-text-primary);
+    line-height: 1.5;
+}
+
+.strategy-box {
+    background: #E8EAF6;
+    padding: 20px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    border-left: 4px solid var(--md-primary);
+}
+
+.strategy-box p,
+.strategy-box li {
+    line-height: 2;
+}
+
+.example-box {
+    background: #FFF3E0;
+    padding: 20px;
+    border-radius: 4px;
+    margin: 20px 0;
+    border-left: 4px solid var(--md-warning);
+    line-height: 2;
+}
+
+.score {
+    text-align: center;
+    font-size: 1.25rem;
+    margin: 16px 0;
+    padding: 16px;
+    background: var(--md-primary);
+    color: white;
+    border-radius: 4px;
+    display: none;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    font-weight: 500;
+}
+
+.score.show {
+    display: block;
+}
+
+.score-correct {
+    color: #C8E6C9;
+    font-weight: 700;
+}
+
+.score-incorrect {
+    color: #FFCDD2;
+    font-weight: 700;
+}
+
+/* Collapsible Sections */
+.collapsible-section {
+    margin: 24px 0;
+}
+
+.collapsible-header {
+    cursor: pointer;
+    padding: 16px;
+    background: var(--md-background);
+    border-radius: 4px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.3s;
+}
+
+.collapsible-header:hover {
+    background: #E0E0E0;
+}
+
+.collapsible-header h3 {
+    margin: 0;
+    color: var(--md-primary);
+    font-size: 1.25rem;
+    font-weight: 500;
+}
+
+.chevron {
+    transition: transform 0.3s;
+    color: var(--md-primary);
+}
+
+.collapsible-header.active .chevron {
+    transform: rotate(180deg);
+}
+
+.collapsible-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+}
+
+.collapsible-content.show {
+    max-height: none;
+    overflow: visible;
+    padding: 16px 0;
+}
+
+/* Version History Entries */
+.version-entry {
+    background: #FFFFFF;
+    padding: 16px;
+    border-radius: 4px;
+    margin-bottom: 16px;
+    border-left: 4px solid var(--md-secondary);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+
+.version-entry h4 {
+    color: var(--md-primary);
+    margin: 0 0 12px 0;
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+.version-entry ul {
+    margin: 8px 0 0 20px;
+    padding: 0;
+}
+
+.version-entry li {
+    margin-bottom: 6px;
+    color: var(--md-text-primary);
+    line-height: 1.6;
+}
+
+
+/* ===== css/features/problem-grid.css ===== */
+/* Problem Grid Styles */
+
+.problems-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    margin-top: 24px;
+}
+
+.problem {
+    display: grid;
+    grid-template-columns: auto 1fr auto 1fr;
+    align-items: center;
+    gap: 12px;
+    padding: 16px;
+    background: var(--md-surface);
+    border-radius: 4px;
+    border: 1px solid var(--md-divider);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    page-break-inside: avoid;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+
+.problem:hover {
+    box-shadow: 0 4px 8px rgba(0,0,0,0.16);
+    transform: translateY(-2px);
+}
+
+.problem-number {
+    font-weight: 500;
+    color: var(--md-primary);
+    font-size: 1rem;
+    min-width: 30px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.problem-number:hover {
+    color: var(--md-primary-dark);
+    transform: scale(1.1);
+}
+
+/* Fraction Display */
+.fraction {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    vertical-align: middle;
+    font-size: 1.125rem;
+    font-weight: 400;
+}
+
+.numerator {
+    border-bottom: 2px solid var(--md-text-primary);
+    padding-bottom: 2px;
+    min-width: 30px;
+    text-align: center;
+}
+
+.denominator {
+    padding-top: 2px;
+    min-width: 30px;
+    text-align: center;
+}
+
+.input-area {
+    min-width: 45px;
+    min-height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .problems-container {
+        grid-template-columns: 1fr;
+    }
+
+    .problem {
+        padding: 12px;
+    }
+}
+
+/* Print Styles */
+@media print {
+    .problems-container {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+        margin-top: 16px;
+    }
+
+    .problem {
+        break-inside: avoid;
+        padding: 12px;
+        box-shadow: none;
+        border: 1px solid #333;
+    }
+
+    .problem:hover {
+        transform: none;
+        box-shadow: none;
+    }
+}
+
+
+/* ===== css/features/input-methods.css ===== */
+/* Input Methods Styles */
+
+/* Keyboard Input */
+.operator-input {
+    width: 45px;
+    height: 45px;
+    text-align: center;
+    font-size: 1.5em;
+    border: 1px solid var(--md-divider);
+    border-radius: 4px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    background: var(--md-surface);
+    font-family: 'Roboto', sans-serif;
+}
+
+.operator-input:focus {
+    outline: none;
+    border-color: var(--md-primary);
+    box-shadow: 0 0 0 2px rgba(98, 0, 234, 0.1);
+}
+
+.operator-input.correct {
+    background-color: #C8E6C9;
+    border-color: var(--md-success);
+}
+
+.operator-input.incorrect {
+    background-color: #FFCDD2;
+    border-color: var(--md-error);
+}
+
+/* Button Input */
+.operator-buttons {
+    display: flex;
+    gap: 4px;
+}
+
+.operator-btn {
+    width: 40px;
+    height: 40px;
+    font-size: 1.25em;
+    padding: 0;
+    border: 1px solid var(--md-divider);
+    background: var(--md-surface);
+    border-radius: 4px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+
+.operator-btn:hover:not(:disabled) {
+    background: var(--md-primary-light);
+    color: white;
+    border-color: var(--md-primary);
+}
+
+.operator-btn.selected {
+    background: var(--md-primary);
+    color: white;
+    border-color: var(--md-primary);
+}
+
+.operator-btn.correct {
+    background-color: var(--md-success);
+    border-color: var(--md-success);
+    color: white;
+}
+
+.operator-btn.incorrect {
+    background-color: var(--md-error);
+    border-color: var(--md-error);
+    color: white;
+}
+
+/* Drawing Canvas */
+.canvas-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.drawing-canvas {
+    border: 1px solid var(--md-divider);
+    border-radius: 4px;
+    cursor: crosshair;
+    background: var(--md-surface);
+    touch-action: none;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+
+.drawing-canvas.correct {
+    border-color: var(--md-success);
+    background-color: #C8E6C9;
+}
+
+.drawing-canvas.incorrect {
+    border-color: var(--md-error);
+    background-color: #FFCDD2;
+}
+
+.canvas-controls {
+    display: flex;
+    gap: 4px;
+}
+
+.canvas-btn {
+    padding: 6px 16px;
+    font-size: 0.75rem;
+    border-radius: 4px;
+}
+
+/* Voice Input */
+.voice-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.voice-btn {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--md-surface);
+    border: 1px solid var(--md-divider);
+    font-size: 1.25em;
+    padding: 0;
+    position: relative;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.voice-btn:hover:not(:disabled) {
+    background: var(--md-primary);
+    color: white;
+    border-color: var(--md-primary);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+.voice-btn.listening {
+    background: var(--md-error);
+    color: white;
+    border-color: var(--md-error);
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(176, 0, 32, 0.7);
+    }
+    50% {
+        transform: scale(1.05);
+        box-shadow: 0 0 0 10px rgba(176, 0, 32, 0);
+    }
+}
+
+.voice-result {
+    font-size: 1.25em;
+    min-width: 30px;
+    text-align: center;
+    font-weight: 500;
+    color: var(--md-primary);
+}
+
+.voice-result.correct {
+    color: var(--md-success);
+}
+
+.voice-result.incorrect {
+    color: var(--md-error);
+}
+
+.voice-status {
+    background: #323232;
+    color: white;
+    padding: 14px 16px;
+    border-radius: 4px;
+    margin-bottom: 16px;
+    display: none;
+    box-shadow: 0 3px 5px rgba(0,0,0,0.2);
+}
+
+.voice-status.show {
+    display: block;
+}
+
+.voice-status.error {
+    background: #D32F2F;
+}
+
+.voice-status.success {
+    background: #388E3C;
+}
+
+
+/* ===== css/features/visual-aids.css ===== */
+/* Visual Aids Styles */
+
+.visual-aids {
+    grid-column: 1 / -1;
+    margin-top: 12px;
+    padding: 16px;
+    background: #FFF9C4;
+    border-radius: 4px;
+    border-left: 4px solid var(--md-warning);
+}
+
+.visual-aids.hidden-for-print {
+    display: none !important;
+}
+
+.hint-title {
+    font-weight: 500;
+    color: var(--md-primary-dark);
+    margin-bottom: 8px;
+    font-size: 0.875rem;
+}
+
+.hint-content {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.hint-fraction-display {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.pizza-diagram {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+
+.pizza-label {
+    font-size: 0.75rem;
+    color: var(--md-text-secondary);
+    font-weight: 500;
+}
+
+.hint-explanation {
+    flex: 1;
+    min-width: 200px;
+}
+
+.hint-explanation strong {
+    color: var(--md-error);
+    display: block;
+    margin-bottom: 8px;
+}
+
+.hint-explanation p {
+    margin: 4px 0;
+    line-height: 1.6;
+    font-size: 0.875rem;
+}
+
+/* Fraction Visual Components */
+.fraction-visual {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 8px;
+    position: relative;
+}
+
+.fraction-visual .numerator-label,
+.fraction-visual .denominator-label {
+    font-size: 0.75em;
+    color: var(--md-primary);
+    font-weight: 600;
+    position: absolute;
+    white-space: nowrap;
+}
+
+.fraction-visual .numerator-label {
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.fraction-visual .denominator-label {
+    bottom: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* Fraction Bar Components */
+.fraction-bar {
+    display: inline-flex;
+    border: 3px solid #333;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.fraction-part {
+    width: 40px;
+    height: 40px;
+    border-right: 2px solid #333;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: #666;
+}
+
+.fraction-part:last-child {
+    border-right: none;
+}
+
+.fraction-part.filled {
+    background: #FFA726;
+    color: white;
+}
+
+/* Print Styles */
+@media print {
+    .visual-aids {
+        break-inside: avoid;
+        page-break-inside: avoid;
+    }
+
+    .visual-aids.print-show {
+        display: block !important;
+    }
+}
+
+
+/* ===== css/features/carousel.css ===== */
+/* Carousel Styles */
+
+.carousel-container {
+    position: relative;
+    width: 100%;
+    margin: 20px 0;
+}
+
+.carousel-progress-bar {
+    display: flex;
+    width: 100%;
+    height: 4px;
+    background: #e0e0e0;
+    margin-bottom: 10px;
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.carousel-progress-segment {
+    flex: 1;
+    height: 100%;
+    background: #e0e0e0;
+    cursor: pointer;
+    transition: all 0.3s;
+    position: relative;
+}
+
+.carousel-progress-segment.active {
+    background: var(--md-primary);
+}
+
+.carousel-progress-segment:hover {
+    background: #1976D2;
+}
+
+.carousel-tab-labels {
+    display: flex;
+    width: 100%;
+    margin-bottom: 15px;
+    min-height: 32px;
+}
+
+.carousel-tab-label {
+    flex: 1;
+    text-align: center;
+    font-size: 0.7em;
+    line-height: 1.3;
+    color: #666;
+    cursor: pointer;
+    padding: 3px 2px;
+    transition: all 0.2s;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.carousel-tab-label.active {
+    color: var(--md-primary);
+    font-weight: 700;
+}
+
+.carousel-tab-label:hover {
+    color: #1976D2;
+}
+
+.carousel-content-wrapper {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+
+.carousel-wrapper {
+    display: flex;
+    transition: transform 0.3s ease-in-out, height 0.3s ease-in-out;
+    width: 100%;
+}
+
+.carousel-slide {
+    min-width: 100%;
+    width: 100%;
+    flex-shrink: 0;
+    box-sizing: border-box;
+}
+
+/* Side Navigation Buttons */
+.carousel-btn-side {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: var(--md-primary);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    font-size: 24px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    z-index: 10;
+}
+
+.carousel-btn-side:hover:not(:disabled) {
+    background: #1976D2;
+    transform: translateY(-50%) scale(1.1);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+}
+
+.carousel-btn-side:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+    opacity: 0.3;
+    transform: translateY(-50%);
+}
+
+.carousel-btn-prev {
+    left: 10px;
+}
+
+.carousel-btn-next {
+    right: 10px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .carousel-btn-side {
+        width: 40px;
+        height: 40px;
+        font-size: 20px;
+    }
+
+    .carousel-btn-prev {
+        left: 5px;
+    }
+
+    .carousel-btn-next {
+        right: 5px;
+    }
+
+    .carousel-tab-label {
+        font-size: 0.65em;
+        padding: 3px 1px;
+    }
+}
+
+
+/* ===== css/features/educational-content.css ===== */
+/* Educational Content Styles */
+
+.educational-content {
+    margin-top: 40px;
+    page-break-before: always;
+}
+
+.educational-content.hidden-for-print {
+    display: none;
+}
+
+.educational-content h2 {
+    color: var(--md-primary);
+    font-size: 1.75rem;
+    margin-bottom: 20px;
+    font-weight: 500;
+}
+
+.educational-content h3 {
+    color: var(--md-primary);
+    font-size: 1.25rem;
+    margin-top: 24px;
+    margin-bottom: 12px;
+    font-weight: 500;
+}
+
+.educational-content h4 {
+    color: var(--md-primary-dark);
+    font-size: 1.1rem;
+    margin-top: 16px;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.educational-content p {
+    line-height: 1.8;
+    margin-bottom: 12px;
+    color: var(--md-text-primary);
+}
+
+.educational-content ul {
+    margin-left: 24px;
+    margin-bottom: 16px;
+}
+
+.educational-content li {
+    line-height: 1.8;
+    margin-bottom: 10px;
+    color: var(--md-text-primary);
+}
+
+.visual-fraction-demo {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin: 20px 0;
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    border: 2px solid #e0e0e0;
+}
+
+.timeline {
+    margin: 20px 0;
+    padding: 20px;
+    background: #f5f5f5;
+    border-radius: 8px;
+    overflow-x: auto;
+}
+
+.timeline-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-width: 600px;
+    margin: 20px 0;
+    position: relative;
+}
+
+.timeline-bar::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(to right, var(--md-primary), var(--md-secondary));
+    z-index: 0;
+}
+
+.timeline-point {
+    background: white;
+    border: 3px solid var(--md-primary);
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+    z-index: 1;
+    position: relative;
+}
+
+.timeline-label {
+    text-align: center;
+    margin-top: 10px;
+    font-weight: 600;
+    font-size: 0.9em;
+}
+
+.timeline-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+}
+
+.simplification-steps {
+    background: #E3F2FD;
+    padding: 16px;
+    border-radius: 4px;
+    margin: 12px 0;
+    border-left: 4px solid #2196F3;
+}
+
+.simplification-steps .step {
+    margin: 8px 0;
+    font-family: 'Courier New', monospace;
+    font-size: 1.1em;
+}
+
+/* Print Styles */
+@media print {
+    .educational-content {
+        display: none;
+    }
+
+    .educational-content.print-show {
+        display: block;
+    }
+}
+
+    </style>
+    </head>
+<body>
+    <div class="container">
+        <h1>Fraction Comparison Practice</h1>
+
+        <!-- Controls Section -->
+        <div class="controls">
+            <div class="controls-grid">
+                <div class="control-group">
+                    <label for="input-method">Input Method:</label>
+                    <select id="input-method">
+                        <option value="keyboard">Keyboard</option>
+                        <option value="buttons">Buttons</option>
+                        <option value="drawing">Drawing</option>
+                        <option value="voice">Voice</option>
+                    </select>
+                </div>
+
+                <div class="control-group">
+                    <label for="problem-count">Number of Problems:</label>
+                    <select id="problem-count">
+                        <option value="10">10</option>
+                        <option value="20" selected>20</option>
+                        <option value="30">30</option>
+                        <option value="40">40</option>
+                    </select>
+                </div>
+
+                <div class="control-group">
+                    <label for="denominator-set">Denominators:</label>
+                    <select id="denominator-set">
+                        <option value="easiest" selected>2 and 4 (Easiest)</option>
+                        <option value="easy">3 and 6 (Easy)</option>
+                        <option value="medium">4 and 8 (Medium)</option>
+                        <option value="medium2">5 and 10 (Medium)</option>
+                        <option value="hard">6, 8, 10, and 12 (Hard)</option>
+                        <option value="harder">10, 12, and 20 (Harder)</option>
+                        <option value="all">All (2-12) (Hardest)</option>
+                    </select>
+                </div>
+
+                <div class="control-group">
+                    <label for="hint-timeout">Hint Timeout:</label>
+                    <select id="hint-timeout">
+                        <option value="0">Off</option>
+                        <option value="30" selected>30 seconds</option>
+                        <option value="45">45 seconds</option>
+                        <option value="60">60 seconds</option>
+                        <option value="90">90 seconds</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Common Mistakes Mode -->
+            <div class="checkbox-group" style="margin-top: 16px; padding: 12px; background: #E8F5E9; border-radius: 4px;">
+                <input type="checkbox" id="common-mistakes">
+                <label for="common-mistakes">
+                    <strong>Focus on Common Mistakes</strong> - Generates problems targeting specific error patterns
+                </label>
+            </div>
+
+            <div id="mistake-types-section" class="mistake-types">
+                <h4>Select mistake types to practice:</h4>
+                <div class="mistake-type-item">
+                    <input type="checkbox" class="mistake-type-checkbox" value="higher-denominator" id="mistake-higher-denominator" checked>
+                    <label class="mistake-type-label" for="mistake-higher-denominator">
+                        <strong>Higher Denominator Trap</strong>
+                        <small>Same numerator, higher denominator (e.g., 2/3 vs 2/30)</small>
+                    </label>
+                </div>
+                <div class="mistake-type-item">
+                    <input type="checkbox" class="mistake-type-checkbox" value="both-higher" id="mistake-both-higher" checked>
+                    <label class="mistake-type-label" for="mistake-both-higher">
+                        <strong>Both Numbers Higher</strong>
+                        <small>Both numerator and denominator higher (e.g., 1/2 vs 4/10)</small>
+                    </label>
+                </div>
+                <div class="mistake-type-item">
+                    <input type="checkbox" class="mistake-type-checkbox" value="unit-fraction" id="mistake-unit-fraction" checked>
+                    <label class="mistake-type-label" for="mistake-unit-fraction">
+                        <strong>Unit Fraction Confusion</strong>
+                        <small>More slices = smaller pieces (e.g., 1/2 vs 1/8)</small>
+                    </label>
+                </div>
+                <div class="mistake-type-item">
+                    <input type="checkbox" class="mistake-type-checkbox" value="near-whole" id="mistake-near-whole" checked>
+                    <label class="mistake-type-label" for="mistake-near-whole">
+                        <strong>Near-Whole Comparison</strong>
+                        <small>Both close to 1 (e.g., 5/6 vs 9/10)</small>
+                    </label>
+                </div>
+                <div class="mistake-type-item">
+                    <input type="checkbox" class="mistake-type-checkbox" value="equivalent" id="mistake-equivalent" checked>
+                    <label class="mistake-type-label" for="mistake-equivalent">
+                        <strong>Equivalent Fractions</strong>
+                        <small>Multiply/divide both numbers (e.g., 1/4 vs 2/8)</small>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Print Options -->
+            <div class="checkbox-group" style="margin-top: 16px; padding: 12px; background: #FFF3E0; border-radius: 4px;">
+                <input type="checkbox" id="print-learning-guide" checked>
+                <label for="print-learning-guide">Include Learning Guide in Print/PDF</label>
+                <br>
+                <input type="checkbox" id="print-visual-aids" checked>
+                <label for="print-visual-aids">Include Visual Aids in Print/PDF</label>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="button-group">
+                <button class="btn-primary" id="generate-btn">Generate New Practice</button>
+                <button class="btn-success" id="check-btn">Check Answers</button>
+                <button class="btn-secondary" id="show-answers-btn">Show Answers</button>
+                <button class="btn-danger" id="clear-btn">Clear Answers</button>
+                <button class="icon-btn" id="print-btn" title="Print Worksheet" aria-label="Print Worksheet">
+                    <span class="material-icons">print</span>
+                </button>
+                <button class="icon-btn" id="pdf-btn" title="Download as PDF" aria-label="Download as PDF">
+                    <span class="material-icons">picture_as_pdf</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Instructions -->
+        <div class="collapsible-section no-print">
+            <div class="collapsible-header">
+                <h3>How to Use</h3>
+                <span class="chevron">▼</span>
+            </div>
+            <div class="collapsible-content">
+                <div class="instructions">
+                    <ul>
+                        <li><strong>Keyboard:</strong> Type &lt;, &gt;, or = directly</li>
+                        <li><strong>Buttons:</strong> Click the symbol buttons to select your answer</li>
+                        <li><strong>Drawing:</strong> Draw the symbol on the canvas</li>
+                        <li><strong>Voice:</strong> Click the microphone icon and say "less than", "greater than", or "equal" (Chrome/Edge only)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Score Display -->
+        <div class="score" id="score"></div>
+
+        <!-- Problems Container -->
+        <div id="problems-container" class="problems-container"></div>
+
+        <!-- Educational Content -->
+        <div class="educational-content">
+            <div class="collapsible-section">
+                <div class="collapsible-header">
+                    <h2>Learning Guide: Understanding Fractions</h2>
+                    <span class="chevron">▼</span>
+                </div>
+                <div class="collapsible-content">
+                    <!-- What Are Fractions -->
+                    <div class="strategy-box">
+                        <h3>What Are Fractions?</h3>
+                        <p><strong>A fraction represents a part of a whole.</strong> The word "whole" means a complete unit or object that can be divided into equal parts. For example, a whole pizza, a whole hour, or a whole dollar.</p>
+
+                        <p>A fraction consists of two numbers separated by a line:</p>
+
+                        <div style="text-align: center; margin: 24px 0; font-size: 3em; position: relative;">
+                            <div style="display: inline-block; position: relative; padding: 40px 20px;">
+                                <div style="color: #6200EA; font-weight: bold;">3</div>
+                                <div style="border-top: 3px solid #333; margin: 5px 0;"></div>
+                                <div style="color: #6200EA; font-weight: bold;">4</div>
+
+                                <div style="position: absolute; top: 0; left: 50%; transform: translateX(-50%); color: #6200EA; font-size: 0.3em; font-weight: 600; white-space: nowrap;">
+                                    ↑ NUMERATOR<br>(parts you have)
+                                </div>
+                                <div style="position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); color: #6200EA; font-size: 0.3em; font-weight: 600; white-space: nowrap;">
+                                    ↓ DENOMINATOR<br>(total equal parts)
+                                </div>
+                            </div>
+                        </div>
+
+                        <ul>
+                            <li><strong>Numerator (top number):</strong> Tells you how many parts you have</li>
+                            <li><strong>Denominator (bottom number):</strong> Tells you how many equal parts make up one whole</li>
+                        </ul>
+
+                        <p><strong>Example:</strong> In the fraction 3/4, you have 3 parts out of 4 equal parts that make up the whole.</p>
+
+                        <div class="visual-fraction-demo" style="flex-direction: column;">
+                            <strong>Visual - One Whole Divided into 4 Equal Parts:</strong>
+                            <div style="display: flex; gap: 30px; align-items: center; justify-content: center; margin: 20px 0; flex-wrap: wrap;">
+                                <div style="text-align: center;">
+                                    <svg width="120" height="120" viewBox="0 0 120 120">
+                                        <circle cx="60" cy="60" r="58" fill="none" stroke="#333" stroke-width="2"/>
+                                        <path d="M 60 60 L 60 2 A 58 58 0 0 1 118 60 Z" fill="#FFA726" stroke="#333" stroke-width="2"/>
+                                        <path d="M 60 60 L 118 60 A 58 58 0 0 1 60 118 Z" fill="#FFA726" stroke="#333" stroke-width="2"/>
+                                        <path d="M 60 60 L 60 118 A 58 58 0 0 1 2 60 Z" fill="#FFA726" stroke="#333" stroke-width="2"/>
+                                        <path d="M 60 60 L 2 60 A 58 58 0 0 1 60 2 Z" fill="#FFF" stroke="#333" stroke-width="2"/>
+                                    </svg>
+                                    <div style="margin-top: 10px; font-weight: bold; font-size: 1.2em;">3/4 (Three Fourths)</div>
+                                    <div style="color: #666;">3 out of 4 parts filled</div>
+                                </div>
+                                <div style="text-align: center;">
+                                    <div class="fraction-bar">
+                                        <div class="fraction-part filled">1</div>
+                                        <div class="fraction-part filled">2</div>
+                                        <div class="fraction-part filled">3</div>
+                                        <div class="fraction-part">4</div>
+                                    </div>
+                                    <div style="margin-top: 10px; font-weight: bold; font-size: 1.2em;">3/4 (Bar Model)</div>
+                                    <div style="color: #666;">Same fraction, different view!</div>
+                                </div>
+                            </div>
+                            <span style="margin-top: 8px; display: block; text-align: center;">
+                                ☝️ <strong>This is ONE whole shape</strong> divided into 4 equal parts<br>
+                                <strong>Filled parts (orange) = 3/4</strong> (three out of four parts)<br>
+                                <strong>Empty parts (white) = 1/4</strong> (one out of four parts)
+                            </span>
+                        </div>
+
+                        <div style="margin: 20px 0; padding: 20px; background: #E8F5E9; border-radius: 8px;">
+                            <h4 style="color: #2E7D32;">🎯 More Examples with Circle Diagrams:</h4>
+                            <div style="display: flex; gap: 20px; justify-content: center; margin: 15px 0; flex-wrap: wrap;">
+                                <div style="text-align: center;">
+                                    <svg width="80" height="80" viewBox="0 0 80 80">
+                                        <circle cx="40" cy="40" r="38" fill="none" stroke="#333" stroke-width="2"/>
+                                        <path d="M 40 40 L 40 2 A 38 38 0 0 1 78 40 Z" fill="#FFA726" stroke="#333" stroke-width="2"/>
+                                        <path d="M 40 40 L 78 40 A 38 38 0 0 1 40 78 Z" fill="#FFF" stroke="#333" stroke-width="2"/>
+                                        <path d="M 40 40 L 40 78 A 38 38 0 0 1 2 40 Z" fill="#FFF" stroke="#333" stroke-width="2"/>
+                                        <path d="M 40 40 L 2 40 A 38 38 0 0 1 40 2 Z" fill="#FFF" stroke="#333" stroke-width="2"/>
+                                    </svg>
+                                    <div><strong>1/4</strong><br><small>one fourth</small></div>
+                                </div>
+                                <div style="text-align: center;">
+                                    <svg width="80" height="80" viewBox="0 0 80 80">
+                                        <circle cx="40" cy="40" r="38" fill="none" stroke="#333" stroke-width="2"/>
+                                        <path d="M 40 40 L 40 2 A 38 38 0 0 1 78 40 Z" fill="#FFA726" stroke="#333" stroke-width="2"/>
+                                        <path d="M 40 40 L 78 40 A 38 38 0 0 1 40 78 Z" fill="#FFA726" stroke="#333" stroke-width="2"/>
+                                        <path d="M 40 40 L 40 78 A 38 38 0 0 1 2 40 Z" fill="#FFF" stroke="#333" stroke-width="2"/>
+                                        <path d="M 40 40 L 2 40 A 38 38 0 0 1 40 2 Z" fill="#FFF" stroke="#333" stroke-width="2"/>
+                                    </svg>
+                                    <div><strong>1/2</strong><br><small>one half</small></div>
+                                </div>
+                                <div style="text-align: center;">
+                                    <svg width="80" height="80" viewBox="0 0 80 80">
+                                        <circle cx="40" cy="40" r="38" fill="none" stroke="#333" stroke-width="2"/>
+                                        <path d="M 40 40 L 40 2 A 38 38 0 0 1 78 40 Z" fill="#FFA726" stroke="#333" stroke-width="2"/>
+                                        <path d="M 40 40 L 78 40 A 38 38 0 0 1 40 78 Z" fill="#FFA726" stroke="#333" stroke-width="2"/>
+                                        <path d="M 40 40 L 40 78 A 38 38 0 0 1 2 40 Z" fill="#FFA726" stroke="#333" stroke-width="2"/>
+                                        <path d="M 40 40 L 2 40 A 38 38 0 0 1 40 2 Z" fill="#FFF" stroke="#333" stroke-width="2"/>
+                                    </svg>
+                                    <div><strong>3/4</strong><br><small>three fourths</small></div>
+                                </div>
+                                <div style="text-align: center;">
+                                    <svg width="80" height="80" viewBox="0 0 80 80">
+                                        <circle cx="40" cy="40" r="38" fill="none" stroke="#333" stroke-width="2"/>
+                                        <path d="M 40 40 L 40 2 A 38 38 0 0 1 78 40 Z" fill="#FFA726" stroke="#333" stroke-width="2"/>
+                                        <path d="M 40 40 L 78 40 A 38 38 0 0 1 40 78 Z" fill="#FFA726" stroke="#333" stroke-width="2"/>
+                                        <path d="M 40 40 L 40 78 A 38 38 0 0 1 2 40 Z" fill="#FFA726" stroke="#333" stroke-width="2"/>
+                                        <path d="M 40 40 L 2 40 A 38 38 0 0 1 40 2 Z" fill="#FFA726" stroke="#333" stroke-width="2"/>
+                                    </svg>
+                                    <div><strong>4/4 = 1</strong><br><small>one whole</small></div>
+                                </div>
+                            </div>
+                            <p style="text-align: center; color: #2E7D32;"><strong>Notice:</strong> As we fill more parts, the fraction gets larger! 1/4 < 1/2 < 3/4 < 4/4</p>
+                        </div>
+                    </div>
+
+                    <!-- Brief History Carousel -->
+                    <h3>Brief History of Fractions</h3>
+                    <div class="carousel-container" id="history-carousel">
+                        <div class="carousel-tab-labels"></div>
+                        <div class="carousel-progress-bar"></div>
+                        <div class="carousel-content-wrapper">
+                            <button class="carousel-btn-side carousel-btn-prev" aria-label="Previous">◀</button>
+                            <button class="carousel-btn-side carousel-btn-next" aria-label="Next">▶</button>
+                        </div>
+                    </div>
+
+                    <!-- Comparison Strategies Carousel -->
+                    <h3>Comparison Strategies</h3>
+                    <div class="carousel-container" id="strategies-carousel">
+                        <div class="carousel-tab-labels"></div>
+                        <div class="carousel-progress-bar"></div>
+                        <div class="carousel-content-wrapper">
+                            <button class="carousel-btn-side carousel-btn-prev" aria-label="Previous">◀</button>
+                            <button class="carousel-btn-side carousel-btn-next" aria-label="Next">▶</button>
+                        </div>
+                    </div>
+
+                    <!-- Common Misconceptions Carousel -->
+                    <h3>Common Misconceptions</h3>
+                    <div class="carousel-container" id="misconceptions-carousel">
+                        <div class="carousel-tab-labels"></div>
+                        <div class="carousel-progress-bar"></div>
+                        <div class="carousel-content-wrapper">
+                            <button class="carousel-btn-side carousel-btn-prev" aria-label="Previous">◀</button>
+                            <button class="carousel-btn-side carousel-btn-next" aria-label="Next">▶</button>
+                        </div>
+                    </div>
+
+                    <!-- How to Simplify Fractions -->
+                    <h3>How to Simplify Fractions (Step-by-Step)</h3>
+                    <div class="strategy-box">
+                        <p>Simplifying a fraction means writing it in its simplest form by dividing both the numerator and denominator by their <strong>common factors</strong> (numbers that divide evenly into both).</p>
+
+                        <div class="example-box">
+                            <strong>Example:</strong> Simplify 15/60<br><br>
+
+                            <div class="simplification-steps">
+                                <div class="step"><strong>Method 1: Factor by factor</strong></div>
+                                <div class="step">15/60 = ?</div>
+                                <div class="step">• Both 15 and 60 are divisible by 5</div>
+                                <div class="step">• 15 ÷ 5 = 3</div>
+                                <div class="step">• 60 ÷ 5 = 12</div>
+                                <div class="step">• So 15/60 = 3/12</div>
+                                <div class="step"><br></div>
+                                <div class="step">• Both 3 and 12 are divisible by 3</div>
+                                <div class="step">• 3 ÷ 3 = 1</div>
+                                <div class="step">• 12 ÷ 3 = 4</div>
+                                <div class="step">• So 3/12 = 1/4</div>
+                                <div class="step"><br></div>
+                                <div class="step"><strong>Answer: 15/60 = 1/4</strong></div>
+                            </div>
+
+                            <div class="simplification-steps">
+                                <div class="step"><strong>Method 2: Find the Greatest Common Factor (GCF)</strong></div>
+                                <div class="step">• Factors of 15: 1, 3, 5, 15</div>
+                                <div class="step">• Factors of 60: 1, 2, 3, 4, 5, 6, 10, 12, 15, 20, 30, 60</div>
+                                <div class="step">• Common factors: 1, 3, 5, <strong>15</strong></div>
+                                <div class="step">• Greatest Common Factor (GCF) = 15</div>
+                                <div class="step"><br></div>
+                                <div class="step">• 15 ÷ 15 = 1</div>
+                                <div class="step">• 60 ÷ 15 = 4</div>
+                                <div class="step"><strong>Answer: 15/60 = 1/4</strong></div>
+                            </div>
+
+                            <p><strong>Why both methods work:</strong> We divided by 5 then by 3, which is the same as dividing by 15 (since 5 × 3 = 15)!</p>
+                        </div>
+                    </div>
+
+                    <!-- Fractions in Everyday Life -->
+                    <h3>Fractions in Everyday Life</h3>
+                    <div class="example-box">
+                        <h4>🍕 For 9-Year-Olds: Pizza Time!</h4>
+                        <p>Imagine you and your friend order a pizza cut into 8 equal slices.</p>
+                        <div style="display: flex; gap: 30px; align-items: center; justify-content: center; margin: 20px 0; flex-wrap: wrap;">
+                            <div style="text-align: center;">
+                                <svg width="100" height="100" viewBox="0 0 100 100">
+                                    <circle cx="50" cy="50" r="48" fill="none" stroke="#333" stroke-width="2"/>
+                                    <path d="M 50 50 L 50 2 A 48 48 0 0 1 98 50 Z" fill="#FFA726" stroke="#333"/>
+                                    <path d="M 50 50 L 98 50 A 48 48 0 0 1 83.9 83.9 Z" fill="#FFA726" stroke="#333"/>
+                                    <path d="M 50 50 L 83.9 83.9 A 48 48 0 0 1 50 98 Z" fill="#FFA726" stroke="#333"/>
+                                    <path d="M 50 50 L 50 98 A 48 48 0 0 1 16.1 83.9 Z" fill="#FFF" stroke="#333"/>
+                                    <path d="M 50 50 L 16.1 83.9 A 48 48 0 0 1 2 50 Z" fill="#FFF" stroke="#333"/>
+                                    <path d="M 50 50 L 2 50 A 48 48 0 0 1 16.1 16.1 Z" fill="#FFF" stroke="#333"/>
+                                    <path d="M 50 50 L 16.1 16.1 A 48 48 0 0 1 50 2 Z" fill="#FFF" stroke="#333"/>
+                                    <path d="M 50 50 L 50 2 A 48 48 0 0 1 83.9 16.1 Z" fill="#FFF" stroke="#333"/>
+                                </svg>
+                                <div><strong>You: 3/8</strong></div>
+                            </div>
+                            <div style="text-align: center;">
+                                <svg width="100" height="100" viewBox="0 0 100 100">
+                                    <circle cx="50" cy="50" r="48" fill="none" stroke="#333" stroke-width="2"/>
+                                    <path d="M 50 50 L 50 2 A 48 48 0 0 1 98 50 Z" fill="#FFA726" stroke="#333"/>
+                                    <path d="M 50 50 L 98 50 A 48 48 0 0 1 83.9 83.9 Z" fill="#FFA726" stroke="#333"/>
+                                    <path d="M 50 50 L 83.9 83.9 A 48 48 0 0 1 50 98 Z" fill="#FFF" stroke="#333"/>
+                                    <path d="M 50 50 L 50 98 A 48 48 0 0 1 16.1 83.9 Z" fill="#FFF" stroke="#333"/>
+                                    <path d="M 50 50 L 16.1 83.9 A 48 48 0 0 1 2 50 Z" fill="#FFF" stroke="#333"/>
+                                    <path d="M 50 50 L 2 50 A 48 48 0 0 1 16.1 16.1 Z" fill="#FFF" stroke="#333"/>
+                                    <path d="M 50 50 L 16.1 16.1 A 48 48 0 0 1 50 2 Z" fill="#FFF" stroke="#333"/>
+                                    <path d="M 50 50 L 50 2 A 48 48 0 0 1 83.9 16.1 Z" fill="#FFF" stroke="#333"/>
+                                </svg>
+                                <div><strong>Friend: 2/8</strong></div>
+                            </div>
+                        </div>
+                        <p><strong>Who ate more?</strong> You did! 3/8 > 2/8. Understanding fractions helps you understand fair sharing and portion sizes.</p>
+                    </div>
+
+                    <div class="example-box">
+                        <h4>⏰ Time Management</h4>
+                        <p>An hour has 60 minutes. Let's see how fractions help us understand time:</p>
+                        <div style="display: flex; gap: 20px; justify-content: center; margin: 15px 0; flex-wrap: wrap;">
+                            <div style="text-align: center;">
+                                <svg width="80" height="80" viewBox="0 0 80 80">
+                                    <circle cx="40" cy="40" r="38" fill="none" stroke="#333" stroke-width="2"/>
+                                    <path d="M 40 40 L 40 2 A 38 38 0 0 1 78 40 Z" fill="#4CAF50" stroke="#333"/>
+                                    <path d="M 40 40 L 78 40 A 38 38 0 0 1 40 78 Z" fill="#FFF" stroke="#333"/>
+                                    <path d="M 40 40 L 40 78 A 38 38 0 0 1 2 40 Z" fill="#FFF" stroke="#333"/>
+                                    <path d="M 40 40 L 2 40 A 38 38 0 0 1 40 2 Z" fill="#FFF" stroke="#333"/>
+                                </svg>
+                                <div><small>Homework</small><br><strong>1/4 hour</strong></div>
+                            </div>
+                            <div style="text-align: center;">
+                                <svg width="80" height="80" viewBox="0 0 80 80">
+                                    <circle cx="40" cy="40" r="38" fill="none" stroke="#333" stroke-width="2"/>
+                                    <path d="M 40 40 L 40 2 A 38 38 0 0 1 78 40 Z" fill="#2196F3" stroke="#333"/>
+                                    <path d="M 40 40 L 78 40 A 38 38 0 0 1 40 78 Z" fill="#2196F3" stroke="#333"/>
+                                    <path d="M 40 40 L 40 78 A 38 38 0 0 1 2 40 Z" fill="#FFF" stroke="#333"/>
+                                    <path d="M 40 40 L 2 40 A 38 38 0 0 1 40 2 Z" fill="#FFF" stroke="#333"/>
+                                </svg>
+                                <div><small>Video games</small><br><strong>1/2 hour</strong></div>
+                            </div>
+                            <div style="text-align: center;">
+                                <svg width="80" height="80" viewBox="0 0 80 80">
+                                    <circle cx="40" cy="40" r="38" fill="none" stroke="#333" stroke-width="2"/>
+                                    <path d="M 40 40 L 40 2 A 38 38 0 0 1 78 40 Z" fill="#FF9800" stroke="#333"/>
+                                    <path d="M 40 40 L 78 40 A 38 38 0 0 1 40 78 Z" fill="#FFF" stroke="#333"/>
+                                    <path d="M 40 40 L 40 78 A 38 38 0 0 1 2 40 Z" fill="#FFF" stroke="#333"/>
+                                    <path d="M 40 40 L 2 40 A 38 38 0 0 1 40 2 Z" fill="#FFF" stroke="#333"/>
+                                </svg>
+                                <div><small>Reading</small><br><strong>1/4 hour</strong></div>
+                            </div>
+                        </div>
+                        <ul>
+                            <li>Homework: 15 min = 15/60 = 1/4 hour</li>
+                            <li>Video games: 30 min = 30/60 = 1/2 hour</li>
+                            <li>Reading: 15 min = 15/60 = 1/4 hour</li>
+                        </ul>
+                        <p><strong>Real-world use:</strong> Planning your day, understanding that you spent twice as long gaming (1/2 hour) than on homework (1/4 hour).</p>
+                    </div>
+
+                    <div class="example-box">
+                        <h4>🍳 Cooking & Recipes</h4>
+                        <p>Recipes use fractions constantly! Understanding fractions is essential for adjusting recipe sizes.</p>
+                        <div style="display: flex; gap: 20px; justify-content: center; margin: 15px 0; flex-wrap: wrap;">
+                            <div style="text-align: center;">
+                                <svg width="60" height="60" viewBox="0 0 60 60">
+                                    <circle cx="30" cy="30" r="28" fill="none" stroke="#333" stroke-width="2"/>
+                                    <path d="M 30 30 L 30 2 A 28 28 0 0 1 58 30 Z" fill="#8BC34A" stroke="#333"/>
+                                    <path d="M 30 30 L 58 30 A 28 28 0 0 1 30 58 Z" fill="#8BC34A" stroke="#333"/>
+                                    <path d="M 30 30 L 30 58 A 28 28 0 0 1 2 30 Z" fill="#8BC34A" stroke="#333"/>
+                                    <path d="M 30 30 L 2 30 A 28 28 0 0 1 30 2 Z" fill="#FFF" stroke="#333"/>
+                                </svg>
+                                <div><strong>3/4 cup</strong><br><small>flour</small></div>
+                            </div>
+                            <div style="text-align: center;">
+                                <svg width="60" height="60" viewBox="0 0 60 60">
+                                    <circle cx="30" cy="30" r="28" fill="none" stroke="#333" stroke-width="2"/>
+                                    <path d="M 30 30 L 30 2 A 28 28 0 0 1 58 30 Z" fill="#FF5722" stroke="#333"/>
+                                    <path d="M 30 30 L 58 30 A 28 28 0 0 1 30 58 Z" fill="#FF5722" stroke="#333"/>
+                                    <path d="M 30 30 L 30 58 A 28 28 0 0 1 2 30 Z" fill="#FFF" stroke="#333"/>
+                                    <path d="M 30 30 L 2 30 A 28 28 0 0 1 30 2 Z" fill="#FFF" stroke="#333"/>
+                                </svg>
+                                <div><strong>1/2 cup</strong><br><small>sugar</small></div>
+                            </div>
+                            <div style="text-align: center;">
+                                <svg width="60" height="60" viewBox="0 0 60 60">
+                                    <circle cx="30" cy="30" r="28" fill="none" stroke="#333" stroke-width="2"/>
+                                    <path d="M 30 30 L 30 2 A 28 28 0 0 1 58 30 Z" fill="#FFD54F" stroke="#333"/>
+                                    <path d="M 30 30 L 58 30 A 28 28 0 0 1 44.1 44.1 Z" fill="#FFF" stroke="#333"/>
+                                    <path d="M 30 30 L 44.1 44.1 A 28 28 0 0 1 30 58 Z" fill="#FFF" stroke="#333"/>
+                                    <path d="M 30 30 L 30 58 A 28 28 0 0 1 2 30 Z" fill="#FFF" stroke="#333"/>
+                                    <path d="M 30 30 L 2 30 A 28 28 0 0 1 30 2 Z" fill="#FFF" stroke="#333"/>
+                                </svg>
+                                <div><strong>1/3 cup</strong><br><small>butter</small></div>
+                            </div>
+                        </div>
+                        <p><strong>Original recipe (serves 4):</strong></p>
+                        <ul>
+                            <li>3/4 cup flour</li>
+                            <li>1/2 cup sugar</li>
+                            <li>1/3 cup butter</li>
+                        </ul>
+                        <p><strong>What if you want to make half the recipe (serves 2)?</strong></p>
+                        <p>Multiply each ingredient by 1/2: Flour becomes 3/8 cup, Sugar becomes 1/4 cup, Butter becomes 1/6 cup</p>
+                    </div>
+
+                    <div class="example-box">
+                        <h4>💵 Money and Shopping</h4>
+                        <p>Understanding fractions helps you calculate discounts and compare prices!</p>
+                        <div style="display: flex; gap: 20px; justify-content: center; margin: 15px 0; flex-wrap: wrap;">
+                            <div style="text-align: center;">
+                                <svg width="80" height="80" viewBox="0 0 80 80">
+                                    <circle cx="40" cy="40" r="38" fill="none" stroke="#333" stroke-width="2"/>
+                                    <path d="M 40 40 L 40 2 A 38 38 0 0 1 78 40 Z" fill="#E91E63" stroke="#333"/>
+                                    <path d="M 40 40 L 78 40 A 38 38 0 0 1 40 78 Z" fill="#E91E63" stroke="#333"/>
+                                    <path d="M 40 40 L 40 78 A 38 38 0 0 1 2 40 Z" fill="#FFF" stroke="#333"/>
+                                    <path d="M 40 40 L 2 40 A 38 38 0 0 1 40 2 Z" fill="#FFF" stroke="#333"/>
+                                </svg>
+                                <div><strong>50% OFF</strong><br><small>= 1/2 off</small></div>
+                            </div>
+                            <div style="text-align: center;">
+                                <svg width="80" height="80" viewBox="0 0 80 80">
+                                    <circle cx="40" cy="40" r="38" fill="none" stroke="#333" stroke-width="2"/>
+                                    <path d="M 40 40 L 40 2 A 38 38 0 0 1 78 40 Z" fill="#9C27B0" stroke="#333"/>
+                                    <path d="M 40 40 L 78 40 A 38 38 0 0 1 40 78 Z" fill="#FFF" stroke="#333"/>
+                                    <path d="M 40 40 L 40 78 A 38 38 0 0 1 2 40 Z" fill="#FFF" stroke="#333"/>
+                                    <path d="M 40 40 L 2 40 A 38 38 0 0 1 40 2 Z" fill="#FFF" stroke="#333"/>
+                                </svg>
+                                <div><strong>25% OFF</strong><br><small>= 1/4 off</small></div>
+                            </div>
+                        </div>
+                        <p><strong>Example:</strong> A $20 toy is 50% off (1/2 off). You pay 1/2 of $20 = $10!</p>
+                        <p>A $12 book is 25% off (1/4 off). You save 1/4 of $12 = $3, so you pay $9.</p>
+                    </div>
+
+                    <div class="example-box">
+                        <h4>📏 Sports and Measurements</h4>
+                        <p>Athletes and coaches use fractions all the time to measure performance and distances.</p>
+                        <div style="display: flex; gap: 20px; justify-content: center; margin: 15px 0; flex-wrap: wrap;">
+                            <div style="text-align: center;">
+                                <svg width="80" height="80" viewBox="0 0 80 80">
+                                    <circle cx="40" cy="40" r="38" fill="none" stroke="#333" stroke-width="2"/>
+                                    <path d="M 40 40 L 40 2 A 38 38 0 0 1 78 40 Z" fill="#00BCD4" stroke="#333"/>
+                                    <path d="M 40 40 L 78 40 A 38 38 0 0 1 59.1 59.1 Z" fill="#00BCD4" stroke="#333"/>
+                                    <path d="M 40 40 L 59.1 59.1 A 38 38 0 0 1 40 78 Z" fill="#00BCD4" stroke="#333"/>
+                                    <path d="M 40 40 L 40 78 A 38 38 0 0 1 2 40 Z" fill="#FFF" stroke="#333"/>
+                                    <path d="M 40 40 L 2 40 A 38 38 0 0 1 40 2 Z" fill="#FFF" stroke="#333"/>
+                                </svg>
+                                <div><strong>3/8 mile</strong><br><small>track distance</small></div>
+                            </div>
+                        </div>
+                        <p><strong>Example:</strong> A running track might be 3/8 of a mile. If you run 3 laps, you've run 3 × 3/8 = 9/8 = 1 1/8 miles!</p>
+                        <p><strong>Basketball:</strong> Free throw percentage of 3/4 means making 3 out of every 4 shots (75% success rate).</p>
+                    </div>
+
+                    <!-- Why Fractions Matter -->
+                    <h3>Why Fractions Matter</h3>
+                    <p>Fractions are <strong>everywhere</strong> in our daily lives! Here's why learning fractions is so important:</p>
+
+                    <div class="strategy-box">
+                        <h4>🍰 Sharing and Fairness</h4>
+                        <p>Fractions help us divide things equally among people. Whether it's splitting a pizza, sharing candy, or dividing chores, fractions ensure everyone gets their fair share.</p>
+                    </div>
+
+                    <div class="strategy-box">
+                        <h4>👨‍🍳 Cooking and Baking</h4>
+                        <p>Nearly every recipe uses fractions! Measuring cups come in 1/4, 1/3, 1/2, and 1 cup sizes. Professional chefs use fractions constantly to scale recipes and maintain perfect proportions.</p>
+                    </div>
+
+                    <div class="strategy-box">
+                        <h4>💰 Money and Shopping</h4>
+                        <p>Sales and discounts use fractions: "50% off" means paying 1/2 the original price. Understanding fractions helps you calculate the best deals.</p>
+                    </div>
+
+                    <div class="strategy-box">
+                        <h4>⏱️ Time Management</h4>
+                        <p>We use fractions to describe time constantly: "Meet me in half an hour" (1/2 hour = 30 minutes). Understanding these helps you plan your schedule effectively.</p>
+                    </div>
+
+                    <div class="strategy-box">
+                        <h4>⚽ Sports and Statistics</h4>
+                        <p>Baseball batting averages, basketball shooting percentages, and football completion rates are all fractions! A batting average of .333 means the player gets a hit 1/3 of the time.</p>
+                    </div>
+
+                    <p><strong>Practice makes perfect!</strong> The more you work with fractions, the easier they become.</p>
+
+                    <!-- Why Fractions Matter -->
+                    <h3>Why Fractions Matter</h3>
+                    <p>Fractions are <strong>everywhere</strong> in our daily lives! Here's why learning fractions is so important:</p>
+
+                    <div class="strategy-box">
+                        <h4>🍰 Sharing and Fairness</h4>
+                        <p>Fractions help us divide things equally among people. Whether it's splitting a pizza, sharing candy, or dividing chores, fractions ensure everyone gets their fair share.</p>
+                    </div>
+
+                    <div class="strategy-box">
+                        <h4>👨‍🍳 Cooking and Baking</h4>
+                        <p>Nearly every recipe uses fractions! Measuring cups come in 1/4, 1/3, 1/2, and 1 cup sizes. Professional chefs use fractions constantly to scale recipes and maintain perfect proportions.</p>
+                    </div>
+
+                    <div class="strategy-box">
+                        <h4>💰 Money and Shopping</h4>
+                        <p>Sales and discounts use fractions: "50% off" means paying 1/2 the original price. Understanding fractions helps you calculate the best deals.</p>
+                    </div>
+
+                    <div class="strategy-box">
+                        <h4>⏱️ Time Management</h4>
+                        <p>We use fractions to describe time constantly: "Meet me in half an hour" (1/2 hour = 30 minutes). Understanding these helps you plan your schedule effectively.</p>
+                    </div>
+
+                    <div class="strategy-box">
+                        <h4>⚽ Sports and Statistics</h4>
+                        <p>Baseball batting averages, basketball shooting percentages, and football completion rates are all fractions! A batting average of .333 means the player gets a hit 1/3 of the time.</p>
+                    </div>
+
+                    <p><strong>Practice makes perfect!</strong> The more you work with fractions, the easier they become.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Project Files & Resources (Separate Collapsible Section) -->
+        <div class="collapsible-section no-print">
+            <div class="collapsible-header">
+                <h2>📁 Project Files & Resources</h2>
+                <span class="chevron">▼</span>
+            </div>
+            <div class="collapsible-content">
+                <div class="strategy-box">
+                    <h4>📂 Main Files</h4>
+                    <ul>
+                        <li><strong>index.html</strong> - Main application entry point with modular architecture</li>
+                        <li><strong>fraction-worksheet.html</strong> - Standalone single-file version</li>
+                        <li><strong>README.md</strong> - Project documentation and usage guide</li>
+                        <li><strong>FEATURES_TODO.md</strong> - Feature roadmap and development progress</li>
+                        <li><strong>project-guidelines.md</strong> - Development guidelines and standards</li>
+                    </ul>
+
+                    <h4>📁 Modular CSS Architecture</h4>
+                    <p><strong>css/layout/</strong> - Layout-related styles</p>
+                    <ul>
+                        <li>base.css - Global styles, resets, and typography</li>
+                        <li>header.css - Header and title styles</li>
+                        <li>main-container.css - Main container and section layouts</li>
+                    </ul>
+
+                    <p><strong>css/components/</strong> - Reusable UI components</p>
+                    <ul>
+                        <li>buttons.css - Button styles (primary, secondary, icon buttons)</li>
+                        <li>forms.css - Form controls and inputs</li>
+                        <li>modals.css - Modal dialogs and overlays</li>
+                        <li>cards.css - Card components and boxes</li>
+                    </ul>
+
+                    <p><strong>css/features/</strong> - Feature-specific styles</p>
+                    <ul>
+                        <li>problem-grid.css - Problem display grid layout</li>
+                        <li>input-methods.css - Input method controls and styling</li>
+                        <li>visual-aids.css - Visual aids and fraction diagrams</li>
+                        <li>carousel.css - Carousel UI components</li>
+                        <li>educational-content.css - Learning guide and educational sections</li>
+                    </ul>
+
+                    <h4>📁 Modular JavaScript Architecture (ES6 Modules)</h4>
+                    <p><strong>js/app.js</strong> - Main application entry point and initialization</p>
+
+                    <p><strong>js/core/</strong> - Core application logic</p>
+                    <ul>
+                        <li>state.js - Application state management</li>
+                        <li>problemGenerator.js - Problem generation algorithms</li>
+                    </ul>
+
+                    <p><strong>js/features/</strong> - Feature implementations</p>
+                    <ul>
+                        <li>inputMethods.js - Keyboard, button, drawing, voice input handlers</li>
+                        <li>answerChecking.js - Answer validation and scoring</li>
+                        <li>printExport.js - Print and PDF export functionality</li>
+                        <li>visualAids.js - Hint system and visual representations</li>
+                        <li>carousel.js - Carousel UI component logic</li>
+                        <li>collapsible.js - Collapsible sections functionality</li>
+                        <li>educationalContent.js - Learning guide content and data</li>
+                    </ul>
+
+                    <p><strong>js/version/</strong> - Version management</p>
+                    <ul>
+                        <li>versionManager.js - Version switching and display</li>
+                    </ul>
+
+                    <h4>📁 Version Files</h4>
+                    <p><strong>versions/</strong> - Version management</p>
+                    <ul>
+                        <li>version-manifest.json - Version metadata and changelog</li>
+                        <li>archived/ - Archived older versions</li>
+                        <li>changelogs/ - Detailed version changelogs</li>
+                    </ul>
+
+                    <p><strong>Standalone Version Files:</strong></p>
+                    <ul>
+                        <li>fraction-worksheet-v1.0.0.html through v1.4.12.html</li>
+                        <li>Each version is a complete, self-contained HTML file</li>
+                    </ul>
+
+                    <h4>🔗 External Dependencies</h4>
+                    <ul>
+                        <li><strong>html2pdf.js</strong> (CDN) - PDF generation functionality</li>
+                        <li><strong>marked.js</strong> (CDN) - Markdown rendering</li>
+                        <li><strong>Google Fonts</strong> - Roboto font family</li>
+                        <li><strong>Material Icons</strong> - Icon font for UI elements</li>
+                    </ul>
+
+                    <h4>🎨 Design Resources</h4>
+                    <ul>
+                        <li><strong>Material Design</strong> - Design system and principles</li>
+                        <li><strong>Color Palette</strong> - Primary: #6200EA, Secondary: #03DAC6, Success: #4CAF50</li>
+                        <li><strong>Typography</strong> - Roboto font (300, 400, 500, 700 weights)</li>
+                    </ul>
+
+                    <h4>📖 Documentation</h4>
+                    <ul>
+                        <li><strong>README.md</strong> - Complete feature list, usage guide, technical details</li>
+                        <li><strong>FEATURES_TODO.md</strong> - Development roadmap and completed features</li>
+                        <li><strong>In-App Learning Guide</strong> - Interactive educational content</li>
+                    </ul>
+
+                    <h4>🌐 Repository</h4>
+                    <ul>
+                        <li><strong>GitHub:</strong> <a href="https://github.com/nirav2000/Claudetrials" target="_blank">github.com/nirav2000/Claudetrials</a></li>
+                        <li><strong>Author:</strong> Nirav Patel (@nirav2000)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Application Script (Bundled with esbuild) -->
+    <script>
+(() => {
+  // js/core/config.js
+  var CONFIG = {
+    // App Information
+    APP_NAME: "Interactive Fraction Comparison Practice",
+    VERSION: "2.1.0",
+    // Problem Generation
+    PROBLEM_COUNTS: [10, 20, 30, 40],
+    DEFAULT_PROBLEM_COUNT: 20,
+    // Denominator Sets
+    DENOMINATOR_SETS: {
+      "easiest": [2, 4],
+      "easy": [3, 6],
+      "medium": [4, 8],
+      "medium2": [5, 10],
+      "hard": [6, 8, 10, 12],
+      "harder": [10, 12, 20],
+      "all": [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+    },
+    // Input Methods
+    INPUT_METHODS: {
+      KEYBOARD: "keyboard",
+      BUTTONS: "buttons",
+      DRAWING: "drawing",
+      VOICE: "voice"
+    },
+    DEFAULT_INPUT_METHOD: "keyboard",
+    // Operators
+    OPERATORS: {
+      LESS_THAN: "<",
+      GREATER_THAN: ">",
+      EQUAL: "="
+    },
+    // Keyboard Key Mappings
+    KEY_MAPPINGS: {
+      "<": "<",
+      ",": "<",
+      "ArrowLeft": "<",
+      ">": ">",
+      ".": ">",
+      "ArrowRight": ">",
+      "=": "=",
+      "ArrowUp": "=",
+      "ArrowDown": "="
+    },
+    // Voice Recognition Keywords
+    VOICE_KEYWORDS: {
+      "less": "<",
+      "less than": "<",
+      "smaller": "<",
+      "smaller than": "<",
+      "lower": "<",
+      "lower than": "<",
+      "greater": ">",
+      "greater than": ">",
+      "bigger": ">",
+      "bigger than": ">",
+      "larger": ">",
+      "larger than": ">",
+      "more": ">",
+      "more than": ">",
+      "equal": "=",
+      "equals": "=",
+      "same": "=",
+      "same as": "="
+    },
+    // Canvas Settings
+    CANVAS: {
+      WIDTH: 100,
+      HEIGHT: 100,
+      LINE_WIDTH: 3,
+      STROKE_COLOR: "#000000"
+    },
+    // Timer Settings (Hint Timeout)
+    HINT_TIMEOUT_OPTIONS: [
+      { value: 0, label: "Off" },
+      { value: 30, label: "30 seconds" },
+      { value: 45, label: "45 seconds" },
+      { value: 60, label: "60 seconds" },
+      { value: 90, label: "90 seconds" }
+    ],
+    DEFAULT_HINT_TIMEOUT: 0,
+    // Common Mistakes
+    MISTAKE_TYPES: {
+      HIGHER_DENOMINATOR: "higher-denominator",
+      BOTH_HIGHER: "both-higher",
+      UNIT_FRACTION: "unit-fraction",
+      NEAR_WHOLE: "near-whole",
+      EQUIVALENT: "equivalent"
+    },
+    // Visual Settings
+    PIZZA_COLORS: {
+      FILLED: "#FFA726",
+      EMPTY: "#FFFFFF",
+      BORDER: "#333333"
+    },
+    // Animation Durations (ms)
+    ANIMATIONS: {
+      MODAL_FADE: 300,
+      CAROUSEL_SLIDE: 300,
+      BUTTON_RIPPLE: 600
+    },
+    // Print Settings
+    PRINT: {
+      PROBLEMS_PER_PAGE: 20,
+      PAGE_ORIENTATION: "portrait"
+    }
+  };
+
+  // js/core/domHelpers.js
+  function createElement(tag, attributes = {}, content = null) {
+    const element = document.createElement(tag);
+    Object.entries(attributes).forEach(([key, value]) => {
+      if (key === "className") {
+        element.className = value;
+      } else if (key === "dataset") {
+        Object.entries(value).forEach(([dataKey, dataValue]) => {
+          element.dataset[dataKey] = dataValue;
+        });
+      } else if (key.startsWith("on")) {
+        const eventName = key.slice(2).toLowerCase();
+        element.addEventListener(eventName, value);
+      } else {
+        element.setAttribute(key, value);
+      }
+    });
+    if (content !== null) {
+      if (Array.isArray(content)) {
+        content.forEach((child) => {
+          if (child instanceof Node) {
+            element.appendChild(child);
+          } else {
+            element.appendChild(document.createTextNode(String(child)));
+          }
+        });
+      } else if (content instanceof Node) {
+        element.appendChild(content);
+      } else {
+        element.textContent = String(content);
+      }
+    }
+    return element;
+  }
+  function createFractionElement(numerator, denominator) {
+    const fraction = createElement("span", { className: "fraction" });
+    const num = createElement("span", { className: "numerator" }, String(numerator));
+    const denom = createElement("span", { className: "denominator" }, String(denominator));
+    fraction.appendChild(num);
+    fraction.appendChild(denom);
+    return fraction;
+  }
+  function qs(selector, parent = document) {
+    return parent.querySelector(selector);
+  }
+  function qsa(selector, parent = document) {
+    return parent.querySelectorAll(selector);
+  }
+  function addClass(element, ...classes) {
+    if (element) {
+      element.classList.add(...classes);
+    }
+  }
+  function removeClass(element, ...classes) {
+    if (element) {
+      element.classList.remove(...classes);
+    }
+  }
+  function empty(element) {
+    if (element) {
+      while (element.firstChild) {
+        element.removeChild(element.firstChild);
+      }
+    }
+  }
+
+  // js/core/utils.js
+  function compareFractions(num1, denom1, num2, denom2) {
+    const val1 = num1 / denom1;
+    const val2 = num2 / denom2;
+    if (Math.abs(val1 - val2) < 1e-4) return "=";
+    return val1 < val2 ? "<" : ">";
+  }
+  function randomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+  function randomElement(array) {
+    return array[Math.floor(Math.random() * array.length)];
+  }
+  function getOperatorName(operator) {
+    const names = {
+      "<": "less than",
+      ">": "greater than",
+      "=": "equal to"
+    };
+    return names[operator] || operator;
+  }
+
+  // js/features/problemGenerator.js
+  function generateFraction(denominators) {
+    const denominator = randomElement(denominators);
+    const numerator = randomInt(1, denominator - 1);
+    return { numerator, denominator };
+  }
+  function generateProblems(count, denominators) {
+    const problems2 = [];
+    for (let i = 0; i < count; i++) {
+      const fraction1 = generateFraction(denominators);
+      const fraction2 = generateFraction(denominators);
+      if (fraction1.numerator === fraction2.numerator && fraction1.denominator === fraction2.denominator) {
+        i--;
+        continue;
+      }
+      const correctAnswer = compareFractions(
+        fraction1.numerator,
+        fraction1.denominator,
+        fraction2.numerator,
+        fraction2.denominator
+      );
+      problems2.push({
+        num1: fraction1.numerator,
+        denom1: fraction1.denominator,
+        num2: fraction2.numerator,
+        denom2: fraction2.denominator,
+        correctAnswer,
+        userAnswer: null,
+        mistakeType: null
+      });
+    }
+    return problems2;
+  }
+  function generateMistakeProblem(mistakeType, denominators) {
+    let num1, denom1, num2, denom2;
+    switch (mistakeType) {
+      case CONFIG.MISTAKE_TYPES.HIGHER_DENOMINATOR: {
+        const largeDenoms = denominators.filter((d) => d > 4);
+        if (largeDenoms.length === 0) {
+          const sorted = [...denominators].sort((a, b) => b - a);
+          denom1 = sorted[0];
+          denom2 = sorted[sorted.length - 1];
+        } else {
+          denom1 = randomElement(largeDenoms);
+          const smallerDenoms = denominators.filter((d) => d < denom1 && d > 2);
+          if (smallerDenoms.length === 0) {
+            const fallbackDenoms = denominators.filter((d) => d < denom1);
+            denom2 = fallbackDenoms.length > 0 ? randomElement(fallbackDenoms) : denominators[0];
+          } else {
+            denom2 = randomElement(smallerDenoms);
+          }
+        }
+        num1 = randomInt(1, Math.max(1, Math.floor(denom1 / 2)));
+        num2 = randomInt(Math.max(1, Math.ceil(denom2 / 2)), Math.max(1, denom2 - 1));
+        break;
+      }
+      case CONFIG.MISTAKE_TYPES.BOTH_HIGHER: {
+        const largeDenoms = denominators.filter((d) => d > 4);
+        if (largeDenoms.length === 0) {
+          denom1 = randomElement(denominators);
+          const otherDenoms = denominators.filter((d) => d !== denom1);
+          denom2 = otherDenoms.length > 0 ? randomElement(otherDenoms) : denominators[0];
+        } else {
+          denom1 = randomElement(largeDenoms);
+          const smallerDenoms = denominators.filter((d) => d < denom1 - 2);
+          if (smallerDenoms.length === 0) {
+            const fallbackDenoms = denominators.filter((d) => d < denom1);
+            denom2 = fallbackDenoms.length > 0 ? randomElement(fallbackDenoms) : denominators[0];
+          } else {
+            denom2 = randomElement(smallerDenoms);
+          }
+        }
+        num1 = randomInt(Math.max(1, Math.ceil(denom1 * 0.6)), Math.max(1, denom1 - 1));
+        num2 = randomInt(1, Math.max(1, Math.floor(denom2 * 0.4)));
+        break;
+      }
+      case CONFIG.MISTAKE_TYPES.UNIT_FRACTION: {
+        denom1 = randomElement(denominators);
+        const otherDenoms = denominators.filter((d) => d !== denom1);
+        denom2 = otherDenoms.length > 0 ? randomElement(otherDenoms) : denominators[0];
+        num1 = 1;
+        num2 = 1;
+        break;
+      }
+      case CONFIG.MISTAKE_TYPES.NEAR_WHOLE: {
+        const largeDenoms = denominators.filter((d) => d > 3);
+        if (largeDenoms.length < 2) {
+          denom1 = randomElement(denominators);
+          const otherDenoms = denominators.filter((d) => d !== denom1);
+          denom2 = otherDenoms.length > 0 ? randomElement(otherDenoms) : denominators[0];
+        } else {
+          denom1 = randomElement(largeDenoms);
+          const otherLargeDenoms = largeDenoms.filter((d) => d !== denom1);
+          denom2 = otherLargeDenoms.length > 0 ? randomElement(otherLargeDenoms) : largeDenoms[0];
+        }
+        num1 = Math.max(1, denom1 - randomInt(1, 2));
+        num2 = Math.max(1, denom2 - randomInt(1, 2));
+        break;
+      }
+      case CONFIG.MISTAKE_TYPES.EQUIVALENT: {
+        const largeDenoms = denominators.filter((d) => d > 3);
+        const baseDenom = largeDenoms.length > 0 ? randomElement(largeDenoms) : randomElement(denominators);
+        const baseNum = randomInt(1, Math.max(1, baseDenom - 1));
+        const multiplier = randomInt(2, 3);
+        num1 = baseNum;
+        denom1 = baseDenom;
+        num2 = baseNum * multiplier;
+        denom2 = baseDenom * multiplier;
+        if (!denominators.includes(denom2)) {
+          denom2 = baseDenom;
+          num2 = baseNum;
+        }
+        break;
+      }
+      default: {
+        const frac1 = generateFraction(denominators);
+        const frac2 = generateFraction(denominators);
+        num1 = frac1.numerator;
+        denom1 = frac1.denominator;
+        num2 = frac2.numerator;
+        denom2 = frac2.denominator;
+      }
+    }
+    const correctAnswer = compareFractions(num1, denom1, num2, denom2);
+    return {
+      num1,
+      denom1,
+      num2,
+      denom2,
+      correctAnswer,
+      userAnswer: null,
+      mistakeType
+    };
+  }
+  function generateMistakesProblems(count, denominators, enabledMistakes) {
+    const problems2 = [];
+    const mistakeTypes = enabledMistakes.length > 0 ? enabledMistakes : Object.values(CONFIG.MISTAKE_TYPES);
+    for (let i = 0; i < count; i++) {
+      const mistakeType = randomElement(mistakeTypes);
+      const problem = generateMistakeProblem(mistakeType, denominators);
+      problems2.push(problem);
+    }
+    return problems2;
+  }
+
+  // js/features/drawingRecognition.js
+  function getBoundingBox(strokes) {
+    let minX = Infinity, minY = Infinity;
+    let maxX = -Infinity, maxY = -Infinity;
+    strokes.forEach((stroke) => {
+      stroke.forEach((point) => {
+        minX = Math.min(minX, point.x);
+        minY = Math.min(minY, point.y);
+        maxX = Math.max(maxX, point.x);
+        maxY = Math.max(maxY, point.y);
+      });
+    });
+    return {
+      minX,
+      minY,
+      maxX,
+      maxY,
+      width: maxX - minX,
+      height: maxY - minY,
+      centerX: (minX + maxX) / 2,
+      centerY: (minY + maxY) / 2
+    };
+  }
+  function analyzeStrokeDirection(stroke) {
+    if (stroke.length < 2) return null;
+    const start = stroke[0];
+    const end = stroke[stroke.length - 1];
+    const dx = end.x - start.x;
+    const dy = end.y - start.y;
+    const angle = Math.atan2(dy, dx) * 180 / Math.PI;
+    const isHorizontal = Math.abs(dy) < Math.abs(dx) && Math.abs(dx) > 10;
+    const isVertical = Math.abs(dx) < Math.abs(dy) && Math.abs(dy) > 10;
+    let direction = null;
+    if (isHorizontal) {
+      direction = dx > 0 ? "right" : "left";
+    } else if (isVertical) {
+      direction = dy > 0 ? "down" : "up";
+    }
+    return { angle, isHorizontal, isVertical, direction, dx, dy };
+  }
+  function recognizeDrawing(strokes, canvasWidth, canvasHeight) {
+    if (!strokes || strokes.length === 0) return null;
+    const bbox = getBoundingBox(strokes);
+    if (bbox.width < 15 && bbox.height < 15) return null;
+    if (strokes.length === 1) {
+      const stroke = strokes[0];
+      const direction = analyzeStrokeDirection(stroke);
+      if (!direction) return null;
+      if (direction.isHorizontal) {
+        return "=";
+      }
+      const aspectRatio2 = bbox.width / bbox.height;
+      if (aspectRatio2 > 0.5) {
+        const startY = stroke[0].y;
+        const endY = stroke[stroke.length - 1].y;
+        const startX = stroke[0].x;
+        const endX = stroke[stroke.length - 1].x;
+        if (startX < endX) {
+          if (startY < bbox.centerY && endY > bbox.centerY) {
+            return "<";
+          }
+          if (startY > bbox.centerY && endY < bbox.centerY) {
+            return "<";
+          }
+          if (startY < bbox.centerY && endY > bbox.centerY) {
+            return ">";
+          }
+        }
+        if (startX > endX) {
+          return "<";
+        }
+      }
+    }
+    if (strokes.length === 2) {
+      const stroke1 = strokes[0];
+      const stroke2 = strokes[1];
+      const dir1 = analyzeStrokeDirection(stroke1);
+      const dir2 = analyzeStrokeDirection(stroke2);
+      if (!dir1 || !dir2) return null;
+      if (dir1.isHorizontal && dir2.isHorizontal) {
+        const verticalGap = Math.abs(stroke1[0].y - stroke2[0].y);
+        if (verticalGap > 5 && verticalGap < 30) {
+          return "=";
+        }
+      }
+      const stroke1Start = stroke1[0];
+      const stroke1End = stroke1[stroke1.length - 1];
+      const stroke2Start = stroke2[0];
+      const stroke2End = stroke2[stroke2.length - 1];
+      const meetingPointDist = Math.sqrt(
+        Math.pow(stroke1End.x - stroke2Start.x, 2) + Math.pow(stroke1End.y - stroke2Start.y, 2)
+      );
+      if (meetingPointDist < 20) {
+        const meetingX = (stroke1End.x + stroke2Start.x) / 2;
+        if (meetingX < bbox.centerX) {
+          return "<";
+        } else {
+          return ">";
+        }
+      }
+      if (dir1.dy > 0 && dir1.dx < 0 && dir2.dy < 0 && dir2.dx < 0 || dir1.dy < 0 && dir1.dx < 0 && dir2.dy > 0 && dir2.dx < 0) {
+        return "<";
+      }
+      if (dir1.dy > 0 && dir1.dx > 0 && dir2.dy < 0 && dir2.dx > 0 || dir1.dy < 0 && dir1.dx > 0 && dir2.dy > 0 && dir2.dx > 0) {
+        return ">";
+      }
+    }
+    const aspectRatio = bbox.width / bbox.height;
+    if (aspectRatio > 2 && bbox.height < 25) {
+      return "=";
+    }
+    let leftCount = 0;
+    let rightCount = 0;
+    strokes.forEach((stroke) => {
+      const start = stroke[0];
+      const end = stroke[stroke.length - 1];
+      if (end.x < start.x) leftCount++;
+      if (end.x > start.x) rightCount++;
+    });
+    if (leftCount > rightCount) return "<";
+    if (rightCount > leftCount) return ">";
+    return null;
+  }
+
+  // js/features/inputMethods.js
+  function renderKeyboardInput(index, value = "") {
+    const input = createElement("input", {
+      type: "text",
+      className: "operator-input",
+      maxlength: "1",
+      "data-problem-index": index,
+      value
+    });
+    input.addEventListener("keypress", (e) => {
+      const key = e.key;
+      const mappedKey = CONFIG.KEY_MAPPINGS[key];
+      if (mappedKey) {
+        e.preventDefault();
+        input.value = mappedKey;
+        input.dispatchEvent(new Event("change", { bubbles: true }));
+      } else if (![...Object.values(CONFIG.OPERATORS)].includes(key)) {
+        e.preventDefault();
+      }
+    });
+    return input;
+  }
+  function renderButtonInput(index, value = "") {
+    const container = createElement("div", { className: "operator-buttons", "data-problem-index": index });
+    Object.values(CONFIG.OPERATORS).forEach((op) => {
+      const button = createElement("button", {
+        className: `operator-btn ${value === op ? "selected" : ""}`,
+        type: "button",
+        "data-operator": op,
+        "data-problem-index": index
+      }, op);
+      button.addEventListener("click", () => {
+        container.querySelectorAll(".operator-btn").forEach((btn) => {
+          btn.classList.remove("selected");
+        });
+        button.classList.add("selected");
+        container.dispatchEvent(new CustomEvent("operatorSelected", {
+          bubbles: true,
+          detail: { index, operator: op }
+        }));
+      });
+      container.appendChild(button);
+    });
+    return container;
+  }
+  function renderDrawingInput(index, value = "") {
+    const container = createElement("div", {
+      className: "canvas-container",
+      "data-problem-index": index
+    });
+    const canvas = createElement("canvas", {
+      className: "drawing-canvas",
+      width: CONFIG.CANVAS.WIDTH,
+      height: CONFIG.CANVAS.HEIGHT,
+      "data-problem-index": index
+    });
+    const ctx = canvas.getContext("2d");
+    let isDrawing = false;
+    let strokes = [];
+    let currentStroke = [];
+    const startDrawing = (x, y) => {
+      isDrawing = true;
+      currentStroke = [{ x, y }];
+    };
+    const draw = (x, y) => {
+      if (!isDrawing) return;
+      ctx.lineWidth = CONFIG.CANVAS.LINE_WIDTH;
+      ctx.lineCap = "round";
+      ctx.strokeStyle = CONFIG.CANVAS.STROKE_COLOR;
+      const lastPoint = currentStroke[currentStroke.length - 1];
+      ctx.beginPath();
+      ctx.moveTo(lastPoint.x, lastPoint.y);
+      ctx.lineTo(x, y);
+      ctx.stroke();
+      currentStroke.push({ x, y });
+    };
+    const endDrawing = () => {
+      if (isDrawing && currentStroke.length > 0) {
+        strokes.push([...currentStroke]);
+        isDrawing = false;
+        setTimeout(() => {
+          const recognized = recognizeDrawing(strokes, CONFIG.CANVAS.WIDTH, CONFIG.CANVAS.HEIGHT);
+          if (recognized) {
+            container.dispatchEvent(new CustomEvent("operatorSelected", {
+              bubbles: true,
+              detail: { index, operator: recognized }
+            }));
+          }
+        }, 300);
+      }
+    };
+    canvas.addEventListener("mousedown", (e) => {
+      const rect = canvas.getBoundingClientRect();
+      startDrawing(e.clientX - rect.left, e.clientY - rect.top);
+    });
+    canvas.addEventListener("mousemove", (e) => {
+      const rect = canvas.getBoundingClientRect();
+      draw(e.clientX - rect.left, e.clientY - rect.top);
+    });
+    canvas.addEventListener("mouseup", endDrawing);
+    canvas.addEventListener("mouseleave", endDrawing);
+    canvas.addEventListener("touchstart", (e) => {
+      e.preventDefault();
+      const rect = canvas.getBoundingClientRect();
+      const touch = e.touches[0];
+      startDrawing(touch.clientX - rect.left, touch.clientY - rect.top);
+    });
+    canvas.addEventListener("touchmove", (e) => {
+      e.preventDefault();
+      const rect = canvas.getBoundingClientRect();
+      const touch = e.touches[0];
+      draw(touch.clientX - rect.left, touch.clientY - rect.top);
+    });
+    canvas.addEventListener("touchend", (e) => {
+      e.preventDefault();
+      endDrawing();
+    });
+    const clearBtn = createElement("button", {
+      className: "canvas-btn btn-secondary",
+      type: "button"
+    }, "Clear");
+    clearBtn.addEventListener("click", () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      strokes = [];
+      currentStroke = [];
+      canvas.classList.remove("correct", "incorrect");
+    });
+    const controls = createElement("div", { className: "canvas-controls" }, [clearBtn]);
+    container.appendChild(canvas);
+    container.appendChild(controls);
+    return container;
+  }
+  function renderVoiceInput(index) {
+    const container = createElement("div", {
+      className: "voice-container",
+      "data-problem-index": index
+    });
+    const button = createElement("button", {
+      className: "voice-btn",
+      type: "button",
+      "aria-label": "Start voice recognition"
+    }, "\u{1F3A4}");
+    const result = createElement("div", {
+      className: "voice-result",
+      "data-problem-index": index
+    }, "");
+    button.addEventListener("click", () => {
+      container.dispatchEvent(new CustomEvent("voiceStart", {
+        bubbles: true,
+        detail: { index }
+      }));
+    });
+    container.appendChild(button);
+    container.appendChild(result);
+    return container;
+  }
+
+  // js/features/visualAids.js
+  function generatePizzaDiagram(numerator, denominator, size = 80) {
+    const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    svg.setAttribute("width", size);
+    svg.setAttribute("height", size);
+    svg.setAttribute("viewBox", `0 0 ${size} ${size}`);
+    const centerX = size / 2;
+    const centerY = size / 2;
+    const radius = size / 2 - 2;
+    const outerCircle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+    outerCircle.setAttribute("cx", centerX);
+    outerCircle.setAttribute("cy", centerY);
+    outerCircle.setAttribute("r", radius);
+    outerCircle.setAttribute("fill", "none");
+    outerCircle.setAttribute("stroke", CONFIG.PIZZA_COLORS.BORDER);
+    outerCircle.setAttribute("stroke-width", "2");
+    svg.appendChild(outerCircle);
+    const anglePerSlice = 2 * Math.PI / denominator;
+    for (let i = 0; i < denominator; i++) {
+      const startAngle = i * anglePerSlice - Math.PI / 2;
+      const endAngle = startAngle + anglePerSlice;
+      const x1 = centerX + radius * Math.cos(startAngle);
+      const y1 = centerY + radius * Math.sin(startAngle);
+      const x2 = centerX + radius * Math.cos(endAngle);
+      const y2 = centerY + radius * Math.sin(endAngle);
+      const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+      const largeArc = anglePerSlice > Math.PI ? 1 : 0;
+      const d = [
+        `M ${centerX} ${centerY}`,
+        `L ${x1} ${y1}`,
+        `A ${radius} ${radius} 0 ${largeArc} 1 ${x2} ${y2}`,
+        "Z"
+      ].join(" ");
+      path.setAttribute("d", d);
+      path.setAttribute("fill", i < numerator ? CONFIG.PIZZA_COLORS.FILLED : CONFIG.PIZZA_COLORS.EMPTY);
+      path.setAttribute("stroke", CONFIG.PIZZA_COLORS.BORDER);
+      path.setAttribute("stroke-width", "1");
+      svg.appendChild(path);
+    }
+    return svg;
+  }
+  function getMistakeExplanation(mistakeType) {
+    const explanations = {
+      [CONFIG.MISTAKE_TYPES.HIGHER_DENOMINATOR]: "Higher denominator means smaller pieces! More slices = smaller slices.",
+      [CONFIG.MISTAKE_TYPES.BOTH_HIGHER]: "Both numbers are higher, but what matters is the portion of the whole.",
+      [CONFIG.MISTAKE_TYPES.UNIT_FRACTION]: "When numerator is 1, the fraction with the larger denominator is smaller.",
+      [CONFIG.MISTAKE_TYPES.NEAR_WHOLE]: "Compare how far each fraction is from 1 whole.",
+      [CONFIG.MISTAKE_TYPES.EQUIVALENT]: "These fractions represent the same amount - they are equivalent!"
+    };
+    return explanations[mistakeType] || "Compare the visual representations to see the difference.";
+  }
+  function createVisualAid(problem) {
+    const { num1, denom1, num2, denom2, correctAnswer, mistakeType } = problem;
+    const container = createElement("div", { className: "visual-aids" });
+    const title = createElement("div", { className: "hint-title" }, "Visual Aid:");
+    container.appendChild(title);
+    const content = createElement("div", { className: "hint-content" });
+    const fractionDisplay = createElement("div", { className: "hint-fraction-display" });
+    const pizza1Container = createElement("div", { className: "pizza-diagram" });
+    const pizza1 = generatePizzaDiagram(num1, denom1);
+    const label1 = createElement("div", { className: "pizza-label" }, `${num1}/${denom1}`);
+    pizza1Container.appendChild(pizza1);
+    pizza1Container.appendChild(label1);
+    fractionDisplay.appendChild(pizza1Container);
+    const operatorSpan = createElement("span", { style: "font-size: 1.5em; font-weight: bold;" }, correctAnswer);
+    fractionDisplay.appendChild(operatorSpan);
+    const pizza2Container = createElement("div", { className: "pizza-diagram" });
+    const pizza2 = generatePizzaDiagram(num2, denom2);
+    const label2 = createElement("div", { className: "pizza-label" }, `${num2}/${denom2}`);
+    pizza2Container.appendChild(pizza2);
+    pizza2Container.appendChild(label2);
+    fractionDisplay.appendChild(pizza2Container);
+    content.appendChild(fractionDisplay);
+    const explanation = createElement("div", { className: "hint-explanation" });
+    const correctText = createElement("strong", {}, `Correct answer: ${num1}/${denom1} ${getOperatorName(correctAnswer)} ${num2}/${denom2}`);
+    explanation.appendChild(correctText);
+    if (mistakeType) {
+      const mistakeText = createElement("p", {}, getMistakeExplanation(mistakeType));
+      explanation.appendChild(mistakeText);
+    }
+    const generalHint = createElement(
+      "p",
+      {},
+      `${num1}/${denom1} = ${(num1 / denom1).toFixed(3)} and ${num2}/${denom2} = ${(num2 / denom2).toFixed(3)}`
+    );
+    explanation.appendChild(generalHint);
+    content.appendChild(explanation);
+    container.appendChild(content);
+    return container;
+  }
+  function showHint(index, problem) {
+    const problemElement = document.querySelector(`[data-problem-index="${index}"]`);
+    if (!problemElement) return;
+    let existingHint = problemElement.querySelector(".visual-aids");
+    if (existingHint) {
+      existingHint.remove();
+    }
+    const hint = createVisualAid(problem);
+    problemElement.appendChild(hint);
+  }
+
+  // js/features/checkAnswers.js
+  function checkAnswers(problems2) {
+    let correct = 0;
+    let incorrect = 0;
+    let unanswered = 0;
+    problems2.forEach((problem, index) => {
+      if (!problem.userAnswer) {
+        unanswered++;
+        return;
+      }
+      const isCorrect = problem.userAnswer === problem.correctAnswer;
+      if (isCorrect) {
+        correct++;
+        applyFeedback(index, "correct");
+      } else {
+        incorrect++;
+        applyFeedback(index, "incorrect");
+        showHint(index, problem);
+      }
+    });
+    return { correct, incorrect, unanswered };
+  }
+  function applyFeedback(index, feedbackType) {
+    const problemElement = qs(`[data-problem-index="${index}"]`);
+    if (!problemElement) return;
+    const input = problemElement.querySelector(".operator-input");
+    const buttons = problemElement.querySelector(".operator-buttons");
+    const canvas = problemElement.querySelector(".drawing-canvas");
+    const voiceResult = problemElement.querySelector(".voice-result");
+    const removeClass2 = (el, ...classes) => {
+      if (el) el.classList.remove(...classes);
+    };
+    removeClass2(input, "correct", "incorrect");
+    removeClass2(canvas, "correct", "incorrect");
+    removeClass2(voiceResult, "correct", "incorrect");
+    if (buttons) {
+      buttons.querySelectorAll(".operator-btn").forEach((btn) => {
+        btn.classList.remove("correct", "incorrect");
+      });
+    }
+    const addClass2 = (el, className) => {
+      if (el) el.classList.add(className);
+    };
+    addClass2(input, feedbackType);
+    addClass2(canvas, feedbackType);
+    addClass2(voiceResult, feedbackType);
+    if (buttons) {
+      const selectedBtn = buttons.querySelector(".operator-btn.selected");
+      addClass2(selectedBtn, feedbackType);
+    }
+  }
+  function showAnswers(problems2) {
+    problems2.forEach((problem, index) => {
+      const problemElement = qs(`[data-problem-index="${index}"]`);
+      if (!problemElement) return;
+      const input = problemElement.querySelector(".operator-input");
+      const buttons = problemElement.querySelector(".operator-buttons");
+      const voiceResult = problemElement.querySelector(".voice-result");
+      if (input) {
+        input.value = problem.correctAnswer;
+        input.classList.add("correct");
+      }
+      if (buttons) {
+        buttons.querySelectorAll(".operator-btn").forEach((btn) => {
+          btn.classList.remove("selected", "correct", "incorrect");
+          if (btn.dataset.operator === problem.correctAnswer) {
+            btn.classList.add("selected", "correct");
+          }
+        });
+      }
+      if (voiceResult) {
+        voiceResult.textContent = problem.correctAnswer;
+        voiceResult.classList.add("correct");
+      }
+      showHint(index, problem);
+      problem.userAnswer = problem.correctAnswer;
+    });
+  }
+  function clearAnswers(problems2) {
+    problems2.forEach((problem, index) => {
+      problem.userAnswer = null;
+      const problemElement = qs(`[data-problem-index="${index}"]`);
+      if (!problemElement) return;
+      const input = problemElement.querySelector(".operator-input");
+      if (input) {
+        input.value = "";
+        input.classList.remove("correct", "incorrect");
+      }
+      const buttons = problemElement.querySelector(".operator-buttons");
+      if (buttons) {
+        buttons.querySelectorAll(".operator-btn").forEach((btn) => {
+          btn.classList.remove("selected", "correct", "incorrect");
+        });
+      }
+      const canvas = problemElement.querySelector(".drawing-canvas");
+      if (canvas) {
+        const ctx = canvas.getContext("2d");
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        canvas.classList.remove("correct", "incorrect");
+      }
+      const voiceResult = problemElement.querySelector(".voice-result");
+      if (voiceResult) {
+        voiceResult.textContent = "";
+        voiceResult.classList.remove("correct", "incorrect");
+      }
+      const hint = problemElement.querySelector(".visual-aids");
+      if (hint) {
+        hint.remove();
+      }
+    });
+    const scoreElement = qs(".score");
+    if (scoreElement) {
+      scoreElement.classList.remove("show");
+    }
+  }
+  function updateScoreDisplay(score, total) {
+    const scoreElement = qs(".score");
+    if (!scoreElement) return;
+    scoreElement.innerHTML = `
+        <span class="score-correct">Correct: ${score.correct}</span> |
+        <span class="score-incorrect">Incorrect: ${score.incorrect}</span> |
+        Unanswered: ${score.unanswered} |
+        Total: ${total}
+    `;
+    scoreElement.classList.add("show");
+  }
+
+  // js/features/voiceRecognition.js
+  var recognition = null;
+  var currentProblemIndex = null;
+  function initializeVoiceRecognition() {
+    if (!("webkitSpeechRecognition" in window) && !("SpeechRecognition" in window)) {
+      console.warn("Speech recognition not supported in this browser");
+      return false;
+    }
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    recognition = new SpeechRecognition();
+    recognition.continuous = false;
+    recognition.interimResults = false;
+    recognition.lang = "en-US";
+    recognition.onresult = handleVoiceResult;
+    recognition.onerror = handleVoiceError;
+    recognition.onend = handleVoiceEnd;
+    return true;
+  }
+  function startVoiceRecognition(problemIndex) {
+    if (!recognition) {
+      showVoiceStatus("Voice recognition not available", "error");
+      return;
+    }
+    currentProblemIndex = problemIndex;
+    try {
+      recognition.start();
+      updateVoiceButton(problemIndex, true);
+      showVoiceStatus('Listening... Say "less than", "greater than", or "equal"', "success");
+    } catch (error) {
+      if (error.name === "InvalidStateError") {
+        recognition.stop();
+        setTimeout(() => startVoiceRecognition(problemIndex), 100);
+      } else {
+        console.error("Voice recognition error:", error);
+        showVoiceStatus("Error starting voice recognition", "error");
+      }
+    }
+  }
+  function handleVoiceResult(event) {
+    const transcript = event.results[0][0].transcript.toLowerCase().trim();
+    console.log("Voice transcript:", transcript);
+    let operator = null;
+    for (const [keyword, op] of Object.entries(CONFIG.VOICE_KEYWORDS)) {
+      if (transcript.includes(keyword)) {
+        operator = op;
+        break;
+      }
+    }
+    if (operator && currentProblemIndex !== null) {
+      const voiceResult = qs(`.voice-result[data-problem-index="${currentProblemIndex}"]`);
+      if (voiceResult) {
+        voiceResult.textContent = operator;
+      }
+      const container = qs(`.voice-container[data-problem-index="${currentProblemIndex}"]`);
+      if (container) {
+        container.dispatchEvent(new CustomEvent("operatorSelected", {
+          bubbles: true,
+          detail: { index: currentProblemIndex, operator }
+        }));
+      }
+      showVoiceStatus(`Recognized: "${transcript}" \u2192 ${operator}`, "success");
+    } else {
+      showVoiceStatus(`Could not recognize operator from: "${transcript}"`, "error");
+    }
+    updateVoiceButton(currentProblemIndex, false);
+  }
+  function handleVoiceError(event) {
+    console.error("Voice recognition error:", event.error);
+    const errorMessages = {
+      "no-speech": "No speech detected. Please try again.",
+      "audio-capture": "Microphone not available.",
+      "not-allowed": "Microphone access denied.",
+      "network": "Network error occurred.",
+      "aborted": "Recognition aborted."
+    };
+    const message = errorMessages[event.error] || "Voice recognition error occurred.";
+    showVoiceStatus(message, "error");
+    updateVoiceButton(currentProblemIndex, false);
+  }
+  function handleVoiceEnd() {
+    updateVoiceButton(currentProblemIndex, false);
+  }
+  function updateVoiceButton(problemIndex, isListening) {
+    if (problemIndex === null) return;
+    const button = qs(`.voice-container[data-problem-index="${problemIndex}"] .voice-btn`);
+    if (button) {
+      if (isListening) {
+        button.classList.add("listening");
+      } else {
+        button.classList.remove("listening");
+      }
+    }
+  }
+  function showVoiceStatus(message, type = "") {
+    let statusElement = qs(".voice-status");
+    if (!statusElement) {
+      statusElement = document.createElement("div");
+      statusElement.className = "voice-status";
+      const container = qs(".container");
+      if (container) {
+        const firstChild = container.firstChild;
+        container.insertBefore(statusElement, firstChild);
+      }
+    }
+    statusElement.textContent = message;
+    statusElement.className = `voice-status show ${type}`;
+    setTimeout(() => {
+      statusElement.classList.remove("show");
+    }, 3e3);
+  }
+  function isVoiceSupported() {
+    return "webkitSpeechRecognition" in window || "SpeechRecognition" in window;
+  }
+
+  // js/features/printExport.js
+  function printWorksheet() {
+    hideCollapsibleSections();
+    window.print();
+  }
+  async function downloadPDF() {
+    if (typeof html2pdf === "undefined") {
+      alert("PDF library not loaded. Please check your internet connection.");
+      return;
+    }
+    try {
+      hideCollapsibleSections();
+      const element = qs(".container");
+      if (!element) {
+        throw new Error("Container element not found");
+      }
+      const opt = {
+        margin: 10,
+        filename: `fraction-worksheet-${(/* @__PURE__ */ new Date()).toISOString().split("T")[0]}.pdf`,
+        image: { type: "jpeg", quality: 0.98 },
+        html2canvas: { scale: 2, useCORS: true },
+        jsPDF: { unit: "mm", format: "a4", orientation: "portrait" }
+      };
+      await html2pdf().set(opt).from(element).save();
+      setTimeout(restoreCollapsibleSections, 1e3);
+    } catch (error) {
+      console.error("PDF generation error:", error);
+      alert("Error generating PDF. Please try again.");
+      restoreCollapsibleSections();
+    }
+  }
+  function hideCollapsibleSections() {
+    const printLearningGuide = qs("#print-learning-guide");
+    if (!printLearningGuide || !printLearningGuide.checked) {
+      const educationalContent = qsa(".educational-content");
+      educationalContent.forEach((section) => {
+        addClass(section, "hidden-for-print");
+      });
+    }
+    const printVisualAids = qs("#print-visual-aids");
+    if (!printVisualAids || !printVisualAids.checked) {
+      const visualAids = qsa(".visual-aids");
+      visualAids.forEach((aid) => {
+        addClass(aid, "hidden-for-print");
+      });
+    }
+    const controls = qs(".controls");
+    if (controls) {
+      controls.style.display = "none";
+    }
+    const buttonGroups = qsa(".button-group");
+    buttonGroups.forEach((group) => {
+      group.style.display = "none";
+    });
+    const versionInfo = qs(".header-version");
+    if (versionInfo) {
+      versionInfo.style.display = "none";
+    }
+    const instructions = qs(".instructions");
+    if (instructions) {
+      instructions.style.display = "none";
+    }
+    const score = qs(".score");
+    if (score) {
+      score.style.display = "none";
+    }
+  }
+  function restoreCollapsibleSections() {
+    const educationalContent = qsa(".educational-content");
+    educationalContent.forEach((section) => {
+      removeClass(section, "hidden-for-print");
+    });
+    const visualAids = qsa(".visual-aids");
+    visualAids.forEach((aid) => {
+      removeClass(aid, "hidden-for-print");
+    });
+    const controls = qs(".controls");
+    if (controls) {
+      controls.style.display = "";
+    }
+    const buttonGroups = qsa(".button-group");
+    buttonGroups.forEach((group) => {
+      group.style.display = "";
+    });
+    const versionInfo = qs(".header-version");
+    if (versionInfo) {
+      versionInfo.style.display = "";
+    }
+    const instructions = qs(".instructions");
+    if (instructions) {
+      instructions.style.display = "";
+    }
+    const score = qs(".score");
+    if (score && score.classList.contains("show")) {
+      score.style.display = "";
+    }
+  }
+  function setupPrintListeners() {
+    window.addEventListener("beforeprint", hideCollapsibleSections);
+    window.addEventListener("afterprint", restoreCollapsibleSections);
+  }
+
+  // js/features/carousel.js
+  var Carousel = class {
+    constructor(containerId, slides) {
+      this.container = qs(`#${containerId}`);
+      if (!this.container) {
+        console.error(`Carousel container ${containerId} not found`);
+        return;
+      }
+      this.slides = slides;
+      this.currentSlide = 0;
+      this.touchStartX = 0;
+      this.touchEndX = 0;
+      this.render();
+      this.attachEventListeners();
+    }
+    /**
+     * Render carousel HTML
+     */
+    render() {
+      const wrapper = this.container.querySelector(".carousel-content-wrapper");
+      if (!wrapper) return;
+      const slidesHTML = this.slides.map((slide, index) => `
+            <div class="carousel-slide" data-slide="${index}">
+                ${slide.content}
+            </div>
+        `).join("");
+      wrapper.innerHTML = `
+            <div class="carousel-wrapper">
+                ${slidesHTML}
+            </div>
+        `;
+      this.createProgressBar();
+      this.createTabLabels();
+      this.updateCarousel();
+    }
+    /**
+     * Create progress bar segments
+     */
+    createProgressBar() {
+      const progressBar = this.container.querySelector(".carousel-progress-bar");
+      if (!progressBar) return;
+      progressBar.innerHTML = "";
+      this.slides.forEach((slide, index) => {
+        const segment = document.createElement("div");
+        segment.className = "carousel-progress-segment";
+        segment.dataset.slide = index;
+        segment.addEventListener("click", () => this.goToSlide(index));
+        progressBar.appendChild(segment);
+      });
+    }
+    /**
+     * Create tab labels
+     */
+    createTabLabels() {
+      const tabLabels = this.container.querySelector(".carousel-tab-labels");
+      if (!tabLabels) return;
+      tabLabels.innerHTML = "";
+      this.slides.forEach((slide, index) => {
+        const label = document.createElement("div");
+        label.className = "carousel-tab-label";
+        label.dataset.slide = index;
+        label.textContent = this.shortenTitle(slide.title);
+        label.addEventListener("click", () => this.goToSlide(index));
+        tabLabels.appendChild(label);
+      });
+    }
+    /**
+     * Shorten slide title for display
+     * @param {string} title - Original title
+     * @returns {string} Shortened title
+     */
+    shortenTitle(title) {
+      return title.replace(/[\u{1F300}-\u{1F9FF}]/gu, "").replace(/\([^)]*\)/g, "").trim();
+    }
+    /**
+     * Attach event listeners
+     */
+    attachEventListeners() {
+      const prevBtn = this.container.querySelector(".carousel-btn-prev");
+      const nextBtn = this.container.querySelector(".carousel-btn-next");
+      if (prevBtn) {
+        prevBtn.addEventListener("click", () => this.prev());
+      }
+      if (nextBtn) {
+        nextBtn.addEventListener("click", () => this.next());
+      }
+      const wrapper = this.container.querySelector(".carousel-content-wrapper");
+      if (wrapper) {
+        wrapper.addEventListener("touchstart", (e) => this.handleTouchStart(e));
+        wrapper.addEventListener("touchend", (e) => this.handleTouchEnd(e));
+      }
+      this.container.addEventListener("keydown", (e) => {
+        if (e.key === "ArrowLeft") this.prev();
+        if (e.key === "ArrowRight") this.next();
+      });
+    }
+    /**
+     * Go to previous slide
+     */
+    prev() {
+      if (this.currentSlide > 0) {
+        this.currentSlide--;
+        this.updateCarousel();
+      }
+    }
+    /**
+     * Go to next slide
+     */
+    next() {
+      if (this.currentSlide < this.slides.length - 1) {
+        this.currentSlide++;
+        this.updateCarousel();
+      }
+    }
+    /**
+     * Go to specific slide
+     * @param {number} index - Slide index
+     */
+    goToSlide(index) {
+      if (index >= 0 && index < this.slides.length) {
+        this.currentSlide = index;
+        this.updateCarousel();
+      }
+    }
+    /**
+     * Update carousel display
+     */
+    updateCarousel() {
+      const wrapper = this.container.querySelector(".carousel-wrapper");
+      if (!wrapper) return;
+      const offset = -this.currentSlide * 100;
+      wrapper.style.transform = `translateX(${offset}%)`;
+      const segments = this.container.querySelectorAll(".carousel-progress-segment");
+      segments.forEach((segment, index) => {
+        if (index === this.currentSlide) {
+          addClass(segment, "active");
+        } else {
+          removeClass(segment, "active");
+        }
+      });
+      const labels = this.container.querySelectorAll(".carousel-tab-label");
+      labels.forEach((label, index) => {
+        if (index === this.currentSlide) {
+          addClass(label, "active");
+        } else {
+          removeClass(label, "active");
+        }
+      });
+      const prevBtn = this.container.querySelector(".carousel-btn-prev");
+      const nextBtn = this.container.querySelector(".carousel-btn-next");
+      if (prevBtn) {
+        prevBtn.disabled = this.currentSlide === 0;
+      }
+      if (nextBtn) {
+        nextBtn.disabled = this.currentSlide === this.slides.length - 1;
+      }
+    }
+    /**
+     * Handle touch start
+     * @param {TouchEvent} e - Touch event
+     */
+    handleTouchStart(e) {
+      this.touchStartX = e.changedTouches[0].screenX;
+    }
+    /**
+     * Handle touch end
+     * @param {TouchEvent} e - Touch event
+     */
+    handleTouchEnd(e) {
+      this.touchEndX = e.changedTouches[0].screenX;
+      this.handleSwipe();
+    }
+    /**
+     * Handle swipe gesture
+     */
+    handleSwipe() {
+      const swipeThreshold = 50;
+      const diff = this.touchStartX - this.touchEndX;
+      if (Math.abs(diff) > swipeThreshold) {
+        if (diff > 0) {
+          this.next();
+        } else {
+          this.prev();
+        }
+      }
+    }
+  };
+
+  // js/features/educationalContent.js
+  var historySlides = [
+    {
+      title: "\u{1F4C5} Timeline Introduction",
+      content: `
+            <h4>\u{1F4C5} Timeline Introduction</h4>
+            <p><strong>Fractions have been used for over 5,000 years!</strong> Let's see how far back 3000 BC really is compared to when you, your parents, and grandparents were born:</p>
+
+            <div style="background: linear-gradient(to right, #E8EAF6, #C5CAE9); border-radius: 8px; padding: 30px 20px; margin: 30px 0;">
+                <div style="text-align: center; font-size: 0.85em; color: #666; margin-bottom: 15px;">
+                    Timeline divided into 5 segments of ~1000 years each for accurate placement
+                </div>
+
+                <div style="position: relative; height: 120px; margin-bottom: 30px;">
+                    <div style="position: absolute; top: 50px; left: 0; right: 0; height: 8px; display: flex;">
+                        <div style="flex: 1; background: #673AB7; border-right: 2px solid white;"></div>
+                        <div style="flex: 1; background: #512DA8; border-right: 2px solid white;"></div>
+                        <div style="flex: 1; background: #4527A0; border-right: 2px solid white;"></div>
+                        <div style="flex: 1; background: #311B92; border-right: 2px solid white;"></div>
+                        <div style="flex: 1.026; background: linear-gradient(to right, #1A237E, #03DAC6);"></div>
+                    </div>
+
+                    <div style="position: absolute; left: 0%; top: 65px; font-size: 0.65em; color: #666; font-weight: 600;">
+                        3000 BC
+                    </div>
+                    <div style="position: absolute; left: 19.9%; top: 65px; font-size: 0.65em; color: #666; font-weight: 600; transform: translateX(-50%);">
+                        2000 BC
+                    </div>
+                    <div style="position: absolute; left: 39.8%; top: 65px; font-size: 0.65em; color: #666; font-weight: 600; transform: translateX(-50%);">
+                        1000 BC
+                    </div>
+                    <div style="position: absolute; left: 59.7%; top: 65px; font-size: 0.65em; color: #666; font-weight: 600; transform: translateX(-50%);">
+                        0 AD
+                    </div>
+                    <div style="position: absolute; left: 79.6%; top: 65px; font-size: 0.65em; color: #666; font-weight: 600; transform: translateX(-50%);">
+                        1000 AD
+                    </div>
+                    <div style="position: absolute; right: 0%; top: 65px; font-size: 0.65em; color: #666; font-weight: 600;">
+                        2026 AD
+                    </div>
+
+                    <div style="position: absolute; left: 0%; top: 50px; transform: translate(0, -50%);">
+                        <div style="width: 16px; height: 16px; background: white; border: 3px solid #6200EA; border-radius: 50%; margin: 0 auto;"></div>
+                        <div style="margin-top: -75px; text-align: center; font-size: 0.75em; font-weight: 600;">
+                            <div style="font-size: 1.5em;">\u{1F4DC}</div>
+                            Egypt
+                        </div>
+                    </div>
+
+                    <div style="position: absolute; left: 47.8%; top: 50px; transform: translate(-50%, -50%);">
+                        <div style="width: 16px; height: 16px; background: white; border: 3px solid #6200EA; border-radius: 50%; margin: 0 auto;"></div>
+                        <div style="margin-top: 15px; text-align: center; font-size: 0.75em; font-weight: 600;">
+                            <div style="font-size: 1.5em;">\u{1F549}\uFE0F</div>
+                            India<br>
+                            <span style="font-size: 0.9em;">600 BC</span>
+                        </div>
+                    </div>
+
+                    <div style="position: absolute; left: 89.5%; top: 50px; transform: translate(-50%, -50%);">
+                        <div style="width: 16px; height: 16px; background: white; border: 3px solid #6200EA; border-radius: 50%; margin: 0 auto;"></div>
+                        <div style="margin-top: -75px; text-align: center; font-size: 0.75em; font-weight: 600;">
+                            <div style="font-size: 1.5em;">\u{1F4D0}</div>
+                            Modern<br>
+                            <span style="font-size: 0.9em;">1500 AD</span>
+                        </div>
+                    </div>
+
+                    <div style="position: absolute; right: 0%; top: 50px; transform: translate(0, -50%);">
+                        <div style="width: 20px; height: 20px; background: #03DAC6; border: 3px solid #6200EA; border-radius: 50%; margin: 0 auto; box-shadow: 0 0 10px rgba(3, 218, 198, 0.5);"></div>
+                        <div style="margin-top: 15px; text-align: center; font-size: 0.8em; font-weight: 700; color: #6200EA;">
+                            <div style="font-size: 1.8em;">\u2B50</div>
+                            TODAY!
+                        </div>
+                    </div>
+                </div>
+
+                <div style="display: flex; justify-content: space-around; align-items: center; gap: 15px; flex-wrap: wrap;">
+                    <div style="text-align: center; padding: 10px;">
+                        <div style="width: 12px; height: 12px; background: white; border: 2px solid #FF9800; border-radius: 50%; margin: 0 auto 8px;"></div>
+                        <div style="font-size: 0.75em; font-weight: 600; color: #F57C00;">
+                            1950<br>
+                            <span style="font-size: 1.8em;">\u{1F475}\u{1F3FD}\u{1F474}\u{1F3FD}</span><br>
+                            Grandparents
+                        </div>
+                    </div>
+
+                    <div style="font-size: 1.5em; color: #999;">\u2192</div>
+
+                    <div style="text-align: center; padding: 10px;">
+                        <div style="width: 12px; height: 12px; background: white; border: 2px solid #4CAF50; border-radius: 50%; margin: 0 auto 8px;"></div>
+                        <div style="font-size: 0.75em; font-weight: 600; color: #2E7D32;">
+                            1980<br>
+                            <span style="font-size: 1.8em;">\u{1F468}\u{1F3FD}\u{1F469}\u{1F3FD}</span><br>
+                            Parents
+                        </div>
+                    </div>
+
+                    <div style="font-size: 1.5em; color: #999;">\u2192</div>
+
+                    <div style="text-align: center; padding: 10px;">
+                        <div style="width: 12px; height: 12px; background: white; border: 2px solid #2196F3; border-radius: 50%; margin: 0 auto 8px;"></div>
+                        <div style="font-size: 0.75em; font-weight: 600; color: #1565C0;">
+                            2016<br>
+                            <span style="font-size: 1.8em;">\u{1F9D2}\u{1F3FD}</span><br>
+                            You (9 yrs)
+                        </div>
+                    </div>
+
+                    <div style="font-size: 1.5em; color: #999;">\u2192</div>
+
+                    <div style="text-align: center; padding: 10px;">
+                        <div style="width: 14px; height: 14px; background: #03DAC6; border: 2px solid #6200EA; border-radius: 50%; margin: 0 auto 8px;"></div>
+                        <div style="font-size: 0.75em; font-weight: 700; color: #6200EA;">
+                            2026<br>
+                            <span style="font-size: 1.8em;">\u2B50</span><br>
+                            Today!
+                        </div>
+                    </div>
+                </div>
+                <div style="text-align: center; margin-top: 15px; font-size: 0.85em; color: #666;">
+                    These 76 years represent only <strong>1.5%</strong> of the 5,026-year timeline above!
+                </div>
+            </div>
+
+            <p style="margin-top: 20px; font-size: 0.95em; color: #666;">
+                <strong>\u{1F4A1} Scale Perspective:</strong> This timeline is drawn to scale! The top bar shows 5,026 years from 3000 BC to 2026 AD.
+                Notice how ALL of modern history (grandparents, parents, you) is squeezed into the tiniest space at the right end - that's why we created the zoom box below to see it clearly!
+            </p>
+        `
+    },
+    {
+      title: "\u{1F3FA} Ancient Egypt (2000 BCE)",
+      content: `
+            <h4>\u{1F3FA} Ancient Egypt (2000 BCE)</h4>
+            <p>Ancient Egyptians were among the first to use fractions. They primarily used unit fractions
+            (fractions with numerator 1) and had special symbols for common fractions like 1/2, 1/3, and 1/4.</p>
+            <div class="example-box">
+                <strong>Egyptian Hieroglyphs:</strong> They used the Eye of Horus symbol to represent fractions!
+                Different parts of the eye represented different fractions: 1/2, 1/4, 1/8, 1/16, 1/32, and 1/64.
+            </div>
+        `
+    },
+    {
+      title: "\u{1F3DB}\uFE0F Ancient Greece (500 BCE)",
+      content: `
+            <h4>\u{1F3DB}\uFE0F Ancient Greece (500 BCE)</h4>
+            <p>Greek mathematicians like Pythagoras developed more sophisticated fraction concepts.
+            They explored the relationship between fractions and ratios in geometry and music.</p>
+            <p>The Greeks used fractions to describe musical intervals and proportions in architecture.</p>
+        `
+    },
+    {
+      title: "\u{1F54C} Islamic Golden Age (800-1200 CE)",
+      content: `
+            <h4>\u{1F54C} Islamic Golden Age (800-1200 CE)</h4>
+            <p>Islamic mathematicians like Al-Khwarizmi standardized fraction notation and operations.
+            They introduced decimal fractions and advanced algebraic techniques for working with fractions.</p>
+            <div class="example-box">
+                <strong>Example:</strong> Al-Khwarizmi's work on fractions influenced European mathematics
+                for centuries.
+            </div>
+        `
+    },
+    {
+      title: "\u{1F4DC} Medieval Europe (1200-1500 CE)",
+      content: `
+            <h4>\u{1F4DC} Medieval Europe (1200-1500 CE)</h4>
+            <p>Leonardo Fibonacci introduced Hindu-Arabic numerals and fractions to Europe through his
+            book "Liber Abaci" (1202). This revolutionized European mathematics and commerce.</p>
+            <p>The modern fraction bar notation (/) gradually replaced various older notations.</p>
+        `
+    },
+    {
+      title: "\u{1F522} Modern Era (1500-Present)",
+      content: `
+            <h4>\u{1F522} Modern Era (1500-Present)</h4>
+            <p>Fractions became standardized with the horizontal bar notation we use today.
+            Decimal fractions were developed, and fraction arithmetic became essential for science,
+            engineering, and everyday calculations.</p>
+            <p>Today, fractions are a fundamental part of mathematics education worldwide!</p>
+        `
+    }
+  ];
+  var strategiesSlides = [
+    {
+      title: "1\uFE0F\u20E3 Common Denominators",
+      content: `
+            <h4>Strategy 1: Common Denominators</h4>
+            <div class="strategy-box">
+                <p><strong>When to use:</strong> When fractions have different denominators</p>
+                <p><strong>How it works:</strong> Convert both fractions to have the same denominator,
+                then compare numerators.</p>
+            </div>
+            <div class="example-box">
+                <strong>Example:</strong> Compare 1/3 and 1/4<br>
+                \u2022 Convert to common denominator (12): 4/12 and 3/12<br>
+                \u2022 Compare numerators: 4 > 3, so 1/3 > 1/4
+            </div>
+        `
+    },
+    {
+      title: "2\uFE0F\u20E3 Cross Multiplication",
+      content: `
+            <h4>Strategy 2: Cross Multiplication</h4>
+            <div class="strategy-box">
+                <p><strong>When to use:</strong> Quick comparison without finding common denominator</p>
+                <p><strong>How it works:</strong> Multiply numerator of first fraction by denominator
+                of second, and vice versa. Compare the products.</p>
+            </div>
+            <div class="example-box">
+                <strong>Example:</strong> Compare 2/5 and 3/7<br>
+                \u2022 2 \xD7 7 = 14<br>
+                \u2022 3 \xD7 5 = 15<br>
+                \u2022 14 < 15, so 2/5 < 3/7
+            </div>
+        `
+    },
+    {
+      title: "3\uFE0F\u20E3 Benchmark Fractions",
+      content: `
+            <h4>Strategy 3: Use Benchmark Fractions</h4>
+            <div class="strategy-box">
+                <p><strong>When to use:</strong> When fractions are close to common benchmarks like 0, 1/2, or 1</p>
+                <p><strong>How it works:</strong> Compare each fraction to 1/2 or other benchmarks.</p>
+            </div>
+            <div class="example-box">
+                <strong>Example:</strong> Compare 3/7 and 5/8<br>
+                \u2022 3/7 is less than 1/2 (because 3.5/7 = 1/2)<br>
+                \u2022 5/8 is more than 1/2 (because 4/8 = 1/2)<br>
+                \u2022 Therefore, 3/7 < 5/8
+            </div>
+        `
+    },
+    {
+      title: "4\uFE0F\u20E3 Unit Fractions",
+      content: `
+            <h4>Strategy 4: Unit Fractions (Numerator = 1)</h4>
+            <div class="strategy-box">
+                <p><strong>When to use:</strong> When comparing fractions with numerator 1</p>
+                <p><strong>Key insight:</strong> The larger the denominator, the smaller the fraction!</p>
+            </div>
+            <div class="example-box">
+                <strong>Example:</strong> Compare 1/8 and 1/5<br>
+                \u2022 8 > 5 (denominators)<br>
+                \u2022 Therefore: 1/8 < 1/5<br>
+                \u2022 (More pieces means smaller pieces!)
+            </div>
+        `
+    },
+    {
+      title: "5\uFE0F\u20E3 Visual Representation",
+      content: `
+            <h4>Strategy 5: Visual Representation</h4>
+            <div class="strategy-box">
+                <p><strong>When to use:</strong> When you want to understand fraction size intuitively</p>
+                <p><strong>How it works:</strong> Draw or imagine visual models (like pizza slices)
+                to see which fraction is larger.</p>
+            </div>
+            <div class="visual-fraction-demo">
+                <div class="fraction-bar">
+                    <div class="fraction-part filled"></div>
+                    <div class="fraction-part filled"></div>
+                    <div class="fraction-part filled"></div>
+                    <div class="fraction-part"></div>
+                </div>
+                <span style="font-size: 1.5em; margin: 0 20px;">vs</span>
+                <div class="fraction-bar">
+                    <div class="fraction-part filled"></div>
+                    <div class="fraction-part filled"></div>
+                    <div class="fraction-part"></div>
+                    <div class="fraction-part"></div>
+                </div>
+            </div>
+            <p style="text-align: center; margin-top: 10px;">3/4 > 2/4 (visual comparison)</p>
+        `
+    }
+  ];
+  var misconceptionsSlides = [
+    {
+      title: "\u274C Bigger Denominator = Bigger Fraction",
+      content: `
+            <h4>Misconception 1: Bigger Denominator = Bigger Fraction</h4>
+            <div class="strategy-box">
+                <p><strong>The mistake:</strong> Thinking 1/8 > 1/4 because 8 > 4</p>
+                <p><strong>Why it's wrong:</strong> Larger denominator means MORE pieces, which makes each
+                piece SMALLER.</p>
+                <p><strong>Remember:</strong> For unit fractions (numerator = 1), larger denominator = smaller fraction!</p>
+            </div>
+            <div class="example-box">
+                Think of pizza: 1 slice from an 8-slice pizza is smaller than 1 slice from a 4-slice pizza! \u{1F355}
+            </div>
+        `
+    },
+    {
+      title: "\u274C Compare Numerators Only",
+      content: `
+            <h4>Misconception 2: Just Compare Numerators</h4>
+            <div class="strategy-box">
+                <p><strong>The mistake:</strong> Thinking 3/8 > 2/3 because 3 > 2</p>
+                <p><strong>Why it's wrong:</strong> You must consider BOTH numerator and denominator.
+                2/3 is actually larger than 3/8.</p>
+                <p><strong>Remember:</strong> The denominator tells you the size of each piece!</p>
+            </div>
+            <div class="example-box">
+                <strong>Correct comparison:</strong><br>
+                3/8 = 0.375<br>
+                2/3 \u2248 0.667<br>
+                Therefore: 3/8 < 2/3
+            </div>
+        `
+    },
+    {
+      title: "\u274C Both Numbers Bigger = Fraction Bigger",
+      content: `
+            <h4>Misconception 3: Both Numbers Bigger = Fraction Bigger</h4>
+            <div class="strategy-box">
+                <p><strong>The mistake:</strong> Thinking 7/10 > 2/3 because both 7 and 10 are larger</p>
+                <p><strong>Why it's wrong:</strong> What matters is the RATIO, not the individual numbers.</p>
+                <p><strong>Remember:</strong> Compare the actual fraction values!</p>
+            </div>
+            <div class="example-box">
+                <strong>Correct comparison:</strong><br>
+                7/10 = 0.7<br>
+                2/3 \u2248 0.667<br>
+                Therefore: 7/10 > 2/3 (but it's close!)
+            </div>
+        `
+    },
+    {
+      title: "\u274C Fractions Near 1 Are Hard",
+      content: `
+            <h4>Misconception 4: Fractions Close to 1 Are Confusing</h4>
+            <div class="strategy-box">
+                <p><strong>The mistake:</strong> Struggling to compare 5/6 and 7/8</p>
+                <p><strong>Better approach:</strong> See how far each fraction is from 1 whole.</p>
+                <p><strong>Remember:</strong> Subtract from 1 to see the "gap"!</p>
+            </div>
+            <div class="example-box">
+                <strong>Compare using gaps:</strong><br>
+                5/6 is missing 1/6 from whole<br>
+                7/8 is missing 1/8 from whole<br>
+                1/8 < 1/6, so 7/8 is closer to 1<br>
+                Therefore: 7/8 > 5/6
+            </div>
+        `
+    },
+    {
+      title: "\u274C Equivalent Fractions Look Different",
+      content: `
+            <h4>Misconception 5: Different-Looking Fractions Can't Be Equal</h4>
+            <div class="strategy-box">
+                <p><strong>The mistake:</strong> Thinking 2/4 and 1/2 are different because the numbers are different</p>
+                <p><strong>Why it's wrong:</strong> Equivalent fractions represent the same value.</p>
+                <p><strong>Remember:</strong> Simplify fractions to see if they're equivalent!</p>
+            </div>
+            <div class="simplification-steps">
+                <div class="step">2/4 = (2\xF72) / (4\xF72) = 1/2</div>
+                <div class="step">3/6 = (3\xF73) / (6\xF73) = 1/2</div>
+                <div class="step">All these equal 0.5!</div>
+            </div>
+        `
+    }
+  ];
+
+  // js/version/versionManager.js
+  var versionManifest = null;
+  async function loadVersionManifest() {
+    try {
+      const response = await fetch("versions/version-manifest.json");
+      if (!response.ok) {
+        throw new Error("Failed to load version manifest");
+      }
+      versionManifest = await response.json();
+      return versionManifest;
+    } catch (error) {
+      console.error("Error loading version manifest:", error);
+      versionManifest = {
+        current: "2.0.0",
+        versions: []
+      };
+      return versionManifest;
+    }
+  }
+  function getCurrentVersion() {
+    return versionManifest?.current || "2.0.0";
+  }
+  function getAllVersions() {
+    return versionManifest?.versions || [];
+  }
+  function getVersion(versionNumber) {
+    if (!versionManifest) return null;
+    return versionManifest.versions.find((v) => v.number === versionNumber);
+  }
+  async function loadChangelog(versionNumber) {
+    const version = getVersion(versionNumber);
+    if (!version || !version.changelogFile) {
+      return `# Version ${versionNumber}
+No changelog available.`;
+    }
+    try {
+      const response = await fetch(`versions/${version.changelogFile}`);
+      if (!response.ok) {
+        throw new Error("Failed to load changelog");
+      }
+      return await response.text();
+    } catch (error) {
+      console.error("Error loading changelog:", error);
+      return `# Version ${versionNumber}
+Error loading changelog.`;
+    }
+  }
+  function parseChangelog(markdown) {
+    if (typeof marked !== "undefined" && marked.parse) {
+      return marked.parse(markdown);
+    }
+    return markdown.replace(/^# (.+)$/gm, "<h2>$1</h2>").replace(/^## (.+)$/gm, "<h3>$1</h3>").replace(/^### (.+)$/gm, "<h4>$1</h4>").replace(/^\*\*(.+?)\*\*$/gm, "<strong>$1</strong>").replace(/^\* (.+)$/gm, "<li>$1</li>").replace(/^- (.+)$/gm, "<li>$1</li>").replace(/\n\n/g, "</p><p>").replace(/^(.+)$/gm, "<p>$1</p>");
+  }
+
+  // js/version/versionUI.js
+  var currentChangelogVersion = null;
+  function initializeVersionUI() {
+    const currentVersion = getCurrentVersion();
+    currentChangelogVersion = currentVersion;
+    createVersionDisplay(currentVersion);
+    createChangelogModal();
+    addVersionSelectorToControls();
+  }
+  function createVersionDisplay(version) {
+    const header = qs("h1");
+    if (!header) return;
+    const versionContainer = createElement("div", { className: "header-version" });
+    const badge = createElement("span", {
+      className: "version-badge",
+      title: "Click to view changelog"
+    }, `v${version}`);
+    badge.addEventListener("click", () => showChangelog(version));
+    const viewBtn = createElement("button", {
+      className: "view-changelog-btn",
+      type: "button"
+    }, "View Changelog");
+    viewBtn.addEventListener("click", () => showChangelog(version));
+    versionContainer.appendChild(badge);
+    versionContainer.appendChild(viewBtn);
+    header.parentNode.insertBefore(versionContainer, header.nextSibling);
+  }
+  function createChangelogModal() {
+    const modal = createElement("div", {
+      className: "modal-overlay",
+      id: "changelog-modal"
+    });
+    const modalContent = createElement("div", { className: "modal-content" });
+    const header = createElement("div", { className: "modal-header" });
+    const title = createElement("h2", {}, "Version History");
+    const closeBtn = createElement("button", {
+      className: "modal-close",
+      "aria-label": "Close modal"
+    }, "\xD7");
+    closeBtn.addEventListener("click", closeChangelogModal);
+    header.appendChild(title);
+    header.appendChild(closeBtn);
+    const body = createElement("div", {
+      className: "modal-body",
+      id: "changelog-body"
+    }, "Loading...");
+    const footer = createElement("div", { className: "modal-footer" });
+    const prevBtn = createElement("button", {
+      className: "btn-secondary",
+      id: "changelog-prev-btn"
+    }, "\u2190 Previous Version");
+    const nextBtn = createElement("button", {
+      className: "btn-secondary",
+      id: "changelog-next-btn"
+    }, "Next Version \u2192");
+    prevBtn.addEventListener("click", showPreviousVersion);
+    nextBtn.addEventListener("click", showNextVersion);
+    footer.appendChild(prevBtn);
+    footer.appendChild(nextBtn);
+    modalContent.appendChild(header);
+    modalContent.appendChild(body);
+    modalContent.appendChild(footer);
+    modal.appendChild(modalContent);
+    document.body.appendChild(modal);
+    modal.addEventListener("click", (e) => {
+      if (e.target === modal) {
+        closeChangelogModal();
+      }
+    });
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        closeChangelogModal();
+      }
+    });
+  }
+  async function showChangelog(versionNumber) {
+    const modal = qs("#changelog-modal");
+    if (!modal) return;
+    currentChangelogVersion = versionNumber;
+    modal.classList.add("show");
+    const body = qs("#changelog-body");
+    if (body) {
+      body.innerHTML = "<p>Loading changelog...</p>";
+    }
+    try {
+      const markdown = await loadChangelog(versionNumber);
+      const html = parseChangelog(markdown);
+      if (body) {
+        body.innerHTML = html;
+      }
+      updateNavigationButtons();
+    } catch (error) {
+      console.error("Error showing changelog:", error);
+      if (body) {
+        body.innerHTML = `<p>Error loading changelog for version ${versionNumber}.</p>`;
+      }
+    }
+  }
+  function closeChangelogModal() {
+    const modal = qs("#changelog-modal");
+    if (modal) {
+      modal.classList.remove("show");
+    }
+  }
+  function showPreviousVersion() {
+    const versions = getAllVersions();
+    const currentIndex = versions.findIndex((v) => v.number === currentChangelogVersion);
+    if (currentIndex < versions.length - 1) {
+      const prevVersion = versions[currentIndex + 1];
+      showChangelog(prevVersion.number);
+    }
+  }
+  function showNextVersion() {
+    const versions = getAllVersions();
+    const currentIndex = versions.findIndex((v) => v.number === currentChangelogVersion);
+    if (currentIndex > 0) {
+      const nextVersion = versions[currentIndex - 1];
+      showChangelog(nextVersion.number);
+    }
+  }
+  function updateNavigationButtons() {
+    const versions = getAllVersions();
+    const currentIndex = versions.findIndex((v) => v.number === currentChangelogVersion);
+    const prevBtn = qs("#changelog-prev-btn");
+    const nextBtn = qs("#changelog-next-btn");
+    if (prevBtn) {
+      prevBtn.disabled = currentIndex >= versions.length - 1;
+    }
+    if (nextBtn) {
+      nextBtn.disabled = currentIndex <= 0;
+    }
+  }
+  function createVersionSelector() {
+    const versions = getAllVersions();
+    const currentVersion = getCurrentVersion();
+    const container = createElement("div", { className: "control-group" });
+    const label = createElement("label", { htmlFor: "version-selector" }, "Version:");
+    const select = createElement("select", { id: "version-selector" });
+    versions.forEach((version) => {
+      const icon = version.type === "major" ? "\u{1F389}" : version.type === "minor" ? "\u2728" : "\u{1F527}";
+      const option = createElement("option", {
+        value: version.number
+      }, `${icon} v${version.number} - ${version.description || version.date}`);
+      if (version.number === currentVersion) {
+        option.selected = true;
+      }
+      select.appendChild(option);
+    });
+    select.addEventListener("change", (e) => {
+      const selectedVersion = versions.find((v) => v.number === e.target.value);
+      if (selectedVersion && selectedVersion.file) {
+        window.location.href = selectedVersion.file;
+      }
+    });
+    container.appendChild(label);
+    container.appendChild(select);
+    return container;
+  }
+  function addVersionSelectorToControls() {
+    const controlsGrid = qs(".controls-grid");
+    if (!controlsGrid) return;
+    const versionSelector = createVersionSelector();
+    controlsGrid.appendChild(versionSelector);
+  }
+
+  // js/app.js
+  var problems = [];
+  var currentInputMethod = CONFIG.DEFAULT_INPUT_METHOD;
+  var problemTimers = {};
+  async function init() {
+    await loadVersionManifest();
+    initializeVersionUI();
+    if (isVoiceSupported()) {
+      initializeVoiceRecognition();
+    } else {
+      const voiceOption = qs('option[value="voice"]');
+      if (voiceOption) voiceOption.remove();
+    }
+    setupPrintListeners();
+    initializeCarousels();
+    attachEventListeners();
+    setupCollapsibleSections();
+    generateWorksheet();
+  }
+  function initializeCarousels() {
+    new Carousel("history-carousel", historySlides);
+    new Carousel("strategies-carousel", strategiesSlides);
+    new Carousel("misconceptions-carousel", misconceptionsSlides);
+  }
+  function attachEventListeners() {
+    qs("#input-method")?.addEventListener("change", (e) => {
+      currentInputMethod = e.target.value;
+      renderProblems();
+    });
+    qs("#common-mistakes")?.addEventListener("change", (e) => {
+      const mistakeTypesSection = qs("#mistake-types-section");
+      if (mistakeTypesSection) {
+        mistakeTypesSection.classList.toggle("show", e.target.checked);
+      }
+    });
+    qs("#generate-btn")?.addEventListener("click", generateWorksheet);
+    qs("#check-btn")?.addEventListener("click", handleCheckAnswers);
+    qs("#show-answers-btn")?.addEventListener("click", handleShowAnswers);
+    qs("#clear-btn")?.addEventListener("click", handleClearAnswers);
+    qs("#print-btn")?.addEventListener("click", printWorksheet);
+    qs("#pdf-btn")?.addEventListener("click", downloadPDF);
+    document.addEventListener("operatorSelected", (e) => {
+      const { index, operator } = e.detail;
+      if (problems[index]) {
+        problems[index].userAnswer = operator;
+        clearProblemTimer(index);
+      }
+    });
+    document.addEventListener("voiceStart", (e) => {
+      const { index } = e.detail;
+      startVoiceRecognition(index);
+    });
+    document.addEventListener("change", (e) => {
+      if (e.target.classList.contains("operator-input")) {
+        const index = parseInt(e.target.dataset.problemIndex);
+        if (problems[index]) {
+          problems[index].userAnswer = e.target.value;
+          clearProblemTimer(index);
+        }
+      }
+    });
+  }
+  function generateWorksheet() {
+    const problemCount = parseInt(qs("#problem-count")?.value || CONFIG.DEFAULT_PROBLEM_COUNT);
+    const denominatorSet = qs("#denominator-set")?.value || "easiest";
+    const denominators = CONFIG.DENOMINATOR_SETS[denominatorSet];
+    const useCommonMistakes = qs("#common-mistakes")?.checked || false;
+    clearAllTimers();
+    if (useCommonMistakes) {
+      const enabledMistakes = Array.from(qsa(".mistake-type-checkbox:checked")).map((cb) => cb.value);
+      problems = generateMistakesProblems(problemCount, denominators, enabledMistakes);
+    } else {
+      problems = generateProblems(problemCount, denominators);
+    }
+    renderProblems();
+    qs(".score")?.classList.remove("show");
+    startAllTimers();
+  }
+  function renderProblems() {
+    const container = qs("#problems-container");
+    if (!container) return;
+    empty(container);
+    problems.forEach((problem, index) => {
+      const problemDiv = createElement("div", {
+        className: "problem",
+        dataset: { problemIndex: index }
+      });
+      const number = createElement("span", {
+        className: "problem-number",
+        title: "Click for hint"
+      }, `${index + 1}.`);
+      number.addEventListener("click", () => {
+        showHint(index, problem);
+      });
+      const fraction1 = createFractionElement(problem.num1, problem.denom1);
+      const inputArea = createElement("div", { className: "input-area" });
+      const input = renderInput(index, currentInputMethod, problem.userAnswer);
+      inputArea.appendChild(input);
+      const fraction2 = createFractionElement(problem.num2, problem.denom2);
+      problemDiv.appendChild(number);
+      problemDiv.appendChild(fraction1);
+      problemDiv.appendChild(inputArea);
+      problemDiv.appendChild(fraction2);
+      container.appendChild(problemDiv);
+    });
+  }
+  function renderInput(index, method, value = "") {
+    const safeValue = value || "";
+    switch (method) {
+      case CONFIG.INPUT_METHODS.KEYBOARD:
+        return renderKeyboardInput(index, safeValue);
+      case CONFIG.INPUT_METHODS.BUTTONS:
+        return renderButtonInput(index, safeValue);
+      case CONFIG.INPUT_METHODS.DRAWING:
+        return renderDrawingInput(index, safeValue);
+      case CONFIG.INPUT_METHODS.VOICE:
+        return renderVoiceInput(index);
+      default:
+        return renderKeyboardInput(index, safeValue);
+    }
+  }
+  function handleCheckAnswers() {
+    const score = checkAnswers(problems);
+    updateScoreDisplay(score, problems.length);
+  }
+  function handleShowAnswers() {
+    showAnswers(problems);
+    const score = checkAnswers(problems);
+    updateScoreDisplay(score, problems.length);
+  }
+  function handleClearAnswers() {
+    clearAnswers(problems);
+  }
+  function setupCollapsibleSections() {
+    qsa(".collapsible-header").forEach((header) => {
+      header.addEventListener("click", () => {
+        header.classList.toggle("active");
+        const content = header.nextElementSibling;
+        if (content) {
+          content.classList.toggle("show");
+        }
+      });
+    });
+  }
+  function startProblemTimer(index) {
+    const timeout = parseInt(qs("#hint-timeout")?.value || 0);
+    if (timeout === 0) return;
+    if (problemTimers[index]) {
+      clearTimeout(problemTimers[index]);
+    }
+    problemTimers[index] = setTimeout(() => {
+      if (!problems[index]?.userAnswer) {
+        showHint(index, problems[index]);
+      }
+    }, timeout * 1e3);
+  }
+  function startAllTimers() {
+    const timeout = parseInt(qs("#hint-timeout")?.value || 0);
+    if (timeout === 0) return;
+    problems.forEach((_, index) => {
+      startProblemTimer(index);
+    });
+  }
+  function clearProblemTimer(index) {
+    if (problemTimers[index]) {
+      clearTimeout(problemTimers[index]);
+      delete problemTimers[index];
+    }
+  }
+  function clearAllTimers() {
+    Object.keys(problemTimers).forEach((index) => {
+      clearTimeout(problemTimers[index]);
+    });
+    problemTimers = {};
+  }
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
+  }
+})();
+
+    </script>
+</body>
+</html>
