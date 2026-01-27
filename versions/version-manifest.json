@@ -2,6 +2,16 @@
   "current": "2.2.0",
   "versions": [
     {
+      "number": "2.2.3",
+      "date": "2026-01-27",
+      "changelogFile": "changelogs/v2.2.3.md",
+      "type": "patch",
+      "description": "Remove duplicate version indicator system",
+      "file": "fraction-worksheet-v2.2.3.html",
+      "path": "versions/v2.2.3/index.html",
+      "commit": "fix: Remove duplicate version indicator system\n\n- Remove old version system (js/version/) that was c"
+    },
+    {
       "number": "2.2.2",
       "date": "2026-01-27",
       "changelogFile": "changelogs/v2.2.2.md",
@@ -210,6 +220,6 @@
       "file": "fraction-worksheet-v1.0.0.html"
     }
   ],
-  "currentVersion": "2.2.2",
+  "currentVersion": "2.2.3",
   "lastUpdated": "2026-01-27"
 }
