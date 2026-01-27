@@ -247,10 +247,10 @@ export function createVersionSelector() {
     });
 
     select.addEventListener('change', (e) => {
-        const selectedVersion = e.target.value;
-        // Show changelog for the selected version instead of navigating
-        if (selectedVersion) {
-            showChangelog(selectedVersion);
+        const selectedVersion = versions.find(v => v.number === e.target.value);
+        if (selectedVersion && selectedVersion.file) {
+            // Navigate to the version file
+            window.location.href = selectedVersion.file;
         }
     });
 
