@@ -2,3 +2,6 @@ node_modules/
 *.log
 .DS_Store
 .env
+
+# Version System
+version-system/node_modules/

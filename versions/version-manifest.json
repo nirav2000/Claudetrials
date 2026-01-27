@@ -2,6 +2,136 @@
   "current": "2.1.0",
   "versions": [
     {
+      "number": "2.14.0",
+      "date": "2026-01-27",
+      "changelogFile": "changelogs/v2.14.0.md",
+      "type": "minor",
+      "description": "Add comprehensive self-contained auto-versioning system",
+      "file": "fraction-worksheet-v2.14.0.html",
+      "path": "versions/v2.14.0/index.html",
+      "commit": "feat: Add comprehensive self-contained auto-versioning system\n\n- Created complete version-system mod"
+    },
+    {
+      "number": "2.13.0",
+      "date": "2026-01-27",
+      "changelogFile": "changelogs/v2.13.0.md",
+      "type": "minor",
+      "description": "Add comprehensive self-contained auto-versioning system",
+      "file": "fraction-worksheet-v2.13.0.html",
+      "path": "versions/v2.13.0/index.html",
+      "commit": "feat: Add comprehensive self-contained auto-versioning system\n\n- Created complete version-system mod"
+    },
+    {
+      "number": "2.12.0",
+      "date": "2026-01-27",
+      "changelogFile": "changelogs/v2.12.0.md",
+      "type": "minor",
+      "description": "Add comprehensive self-contained auto-versioning system",
+      "file": "fraction-worksheet-v2.12.0.html",
+      "path": "versions/v2.12.0/index.html",
+      "commit": "feat: Add comprehensive self-contained auto-versioning system\n\n- Created complete version-system mod"
+    },
+    {
+      "number": "2.11.0",
+      "date": "2026-01-27",
+      "changelogFile": "changelogs/v2.11.0.md",
+      "type": "minor",
+      "description": "Add comprehensive self-contained auto-versioning system",
+      "file": "fraction-worksheet-v2.11.0.html",
+      "path": "versions/v2.11.0/index.html",
+      "commit": "feat: Add comprehensive self-contained auto-versioning system\n\n- Created complete version-system mod"
+    },
+    {
+      "number": "2.10.0",
+      "date": "2026-01-27",
+      "changelogFile": "changelogs/v2.10.0.md",
+      "type": "minor",
+      "description": "Add comprehensive self-contained auto-versioning system",
+      "file": "fraction-worksheet-v2.10.0.html",
+      "path": "versions/v2.10.0/index.html",
+      "commit": "feat: Add comprehensive self-contained auto-versioning system\n\n- Created complete version-system mod"
+    },
+    {
+      "number": "2.9.0",
+      "date": "2026-01-27",
+      "changelogFile": "changelogs/v2.9.0.md",
+      "type": "minor",
+      "description": "Add comprehensive self-contained auto-versioning system",
+      "file": "fraction-worksheet-v2.9.0.html",
+      "path": "versions/v2.9.0/index.html",
+      "commit": "feat: Add comprehensive self-contained auto-versioning system\n\n- Created complete version-system mod"
+    },
+    {
+      "number": "2.8.0",
+      "date": "2026-01-27",
+      "changelogFile": "changelogs/v2.8.0.md",
+      "type": "minor",
+      "description": "Add comprehensive self-contained auto-versioning system",
+      "file": "fraction-worksheet-v2.8.0.html",
+      "path": "versions/v2.8.0/index.html",
+      "commit": "feat: Add comprehensive self-contained auto-versioning system\n\n- Created complete version-system mod"
+    },
+    {
+      "number": "2.7.0",
+      "date": "2026-01-27",
+      "changelogFile": "changelogs/v2.7.0.md",
+      "type": "minor",
+      "description": "Add comprehensive self-contained auto-versioning system",
+      "file": "fraction-worksheet-v2.7.0.html",
+      "path": "versions/v2.7.0/index.html",
+      "commit": "feat: Add comprehensive self-contained auto-versioning system\n\n- Created complete version-system mod"
+    },
+    {
+      "number": "2.6.0",
+      "date": "2026-01-27",
+      "changelogFile": "changelogs/v2.6.0.md",
+      "type": "minor",
+      "description": "Add comprehensive self-contained auto-versioning system",
+      "file": "fraction-worksheet-v2.6.0.html",
+      "path": "versions/v2.6.0/index.html",
+      "commit": "feat: Add comprehensive self-contained auto-versioning system\n\n- Created complete version-system mod"
+    },
+    {
+      "number": "2.5.0",
+      "date": "2026-01-27",
+      "changelogFile": "changelogs/v2.5.0.md",
+      "type": "minor",
+      "description": "Add comprehensive self-contained auto-versioning system",
+      "file": "fraction-worksheet-v2.5.0.html",
+      "path": "versions/v2.5.0/index.html",
+      "commit": "feat: Add comprehensive self-contained auto-versioning system\n\n- Created complete version-system mod"
+    },
+    {
+      "number": "2.4.0",
+      "date": "2026-01-27",
+      "changelogFile": "changelogs/v2.4.0.md",
+      "type": "minor",
+      "description": "Add comprehensive self-contained auto-versioning system",
+      "file": "fraction-worksheet-v2.4.0.html",
+      "path": "versions/v2.4.0/index.html",
+      "commit": "feat: Add comprehensive self-contained auto-versioning system\n\n- Created complete version-system mod"
+    },
+    {
+      "number": "2.3.0",
+      "date": "2026-01-27",
+      "changelogFile": "changelogs/v2.3.0.md",
+      "type": "minor",
+      "description": "Add comprehensive self-contained auto-versioning system",
+      "file": "fraction-worksheet-v2.3.0.html",
+      "path": "versions/v2.3.0/index.html",
+      "commit": "feat: Add comprehensive self-contained auto-versioning system\n\n- Created complete version-system mod"
+    },
+    {
+      "number": "2.2.0",
+      "date": "2026-01-27",
+      "changelogFile": "changelogs/v2.2.0.md",
+      "type": "minor",
+      "description": "Add comprehensive self-contained auto-versioning system",
+      "file": "fraction-worksheet-v2.2.0.html",
+      "path": "versions/v2.2.0/index.html",
+      "commit": "feat: Add comprehensive self-contained auto-versioning system\n\n- Created complete version-system mod"
+    },
+    {
       "number": "2.1.0",
       "date": "2026-01-27",
       "changelogFile": "changelogs/v2.1.0.md",
@@ -179,5 +309,7 @@
       "description": "Initial release",
       "file": "fraction-worksheet-v1.0.0.html"
     }
-  ]
+  ],
+  "currentVersion": "2.14.0",
+  "lastUpdated": "2026-01-27"
 }

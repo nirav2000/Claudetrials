@@ -1,0 +1,64 @@
+#!/bin/bash
+
+##
+# Post-Commit Hook - Auto-Versioning
+#
+# This hook runs after a commit is made and automatically:
+# 1. Analyzes the commit message
+# 2. Bumps the version if needed
+# 3. Updates all version references
+# 4. Archives the version
+# 5. Generates changelog
+# 6. Amends the commit with version changes
+##
+
+# Exit on error
+set -e
+
+# Get the directory of this script
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PROJECT_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
+
+# Check if auto-versioning is enabled
+AUTO_VERSION_SCRIPT="$PROJECT_ROOT/version-system/scripts/auto-version.js"
+
+if [ ! -f "$AUTO_VERSION_SCRIPT" ]; then
+  echo "⚠️  Auto-version script not found at: $AUTO_VERSION_SCRIPT"
+  exit 0
+fi
+
+# Check if this is a version bump commit (avoid recursive triggering)
+LAST_COMMIT_MSG=$(git log -1 --pretty=%B)
+if [[ "$LAST_COMMIT_MSG" == *"chore: bump version"* ]] || [[ "$LAST_COMMIT_MSG" == *"[skip-version]"* ]] || [[ "$LAST_COMMIT_MSG" == *"[auto-versioned]"* ]]; then
+  echo "⏭️  Skipping auto-version for version bump commit"
+  exit 0
+fi
+
+# Run auto-versioner
+echo "🔄 Running auto-versioner..."
+node "$AUTO_VERSION_SCRIPT"
+
+# Check if any files were changed
+if [ -z "$(git status --porcelain)" ]; then
+  echo "✓ No version changes needed"
+  exit 0
+fi
+
+# Stage the version changes
+echo "📝 Staging version changes..."
+git add -A
+
+# Amend the commit with version changes (add [auto-versioned] to prevent recursion)
+echo "🔄 Amending commit with version changes..."
+COMMIT_MSG=$(git log -1 --pretty=%B)
+if [[ "$COMMIT_MSG" != *"[auto-versioned]"* ]]; then
+  git commit --amend -m "$COMMIT_MSG
+
+[auto-versioned]" --no-verify
+else
+  echo "  ℹ️  Commit already marked as auto-versioned, skipping amend"
+fi
+
+echo "✅ Version updated and committed!"
+
+exit 0
