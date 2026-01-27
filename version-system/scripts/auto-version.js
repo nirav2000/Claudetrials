@@ -193,7 +193,8 @@ function updateManifest(newVersion, type, description, commitMessage) {
   manifest.versions = manifest.versions || [];
   manifest.versions.unshift(newEntry); // Add to beginning
 
-  // Update current version
+  // Update current version (both fields for compatibility)
+  manifest.current = newVersion;
   manifest.currentVersion = newVersion;
   manifest.lastUpdated = date;
 
