@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Auth Library Demo</title>
+
+  <!-- Firebase SDK (Compat version for easier integration) -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+
+  <!-- Auth Library Styles -->
+  <link rel="stylesheet" href="styles/auth-styles.css">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .container {
+      background: white;
+      border-radius: 16px;
+      padding: 40px;
+      max-width: 800px;
+      width: 100%;
+      box-shadow: 0 24px 48px rgba(0, 0, 0, 0.2);
+    }
+
+    h1 {
+      color: #333;
+      margin-bottom: 8px;
+      font-size: 32px;
+    }
+
+    .subtitle {
+      color: #666;
+      margin-bottom: 32px;
+      font-size: 16px;
+    }
+
+    .status-card {
+      background: #f5f5f5;
+      border-radius: 8px;
+      padding: 24px;
+      margin-bottom: 24px;
+    }
+
+    .status-card.authenticated {
+      background: #e8f5e9;
+      border-left: 4px solid #4caf50;
+    }
+
+    .status-label {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #666;
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+
+    .status-value {
+      font-size: 18px;
+      color: #333;
+      font-weight: 500;
+    }
+
+    .user-info {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin-top: 16px;
+    }
+
+    .info-item {
+      background: white;
+      padding: 12px;
+      border-radius: 6px;
+    }
+
+    .info-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      color: #999;
+      margin-bottom: 4px;
+    }
+
+    .info-value {
+      font-size: 14px;
+      color: #333;
+      font-weight: 500;
+      word-break: break-all;
+    }
+
+    .button-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .demo-btn {
+      padding: 14px 24px;
+      border: none;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      background: #673ab7;
+      color: white;
+    }
+
+    .demo-btn:hover {
+      background: #5e35b1;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(103, 58, 183, 0.3);
+    }
+
+    .demo-btn:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .demo-btn.secondary {
+      background: #f5f5f5;
+      color: #333;
+    }
+
+    .demo-btn.secondary:hover {
+      background: #e0e0e0;
+    }
+
+    .demo-btn.danger {
+      background: #f44336;
+      color: white;
+    }
+
+    .demo-btn.danger:hover {
+      background: #d32f2f;
+    }
+
+    .log-container {
+      background: #1e1e1e;
+      color: #00ff00;
+      border-radius: 8px;
+      padding: 16px;
+      max-height: 300px;
+      overflow-y: auto;
+      font-family: 'Courier New', monospace;
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    .log-entry {
+      margin-bottom: 4px;
+    }
+
+    .log-time {
+      color: #999;
+      margin-right: 8px;
+    }
+
+    .section-title {
+      font-size: 20px;
+      color: #333;
+      margin: 32px 0 16px 0;
+      font-weight: 600;
+    }
+
+    .feature-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .feature-list li {
+      padding: 8px 0;
+      padding-left: 24px;
+      position: relative;
+    }
+
+    .feature-list li:before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: #4caf50;
+      font-weight: bold;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 600;
+      background: #673ab7;
+      color: white;
+      margin-left: 8px;
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        padding: 24px;
+      }
+
+      h1 {
+        font-size: 24px;
+      }
+
+      .button-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Authentication Library Demo <span class="badge">v1.0.0</span></h1>
+    <p class="subtitle">Test all authentication features in real-time</p>
+
+    <!-- Status Card -->
+    <div id="status-card" class="status-card">
+      <div class="status-label">Authentication Status</div>
+      <div class="status-value" id="auth-status">Not Authenticated</div>
+
+      <div id="user-info" class="user-info" style="display: none;">
+        <!-- User info will be populated here -->
+      </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="section-title">Actions</div>
+    <div class="button-grid">
+      <button class="demo-btn" id="login-btn">Sign In</button>
+      <button class="demo-btn secondary" id="history-btn" disabled>View Login History</button>
+      <button class="demo-btn secondary" id="suspicious-btn" disabled>Check Suspicious Activity</button>
+      <button class="demo-btn danger" id="logout-btn" disabled>Sign Out</button>
+    </div>
+
+    <!-- Features -->
+    <div class="section-title">Features</div>
+    <ul class="feature-list">
+      <li>Google, Facebook, and Apple social authentication</li>
+      <li>Passwordless email authentication with verification codes</li>
+      <li>Comprehensive login logging (IP, location, device, timestamp)</li>
+      <li>Rate limiting and security features</li>
+      <li>Suspicious activity detection</li>
+      <li>Session management</li>
+      <li>Modern, accessible UI</li>
+    </ul>
+
+    <!-- Console Log -->
+    <div class="section-title">Console Log</div>
+    <div class="log-container" id="log-container">
+      <div class="log-entry">
+        <span class="log-time">[00:00:00]</span>
+        <span>Initializing authentication library...</span>
+      </div>
+    </div>
+  </div>
+
+  <script type="module">
+    import { authManager, authUI } from './index.js';
+
+    // Logging utility
+    function log(message, type = 'info') {
+      const logContainer = document.getElementById('log-container');
+      const time = new Date().toLocaleTimeString();
+      const entry = document.createElement('div');
+      entry.className = 'log-entry';
+      entry.innerHTML = `
+        <span class="log-time">[${time}]</span>
+        <span style="color: ${type === 'error' ? '#ff5555' : type === 'success' ? '#50fa7b' : '#00ff00'}">${message}</span>
+      `;
+      logContainer.appendChild(entry);
+      logContainer.scrollTop = logContainer.scrollHeight;
+    }
+
+    // Update UI based on auth state
+    function updateUI(user) {
+      const statusCard = document.getElementById('status-card');
+      const authStatus = document.getElementById('auth-status');
+      const userInfo = document.getElementById('user-info');
+      const loginBtn = document.getElementById('login-btn');
+      const logoutBtn = document.getElementById('logout-btn');
+      const historyBtn = document.getElementById('history-btn');
+      const suspiciousBtn = document.getElementById('suspicious-btn');
+
+      if (user) {
+        statusCard.classList.add('authenticated');
+        authStatus.textContent = 'Authenticated ✓';
+
+        userInfo.style.display = 'grid';
+        userInfo.innerHTML = `
+          <div class="info-item">
+            <div class="info-label">User ID</div>
+            <div class="info-value">${user.uid}</div>
+          </div>
+          <div class="info-item">
+            <div class="info-label">Email</div>
+            <div class="info-value">${user.email || 'N/A'}</div>
+          </div>
+          <div class="info-item">
+            <div class="info-label">Display Name</div>
+            <div class="info-value">${user.displayName || 'N/A'}</div>
+          </div>
+          <div class="info-item">
+            <div class="info-label">Auth Method</div>
+            <div class="info-value">${user.authMethod || 'Unknown'}</div>
+          </div>
+        `;
+
+        loginBtn.disabled = true;
+        logoutBtn.disabled = false;
+        historyBtn.disabled = false;
+        suspiciousBtn.disabled = false;
+
+      } else {
+        statusCard.classList.remove('authenticated');
+        authStatus.textContent = 'Not Authenticated';
+        userInfo.style.display = 'none';
+
+        loginBtn.disabled = false;
+        logoutBtn.disabled = true;
+        historyBtn.disabled = true;
+        suspiciousBtn.disabled = true;
+      }
+    }
+
+    // Initialize
+    async function init() {
+      try {
+        log('Initializing auth manager...');
+        await authManager.initialize();
+        log('Auth manager initialized successfully!', 'success');
+
+        // Listen for auth state changes
+        authManager.on('authStateChanged', (user) => {
+          if (user) {
+            log(`User signed in: ${user.email || user.uid}`, 'success');
+          } else {
+            log('User signed out', 'info');
+          }
+          updateUI(user);
+        });
+
+        // Check current auth state
+        const currentUser = authManager.getCurrentUser();
+        updateUI(currentUser);
+
+      } catch (error) {
+        log(`Initialization error: ${error.message}`, 'error');
+        console.error(error);
+      }
+    }
+
+    // Event Listeners
+    document.getElementById('login-btn').addEventListener('click', () => {
+      log('Opening authentication modal...');
+
+      authUI.show({
+        title: 'Demo Login',
+        onSuccess: async (user) => {
+          log(`Login successful!`, 'success');
+          log(`User: ${user.email || user.uid}`, 'info');
+
+          // Get login history
+          const history = await authManager.getLoginHistory(5);
+          log(`Retrieved ${history.length} login records`, 'info');
+        },
+        onError: (error) => {
+          log(`Login error: ${error.message}`, 'error');
+        },
+        onClose: () => {
+          log('Authentication modal closed', 'info');
+        }
+      });
+    });
+
+    document.getElementById('logout-btn').addEventListener('click', async () => {
+      log('Signing out...');
+      const result = await authManager.signOut();
+
+      if (result.success) {
+        log('Signed out successfully', 'success');
+      } else {
+        log(`Sign out error: ${result.message}`, 'error');
+      }
+    });
+
+    document.getElementById('history-btn').addEventListener('click', async () => {
+      log('Fetching login history...');
+
+      try {
+        const history = await authManager.getLoginHistory(20);
+        log(`Retrieved ${history.length} login records:`, 'success');
+
+        history.slice(0, 5).forEach((record, index) => {
+          log(`  ${index + 1}. ${record.authMethod} from ${record.location?.city || 'Unknown'} at ${new Date(record.timestamp).toLocaleString()}`, 'info');
+        });
+
+      } catch (error) {
+        log(`Error fetching history: ${error.message}`, 'error');
+      }
+    });
+
+    document.getElementById('suspicious-btn').addEventListener('click', async () => {
+      log('Checking for suspicious activity...');
+
+      try {
+        const result = await authManager.checkSuspiciousActivity();
+
+        if (result.suspicious) {
+          log(`⚠️ SUSPICIOUS ACTIVITY DETECTED!`, 'error');
+          result.flags.forEach(flag => {
+            log(`  - ${flag}`, 'error');
+          });
+        } else {
+          log('No suspicious activity detected', 'success');
+        }
+
+      } catch (error) {
+        log(`Error checking activity: ${error.message}`, 'error');
+      }
+    });
+
+    // Initialize on load
+    init();
+  </script>
+</body>
+</html>

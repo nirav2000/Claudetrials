@@ -1,0 +1,527 @@
+/**
+ * Authentication Library Styles
+ *
+ * Modern, accessible authentication UI styles
+ * Material Design inspired with smooth animations
+ */
+
+/* ==================== Modal Overlay ==================== */
+
+.auth-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  padding: 20px;
+  animation: auth-fade-in 0.3s ease-out;
+}
+
+@keyframes auth-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* ==================== Modal Container ==================== */
+
+.auth-modal {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.2);
+  max-width: 460px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  animation: auth-slide-up 0.3s ease-out;
+}
+
+@keyframes auth-slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ==================== Close Button ==================== */
+
+.auth-modal-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: transparent;
+  border: none;
+  font-size: 32px;
+  line-height: 1;
+  color: #666;
+  cursor: pointer;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  z-index: 1;
+}
+
+.auth-modal-close:hover {
+  background: #f5f5f5;
+  color: #333;
+}
+
+.auth-modal-close:active {
+  transform: scale(0.95);
+}
+
+/* ==================== Modal Content ==================== */
+
+.auth-modal-content {
+  padding: 48px 40px 40px;
+}
+
+/* ==================== Header ==================== */
+
+.auth-header {
+  text-align: center;
+  margin-bottom: 32px;
+}
+
+.auth-header h2 {
+  font-size: 28px;
+  font-weight: 600;
+  color: #1a1a1a;
+  margin: 0 0 12px 0;
+}
+
+.auth-header p {
+  font-size: 15px;
+  color: #666;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.auth-header strong {
+  color: #333;
+  font-weight: 600;
+  word-break: break-all;
+}
+
+/* ==================== Social Buttons ==================== */
+
+.auth-social-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.auth-btn {
+  width: 100%;
+  padding: 14px 24px;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.auth-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.auth-btn:not(:disabled):hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.auth-btn:not(:disabled):active {
+  transform: translateY(0);
+}
+
+/* Google Button */
+.auth-btn-google {
+  background: white;
+  color: #1f1f1f;
+  border: 1.5px solid #dadce0;
+}
+
+.auth-btn-google:hover {
+  background: #f8f9fa;
+  border-color: #c6c6c6;
+}
+
+/* Facebook Button */
+.auth-btn-facebook {
+  background: #1877f2;
+  color: white;
+}
+
+.auth-btn-facebook:hover {
+  background: #166fe5;
+}
+
+/* Apple Button */
+.auth-btn-apple {
+  background: #000;
+  color: white;
+}
+
+.auth-btn-apple:hover {
+  background: #1a1a1a;
+}
+
+/* Primary Button */
+.auth-btn-primary {
+  background: #673ab7;
+  color: white;
+  font-weight: 600;
+}
+
+.auth-btn-primary:hover {
+  background: #5e35b1;
+}
+
+/* Secondary Button */
+.auth-btn-secondary {
+  background: #f5f5f5;
+  color: #333;
+  font-weight: 500;
+}
+
+.auth-btn-secondary:hover {
+  background: #eeeeee;
+}
+
+/* Text Button */
+.auth-btn-text {
+  background: transparent;
+  color: #673ab7;
+  font-weight: 500;
+  padding: 12px 24px;
+}
+
+.auth-btn-text:hover {
+  background: rgba(103, 58, 183, 0.08);
+  transform: none;
+  box-shadow: none;
+}
+
+/* ==================== Divider ==================== */
+
+.auth-divider {
+  position: relative;
+  text-align: center;
+  margin: 24px 0;
+}
+
+.auth-divider::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 1px;
+  background: #e0e0e0;
+}
+
+.auth-divider span {
+  position: relative;
+  background: white;
+  padding: 0 16px;
+  color: #999;
+  font-size: 13px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* ==================== Form Elements ==================== */
+
+.auth-email-form,
+.auth-verify-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.auth-email-form label,
+.auth-verify-form label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: -8px;
+}
+
+.auth-input {
+  width: 100%;
+  padding: 14px 16px;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 15px;
+  color: #333;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+}
+
+.auth-input:focus {
+  outline: none;
+  border-color: #673ab7;
+  box-shadow: 0 0 0 4px rgba(103, 58, 183, 0.1);
+}
+
+.auth-input::placeholder {
+  color: #999;
+}
+
+/* Code Input */
+.auth-code-input {
+  font-size: 24px;
+  text-align: center;
+  letter-spacing: 8px;
+  font-weight: 600;
+  font-family: 'Courier New', monospace;
+}
+
+/* ==================== Error/Success Messages ==================== */
+
+.auth-error {
+  min-height: 0;
+  font-size: 13px;
+  color: #d32f2f;
+  margin: -8px 0 0 0;
+  transition: all 0.3s ease;
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+}
+
+.auth-error-show {
+  max-height: 100px;
+  opacity: 1;
+  margin: -8px 0 4px 0;
+}
+
+.auth-success-show {
+  color: #388e3c;
+  max-height: 100px;
+  opacity: 1;
+  margin: -8px 0 4px 0;
+}
+
+/* ==================== Footer ==================== */
+
+.auth-footer {
+  margin-top: 24px;
+  padding-top: 24px;
+  border-top: 1px solid #f0f0f0;
+  text-align: center;
+}
+
+.auth-footer p {
+  font-size: 12px;
+  color: #999;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* ==================== Loading Spinner ==================== */
+
+.spinner {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: auth-spin 0.6s linear infinite;
+}
+
+.auth-btn-google .spinner,
+.auth-btn-secondary .spinner {
+  border-color: rgba(0, 0, 0, 0.1);
+  border-top-color: #333;
+}
+
+@keyframes auth-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.auth-btn.loading {
+  pointer-events: none;
+}
+
+/* ==================== Responsive Design ==================== */
+
+@media (max-width: 480px) {
+  .auth-modal-content {
+    padding: 40px 24px 32px;
+  }
+
+  .auth-header h2 {
+    font-size: 24px;
+  }
+
+  .auth-btn {
+    padding: 12px 20px;
+    font-size: 14px;
+  }
+
+  .auth-code-input {
+    font-size: 20px;
+    letter-spacing: 6px;
+  }
+
+  .auth-modal-close {
+    top: 16px;
+    right: 16px;
+  }
+}
+
+/* ==================== Dark Mode Support ==================== */
+
+@media (prefers-color-scheme: dark) {
+  .auth-modal {
+    background: #1e1e1e;
+    color: #e0e0e0;
+  }
+
+  .auth-modal-close {
+    color: #aaa;
+  }
+
+  .auth-modal-close:hover {
+    background: #2a2a2a;
+    color: #fff;
+  }
+
+  .auth-header h2 {
+    color: #fff;
+  }
+
+  .auth-header p {
+    color: #aaa;
+  }
+
+  .auth-header strong {
+    color: #e0e0e0;
+  }
+
+  .auth-btn-google {
+    background: #2a2a2a;
+    color: #e0e0e0;
+    border-color: #404040;
+  }
+
+  .auth-btn-google:hover {
+    background: #333;
+    border-color: #555;
+  }
+
+  .auth-btn-secondary {
+    background: #2a2a2a;
+    color: #e0e0e0;
+  }
+
+  .auth-btn-secondary:hover {
+    background: #333;
+  }
+
+  .auth-divider::before {
+    background: #404040;
+  }
+
+  .auth-divider span {
+    background: #1e1e1e;
+    color: #888;
+  }
+
+  .auth-email-form label,
+  .auth-verify-form label {
+    color: #e0e0e0;
+  }
+
+  .auth-input {
+    background: #2a2a2a;
+    border-color: #404040;
+    color: #e0e0e0;
+  }
+
+  .auth-input:focus {
+    border-color: #7e57c2;
+    box-shadow: 0 0 0 4px rgba(126, 87, 194, 0.2);
+  }
+
+  .auth-input::placeholder {
+    color: #666;
+  }
+
+  .auth-footer {
+    border-top-color: #2a2a2a;
+  }
+
+  .auth-footer p {
+    color: #888;
+  }
+}
+
+/* ==================== Accessibility ==================== */
+
+.auth-btn:focus-visible,
+.auth-input:focus-visible,
+.auth-modal-close:focus-visible {
+  outline: 3px solid #673ab7;
+  outline-offset: 2px;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .auth-btn {
+    border: 2px solid currentColor;
+  }
+
+  .auth-input {
+    border-width: 3px;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .auth-modal-overlay,
+  .auth-modal,
+  .auth-btn,
+  .auth-input,
+  .auth-error,
+  .spinner {
+    animation: none;
+    transition: none;
+  }
+
+  .auth-btn:not(:disabled):hover {
+    transform: none;
+  }
+}
