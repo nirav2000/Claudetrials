@@ -323,22 +323,64 @@ class VersionComponent {
 .version-changelog-content h1 {
   color: #1f2937;
   margin-top: 0;
+  padding-bottom: 12px;
+  border-bottom: 3px solid transparent;
+  border-image: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-image-slice: 1;
 }
 
 .version-changelog-content h2 {
   color: #374151;
   margin-top: 24px;
   padding-bottom: 8px;
-  border-bottom: 2px solid #e5e7eb;
+  border-bottom: 2px solid transparent;
+  border-image: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-image-slice: 1;
+}
+
+.version-changelog-content h3 {
+  color: #667eea;
+  font-weight: 600;
+  margin-top: 16px;
 }
 
 .version-changelog-content ul {
-  padding-left: 24px;
+  padding-left: 0;
+  list-style: none;
+  margin: 16px 0;
 }
 
 .version-changelog-content li {
-  margin: 8px 0;
+  margin: 4px 0;
+  padding: 8px 0 8px 32px;
   line-height: 1.6;
+  position: relative;
+  border-left: 3px solid transparent;
+  padding-left: 36px;
+  transition: all 0.2s ease;
+}
+
+.version-changelog-content li:hover {
+  border-left-color: rgba(102, 126, 234, 0.3);
+  background: rgba(102, 126, 234, 0.02);
+}
+
+.version-changelog-content li::before {
+  content: '✓';
+  position: absolute;
+  left: 8px;
+  top: 8px;
+  width: 18px;
+  height: 18px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 600;
+  flex-shrink: 0;
 }
 
 /* Notification */
