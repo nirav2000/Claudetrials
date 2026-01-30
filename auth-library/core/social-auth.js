@@ -24,7 +24,7 @@ export async function signInWithGoogle(auth, db) {
 
   try {
     // Create Google provider
-    const provider = new auth.GoogleAuthProvider();
+    const provider = new firebase.auth.GoogleAuthProvider();
 
     // Add scopes
     authProviders.google.scopes.forEach(scope => {
@@ -42,7 +42,7 @@ export async function signInWithGoogle(auth, db) {
     const credential = result.credential;
 
     // Get additional user info
-    const additionalInfo = auth.getAdditionalUserInfo(result);
+    const additionalInfo = firebase.auth.getAdditionalUserInfo(result);
 
     // Store user data in Firestore
     await db.collection(collections.users).doc(user.uid).set({
@@ -137,7 +137,7 @@ export async function signInWithFacebook(auth, db) {
 
   try {
     // Create Facebook provider
-    const provider = new auth.FacebookAuthProvider();
+    const provider = new firebase.auth.FacebookAuthProvider();
 
     // Add scopes
     authProviders.facebook.scopes.forEach(scope => {
@@ -158,7 +158,7 @@ export async function signInWithFacebook(auth, db) {
     const accessToken = credential?.accessToken;
 
     // Get additional user info
-    const additionalInfo = auth.getAdditionalUserInfo(result);
+    const additionalInfo = firebase.auth.getAdditionalUserInfo(result);
 
     // Store user data in Firestore
     await db.collection(collections.users).doc(user.uid).set({
@@ -243,7 +243,7 @@ export async function signInWithApple(auth, db) {
 
   try {
     // Create Apple provider
-    const provider = new auth.OAuthProvider('apple.com');
+    const provider = new firebase.auth.OAuthProvider('apple.com');
 
     // Add scopes
     authProviders.apple.scopes.forEach(scope => {
@@ -261,7 +261,7 @@ export async function signInWithApple(auth, db) {
     const credential = result.credential;
 
     // Get additional user info
-    const additionalInfo = auth.getAdditionalUserInfo(result);
+    const additionalInfo = firebase.auth.getAdditionalUserInfo(result);
 
     // Apple provides user info only on first sign-in
     const displayName = user.displayName ||
@@ -350,13 +350,13 @@ export async function linkProvider(user, providerType, auth, db) {
 
     switch (providerType) {
       case 'google':
-        provider = new auth.GoogleAuthProvider();
+        provider = new firebase.auth.GoogleAuthProvider();
         break;
       case 'facebook':
-        provider = new auth.FacebookAuthProvider();
+        provider = new firebase.auth.FacebookAuthProvider();
         break;
       case 'apple':
-        provider = new auth.OAuthProvider('apple.com');
+        provider = new firebase.auth.OAuthProvider('apple.com');
         break;
       default:
         return {
@@ -370,7 +370,7 @@ export async function linkProvider(user, providerType, auth, db) {
 
     // Update user document
     await db.collection(collections.users).doc(user.uid).update({
-      linkedProviders: auth.FieldValue.arrayUnion(providerType),
+      linkedProviders: firebase.firestore.FieldValue.arrayUnion(providerType),
       lastUpdatedAt: new Date().toISOString()
     });
 
@@ -422,7 +422,7 @@ export async function unlinkProvider(user, providerId, db) {
 
     // Update user document
     await db.collection(collections.users).doc(user.uid).update({
-      linkedProviders: auth.FieldValue.arrayRemove(providerId.split('.')[0]),
+      linkedProviders: firebase.firestore.FieldValue.arrayRemove(providerId.split('.')[0]),
       lastUpdatedAt: new Date().toISOString()
     });
 
