@@ -1,6 +1,16 @@
 {
-  "current": "2.5.4",
+  "current": "2.5.5",
   "versions": [
+    {
+      "number": "2.5.5",
+      "date": "2026-01-30",
+      "changelogFile": "changelogs/v2.5.5.md",
+      "type": "patch",
+      "description": "Make app fully functional without auth + add visible error messages",
+      "file": "fraction-worksheet-v2.5.5.html",
+      "path": "versions/v2.5.5/index.html",
+      "commit": "fix: Make app fully functional without auth + add visible error messages\n\nCritical fixes for iPad/mo"
+    },
     {
       "number": "2.5.4",
       "date": "2026-01-30",
@@ -360,6 +370,6 @@
       "file": "fraction-worksheet-v1.0.0.html"
     }
   ],
-  "currentVersion": "2.5.4",
+  "currentVersion": "2.5.5",
   "lastUpdated": "2026-01-30"
 }
