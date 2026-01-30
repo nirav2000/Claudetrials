@@ -45,25 +45,45 @@ export async function signInWithGoogle(auth, db) {
     const additionalInfo = firebase.auth.getAdditionalUserInfo(result);
 
     // Store user data in Firestore
-    await db.collection(collections.users).doc(user.uid).set({
-      uid: user.uid,
-      email: user.email,
-      displayName: user.displayName,
-      photoURL: user.photoURL,
-      emailVerified: user.emailVerified,
-      authMethod: 'google',
-      providerId: credential?.providerId || 'google.com',
-      isNewUser: additionalInfo?.isNewUser || false,
-      profile: additionalInfo?.profile || {},
-      createdAt: additionalInfo?.isNewUser ? new Date().toISOString() : undefined,
-      lastLoginAt: new Date().toISOString()
-    }, { merge: true });
+    try {
+      await db.collection(collections.users).doc(user.uid).set({
+        uid: user.uid,
+        email: user.email,
+        displayName: user.displayName,
+        photoURL: user.photoURL,
+        emailVerified: user.emailVerified,
+        authMethod: 'google',
+        providerId: credential?.providerId || 'google.com',
+        isNewUser: additionalInfo?.isNewUser || false,
+        profile: additionalInfo?.profile || {},
+        createdAt: additionalInfo?.isNewUser ? new Date().toISOString() : undefined,
+        lastLoginAt: new Date().toISOString()
+      }, { merge: true });
+
+      console.log('User data saved to Firestore successfully');
+    } catch (firestoreError) {
+      console.error('Failed to save user data to Firestore:', firestoreError);
+
+      // Check if it's a permission error
+      if (firestoreError.code === 'permission-denied') {
+        console.error('⚠️ Firestore permission denied. Please check your Firestore security rules.');
+        console.error('Make sure the rules allow authenticated users to write to their own user document.');
+      }
+
+      // Continue with login even if Firestore write fails
+      // The user is authenticated in Firebase Auth, just not saved to Firestore
+    }
 
     // Log successful login
-    await logSuccessfulLogin(user, 'google', db, {
-      appName: 'Auth Library',
-      isNewUser: additionalInfo?.isNewUser
-    });
+    try {
+      await logSuccessfulLogin(user, 'google', db, {
+        appName: 'Auth Library',
+        isNewUser: additionalInfo?.isNewUser
+      });
+    } catch (logError) {
+      console.warn('Failed to log successful login:', logError);
+      // Don't fail the entire login if logging fails
+    }
 
     return {
       success: true,
@@ -161,25 +181,38 @@ export async function signInWithFacebook(auth, db) {
     const additionalInfo = firebase.auth.getAdditionalUserInfo(result);
 
     // Store user data in Firestore
-    await db.collection(collections.users).doc(user.uid).set({
-      uid: user.uid,
-      email: user.email,
-      displayName: user.displayName,
-      photoURL: user.photoURL,
-      emailVerified: user.emailVerified,
-      authMethod: 'facebook',
-      providerId: credential?.providerId || 'facebook.com',
-      isNewUser: additionalInfo?.isNewUser || false,
-      profile: additionalInfo?.profile || {},
-      createdAt: additionalInfo?.isNewUser ? new Date().toISOString() : undefined,
-      lastLoginAt: new Date().toISOString()
-    }, { merge: true });
+    try {
+      await db.collection(collections.users).doc(user.uid).set({
+        uid: user.uid,
+        email: user.email,
+        displayName: user.displayName,
+        photoURL: user.photoURL,
+        emailVerified: user.emailVerified,
+        authMethod: 'facebook',
+        providerId: credential?.providerId || 'facebook.com',
+        isNewUser: additionalInfo?.isNewUser || false,
+        profile: additionalInfo?.profile || {},
+        createdAt: additionalInfo?.isNewUser ? new Date().toISOString() : undefined,
+        lastLoginAt: new Date().toISOString()
+      }, { merge: true });
+
+      console.log('User data saved to Firestore successfully');
+    } catch (firestoreError) {
+      console.error('Failed to save user data to Firestore:', firestoreError);
+      if (firestoreError.code === 'permission-denied') {
+        console.error('⚠️ Firestore permission denied. Please check your Firestore security rules.');
+      }
+    }
 
     // Log successful login
-    await logSuccessfulLogin(user, 'facebook', db, {
-      appName: 'Auth Library',
-      isNewUser: additionalInfo?.isNewUser
-    });
+    try {
+      await logSuccessfulLogin(user, 'facebook', db, {
+        appName: 'Auth Library',
+        isNewUser: additionalInfo?.isNewUser
+      });
+    } catch (logError) {
+      console.warn('Failed to log successful login:', logError);
+    }
 
     return {
       success: true,
@@ -270,25 +303,38 @@ export async function signInWithApple(auth, db) {
                        'Apple User';
 
     // Store user data in Firestore
-    await db.collection(collections.users).doc(user.uid).set({
-      uid: user.uid,
-      email: user.email,
-      displayName: displayName,
-      photoURL: user.photoURL,
-      emailVerified: user.emailVerified,
-      authMethod: 'apple',
-      providerId: credential?.providerId || 'apple.com',
-      isNewUser: additionalInfo?.isNewUser || false,
-      profile: additionalInfo?.profile || {},
-      createdAt: additionalInfo?.isNewUser ? new Date().toISOString() : undefined,
-      lastLoginAt: new Date().toISOString()
-    }, { merge: true });
+    try {
+      await db.collection(collections.users).doc(user.uid).set({
+        uid: user.uid,
+        email: user.email,
+        displayName: displayName,
+        photoURL: user.photoURL,
+        emailVerified: user.emailVerified,
+        authMethod: 'apple',
+        providerId: credential?.providerId || 'apple.com',
+        isNewUser: additionalInfo?.isNewUser || false,
+        profile: additionalInfo?.profile || {},
+        createdAt: additionalInfo?.isNewUser ? new Date().toISOString() : undefined,
+        lastLoginAt: new Date().toISOString()
+      }, { merge: true });
+
+      console.log('User data saved to Firestore successfully');
+    } catch (firestoreError) {
+      console.error('Failed to save user data to Firestore:', firestoreError);
+      if (firestoreError.code === 'permission-denied') {
+        console.error('⚠️ Firestore permission denied. Please check your Firestore security rules.');
+      }
+    }
 
     // Log successful login
-    await logSuccessfulLogin(user, 'apple', db, {
-      appName: 'Auth Library',
-      isNewUser: additionalInfo?.isNewUser
-    });
+    try {
+      await logSuccessfulLogin(user, 'apple', db, {
+        appName: 'Auth Library',
+        isNewUser: additionalInfo?.isNewUser
+      });
+    } catch (logError) {
+      console.warn('Failed to log successful login:', logError);
+    }
 
     return {
       success: true,

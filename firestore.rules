@@ -14,7 +14,10 @@ service cloud.firestore {
     // Users collection - users can read/write their own data
     match /users/{userId} {
       allow read: if isOwner(userId);
-      allow write: if isOwner(userId);
+      // Allow create if the userId matches the authenticated user's UID
+      allow create: if isSignedIn() && userId == request.auth.uid;
+      // Allow update/delete only for own documents
+      allow update, delete: if isOwner(userId);
     }
 
     // Email verification codes - allow write for anyone (needed for signup)
@@ -28,7 +31,10 @@ service cloud.firestore {
     // Login logs - users can read their own logs, system can write
     match /login_logs/{logId} {
       allow read: if isSignedIn() && resource.data.userId == request.auth.uid;
-      allow create: if isSignedIn() && request.resource.data.userId == request.auth.uid;
+      // Allow create if userId matches auth OR if it's a failed login attempt (userId might be null)
+      allow create: if isSignedIn() &&
+        (request.resource.data.userId == request.auth.uid ||
+         request.resource.data.status == 'failure');
     }
 
     // User sessions - users can read/write their own sessions

@@ -57,10 +57,11 @@ export class AuthManager {
         this._notifyListeners('authStateChanged', user);
 
         // Update last seen timestamp
+        // Use set with merge:true to avoid errors when document doesn't exist yet
         if (user) {
-          this.db.collection(collections.users).doc(user.uid).update({
+          this.db.collection(collections.users).doc(user.uid).set({
             lastSeenAt: new Date().toISOString()
-          }).catch(err => console.error('Failed to update last seen:', err));
+          }, { merge: true }).catch(err => console.error('Failed to update last seen:', err));
         }
       });
 
