@@ -1,6 +1,16 @@
 {
-  "current": "2.6.2",
+  "current": "2.6.3",
   "versions": [
+    {
+      "number": "2.6.3",
+      "date": "2026-01-30",
+      "changelogFile": "changelogs/v2.6.3.md",
+      "type": "patch",
+      "description": "Set up auth event listeners before initialization to catch redirect auth",
+      "file": "fraction-worksheet-v2.6.3.html",
+      "path": "versions/v2.6.3/index.html",
+      "commit": "fix: Set up auth event listeners before initialization to catch redirect auth\n\nCritical fix: Auth st"
+    },
     {
       "number": "2.6.2",
       "date": "2026-01-30",
@@ -490,6 +500,6 @@
       "file": "fraction-worksheet-v1.0.0.html"
     }
   ],
-  "currentVersion": "2.6.2",
+  "currentVersion": "2.6.3",
   "lastUpdated": "2026-01-30"
 }
