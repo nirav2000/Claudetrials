@@ -1,0 +1,39 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Helper functions
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    // Users collection - users can read/write their own data
+    match /users/{userId} {
+      allow read: if isOwner(userId);
+      allow write: if isOwner(userId);
+    }
+
+    // Email verification codes - allow write for anyone (needed for signup)
+    // but only read for the owner
+    match /email_verification_codes/{codeId} {
+      allow create: if true; // Anyone can create (needed for passwordless signup)
+      allow read, update, delete: if isSignedIn() &&
+        resource.data.email == request.auth.token.email;
+    }
+
+    // Login logs - users can read their own logs, system can write
+    match /login_logs/{logId} {
+      allow read: if isSignedIn() && resource.data.userId == request.auth.uid;
+      allow create: if isSignedIn() && request.resource.data.userId == request.auth.uid;
+    }
+
+    // User sessions - users can read/write their own sessions
+    match /user_sessions/{sessionId} {
+      allow read, write: if isSignedIn() && resource.data.userId == request.auth.uid;
+    }
+  }
+}

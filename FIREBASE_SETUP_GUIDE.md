@@ -1,26 +1,41 @@
 # Firebase Setup Guide for Fraction Worksheet App
 
+## 🚨 CRITICAL ISSUE: Firestore Security Rules
+
+If your Firestore database is in **production mode**, you MUST update the security rules or authentication will NOT work!
+
+**👉 See [FIRESTORE_SECURITY_RULES_GUIDE.md](FIRESTORE_SECURITY_RULES_GUIDE.md) for detailed instructions**
+
+---
+
 ## Current Status
 ✅ **Worksheet functionality** - Working
-⚠️ **Email login** - Firestore database not enabled
-⚠️ **Google login** - Google sign-in provider not enabled
+✅ **Firebase configuration** - Set up correctly
+⚠️ **Authentication** - Blocked by Firestore security rules (if in production mode)
 
 ## What You Need to Do in Firebase Console
 
-### 1. Enable Firestore Database
+### 1. Update Firestore Security Rules (CRITICAL!)
 
-**Problem:** "Failed to send verification code" - because Firestore isn't set up
+**Problem:** Authentication fails with "permission denied" or "insufficient permissions"
+
+**Why:** Production mode Firestore databases deny all reads/writes by default
 
 **Fix:**
 1. Go to [Firebase Console](https://console.firebase.google.com/)
 2. Select your project: `fractionworksheet`
-3. In left sidebar, click **"Firestore Database"**
-4. Click **"Create database"**
-5. Choose **"Start in test mode"** (for development)
-6. Select a location (choose closest to you)
-7. Click **"Enable"**
+3. Click **"Firestore Database"** in left sidebar
+4. Click **"Rules"** tab at the top
+5. **Replace all rules** with the content from the `firestore.rules` file in this project
+6. Click **"Publish"**
 
-**Why needed:** Email authentication stores verification codes in Firestore
+**📖 Detailed guide:** See [FIRESTORE_SECURITY_RULES_GUIDE.md](FIRESTORE_SECURITY_RULES_GUIDE.md)
+
+**Why needed:** The authentication system needs to:
+- Store email verification codes
+- Log login attempts
+- Save user data and progress
+- Manage user sessions
 
 ---
 
