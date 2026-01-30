@@ -14,20 +14,12 @@
  */
 
 export const firebaseConfig = {
-  /* apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+  apiKey: "AIzaSyDlev9zW1J_VoqwAkgO25DBm6-tj8HMUdY",
+  authDomain: "fractionworksheet.firebaseapp.com",
   projectId: "fractionworksheet",
-  storageBucket: "YOUR_PROJECT_ID.appspot.com",
-  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-  appId: "YOUR_APP_ID",
-  measurementId: "YOUR_MEASUREMENT_ID" // Optional
-*/
-apiKey: "AIzaSyDlev9zW1J_VoqwAkgO25DBm6-tj8HMUdY",
-    authDomain: "fractionworksheet.firebaseapp.com",
-    projectId: "fractionworksheet",
-    storageBucket: "fractionworksheet.firebasestorage.app",
-    messagingSenderId: "299874880737",
-    appId: "1:299874880737:web:b1882010f008092a29fba0"
+  storageBucket: "fractionworksheet.firebasestorage.app",
+  messagingSenderId: "299874880737",
+  appId: "1:299874880737:web:b1882010f008092a29fba0"
 };
 
 /**
