@@ -1,6 +1,16 @@
 {
-  "current": "2.5.13",
+  "current": "2.5.14",
   "versions": [
+    {
+      "number": "2.5.14",
+      "date": "2026-01-30",
+      "changelogFile": "changelogs/v2.5.14.md",
+      "type": "patch",
+      "description": "Add Firebase v9 compatibility fix documentation",
+      "file": "fraction-worksheet-v2.5.14.html",
+      "path": "versions/v2.5.14/index.html",
+      "commit": "docs: Add Firebase v9 compatibility fix documentation"
+    },
     {
       "number": "2.5.13",
       "date": "2026-01-30",
@@ -450,6 +460,6 @@
       "file": "fraction-worksheet-v1.0.0.html"
     }
   ],
-  "currentVersion": "2.5.13",
+  "currentVersion": "2.5.14",
   "lastUpdated": "2026-01-30"
 }
