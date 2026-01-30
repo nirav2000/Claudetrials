@@ -54,6 +54,11 @@ export const authConfig = {
   modalAnimation: true,
   autoCloseOnAuth: true,
 
+  // Authentication Mode
+  // 'redirect' - Redirects in same tab (recommended, no popup blockers)
+  // 'popup' - Opens popup window (may be blocked or open as new tab)
+  authMode: 'redirect',
+
   // Session Settings
   persistSession: true,
   sessionTimeout: 86400000, // 24 hours in milliseconds

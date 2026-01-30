@@ -1,0 +1,249 @@
+/* Modal Styles */
+
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.modal-overlay.show {
+    display: flex;
+}
+
+.modal-content {
+    background: var(--md-surface);
+    border-radius: 8px;
+    max-width: 800px;
+    max-height: 90vh;
+    width: 100%;
+    overflow: hidden;
+    box-shadow: 0 24px 38px rgba(0,0,0,0.3);
+    display: flex;
+    flex-direction: column;
+    animation: modalSlideIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.modal-header {
+    padding: 20px 24px;
+    border-bottom: 1px solid var(--md-divider);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.modal-header h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    color: var(--md-primary);
+    font-weight: 500;
+}
+
+.modal-close {
+    background: transparent;
+    border: none;
+    font-size: 1.5rem;
+    color: var(--md-text-secondary);
+    cursor: pointer;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.2s;
+    padding: 0;
+    box-shadow: none;
+}
+
+.modal-close:hover {
+    background: var(--md-background);
+    color: var(--md-primary);
+}
+
+.modal-body {
+    padding: 24px;
+    overflow-y: auto;
+    flex: 1;
+}
+
+.modal-footer {
+    padding: 16px 24px;
+    border-top: 1px solid var(--md-divider);
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+}
+
+/* Version Cards Container */
+.version-cards-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* Version Card */
+.version-card {
+    background: var(--md-surface);
+    border: 1px solid var(--md-divider);
+    border-radius: 8px;
+    padding: 20px;
+    transition: all 0.2s ease;
+    cursor: default;
+}
+
+.version-card:hover {
+    border-color: var(--md-primary);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.version-card.current-version {
+    border-color: var(--md-primary);
+    border-width: 2px;
+    background: linear-gradient(135deg, var(--md-surface) 0%, rgba(33, 150, 243, 0.05) 100%);
+}
+
+/* Version Card Header */
+.version-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.version-header-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.version-icon {
+    font-size: 1.5rem;
+    line-height: 1;
+}
+
+.version-title-group {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.version-number {
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--md-text-primary);
+}
+
+.version-date {
+    font-size: 0.875rem;
+    color: var(--md-text-secondary);
+}
+
+/* Version Badges */
+.version-badges {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.badge {
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.badge-current {
+    background: var(--md-primary);
+    color: white;
+}
+
+.badge-major {
+    background: #FF5722;
+    color: white;
+}
+
+.badge-minor {
+    background: #4CAF50;
+    color: white;
+}
+
+.badge-patch {
+    background: #FFC107;
+    color: #333;
+}
+
+/* Version Card Body */
+.version-card-body {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.version-description {
+    margin: 0;
+    color: var(--md-text-secondary);
+    line-height: 1.6;
+}
+
+.expand-version-btn {
+    align-self: flex-start;
+    background: transparent;
+    border: 1px solid var(--md-primary);
+    color: var(--md-primary);
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: all 0.2s;
+}
+
+.expand-version-btn:hover {
+    background: var(--md-primary);
+    color: white;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .modal-content {
+        max-width: 100%;
+        max-height: 100vh;
+        border-radius: 0;
+    }
+
+    .modal-overlay {
+        padding: 0;
+    }
+
+    .version-card-header {
+        flex-direction: column;
+    }
+
+    .version-badges {
+        width: 100%;
+    }
+}

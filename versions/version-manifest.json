@@ -1,6 +1,16 @@
 {
-  "current": "2.5.14",
+  "current": "2.6.0",
   "versions": [
+    {
+      "number": "2.6.0",
+      "date": "2026-01-30",
+      "changelogFile": "changelogs/v2.6.0.md",
+      "type": "minor",
+      "description": "Add redirect-based authentication to avoid popup/new tab issues",
+      "file": "fraction-worksheet-v2.6.0.html",
+      "path": "versions/v2.6.0/index.html",
+      "commit": "feat: Add redirect-based authentication to avoid popup/new tab issues\n\nImplemented redirect-based au"
+    },
     {
       "number": "2.5.14",
       "date": "2026-01-30",
@@ -460,6 +470,6 @@
       "file": "fraction-worksheet-v1.0.0.html"
     }
   ],
-  "currentVersion": "2.5.14",
+  "currentVersion": "2.6.0",
   "lastUpdated": "2026-01-30"
 }

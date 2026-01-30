@@ -14,7 +14,7 @@ import { authManager as authManagerInstance } from './core/auth-manager.js';
 import { authUI as authUIInstance } from './ui/auth-ui.js';
 
 export { AuthManager, authManager } from './core/auth-manager.js';
-export { signInWithGoogle, signInWithFacebook, signInWithApple, linkProvider, unlinkProvider } from './core/social-auth.js';
+export { signInWithGoogle, signInWithFacebook, signInWithApple, linkProvider, unlinkProvider, handleAuthRedirect } from './core/social-auth.js';
 export { sendVerificationCode, verifyCodeAndSignIn, resendVerificationCode, cleanupExpiredCodes } from './core/email-auth.js';
 export {
   logAuthAttempt,

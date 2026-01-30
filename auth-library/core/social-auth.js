@@ -5,11 +5,112 @@
  * using Firebase Authentication providers
  */
 
-import { authProviders, collections } from '../config/firebase-config.js';
+import { authProviders, collections, authConfig } from '../config/firebase-config.js';
 import { logSuccessfulLogin, logFailedLogin } from './auth-logger.js';
 
 // Access Firebase from global scope (loaded via script tag in HTML)
 const firebase = window.firebase;
+
+/**
+ * Handle redirect result after authentication
+ * Should be called on page load to handle redirect flow
+ * @param {Object} auth - Firebase Auth instance
+ * @param {Object} db - Firestore database instance
+ * @returns {Promise<Object>} { success: boolean, user: Object, message: string, hadRedirect: boolean }
+ */
+export async function handleAuthRedirect(auth, db) {
+  try {
+    const result = await auth.getRedirectResult();
+
+    // No redirect result (user didn't just authenticate)
+    if (!result || !result.user) {
+      return {
+        success: false,
+        hadRedirect: false,
+        message: 'No redirect result'
+      };
+    }
+
+    const user = result.user;
+    const credential = result.credential;
+    const additionalInfo = result.additionalUserInfo;
+
+    // Determine auth method from credential
+    const providerId = credential?.providerId || 'unknown';
+    let authMethod = 'unknown';
+    if (providerId.includes('google')) authMethod = 'google';
+    else if (providerId.includes('facebook')) authMethod = 'facebook';
+    else if (providerId.includes('apple')) authMethod = 'apple';
+
+    // Store user data in Firestore
+    try {
+      await db.collection(collections.users).doc(user.uid).set({
+        uid: user.uid,
+        email: user.email,
+        displayName: user.displayName,
+        photoURL: user.photoURL,
+        emailVerified: user.emailVerified,
+        authMethod: authMethod,
+        providerId: credential?.providerId || 'unknown',
+        isNewUser: additionalInfo?.isNewUser || false,
+        profile: additionalInfo?.profile || {},
+        createdAt: additionalInfo?.isNewUser ? new Date().toISOString() : undefined,
+        lastLoginAt: new Date().toISOString()
+      }, { merge: true });
+
+      console.log('User data saved to Firestore successfully');
+    } catch (firestoreError) {
+      console.error('Failed to save user data to Firestore:', firestoreError);
+      if (firestoreError.code === 'permission-denied') {
+        console.error('⚠️ Firestore permission denied. Please check your Firestore security rules.');
+      }
+    }
+
+    // Log successful login
+    try {
+      await logSuccessfulLogin(user, authMethod, db, {
+        appName: 'Auth Library',
+        isNewUser: additionalInfo?.isNewUser
+      });
+    } catch (logError) {
+      console.warn('Failed to log successful login:', logError);
+    }
+
+    return {
+      success: true,
+      hadRedirect: true,
+      user: {
+        uid: user.uid,
+        email: user.email,
+        displayName: user.displayName,
+        photoURL: user.photoURL,
+        emailVerified: user.emailVerified,
+        authMethod: authMethod,
+        isNewUser: additionalInfo?.isNewUser
+      },
+      message: `Successfully signed in with ${authMethod}`
+    };
+
+  } catch (error) {
+    console.error('Redirect result error:', error);
+
+    // If there's an error, try to log it
+    try {
+      if (db && error.email) {
+        await logFailedLogin(error.email || 'unknown', 'redirect', error.message, db);
+      }
+    } catch (logError) {
+      console.warn('Failed to log error:', logError);
+    }
+
+    return {
+      success: false,
+      hadRedirect: true,
+      message: error.message || 'Authentication failed',
+      error: error.code
+    };
+  }
+}
 
 /**
  * Sign in with Google
@@ -39,8 +140,22 @@ export async function signInWithGoogle(auth, db) {
       prompt: 'select_account' // Force account selection
     });
 
-    // Sign in with popup
-    const result = await auth.signInWithPopup(provider);
+    // Sign in with redirect (same tab) or popup based on config
+    let result;
+    if (authConfig.authMode === 'redirect') {
+      // Redirect mode: redirects current tab to Google, then back
+      await auth.signInWithRedirect(provider);
+      // Function returns here, actual result handled by getRedirectResult() on page load
+      return {
+        success: true,
+        message: 'Redirecting to Google...',
+        redirecting: true
+      };
+    } else {
+      // Popup mode: opens popup window
+      result = await auth.signInWithPopup(provider);
+    }
+
     const user = result.user;
     const credential = result.credential;
 
@@ -169,11 +284,22 @@ export async function signInWithFacebook(auth, db) {
 
     // Set custom parameters
     provider.setCustomParameters({
-      display: 'popup'
+      display: authConfig.authMode === 'redirect' ? 'page' : 'popup'
     });
 
-    // Sign in with popup
-    const result = await auth.signInWithPopup(provider);
+    // Sign in with redirect (same tab) or popup based on config
+    let result;
+    if (authConfig.authMode === 'redirect') {
+      await auth.signInWithRedirect(provider);
+      return {
+        success: true,
+        message: 'Redirecting to Facebook...',
+        redirecting: true
+      };
+    } else {
+      result = await auth.signInWithPopup(provider);
+    }
+
     const user = result.user;
     const credential = result.credential;
 
@@ -291,8 +417,19 @@ export async function signInWithApple(auth, db) {
       locale: navigator.language || 'en'
     });
 
-    // Sign in with popup
-    const result = await auth.signInWithPopup(provider);
+    // Sign in with redirect (same tab) or popup based on config
+    let result;
+    if (authConfig.authMode === 'redirect') {
+      await auth.signInWithRedirect(provider);
+      return {
+        success: true,
+        message: 'Redirecting to Apple...',
+        redirecting: true
+      };
+    } else {
+      result = await auth.signInWithPopup(provider);
+    }
+
     const user = result.user;
     const credential = result.credential;
 

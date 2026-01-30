@@ -6,7 +6,7 @@
  */
 
 import { firebaseConfig, authConfig, collections } from '../config/firebase-config.js';
-import { signInWithGoogle, signInWithFacebook, signInWithApple, linkProvider, unlinkProvider } from './social-auth.js';
+import { signInWithGoogle, signInWithFacebook, signInWithApple, linkProvider, unlinkProvider, handleAuthRedirect } from './social-auth.js';
 import { sendVerificationCode, verifyCodeAndSignIn, resendVerificationCode, cleanupExpiredCodes } from './email-auth.js';
 import { logLogout, getUserLoginHistory, detectSuspiciousActivity } from './auth-logger.js';
 
@@ -71,6 +71,19 @@ export class AuthManager {
       // Set session persistence
       if (authConfig.persistSession) {
         await this.auth.setPersistence(firebase.auth.Auth.Persistence.LOCAL);
+      }
+
+      // Handle redirect result (if user just authenticated via redirect)
+      if (authConfig.authMode === 'redirect') {
+        const redirectResult = await handleAuthRedirect(this.auth, this.db);
+        if (redirectResult.hadRedirect && redirectResult.success) {
+          console.log('✅ Redirect authentication successful:', redirectResult.user.email);
+          // Notify listeners that redirect auth completed
+          this._notifyListeners('redirectAuthComplete', redirectResult.user);
+        } else if (redirectResult.hadRedirect && !redirectResult.success) {
+          console.error('❌ Redirect authentication failed:', redirectResult.message);
+          this._notifyListeners('redirectAuthError', redirectResult.error);
+        }
       }
 
       // Start periodic cleanup of expired codes (every hour)
