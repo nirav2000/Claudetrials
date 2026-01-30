@@ -1,0 +1,366 @@
+/**
+ * Utility Classes
+ * Common patterns and reusable CSS utilities
+ * Created to reduce duplication across the codebase
+ */
+
+/* ===========================
+   CSS Variables - Shadows
+   =========================== */
+:root {
+    /* Shadow utilities */
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 2px 4px rgba(0, 0, 0, 0.2);
+    --shadow-lg: 0 4px 8px rgba(0, 0, 0, 0.3);
+    --shadow-xl: 0 4px 12px rgba(0, 0, 0, 0.1);
+    --shadow-subtle: 0 1px 3px rgba(0, 0, 0, 0.1);
+
+    /* Transition utilities */
+    --transition-fast: all 0.2s ease;
+    --transition-normal: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-smooth: all 0.3s ease;
+}
+
+/* ===========================
+   Box Shadow Utilities
+   =========================== */
+.shadow-sm { box-shadow: var(--shadow-sm); }
+.shadow-md { box-shadow: var(--shadow-md); }
+.shadow-lg { box-shadow: var(--shadow-lg); }
+.shadow-xl { box-shadow: var(--shadow-xl); }
+.shadow-subtle { box-shadow: var(--shadow-subtle); }
+.shadow-none { box-shadow: none; }
+
+/* Hover shadows */
+.hover\:shadow-md:hover { box-shadow: var(--shadow-md); }
+.hover\:shadow-lg:hover { box-shadow: var(--shadow-lg); }
+.hover\:shadow-xl:hover { box-shadow: var(--shadow-xl); }
+
+/* ===========================
+   Transition Utilities
+   =========================== */
+.transition-fast { transition: var(--transition-fast); }
+.transition-normal { transition: var(--transition-normal); }
+.transition-smooth { transition: var(--transition-smooth); }
+
+/* ===========================
+   Visibility & Display Utilities
+   =========================== */
+/* Hide by default, show when .show is added */
+.hidden-default {
+    display: none;
+}
+
+.hidden-default.show {
+    display: block;
+}
+
+/* Visibility toggle */
+.invisible { visibility: hidden; }
+.visible { visibility: visible; }
+
+/* Collapsible content pattern */
+.collapsible-hidden {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+}
+
+.collapsible-hidden.show {
+    max-height: none;
+    overflow: visible;
+}
+
+/* ===========================
+   Focus State Utilities
+   =========================== */
+/* Standard focus style - consistent across inputs */
+.focus-primary:focus {
+    outline: none;
+    border-color: var(--md-primary);
+    box-shadow: 0 0 0 2px rgba(98, 0, 234, 0.1);
+}
+
+/* Focus visible (keyboard navigation) */
+.focus-visible:focus-visible {
+    outline: 2px solid var(--md-primary);
+    outline-offset: 2px;
+}
+
+/* ===========================
+   Box/Card Utilities
+   =========================== */
+/* Base box style - can be extended with modifiers */
+.box-base {
+    border-radius: 4px;
+    padding: 16px;
+    margin-bottom: 20px;
+}
+
+/* Box with left border accent */
+.box-accent-left {
+    border-left: 4px solid var(--md-primary);
+}
+
+/* Box variations */
+.box-primary {
+    background: #E8EAF6;
+    border-left: 4px solid var(--md-primary);
+}
+
+.box-success {
+    background: #E8F5E9;
+    border-left: 4px solid var(--md-success);
+}
+
+.box-warning {
+    background: #FFF3E0;
+    border-left: 4px solid var(--md-warning);
+}
+
+.box-info {
+    background: #E1F5FE;
+    border-left: 4px solid var(--md-secondary);
+}
+
+.box-danger {
+    background: #FFEBEE;
+    border-left: 4px solid var(--md-danger);
+}
+
+/* ===========================
+   Input Base Styles
+   =========================== */
+/* Common input styling - can be applied to various input types */
+.input-base {
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    background: white;
+    transition: var(--transition-fast);
+}
+
+.input-base:focus {
+    outline: none;
+    border-color: var(--md-primary);
+    box-shadow: 0 0 0 2px rgba(98, 0, 234, 0.1);
+}
+
+.input-base:disabled {
+    background: #f5f5f5;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+/* ===========================
+   State Indicators
+   =========================== */
+.state-correct {
+    background-color: #C8E6C9 !important;
+    border-color: var(--md-success) !important;
+}
+
+.state-incorrect {
+    background-color: #FFCDD2 !important;
+    border-color: var(--md-danger) !important;
+}
+
+.state-pending {
+    background-color: #FFF9C4;
+    border-color: var(--md-warning);
+}
+
+/* ===========================
+   Print Utilities
+   =========================== */
+@media print {
+    .print-hidden,
+    .no-print {
+        display: none !important;
+    }
+
+    .print-visible {
+        display: block !important;
+    }
+
+    .print-break-before {
+        page-break-before: always;
+    }
+
+    .print-break-after {
+        page-break-after: always;
+    }
+
+    .print-no-break {
+        page-break-inside: avoid;
+        break-inside: avoid;
+    }
+}
+
+/* ===========================
+   Spacing Utilities
+   =========================== */
+/* Margin utilities */
+.m-0 { margin: 0; }
+.mt-1 { margin-top: 8px; }
+.mt-2 { margin-top: 16px; }
+.mt-3 { margin-top: 24px; }
+.mb-1 { margin-bottom: 8px; }
+.mb-2 { margin-bottom: 16px; }
+.mb-3 { margin-bottom: 24px; }
+
+/* Padding utilities */
+.p-0 { padding: 0; }
+.p-1 { padding: 8px; }
+.p-2 { padding: 16px; }
+.p-3 { padding: 24px; }
+
+/* ===========================
+   Text Utilities
+   =========================== */
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+
+.text-primary { color: var(--md-primary); }
+.text-success { color: var(--md-success); }
+.text-warning { color: var(--md-warning); }
+.text-danger { color: var(--md-danger); }
+
+.font-bold { font-weight: 700; }
+.font-semibold { font-weight: 600; }
+.font-medium { font-weight: 500; }
+.font-normal { font-weight: 400; }
+
+/* ===========================
+   Flex Utilities
+   =========================== */
+.flex { display: flex; }
+.flex-col { flex-direction: column; }
+.flex-row { flex-direction: row; }
+.flex-wrap { flex-wrap: wrap; }
+.flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.items-center { align-items: center; }
+.justify-center { justify-content: center; }
+.justify-between { justify-content: space-between; }
+
+/* Gap utilities */
+.gap-1 { gap: 8px; }
+.gap-2 { gap: 16px; }
+.gap-3 { gap: 24px; }
+
+/* ===========================
+   Responsive Utilities
+   =========================== */
+@media (max-width: 768px) {
+    .mobile-hidden { display: none; }
+    .mobile-visible { display: block; }
+
+    .mobile-flex-col { flex-direction: column; }
+    .mobile-text-center { text-align: center; }
+
+    /* Responsive spacing */
+    .mobile-p-2 { padding: 16px; }
+    .mobile-mt-2 { margin-top: 16px; }
+}
+
+/* ===========================
+   Accessibility Utilities
+   =========================== */
+/* Screen reader only */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+/* Skip to content link */
+.skip-to-content {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    background: var(--md-primary);
+    color: white;
+    padding: 8px 16px;
+    text-decoration: none;
+    z-index: 100;
+}
+
+.skip-to-content:focus {
+    top: 0;
+}
+
+/* ===========================
+   Animation Utilities
+   =========================== */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fade-in { animation: fadeIn 0.3s ease-in; }
+.animate-fade-out { animation: fadeOut 0.3s ease-out; }
+.animate-slide-down { animation: slideDown 0.3s ease-out; }
+
+/* ===========================
+   Border Utilities
+   =========================== */
+.border { border: 1px solid #ddd; }
+.border-0 { border: none; }
+.border-primary { border-color: var(--md-primary); }
+.border-success { border-color: var(--md-success); }
+
+.rounded { border-radius: 4px; }
+.rounded-lg { border-radius: 8px; }
+.rounded-full { border-radius: 9999px; }
+
+/* ===========================
+   Background Utilities
+   =========================== */
+.bg-white { background-color: white; }
+.bg-gray-light { background-color: #f5f5f5; }
+.bg-primary-light { background-color: #E8EAF6; }
+.bg-success-light { background-color: #E8F5E9; }
+.bg-warning-light { background-color: #FFF3E0; }
+
+/* ===========================
+   Cursor Utilities
+   =========================== */
+.cursor-pointer { cursor: pointer; }
+.cursor-default { cursor: default; }
+.cursor-not-allowed { cursor: not-allowed; }
+
+/* ===========================
+   Z-Index Utilities
+   =========================== */
+.z-0 { z-index: 0; }
+.z-10 { z-index: 10; }
+.z-20 { z-index: 20; }
+.z-30 { z-index: 30; }
+.z-40 { z-index: 40; }
+.z-50 { z-index: 50; }
