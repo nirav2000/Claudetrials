@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Auth Test</title>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+</head>
+<body>
+    <h1>Auth Module Test</h1>
+    <button id="test-btn">Test Sign In Button</button>
+    <div id="status"></div>
+
+    <script type="module">
+        import fractionAppAuth from './js/auth-integration.js';
+
+        const statusEl = document.getElementById('status');
+
+        async function test() {
+            try {
+                statusEl.innerHTML = 'Testing module import...<br>';
+
+                // Test initialization
+                await fractionAppAuth.initialize();
+                statusEl.innerHTML += '✓ Auth initialized<br>';
+
+                // Test button click
+                const btn = document.getElementById('test-btn');
+                btn.addEventListener('click', () => {
+                    statusEl.innerHTML += 'Button clicked!<br>';
+                    fractionAppAuth.showLoginModal();
+                });
+
+                statusEl.innerHTML += '✓ Event listener attached<br>';
+                statusEl.innerHTML += '✓ Ready! Click the button to test.<br>';
+
+            } catch (error) {
+                statusEl.innerHTML += '✗ Error: ' + error.message + '<br>';
+                console.error(error);
+            }
+        }
+
+        test();
+    </script>
+</body>
+</html>

@@ -1,6 +1,16 @@
 {
-  "current": "2.5.3",
+  "current": "2.5.4",
   "versions": [
+    {
+      "number": "2.5.4",
+      "date": "2026-01-30",
+      "changelogFile": "changelogs/v2.5.4.md",
+      "type": "patch",
+      "description": "Resolve module loading issues and make auth non-blocking",
+      "file": "fraction-worksheet-v2.5.4.html",
+      "path": "versions/v2.5.4/index.html",
+      "commit": "fix: Resolve module loading issues and make auth non-blocking\n\nCritical fixes:\n- Fixed default expor"
+    },
     {
       "number": "2.5.3",
       "date": "2026-01-30",
@@ -350,6 +360,6 @@
       "file": "fraction-worksheet-v1.0.0.html"
     }
   ],
-  "currentVersion": "2.5.3",
+  "currentVersion": "2.5.4",
   "lastUpdated": "2026-01-30"
 }
