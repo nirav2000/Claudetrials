@@ -1,6 +1,16 @@
 {
-  "current": "2.6.1",
+  "current": "2.6.2",
   "versions": [
+    {
+      "number": "2.6.2",
+      "date": "2026-01-30",
+      "changelogFile": "changelogs/v2.6.2.md",
+      "type": "patch",
+      "description": "Switch authentication to popup mode and fix UI update after login",
+      "file": "fraction-worksheet-v2.6.2.html",
+      "path": "versions/v2.6.2/index.html",
+      "commit": "fix: Switch authentication to popup mode and fix UI update after login\n\nChanges:\n- Changed authMode "
+    },
     {
       "number": "2.6.1",
       "date": "2026-01-30",
@@ -480,6 +490,6 @@
       "file": "fraction-worksheet-v1.0.0.html"
     }
   ],
-  "currentVersion": "2.6.1",
+  "currentVersion": "2.6.2",
   "lastUpdated": "2026-01-30"
 }

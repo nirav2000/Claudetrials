@@ -347,11 +347,14 @@ export class AuthUI {
       }
 
       if (result.success) {
-        // Success callback
+        // Success callback - pass full result object for proper handling
         if (this.callbacks.onSuccess) {
-          this.callbacks.onSuccess(result.user);
+          this.callbacks.onSuccess(result);
         }
-        this.hide();
+        // Only hide modal if not redirecting (popup mode)
+        if (!result.redirecting) {
+          this.hide();
+        }
       } else {
         // Show error
         this.showError('auth-email-error', result.message);
@@ -455,9 +458,9 @@ export class AuthUI {
       const result = await authManager.verifyEmailCode(this.currentEmail, code);
 
       if (result.success) {
-        // Success callback
+        // Success callback - pass full result object for proper handling
         if (this.callbacks.onSuccess) {
-          this.callbacks.onSuccess(result.user);
+          this.callbacks.onSuccess(result);
         }
         this.hide();
       } else {
