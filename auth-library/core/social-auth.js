@@ -85,7 +85,9 @@ export async function signInWithGoogle(auth, db) {
     // Handle specific errors
     let errorMessage = 'Failed to sign in with Google';
 
-    if (error.code === 'auth/popup-closed-by-user') {
+    if (error.code === 'auth/operation-not-allowed') {
+      errorMessage = 'Google sign-in is not enabled. Please enable it in Firebase Console under Authentication > Sign-in method > Google';
+    } else if (error.code === 'auth/popup-closed-by-user') {
       errorMessage = 'Sign-in popup was closed';
     } else if (error.code === 'auth/popup-blocked') {
       errorMessage = 'Pop-up was blocked by browser. Please allow pop-ups and try again.';
@@ -93,15 +95,23 @@ export async function signInWithGoogle(auth, db) {
       errorMessage = 'Sign-in was cancelled';
     } else if (error.code === 'auth/account-exists-with-different-credential') {
       errorMessage = 'An account already exists with this email using a different sign-in method';
+    } else if (error.code === 'auth/unauthorized-domain') {
+      errorMessage = 'This domain is not authorized. Add it to Firebase Console under Authentication > Settings > Authorized domains';
     }
 
-    // Log failed attempt
-    await logFailedLogin(
-      error.email || 'unknown',
-      'google',
-      error.message,
-      db
-    );
+    // Log failed attempt (if db available)
+    try {
+      if (db) {
+        await logFailedLogin(
+          error.email || 'unknown',
+          'google',
+          error.message,
+          db
+        );
+      }
+    } catch (logError) {
+      console.warn('Failed to log error:', logError);
+    }
 
     return {
       success: false,

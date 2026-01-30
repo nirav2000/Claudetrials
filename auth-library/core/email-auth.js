@@ -81,9 +81,21 @@ export async function sendVerificationCode(email, db) {
 
   } catch (error) {
     console.error('Failed to send verification code:', error);
+
+    let errorMessage = 'Failed to send verification code. ';
+
+    if (error.code === 'permission-denied' || error.message.includes('permission')) {
+      errorMessage += 'Firestore database not enabled. Please enable Firestore in Firebase Console.';
+    } else if (error.code === 'unavailable') {
+      errorMessage += 'Firestore database unavailable. Check your Firebase project setup.';
+    } else {
+      errorMessage += 'Please try again or check Firebase Console.';
+    }
+
     return {
       success: false,
-      message: 'Failed to send verification code. Please try again.'
+      message: errorMessage,
+      error: error.code || error.message
     };
   }
 }

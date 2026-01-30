@@ -1,6 +1,16 @@
 {
-  "current": "2.5.6",
+  "current": "2.5.7",
   "versions": [
+    {
+      "number": "2.5.7",
+      "date": "2026-01-30",
+      "changelogFile": "changelogs/v2.5.7.md",
+      "type": "patch",
+      "description": "Add Firebase setup guide and improve auth error messages",
+      "file": "fraction-worksheet-v2.5.7.html",
+      "path": "versions/v2.5.7/index.html",
+      "commit": "docs: Add Firebase setup guide and improve auth error messages\n\nAdded comprehensive Firebase setup g"
+    },
     {
       "number": "2.5.6",
       "date": "2026-01-30",
@@ -380,6 +390,6 @@
       "file": "fraction-worksheet-v1.0.0.html"
     }
   ],
-  "currentVersion": "2.5.6",
+  "currentVersion": "2.5.7",
   "lastUpdated": "2026-01-30"
 }
