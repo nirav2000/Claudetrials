@@ -1,6 +1,16 @@
 {
-  "current": "2.5.7",
+  "current": "2.5.8",
   "versions": [
+    {
+      "number": "2.5.8",
+      "date": "2026-01-30",
+      "changelogFile": "changelogs/v2.5.8.md",
+      "type": "patch",
+      "description": "Add plan for updating auth library branch with improvements",
+      "file": "fraction-worksheet-v2.5.8.html",
+      "path": "versions/v2.5.8/index.html",
+      "commit": "docs: Add plan for updating auth library branch with improvements"
+    },
     {
       "number": "2.5.7",
       "date": "2026-01-30",
@@ -390,6 +400,6 @@
       "file": "fraction-worksheet-v1.0.0.html"
     }
   ],
-  "currentVersion": "2.5.7",
+  "currentVersion": "2.5.8",
   "lastUpdated": "2026-01-30"
 }
