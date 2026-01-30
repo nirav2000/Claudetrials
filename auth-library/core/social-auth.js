@@ -44,8 +44,8 @@ export async function signInWithGoogle(auth, db) {
     const user = result.user;
     const credential = result.credential;
 
-    // Get additional user info
-    const additionalInfo = firebase.auth.getAdditionalUserInfo(result);
+    // Get additional user info (available directly on result in Firebase v9+)
+    const additionalInfo = result.additionalUserInfo;
 
     // Store user data in Firestore
     try {
@@ -180,8 +180,8 @@ export async function signInWithFacebook(auth, db) {
     // Get access token (can be used to access Facebook API)
     const accessToken = credential?.accessToken;
 
-    // Get additional user info
-    const additionalInfo = firebase.auth.getAdditionalUserInfo(result);
+    // Get additional user info (available directly on result in Firebase v9+)
+    const additionalInfo = result.additionalUserInfo;
 
     // Store user data in Firestore
     try {
@@ -296,8 +296,8 @@ export async function signInWithApple(auth, db) {
     const user = result.user;
     const credential = result.credential;
 
-    // Get additional user info
-    const additionalInfo = firebase.auth.getAdditionalUserInfo(result);
+    // Get additional user info (available directly on result in Firebase v9+)
+    const additionalInfo = result.additionalUserInfo;
 
     // Apple provides user info only on first sign-in
     const displayName = user.displayName ||

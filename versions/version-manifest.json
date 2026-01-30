@@ -1,6 +1,16 @@
 {
-  "current": "2.5.12",
+  "current": "2.5.13",
   "versions": [
+    {
+      "number": "2.5.13",
+      "date": "2026-01-30",
+      "changelogFile": "changelogs/v2.5.13.md",
+      "type": "patch",
+      "description": "Use result.additionalUserInfo instead of firebase.auth.getAdditionalUserInfo",
+      "file": "fraction-worksheet-v2.5.13.html",
+      "path": "versions/v2.5.13/index.html",
+      "commit": "fix: Use result.additionalUserInfo instead of firebase.auth.getAdditionalUserInfo\n\nIn Firebase v9+ ("
+    },
     {
       "number": "2.5.12",
       "date": "2026-01-30",
@@ -440,6 +450,6 @@
       "file": "fraction-worksheet-v1.0.0.html"
     }
   ],
-  "currentVersion": "2.5.12",
+  "currentVersion": "2.5.13",
   "lastUpdated": "2026-01-30"
 }
