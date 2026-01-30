@@ -57,7 +57,7 @@ export const authConfig = {
   // Authentication Mode
   // 'redirect' - Redirects in same tab (recommended, no popup blockers)
   // 'popup' - Opens popup window (triggered from modal, less likely to be blocked)
-  authMode: 'popup',
+  authMode: 'redirect',
 
   // Session Settings
   persistSession: true,
