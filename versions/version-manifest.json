@@ -1,6 +1,16 @@
 {
-  "current": "2.5.2",
+  "current": "2.5.3",
   "versions": [
+    {
+      "number": "2.5.3",
+      "date": "2026-01-30",
+      "changelogFile": "changelogs/v2.5.3.md",
+      "type": "patch",
+      "description": "Initialize authentication system on app startup",
+      "file": "fraction-worksheet-v2.5.3.html",
+      "path": "versions/v2.5.3/index.html",
+      "commit": "fix: Initialize authentication system on app startup\n\nThe authentication module was loaded but never"
+    },
     {
       "number": "2.5.2",
       "date": "2026-01-30",
@@ -340,6 +350,6 @@
       "file": "fraction-worksheet-v1.0.0.html"
     }
   ],
-  "currentVersion": "2.5.2",
+  "currentVersion": "2.5.3",
   "lastUpdated": "2026-01-30"
 }
