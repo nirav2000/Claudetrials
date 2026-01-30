@@ -10,6 +10,9 @@ import { signInWithGoogle, signInWithFacebook, signInWithApple, linkProvider, un
 import { sendVerificationCode, verifyCodeAndSignIn, resendVerificationCode, cleanupExpiredCodes } from './email-auth.js';
 import { logLogout, getUserLoginHistory, detectSuspiciousActivity } from './auth-logger.js';
 
+// Access Firebase from global scope (loaded via script tag in HTML)
+const firebase = window.firebase;
+
 /**
  * Auth Manager Class
  * Central authentication manager for the library
@@ -36,7 +39,7 @@ export class AuthManager {
 
     try {
       // Check if Firebase is loaded
-      if (typeof firebase === 'undefined') {
+      if (typeof window.firebase === 'undefined') {
         throw new Error('Firebase SDK not loaded. Please include Firebase scripts.');
       }
 

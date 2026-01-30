@@ -8,6 +8,9 @@
 import { authProviders, collections } from '../config/firebase-config.js';
 import { logSuccessfulLogin, logFailedLogin } from './auth-logger.js';
 
+// Access Firebase from global scope (loaded via script tag in HTML)
+const firebase = window.firebase;
+
 /**
  * Sign in with Google
  * @param {Object} auth - Firebase Auth instance
