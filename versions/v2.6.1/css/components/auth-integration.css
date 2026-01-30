@@ -1,0 +1,419 @@
+/**
+ * Authentication Integration Styles for Fraction Worksheets App
+ *
+ * Styles for authentication UI integration including user menu, notifications, and modals
+ */
+
+/* ==================== User Menu Styles ==================== */
+
+#auth-user-menu {
+  display: none;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  padding: 8px 16px;
+  border-radius: 8px;
+  transition: background 0.2s ease;
+}
+
+#auth-user-menu:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+#auth-user-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+#auth-user-display-name {
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+}
+
+/* User Dropdown Menu */
+.auth-user-dropdown {
+  position: fixed;
+  z-index: 10001;
+  animation: auth-dropdown-slide 0.2s ease-out;
+}
+
+@keyframes auth-dropdown-slide {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.auth-dropdown-content {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  padding: 12px;
+  min-width: 240px;
+}
+
+.auth-dropdown-header {
+  padding: 12px;
+  border-bottom: 1px solid #e0e0e0;
+  margin-bottom: 8px;
+}
+
+.auth-dropdown-header strong {
+  display: block;
+  font-size: 15px;
+  color: #333;
+  margin-bottom: 4px;
+}
+
+.auth-dropdown-header small {
+  display: block;
+  font-size: 12px;
+  color: #666;
+}
+
+.auth-dropdown-item {
+  width: 100%;
+  padding: 12px 16px;
+  border: none;
+  background: transparent;
+  text-align: left;
+  font-size: 14px;
+  color: #333;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: background 0.2s ease;
+  display: block;
+}
+
+.auth-dropdown-item:hover {
+  background: #f5f5f5;
+}
+
+.auth-dropdown-item:active {
+  background: #e0e0e0;
+}
+
+/* ==================== Notifications ==================== */
+
+.auth-notification {
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  background: white;
+  padding: 16px 24px;
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  z-index: 10002;
+  transform: translateX(400px);
+  transition: transform 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  max-width: 400px;
+  font-size: 14px;
+}
+
+.auth-notification-show {
+  transform: translateX(0);
+}
+
+.auth-notification-success {
+  border-left: 4px solid #4caf50;
+}
+
+.auth-notification-error {
+  border-left: 4px solid #f44336;
+}
+
+.auth-notification-warning {
+  border-left: 4px solid #ff9800;
+}
+
+/* ==================== Feature Indicator ==================== */
+
+.auth-feature-indicator {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background: #673ab7;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 24px;
+  font-size: 13px;
+  font-weight: 500;
+  box-shadow: 0 4px 12px rgba(103, 58, 183, 0.3);
+  z-index: 1000;
+  animation: auth-bounce-in 0.5s ease-out;
+}
+
+@keyframes auth-bounce-in {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ==================== Login History Styles ==================== */
+
+.auth-history-list {
+  max-height: 500px;
+  overflow-y: auto;
+  margin-top: 16px;
+}
+
+.auth-history-item {
+  padding: 16px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  margin-bottom: 12px;
+  transition: all 0.2s ease;
+}
+
+.auth-history-item:hover {
+  border-color: #673ab7;
+  box-shadow: 0 2px 8px rgba(103, 58, 183, 0.1);
+}
+
+.auth-history-item:last-child {
+  margin-bottom: 0;
+}
+
+.auth-history-method {
+  display: inline-block;
+  font-weight: 600;
+  color: #673ab7;
+  text-transform: capitalize;
+  font-size: 14px;
+}
+
+.auth-history-status {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.auth-history-status.success {
+  background: #e8f5e9;
+  color: #2e7d32;
+}
+
+.auth-history-status.failure {
+  background: #ffebee;
+  color: #c62828;
+}
+
+.auth-history-status.pending {
+  background: #fff3e0;
+  color: #e65100;
+}
+
+.auth-history-time {
+  font-size: 13px;
+  color: #666;
+  margin: 8px 0 4px 0;
+}
+
+.auth-history-details {
+  font-size: 12px;
+  color: #999;
+  margin: 4px 0;
+}
+
+.auth-history-ip {
+  font-size: 11px;
+  color: #bbb;
+  font-family: 'Courier New', monospace;
+  margin-top: 4px;
+}
+
+/* ==================== Progress Styles ==================== */
+
+.auth-progress-stat {
+  padding: 16px;
+  background: #f5f5f5;
+  border-radius: 8px;
+  margin-bottom: 12px;
+}
+
+.auth-progress-stat:last-child {
+  margin-bottom: 0;
+}
+
+.auth-progress-label {
+  font-size: 12px;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+}
+
+.auth-progress-value {
+  font-size: 24px;
+  font-weight: 600;
+  color: #333;
+}
+
+/* ==================== Responsive Design ==================== */
+
+@media (max-width: 768px) {
+  .auth-user-dropdown {
+    left: 20px;
+    right: 20px;
+    top: auto !important;
+  }
+
+  .auth-dropdown-content {
+    width: 100%;
+  }
+
+  .auth-notification {
+    top: 16px;
+    right: 16px;
+    left: 16px;
+    max-width: none;
+  }
+
+  .auth-feature-indicator {
+    bottom: 16px;
+    right: 16px;
+    left: 16px;
+    text-align: center;
+  }
+
+  #auth-user-display-name {
+    display: none;
+  }
+}
+
+/* ==================== Dark Mode Support ==================== */
+
+@media (prefers-color-scheme: dark) {
+  #auth-user-menu:hover {
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  #auth-user-display-name {
+    color: #e0e0e0;
+  }
+
+  .auth-dropdown-content {
+    background: #2a2a2a;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  }
+
+  .auth-dropdown-header {
+    border-bottom-color: #404040;
+  }
+
+  .auth-dropdown-header strong {
+    color: #e0e0e0;
+  }
+
+  .auth-dropdown-header small {
+    color: #aaa;
+  }
+
+  .auth-dropdown-item {
+    color: #e0e0e0;
+  }
+
+  .auth-dropdown-item:hover {
+    background: #333;
+  }
+
+  .auth-dropdown-item:active {
+    background: #404040;
+  }
+
+  .auth-notification {
+    background: #2a2a2a;
+    color: #e0e0e0;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+  }
+
+  .auth-history-item {
+    border-color: #404040;
+    background: #1e1e1e;
+  }
+
+  .auth-history-item:hover {
+    border-color: #7e57c2;
+    background: #252525;
+  }
+
+  .auth-history-time {
+    color: #aaa;
+  }
+
+  .auth-history-details {
+    color: #888;
+  }
+
+  .auth-history-ip {
+    color: #666;
+  }
+
+  .auth-progress-stat {
+    background: #2a2a2a;
+  }
+
+  .auth-progress-label {
+    color: #aaa;
+  }
+
+  .auth-progress-value {
+    color: #e0e0e0;
+  }
+}
+
+/* ==================== Accessibility ==================== */
+
+.auth-dropdown-item:focus-visible,
+#auth-user-menu:focus-visible {
+  outline: 3px solid #673ab7;
+  outline-offset: 2px;
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .auth-user-dropdown,
+  .auth-notification,
+  .auth-feature-indicator,
+  .auth-history-item {
+    animation: none;
+    transition: none;
+  }
+
+  .auth-notification-show {
+    transform: translateX(0);
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .auth-dropdown-content,
+  .auth-notification {
+    border: 2px solid currentColor;
+  }
+
+  .auth-history-item {
+    border-width: 2px;
+  }
+}
