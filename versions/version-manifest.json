@@ -1,6 +1,16 @@
 {
-  "current": "2.8.2",
+  "current": "2.8.3",
   "versions": [
+    {
+      "number": "2.8.3",
+      "date": "2026-02-01",
+      "changelogFile": "changelogs/v2.8.3.md",
+      "type": "patch",
+      "description": "Replace flex with line-height for ::before checkboxes and change to green gradient",
+      "file": "fraction-worksheet-v2.8.3.html",
+      "path": "versions/v2.8.3/index.html",
+      "commit": "fix: Replace flex with line-height for ::before checkboxes and change to green gradient\n\n- Replace d"
+    },
     {
       "number": "2.8.2",
       "date": "2026-02-01",
@@ -550,6 +560,6 @@
       "file": "fraction-worksheet-v1.0.0.html"
     }
   ],
-  "currentVersion": "2.8.2",
+  "currentVersion": "2.8.3",
   "lastUpdated": "2026-02-01"
 }

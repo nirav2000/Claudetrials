@@ -372,15 +372,13 @@ class VersionComponent {
   top: 8px;
   width: 18px;
   height: 18px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
   color: white;
   border-radius: 3px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   font-size: 0.75rem;
   font-weight: 600;
-  flex-shrink: 0;
+  line-height: 18px;
+  text-align: center;
 }
 
 /* Notification */
