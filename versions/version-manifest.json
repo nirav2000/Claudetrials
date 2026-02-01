@@ -1,6 +1,16 @@
 {
-  "current": "2.6.4",
+  "current": "2.7.0",
   "versions": [
+    {
+      "number": "2.7.0",
+      "date": "2026-02-01",
+      "changelogFile": "changelogs/v2.7.0.md",
+      "type": "minor",
+      "description": "Add visible on-screen debug panel for iPad users",
+      "file": "fraction-worksheet-v2.7.0.html",
+      "path": "versions/v2.7.0/index.html",
+      "commit": "feat: Add visible on-screen debug panel for iPad users\n\nSince iPad users can't access the browser co"
+    },
     {
       "number": "2.6.4",
       "date": "2026-02-01",
@@ -510,6 +520,6 @@
       "file": "fraction-worksheet-v1.0.0.html"
     }
   ],
-  "currentVersion": "2.6.4",
+  "currentVersion": "2.7.0",
   "lastUpdated": "2026-02-01"
 }
