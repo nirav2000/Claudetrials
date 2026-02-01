@@ -509,11 +509,11 @@
                     </div>
                     <div class="form-group">
                         <label for="customerAddress">Delivery Address *</label>
-                        <textarea id="customerAddress" required placeholder="123 Main St, Apt 4B, City, State, ZIP">Patel's</textarea>
+                        <textarea id="customerAddress" required placeholder="123 Main St, Apt 4B, City, State, ZIP"></textarea>
                     </div>
                     <div class="form-group">
                         <label for="customerNotes">Special Instructions (Optional)</label>
-                        <textarea id="customerNotes" placeholder="Any allergies, preferences, or delivery instructions...">Speedy service will earn a tip!</textarea>
+                        <textarea id="customerNotes" placeholder="Any allergies, preferences, or delivery instructions..."></textarea>
                     </div>
                     <button type="submit" class="submit-order-btn">Place Order</button>
                 </form>
@@ -530,6 +530,15 @@
 
     <script>
         let cart = [];
+
+        // Set default form values
+        function setDefaultFormValues() {
+            document.getElementById('customerAddress').value = "Patel's";
+            document.getElementById('customerNotes').value = "Speedy service will earn a tip!";
+        }
+
+        // Initialize defaults on page load
+        window.addEventListener('DOMContentLoaded', setDefaultFormValues);
 
         function increaseQuantity(button) {
             const input = button.parentElement.querySelector('input');
@@ -607,6 +616,7 @@
 
             cartItemsContainer.innerHTML = cartHTML;
             cartTotalContainer.style.display = 'block';
+            setDefaultFormValues(); // Ensure defaults are set when form becomes visible
         }
 
         function submitOrder(event) {
@@ -640,6 +650,7 @@
             cart = [];
             updateCart();
             document.getElementById('checkoutForm').reset();
+            setDefaultFormValues(); // Restore defaults after reset
 
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
