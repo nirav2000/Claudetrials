@@ -13,7 +13,7 @@ const VERSION_CONFIG = {
   /**
    * Current version (auto-updated by the system)
    */
-  currentVersion: '2.8.1',
+  currentVersion: '2.8.2',
 
   /**
    * Path to version manifest file (relative to project root)
