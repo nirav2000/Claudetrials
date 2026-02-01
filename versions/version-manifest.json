@@ -1,6 +1,16 @@
 {
-  "current": "2.6.3",
+  "current": "2.6.4",
   "versions": [
+    {
+      "number": "2.6.4",
+      "date": "2026-02-01",
+      "changelogFile": "changelogs/v2.6.4.md",
+      "type": "patch",
+      "description": "Add comprehensive debugging and robust UI update mechanism for auth",
+      "file": "fraction-worksheet-v2.6.4.html",
+      "path": "versions/v2.6.4/index.html",
+      "commit": "fix: Add comprehensive debugging and robust UI update mechanism for auth\n\nCritical improvements to e"
+    },
     {
       "number": "2.6.3",
       "date": "2026-01-30",
@@ -500,6 +510,6 @@
       "file": "fraction-worksheet-v1.0.0.html"
     }
   ],
-  "currentVersion": "2.6.3",
-  "lastUpdated": "2026-01-30"
+  "currentVersion": "2.6.4",
+  "lastUpdated": "2026-02-01"
 }
