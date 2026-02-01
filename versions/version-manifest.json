@@ -1,6 +1,16 @@
 {
-  "current": "2.8.4",
+  "current": "2.8.5",
   "versions": [
+    {
+      "number": "2.8.5",
+      "date": "2026-02-01",
+      "changelogFile": "changelogs/v2.8.5.md",
+      "type": "patch",
+      "description": "Add comprehensive test report for Fraction Worksheet app",
+      "file": "fraction-worksheet-v2.8.5.html",
+      "path": "versions/v2.8.5/index.html",
+      "commit": "docs: Add comprehensive test report for Fraction Worksheet app\n\n- Complete code analysis of authenti"
+    },
     {
       "number": "2.8.4",
       "date": "2026-02-01",
@@ -570,6 +580,6 @@
       "file": "fraction-worksheet-v1.0.0.html"
     }
   ],
-  "currentVersion": "2.8.4",
+  "currentVersion": "2.8.5",
   "lastUpdated": "2026-02-01"
 }
