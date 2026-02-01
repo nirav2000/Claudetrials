@@ -20,16 +20,21 @@ const firebase = window.firebase;
  */
 export async function handleAuthRedirect(auth, db) {
   try {
+    console.log('🔍 Checking for redirect result...');
     const result = await auth.getRedirectResult();
+    console.log('📋 Redirect result:', result);
 
     // No redirect result (user didn't just authenticate)
     if (!result || !result.user) {
+      console.log('ℹ️ No redirect result found');
       return {
         success: false,
         hadRedirect: false,
         message: 'No redirect result'
       };
     }
+
+    console.log('✅ Redirect result found! User:', result.user.email);
 
     const user = result.user;
     const credential = result.credential;

@@ -198,8 +198,15 @@ class FractionAppAuth {
       await authManager.initialize();
       this.debugLog('authManager.initialize() completed', 'success');
 
+      // CRITICAL: Wait a bit for auth state to settle after redirect
+      // Firebase may need a moment to process the redirect result
+      this.debugLog('⏳ Waiting for auth state to settle...', 'info');
+      await new Promise(resolve => setTimeout(resolve, 1000));
+
       // Double-check current auth state in case we missed the event
       const currentUser = authManager.getCurrentUser();
+      this.debugLog(`🔎 Checking current user after delay...`, 'info');
+
       if (currentUser) {
         this.debugLog(`📋 User found: ${currentUser.email || currentUser.uid}`, 'user');
         this.currentUser = currentUser;
@@ -398,35 +405,40 @@ class FractionAppAuth {
    * Show login modal
    */
   showLoginModal() {
+    this.debugLog('🔑 Sign In button clicked!', 'info');
+
     // Check if auth modules are loaded
     if (!this.authModulesLoaded || !authManager || !authUI) {
+      this.debugLog('❌ Auth modules not loaded', 'error');
       this.showNotification(
         'Authentication system is not available. Authentication modules failed to load.',
         'error',
         5000
       );
-      console.error('Cannot show login modal: Auth modules not loaded');
       return;
     }
+    this.debugLog('✅ Auth modules available', 'success');
 
     // Check if auth manager is initialized
     if (!this.initialized && !authManager.isInitialized()) {
+      this.debugLog('❌ Auth manager not initialized', 'error');
       this.showNotification(
         'Authentication system is not available. Please check your Firebase configuration and refresh the page.',
         'error',
         5000
       );
-      console.error('Cannot show login modal: Authentication not initialized');
       return;
     }
+    this.debugLog('✅ Auth manager initialized', 'success');
 
     try {
+      this.debugLog('📱 Opening auth UI modal...', 'info');
       authUI.show({
         title: 'Sign In to Save Your Progress',
         onSuccess: (result) => {
           // If using redirect mode, the page will redirect away
           if (result.redirecting) {
-            console.log('Redirecting to authentication provider...');
+            this.debugLog('🔀 Redirecting to auth provider...', 'info');
             this.showNotification(
               result.message || 'Redirecting to sign in...',
               'info',
@@ -437,7 +449,7 @@ class FractionAppAuth {
 
           // Popup mode: handle success immediately
           const user = result.user || result;
-          console.log('✅ Login successful in popup mode:', user.email, user.displayName);
+          this.debugLog(`✅ Login successful: ${user.email}`, 'success');
 
           // Update current user
           this.currentUser = user;
@@ -455,12 +467,13 @@ class FractionAppAuth {
           this.loadUserProgress(user.uid);
         },
         onError: (error) => {
-          console.error('Login failed:', error);
+          this.debugLog(`❌ Login failed: ${error.message}`, 'error');
           this.showNotification('Login failed. Please try again.', 'error');
         }
       });
+      this.debugLog('✅ Auth UI modal opened', 'success');
     } catch (error) {
-      console.error('Failed to show login modal:', error);
+      this.debugLog(`❌ Failed to show modal: ${error.message}`, 'error');
       this.showNotification(
         'Failed to open login dialog. Please check your Firebase configuration.',
         'error',
