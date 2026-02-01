@@ -1,6 +1,16 @@
 {
-  "current": "2.8.5",
+  "current": "2.9.0",
   "versions": [
+    {
+      "number": "2.9.0",
+      "date": "2026-02-01",
+      "changelogFile": "changelogs/v2.9.0.md",
+      "type": "minor",
+      "description": "Implement complete worksheet tracking system",
+      "file": "fraction-worksheet-v2.9.0.html",
+      "path": "versions/v2.9.0/index.html",
+      "commit": "feat: Implement complete worksheet tracking system\n\nThis commit adds full worksheet tracking functio"
+    },
     {
       "number": "2.8.5",
       "date": "2026-02-01",
@@ -580,6 +590,6 @@
       "file": "fraction-worksheet-v1.0.0.html"
     }
   ],
-  "currentVersion": "2.8.5",
+  "currentVersion": "2.9.0",
   "lastUpdated": "2026-02-01"
 }

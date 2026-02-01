@@ -41,5 +41,12 @@ service cloud.firestore {
     match /user_sessions/{sessionId} {
       allow read, write: if isSignedIn() && resource.data.userId == request.auth.uid;
     }
+
+    // Worksheets collection - users can read/write their own worksheets
+    match /worksheets/{worksheetId} {
+      allow read: if isSignedIn() && resource.data.userId == request.auth.uid;
+      allow create: if isSignedIn() && request.resource.data.userId == request.auth.uid;
+      allow update, delete: if isSignedIn() && resource.data.userId == request.auth.uid;
+    }
   }
 }
