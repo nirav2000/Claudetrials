@@ -55,9 +55,9 @@ export const authConfig = {
   autoCloseOnAuth: true,
 
   // Authentication Mode
-  // 'redirect' - Redirects in same tab (recommended, no popup blockers)
-  // 'popup' - Opens popup window (triggered from modal, less likely to be blocked)
-  authMode: 'redirect',
+  // 'redirect' - Redirects in same tab (can have issues on iPad/Safari)
+  // 'popup' - Opens popup window (better for mobile, less state issues)
+  authMode: 'popup',
 
   // Session Settings
   persistSession: true,
