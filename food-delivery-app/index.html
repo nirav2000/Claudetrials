@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>K's Home Kitchen - Fresh Homemade Asian Cuisine</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -12,232 +13,369 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 20px;
+            font-family: 'Poppins', sans-serif;
+            background: #f5f5f5;
+            color: #333;
+            overflow-x: hidden;
         }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
+        /* Navigation */
+        nav {
             background: white;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            padding: 20px 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 1.8em;
+            font-weight: 800;
+            background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #FF6B35;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 25px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 107, 53, 0.4);
+        }
+
+        /* Hero Section */
+        .hero {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            min-height: 90vh;
+            background: white;
+            position: relative;
             overflow: hidden;
         }
 
-        header {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            color: white;
-            padding: 40px 20px;
-            text-align: center;
-        }
-
-        header h1 {
-            font-size: 3em;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-        }
-
-        header p {
-            font-size: 1.2em;
-            opacity: 0.95;
-        }
-
-        .chef-intro {
+        .hero-content {
+            padding: 80px 60px;
             display: flex;
-            align-items: center;
+            flex-direction: column;
             justify-content: center;
-            padding: 30px;
-            background: #f8f9fa;
-            border-bottom: 3px solid #f5576c;
         }
 
-        .chef-intro img {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-right: 30px;
-            border: 4px solid #f5576c;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        .hero-content h1 {
+            font-size: 3.5em;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 20px;
         }
 
-        .chef-intro .chef-text h2 {
-            color: #333;
-            margin-bottom: 10px;
+        .hero-content h1 span {
+            background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
-        .chef-intro .chef-text p {
+        .hero-content p {
+            font-size: 1.1em;
             color: #666;
+            margin-bottom: 30px;
             line-height: 1.6;
         }
 
+        .hero-stats {
+            display: flex;
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2em;
+            font-weight: 700;
+            color: #FF6B35;
+        }
+
+        .stat-label {
+            font-size: 0.9em;
+            color: #666;
+        }
+
+        .hero-image {
+            background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .hero-image img {
+            max-width: 80%;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            position: relative;
+            z-index: 2;
+        }
+
+        .floating-element {
+            position: absolute;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .floating-element:nth-child(1) { top: 10%; left: 10%; animation-delay: 0s; }
+        .floating-element:nth-child(2) { top: 20%; right: 10%; animation-delay: 0.5s; }
+        .floating-element:nth-child(3) { bottom: 20%; left: 15%; animation-delay: 1s; }
+        .floating-element:nth-child(4) { bottom: 10%; right: 15%; animation-delay: 1.5s; }
+
+        /* Chef Section */
+        .chef-section {
+            background: white;
+            padding: 80px 60px;
+            display: flex;
+            align-items: center;
+            gap: 60px;
+        }
+
+        .chef-image {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 6px solid #FF6B35;
+            box-shadow: 0 10px 40px rgba(255, 107, 53, 0.3);
+        }
+
+        .chef-content h2 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .chef-content p {
+            color: #666;
+            line-height: 1.8;
+            font-size: 1.1em;
+        }
+
+        /* Video Section */
         .video-section {
-            padding: 40px 20px;
             background: #f8f9fa;
+            padding: 80px 60px;
             text-align: center;
         }
 
         .video-section h2 {
-            color: #333;
-            font-size: 2em;
-            margin-bottom: 20px;
+            font-size: 2.5em;
+            margin-bottom: 40px;
+            font-weight: 700;
         }
 
         .video-section video {
-            max-width: 100%;
-            width: 800px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            max-width: 800px;
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.2);
         }
 
+        /* Menu Section */
         .menu-section {
-            padding: 40px 20px;
+            padding: 80px 60px;
+            background: white;
         }
 
-        .menu-section h2 {
+        .section-title {
             text-align: center;
-            color: #333;
             font-size: 2.5em;
-            margin-bottom: 40px;
+            font-weight: 700;
+            margin-bottom: 60px;
         }
 
         .menu-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-bottom: 40px;
+            gap: 40px;
         }
 
-        .menu-item {
+        .menu-card {
             background: white;
-            border-radius: 15px;
+            border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
             transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
         }
 
-        .menu-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        .menu-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
         }
 
-        .menu-item-image {
+        .menu-card-image {
             width: 100%;
             height: 250px;
             object-fit: cover;
-            display: block;
         }
 
-        .menu-item-content {
-            padding: 20px;
+        .menu-card-content {
+            padding: 25px;
         }
 
-        .menu-item-content h3 {
-            color: #333;
-            font-size: 1.5em;
+        .menu-card-title {
+            font-size: 1.4em;
+            font-weight: 600;
             margin-bottom: 10px;
         }
 
-        .menu-item-content p {
+        .menu-card-description {
             color: #666;
             line-height: 1.6;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
 
-        .menu-item-footer {
+        .menu-card-footer {
             display: flex;
             justify-content: center;
             align-items: center;
-            margin-top: 15px;
+            gap: 15px;
         }
 
         .quantity-control {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 15px;
+            background: #f5f5f5;
+            padding: 8px 15px;
+            border-radius: 25px;
         }
 
-        .quantity-control button {
-            width: 35px;
-            height: 35px;
-            border: none;
-            background: #667eea;
-            color: white;
-            font-size: 1.2em;
+        .quantity-btn {
+            width: 30px;
+            height: 30px;
             border-radius: 50%;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-
-        .quantity-control button:hover {
-            background: #764ba2;
-        }
-
-        .quantity-control input {
-            width: 50px;
-            text-align: center;
-            border: 2px solid #ddd;
-            border-radius: 8px;
-            padding: 5px;
-            font-size: 1em;
-        }
-
-        .add-to-cart-btn {
-            width: 100%;
-            padding: 12px;
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            color: white;
             border: none;
-            border-radius: 8px;
-            font-size: 1.1em;
-            font-weight: bold;
-            cursor: pointer;
-            margin-top: 15px;
-            transition: transform 0.2s;
-        }
-
-        .add-to-cart-btn:hover {
-            transform: scale(1.05);
-        }
-
-        .cart-section {
-            background: #f8f9fa;
-            padding: 40px 20px;
-            border-top: 3px solid #f5576c;
-        }
-
-        .cart-section h2 {
-            text-align: center;
-            color: #333;
-            font-size: 2em;
-            margin-bottom: 30px;
-        }
-
-        .cart-items {
-            max-width: 800px;
-            margin: 0 auto 30px;
-        }
-
-        .cart-item {
             background: white;
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 15px;
+            font-size: 1.2em;
+            cursor: pointer;
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            justify-content: center;
+            transition: background 0.3s;
+            font-weight: 600;
+            color: #FF6B35;
         }
 
-        .cart-item-info {
+        .quantity-btn:hover {
+            background: #FF6B35;
+            color: white;
+        }
+
+        .quantity-input {
+            width: 40px;
+            text-align: center;
+            border: none;
+            background: transparent;
+            font-size: 1.1em;
+            font-weight: 600;
+        }
+
+        .add-to-cart {
+            background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 25px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s;
             flex: 1;
         }
 
+        .add-to-cart:hover {
+            transform: scale(1.05);
+        }
+
+        .add-to-cart.added {
+            background: #28a745;
+        }
+
+        /* Cart Section */
+        .cart-section {
+            background: #f8f9fa;
+            padding: 80px 60px;
+        }
+
+        .cart-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .cart-items {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .cart-item:last-child {
+            border-bottom: none;
+        }
+
         .cart-item-info h4 {
-            color: #333;
+            font-size: 1.2em;
             margin-bottom: 5px;
         }
 
@@ -246,287 +384,360 @@
         }
 
         .remove-btn {
-            padding: 8px 15px;
-            background: #dc3545;
+            background: #ff4444;
             color: white;
+            padding: 8px 20px;
+            border-radius: 20px;
             border: none;
-            border-radius: 6px;
             cursor: pointer;
             transition: background 0.3s;
         }
 
         .remove-btn:hover {
-            background: #c82333;
-        }
-
-        .cart-total {
-            max-width: 800px;
-            margin: 0 auto;
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .cart-total h3 {
-            color: #333;
-            font-size: 1.8em;
-            margin-bottom: 20px;
-            text-align: center;
+            background: #cc0000;
         }
 
         .checkout-form {
-            margin-top: 30px;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .form-title {
+            font-size: 2em;
+            font-weight: 700;
+            margin-bottom: 30px;
+            text-align: center;
         }
 
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
 
         .form-group label {
             display: block;
+            font-weight: 600;
+            margin-bottom: 10px;
             color: #333;
-            font-weight: bold;
-            margin-bottom: 8px;
         }
 
         .form-group input,
         .form-group textarea {
             width: 100%;
-            padding: 12px;
-            border: 2px solid #ddd;
-            border-radius: 8px;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
             font-size: 1em;
-            font-family: inherit;
+            font-family: 'Poppins', sans-serif;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #FF6B35;
         }
 
         .form-group textarea {
             resize: vertical;
-            min-height: 80px;
+            min-height: 100px;
         }
 
-        .submit-order-btn {
+        .submit-btn {
             width: 100%;
-            padding: 15px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
             color: white;
+            padding: 18px;
+            border-radius: 15px;
             border: none;
-            border-radius: 8px;
-            font-size: 1.3em;
-            font-weight: bold;
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
-
-        .submit-order-btn:hover {
-            transform: scale(1.02);
-        }
-
-        .submit-order-btn:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-        }
-
-        .empty-cart-message {
-            text-align: center;
-            color: #666;
             font-size: 1.2em;
-            padding: 40px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(255, 107, 53, 0.4);
         }
 
         .success-message {
-            max-width: 800px;
-            margin: 0 auto 30px;
             background: #d4edda;
             color: #155724;
             padding: 20px;
-            border-radius: 10px;
-            border: 2px solid #c3e6cb;
+            border-radius: 15px;
+            margin-bottom: 30px;
             text-align: center;
             display: none;
+            border: 2px solid #c3e6cb;
         }
 
         .success-message.show {
             display: block;
         }
 
-        footer {
-            background: #333;
-            color: white;
+        .empty-cart {
             text-align: center;
-            padding: 30px 20px;
+            padding: 60px;
+            color: #999;
+            font-size: 1.2em;
+        }
+
+        /* Footer */
+        footer {
+            background: #1a202c;
+            color: white;
+            padding: 60px;
+            text-align: center;
         }
 
         footer p {
-            margin-bottom: 10px;
+            margin-bottom: 15px;
+            opacity: 0.9;
         }
 
-        .spicy-indicator {
-            display: inline-block;
-            color: #ff6b6b;
-            margin-left: 10px;
+        .footer-logo {
+            font-size: 2em;
+            font-weight: 800;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
-        @media (max-width: 768px) {
-            header h1 {
-                font-size: 2em;
+        /* Responsive */
+        @media (max-width: 968px) {
+            nav {
+                padding: 20px 30px;
             }
 
-            .chef-intro {
+            .nav-links {
+                display: none;
+            }
+
+            .hero {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-image {
+                min-height: 400px;
+            }
+
+            .hero-content {
+                padding: 60px 30px;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5em;
+            }
+
+            .chef-section {
                 flex-direction: column;
                 text-align: center;
+                padding: 60px 30px;
             }
 
-            .chef-intro img {
-                margin-right: 0;
-                margin-bottom: 20px;
+            .menu-section,
+            .cart-section,
+            .video-section {
+                padding: 60px 30px;
             }
 
             .menu-grid {
                 grid-template-columns: 1fr;
             }
-
-            .cart-item {
-                flex-direction: column;
-                text-align: center;
-                gap: 15px;
-            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>🍽️ K's Home Kitchen</h1>
-            <p>Authentic Homemade Asian Cuisine Delivered to Your Door</p>
-        </header>
-
-        <div class="chef-intro">
-            <img src="assets/images/chef-k.png" alt="Chef K">
-            <div class="chef-text">
-                <h2>Meet Chef K</h2>
-                <p>Passionate home chef bringing you authentic Asian flavors with a modern twist. Every dish is prepared fresh with love and the finest ingredients. Experience restaurant-quality meals delivered to your home!</p>
-            </div>
+    <!-- Navigation -->
+    <nav>
+        <div class="logo">K's Kitchen</div>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#menu">Menu</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#order">Order</a></li>
+        </ul>
+        <div class="nav-actions">
+            <button class="btn-primary" onclick="scrollToOrder()">Order Now</button>
         </div>
+    </nav>
 
-        <div class="video-section">
-            <h2>Watch Chef K in Action</h2>
-            <video controls>
-                <source src="assets/images/cooking-demo.mov" type="video/mp4">
-                Your browser does not support the video tag.
-            </video>
-        </div>
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>Order your <span>favourite Foods</span></h1>
+            <p>Experience authentic Asian flavors crafted with love. Chef K brings restaurant-quality homemade dishes straight to your door. Fresh ingredients, bold flavors, unforgettable meals.</p>
+            <button class="btn-primary" onclick="scrollToMenu()">View Menu</button>
 
-        <div class="menu-section">
-            <h2>Our Menu</h2>
-            <div class="menu-grid">
-                <div class="menu-item" data-id="1" data-name="Sesame Teriyaki Chicken">
-                    <img src="assets/images/sesame-teriyaki-chicken.jpeg" alt="Sesame Teriyaki Chicken" class="menu-item-image">
-                    <div class="menu-item-content">
-                        <h3>Sesame Teriyaki Chicken</h3>
-                        <p>Tender glazed chicken with sautéed vegetables served over fluffy fried rice, topped with sesame seeds and green onions.</p>
-                        <div class="menu-item-footer">
-                            <div class="quantity-control">
-                                <button onclick="decreaseQuantity(this)">-</button>
-                                <input type="number" value="1" min="1" max="10" readonly>
-                                <button onclick="increaseQuantity(this)">+</button>
-                            </div>
-                        </div>
-                        <button class="add-to-cart-btn" onclick="addToCart(1)">Add to Order</button>
-                    </div>
+            <div class="hero-stats">
+                <div class="stat">
+                    <div class="stat-number">4+</div>
+                    <div class="stat-label">Signature Dishes</div>
                 </div>
-
-                <div class="menu-item" data-id="2" data-name="Orange Sesame Chicken">
-                    <img src="assets/images/orange-sesame-chicken.jpeg" alt="Orange Sesame Chicken" class="menu-item-image">
-                    <div class="menu-item-content">
-                        <h3>Orange Sesame Chicken</h3>
-                        <p>Crispy chicken pieces tossed in a sweet and tangy orange sauce, garnished with fresh green onions and served with vegetable fried rice.</p>
-                        <div class="menu-item-footer">
-                            <div class="quantity-control">
-                                <button onclick="decreaseQuantity(this)">-</button>
-                                <input type="number" value="1" min="1" max="10" readonly>
-                                <button onclick="increaseQuantity(this)">+</button>
-                            </div>
-                        </div>
-                        <button class="add-to-cart-btn" onclick="addToCart(2)">Add to Order</button>
-                    </div>
+                <div class="stat">
+                    <div class="stat-number">100%</div>
+                    <div class="stat-label">Fresh & Homemade</div>
                 </div>
-
-                <div class="menu-item" data-id="3" data-name="Crispy Sweet & Sour Tofu">
-                    <img src="assets/images/crispy-tofu.jpeg" alt="Crispy Sweet & Sour Tofu" class="menu-item-image">
-                    <div class="menu-item-content">
-                        <h3>Crispy Sweet & Sour Tofu</h3>
-                        <p>Golden fried tofu topped with homemade sweet and sour sauce and toasted sesame seeds. Perfect vegetarian option!</p>
-                        <div class="menu-item-footer">
-                            <div class="quantity-control">
-                                <button onclick="decreaseQuantity(this)">-</button>
-                                <input type="number" value="1" min="1" max="10" readonly>
-                                <button onclick="increaseQuantity(this)">+</button>
-                            </div>
-                        </div>
-                        <button class="add-to-cart-btn" onclick="addToCart(3)">Add to Order</button>
-                    </div>
-                </div>
-
-                <div class="menu-item" data-id="4" data-name="Spicy Wok-Fried Chicken">
-                    <img src="assets/images/wok-fried-chicken.jpeg" alt="Spicy Wok-Fried Chicken" class="menu-item-image">
-                    <div class="menu-item-content">
-                        <h3>Spicy Wok-Fried Chicken <span class="spicy-indicator">🌶️🌶️</span></h3>
-                        <p>Crispy chicken stir-fried with colorful bell peppers and onions in a savory-spicy sauce. Served with steamed rice.</p>
-                        <div class="menu-item-footer">
-                            <div class="quantity-control">
-                                <button onclick="decreaseQuantity(this)">-</button>
-                                <input type="number" value="1" min="1" max="10" readonly>
-                                <button onclick="increaseQuantity(this)">+</button>
-                            </div>
-                        </div>
-                        <button class="add-to-cart-btn" onclick="addToCart(4)">Add to Order</button>
-                    </div>
+                <div class="stat">
+                    <div class="stat-number">⭐ 5.0</div>
+                    <div class="stat-label">Customer Rating</div>
                 </div>
             </div>
         </div>
+        <div class="hero-image">
+            <div class="floating-element" style="font-size: 3em;">🥗</div>
+            <div class="floating-element" style="font-size: 2.5em;">🍊</div>
+            <div class="floating-element" style="font-size: 2em;">🌶️</div>
+            <div class="floating-element" style="font-size: 2.5em;">🥕</div>
+            <img src="assets/images/sesame-teriyaki-chicken.jpeg" alt="Featured Dish">
+        </div>
+    </section>
 
-        <div class="cart-section">
-            <h2>Your Order</h2>
+    <!-- Chef Section -->
+    <section class="chef-section" id="about">
+        <img src="assets/images/chef-k.png" alt="Chef K" class="chef-image">
+        <div class="chef-content">
+            <h2>Meet Chef K</h2>
+            <p>Passionate home chef bringing you authentic Asian flavors with a modern twist. Every dish is prepared fresh with love and the finest ingredients. With years of experience perfecting traditional recipes and adding creative innovations, Chef K transforms simple ingredients into extraordinary culinary experiences. From the sizzle of the wok to the perfect balance of flavors, each meal tells a story of dedication and passion for authentic Asian cuisine.</p>
+        </div>
+    </section>
+
+    <!-- Video Section -->
+    <section class="video-section">
+        <h2>Watch Chef K in Action</h2>
+        <video controls>
+            <source src="assets/images/cooking-demo.mov" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </section>
+
+    <!-- Menu Section -->
+    <section class="menu-section" id="menu">
+        <h2 class="section-title">Our Signature Menu</h2>
+        <div class="menu-grid">
+            <div class="menu-card" data-id="1" data-name="Sesame Teriyaki Chicken">
+                <img src="assets/images/sesame-teriyaki-chicken.jpeg" alt="Sesame Teriyaki Chicken" class="menu-card-image">
+                <div class="menu-card-content">
+                    <h3 class="menu-card-title">Sesame Teriyaki Chicken</h3>
+                    <p class="menu-card-description">Tender glazed chicken with sautéed vegetables served over fluffy fried rice, topped with sesame seeds and green onions.</p>
+                    <div class="menu-card-footer">
+                        <div class="quantity-control">
+                            <button class="quantity-btn" onclick="decreaseQuantity(this)">-</button>
+                            <input type="number" value="1" min="1" max="10" readonly class="quantity-input">
+                            <button class="quantity-btn" onclick="increaseQuantity(this)">+</button>
+                        </div>
+                        <button class="add-to-cart" onclick="addToCart(1)">Add to Order</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-card" data-id="2" data-name="Orange Sesame Chicken">
+                <img src="assets/images/orange-sesame-chicken.jpeg" alt="Orange Sesame Chicken" class="menu-card-image">
+                <div class="menu-card-content">
+                    <h3 class="menu-card-title">Orange Sesame Chicken</h3>
+                    <p class="menu-card-description">Crispy chicken pieces tossed in a sweet and tangy orange sauce, garnished with fresh green onions and served with vegetable fried rice.</p>
+                    <div class="menu-card-footer">
+                        <div class="quantity-control">
+                            <button class="quantity-btn" onclick="decreaseQuantity(this)">-</button>
+                            <input type="number" value="1" min="1" max="10" readonly class="quantity-input">
+                            <button class="quantity-btn" onclick="increaseQuantity(this)">+</button>
+                        </div>
+                        <button class="add-to-cart" onclick="addToCart(2)">Add to Order</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-card" data-id="3" data-name="Crispy Sweet & Sour Tofu">
+                <img src="assets/images/crispy-tofu.jpeg" alt="Crispy Sweet & Sour Tofu" class="menu-card-image">
+                <div class="menu-card-content">
+                    <h3 class="menu-card-title">Crispy Sweet & Sour Tofu</h3>
+                    <p class="menu-card-description">Golden fried tofu topped with homemade sweet and sour sauce and toasted sesame seeds. Perfect vegetarian option!</p>
+                    <div class="menu-card-footer">
+                        <div class="quantity-control">
+                            <button class="quantity-btn" onclick="decreaseQuantity(this)">-</button>
+                            <input type="number" value="1" min="1" max="10" readonly class="quantity-input">
+                            <button class="quantity-btn" onclick="increaseQuantity(this)">+</button>
+                        </div>
+                        <button class="add-to-cart" onclick="addToCart(3)">Add to Order</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-card" data-id="4" data-name="Spicy Wok-Fried Chicken">
+                <img src="assets/images/wok-fried-chicken.jpeg" alt="Spicy Wok-Fried Chicken" class="menu-card-image">
+                <div class="menu-card-content">
+                    <h3 class="menu-card-title">Spicy Wok-Fried Chicken 🌶️🌶️</h3>
+                    <p class="menu-card-description">Crispy chicken stir-fried with colorful bell peppers and onions in a savory-spicy sauce. Served with steamed rice.</p>
+                    <div class="menu-card-footer">
+                        <div class="quantity-control">
+                            <button class="quantity-btn" onclick="decreaseQuantity(this)">-</button>
+                            <input type="number" value="1" min="1" max="10" readonly class="quantity-input">
+                            <button class="quantity-btn" onclick="increaseQuantity(this)">+</button>
+                        </div>
+                        <button class="add-to-cart" onclick="addToCart(4)">Add to Order</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cart Section -->
+    <section class="cart-section" id="order">
+        <div class="cart-container">
+            <h2 class="section-title">Your Order</h2>
+
             <div id="successMessage" class="success-message">
                 <h3>✅ Order Submitted Successfully!</h3>
                 <p>Thank you for your order! Chef K will contact you shortly to confirm delivery details.</p>
             </div>
-            <div id="cartItems" class="cart-items">
-                <p class="empty-cart-message">Your cart is empty. Add some delicious items from our menu!</p>
-            </div>
-            <div id="cartTotal" class="cart-total" style="display: none;">
-                <h3>Order Summary</h3>
 
-                <form class="checkout-form" id="checkoutForm" onsubmit="submitOrder(event)">
-                    <div class="form-group">
-                        <label for="customerName">Full Name *</label>
-                        <input type="text" id="customerName" required placeholder="John Doe">
-                    </div>
-                    <div class="form-group">
-                        <label for="customerPhone">Phone Number *</label>
-                        <input type="tel" id="customerPhone" required placeholder="(555) 123-4567">
-                    </div>
-                    <div class="form-group">
-                        <label for="customerAddress">Delivery Address *</label>
-                        <textarea id="customerAddress" required placeholder="123 Main St, Apt 4B, City, State, ZIP"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="customerNotes">Special Instructions (Optional)</label>
-                        <textarea id="customerNotes" placeholder="Any allergies, preferences, or delivery instructions..."></textarea>
-                    </div>
-                    <button type="submit" class="submit-order-btn">Place Order</button>
-                </form>
+            <div id="cartItems">
+                <div class="empty-cart">
+                    🛒 Your cart is empty<br>Add delicious items from our menu!
+                </div>
+            </div>
+
+            <div id="checkoutForm" style="display: none;">
+                <div class="checkout-form">
+                    <h3 class="form-title">Delivery Information</h3>
+                    <form onsubmit="submitOrder(event)">
+                        <div class="form-group">
+                            <label for="customerName">Full Name *</label>
+                            <input type="text" id="customerName" required placeholder="Enter your name">
+                        </div>
+                        <div class="form-group">
+                            <label for="customerPhone">Phone Number *</label>
+                            <input type="tel" id="customerPhone" required placeholder="(555) 123-4567">
+                        </div>
+                        <div class="form-group">
+                            <label for="customerAddress">Delivery Address *</label>
+                            <textarea id="customerAddress" required placeholder="Enter delivery address"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="customerNotes">Special Instructions</label>
+                            <textarea id="customerNotes" placeholder="Any special requests or instructions..."></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn">Place Order 🍽️</button>
+                    </form>
+                </div>
             </div>
         </div>
+    </section>
 
-        <footer>
-            <p><strong>K's Home Kitchen</strong></p>
-            <p>📍 Delivering fresh, homemade Asian cuisine | 📞 Contact: Coming Soon</p>
-            <p>⏰ Available: Tuesday - Sunday, 5:00 PM - 9:00 PM</p>
-            <p style="margin-top: 15px; opacity: 0.8;">© 2026 K's Home Kitchen. Made with ❤️ by Chef K</p>
-        </footer>
-    </div>
+    <!-- Footer -->
+    <footer>
+        <div class="footer-logo">K's Home Kitchen</div>
+        <p><strong>Fresh. Authentic. Homemade.</strong></p>
+        <p>📍 Delivering fresh, homemade Asian cuisine</p>
+        <p>📞 Contact: Coming Soon</p>
+        <p>⏰ Available: Tuesday - Sunday, 5:00 PM - 9:00 PM</p>
+        <p style="margin-top: 30px; opacity: 0.7;">© 2026 K's Home Kitchen. Made with ❤️ by Chef K</p>
+    </footer>
 
     <script>
         let cart = [];
@@ -540,8 +751,16 @@
         // Initialize defaults on page load
         window.addEventListener('DOMContentLoaded', setDefaultFormValues);
 
+        function scrollToMenu() {
+            document.getElementById('menu').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function scrollToOrder() {
+            document.getElementById('order').scrollIntoView({ behavior: 'smooth' });
+        }
+
         function increaseQuantity(button) {
-            const input = button.parentElement.querySelector('input');
+            const input = button.parentElement.querySelector('.quantity-input');
             const currentValue = parseInt(input.value);
             if (currentValue < 10) {
                 input.value = currentValue + 1;
@@ -549,7 +768,7 @@
         }
 
         function decreaseQuantity(button) {
-            const input = button.parentElement.querySelector('input');
+            const input = button.parentElement.querySelector('.quantity-input');
             const currentValue = parseInt(input.value);
             if (currentValue > 1) {
                 input.value = currentValue - 1;
@@ -557,9 +776,9 @@
         }
 
         function addToCart(itemId) {
-            const menuItem = document.querySelector(`.menu-item[data-id="${itemId}"]`);
-            const itemName = menuItem.dataset.name;
-            const quantity = parseInt(menuItem.querySelector('input').value);
+            const menuCard = document.querySelector(`.menu-card[data-id="${itemId}"]`);
+            const itemName = menuCard.dataset.name;
+            const quantity = parseInt(menuCard.querySelector('.quantity-input').value);
 
             const existingItem = cart.find(item => item.id === itemId);
 
@@ -573,16 +792,21 @@
                 });
             }
 
-            menuItem.querySelector('input').value = 1;
+            menuCard.querySelector('.quantity-input').value = 1;
             updateCart();
 
-            const button = menuItem.querySelector('.add-to-cart-btn');
+            const button = menuCard.querySelector('.add-to-cart');
             button.textContent = '✓ Added!';
-            button.style.background = '#28a745';
+            button.classList.add('added');
             setTimeout(() => {
                 button.textContent = 'Add to Order';
-                button.style.background = 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)';
+                button.classList.remove('added');
             }, 1000);
+
+            // Scroll to cart
+            setTimeout(() => {
+                document.getElementById('order').scrollIntoView({ behavior: 'smooth' });
+            }, 500);
         }
 
         function removeFromCart(itemId) {
@@ -592,15 +816,15 @@
 
         function updateCart() {
             const cartItemsContainer = document.getElementById('cartItems');
-            const cartTotalContainer = document.getElementById('cartTotal');
+            const checkoutForm = document.getElementById('checkoutForm');
 
             if (cart.length === 0) {
-                cartItemsContainer.innerHTML = '<p class="empty-cart-message">Your cart is empty. Add some delicious items from our menu!</p>';
-                cartTotalContainer.style.display = 'none';
+                cartItemsContainer.innerHTML = '<div class="empty-cart">🛒 Your cart is empty<br>Add delicious items from our menu!</div>';
+                checkoutForm.style.display = 'none';
                 return;
             }
 
-            let cartHTML = '';
+            let cartHTML = '<div class="cart-items">';
 
             cart.forEach(item => {
                 cartHTML += `
@@ -614,9 +838,11 @@
                 `;
             });
 
+            cartHTML += '</div>';
+
             cartItemsContainer.innerHTML = cartHTML;
-            cartTotalContainer.style.display = 'block';
-            setDefaultFormValues(); // Ensure defaults are set when form becomes visible
+            checkoutForm.style.display = 'block';
+            setDefaultFormValues();
         }
 
         function submitOrder(event) {
@@ -649,8 +875,8 @@
 
             cart = [];
             updateCart();
-            document.getElementById('checkoutForm').reset();
-            setDefaultFormValues(); // Restore defaults after reset
+            document.querySelector('.checkout-form form').reset();
+            setDefaultFormValues();
 
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
