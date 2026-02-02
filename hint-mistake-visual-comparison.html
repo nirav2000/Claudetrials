@@ -1,0 +1,1160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hint & Mistake Box Visual Comparison - v1.x to Current</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #1976D2;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 40px;
+            font-size: 1.1em;
+        }
+
+        .version-section {
+            margin-bottom: 60px;
+            border: 3px solid #ddd;
+            border-radius: 12px;
+            padding: 30px;
+            background: #fafafa;
+        }
+
+        .version-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #2196F3;
+        }
+
+        .version-title {
+            font-size: 2em;
+            color: #1565C0;
+            font-weight: bold;
+        }
+
+        .version-badge {
+            background: linear-gradient(135deg, #2196F3 0%, #1976D2 100%);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: 600;
+        }
+
+        .version-description {
+            background: #fff;
+            padding: 15px;
+            border-left: 4px solid #FFC107;
+            margin-bottom: 25px;
+            border-radius: 4px;
+            font-size: 1.05em;
+        }
+
+        .example-problem {
+            background: white;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .problem-display {
+            font-size: 1.5em;
+            text-align: center;
+            padding: 15px;
+            background: #f5f5f5;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .features-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 10px;
+            margin: 20px 0;
+            padding: 15px;
+            background: white;
+            border-radius: 6px;
+        }
+
+        .feature-item {
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-size: 0.95em;
+        }
+
+        .feature-yes {
+            background: #E8F5E9;
+            color: #2E7D32;
+            border-left: 3px solid #4CAF50;
+        }
+
+        .feature-no {
+            background: #FFEBEE;
+            color: #C62828;
+            border-left: 3px solid #F44336;
+        }
+
+        /* ============================================ */
+        /* v1.0.0 - v1.2.0 Styles (Basic Feedback) */
+        /* ============================================ */
+        .v1-basic .operator-input {
+            width: 60px;
+            height: 40px;
+            font-size: 1.3em;
+            text-align: center;
+            border: 2px solid #ddd;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .v1-basic .operator-input.correct {
+            background-color: #C8E6C9;
+            border-color: #28a745;
+        }
+
+        .v1-basic .operator-input.incorrect {
+            background-color: #FFCDD2;
+            border-color: #dc3545;
+        }
+
+        /* ============================================ */
+        /* v1.3.0 Styles (Static Learning Guide) */
+        /* ============================================ */
+        .v1-static-guide .learning-guide {
+            background: #E3F2FD;
+            border: 2px solid #2196F3;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .v1-static-guide .learning-guide h3 {
+            color: #1565C0;
+            margin-bottom: 15px;
+        }
+
+        .v1-static-guide .learning-guide ul {
+            padding-left: 25px;
+        }
+
+        .v1-static-guide .learning-guide li {
+            margin: 8px 0;
+        }
+
+        .v1-static-guide .pizza-container {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 20px 0;
+        }
+
+        .v1-static-guide .pizza-visual {
+            text-align: center;
+        }
+
+        .v1-static-guide .pizza-circle {
+            width: 80px;
+            height: 80px;
+            border: 3px solid #333;
+            border-radius: 50%;
+            background: conic-gradient(
+                #FF9800 0deg,
+                #FF9800 270deg,
+                #FFF 270deg,
+                #FFF 360deg
+            );
+            margin: 0 auto 10px;
+        }
+
+        /* ============================================ */
+        /* v1.4.4 Styles (Text Explanations) */
+        /* ============================================ */
+        .v1-text-explanation .mistake-box {
+            background: #FFF3E0;
+            border: 2px solid #FF9800;
+            border-left: 5px solid #FF9800;
+            border-radius: 6px;
+            padding: 15px;
+            margin-top: 15px;
+        }
+
+        .v1-text-explanation .mistake-box h4 {
+            color: #E65100;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .v1-text-explanation .mistake-box p {
+            margin: 8px 0;
+            line-height: 1.6;
+        }
+
+        /* ============================================ */
+        /* v1.4.6 & v1.4.12 Styles (Interactive Hints) */
+        /* ============================================ */
+        .v1-interactive .visual-aids {
+            margin-top: 15px;
+            padding: 15px;
+            background: #F5F5F5;
+            border-radius: 6px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .v1-interactive .pizza-comparison {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 25px;
+        }
+
+        .v1-interactive .pizza-item {
+            text-align: center;
+        }
+
+        .v1-interactive .fraction-label {
+            font-size: 1.1em;
+            margin-top: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .v1-interactive .comparison-symbol {
+            font-size: 1.8em;
+            color: #666;
+            font-weight: 600;
+        }
+
+        .v1-interactive .hint-explanation {
+            padding: 12px 20px;
+            background: #E3F2FD;
+            border-radius: 6px;
+            font-size: 0.95em;
+            color: #1565C0;
+            text-align: center;
+            max-width: 500px;
+            border: 1px solid #90CAF9;
+        }
+
+        .v1-interactive .clickable-hint {
+            color: #2196F3;
+            text-decoration: underline;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .v1-interactive .auto-show-badge {
+            background: #4CAF50;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.85em;
+            font-weight: 600;
+            display: inline-block;
+            margin-left: 10px;
+        }
+
+        /* ============================================ */
+        /* v2.13.x Current Version Styles */
+        /* ============================================ */
+        .v2-current .mistake-feedback-container {
+            margin-top: 15px;
+            animation: fadeInSlide 0.3s ease-out;
+        }
+
+        @keyframes fadeInSlide {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .v2-current .mistake-feedback {
+            background: linear-gradient(135deg, #fff5f5 0%, #ffe5e5 100%);
+            border-left: 4px solid #f44336;
+            border-radius: 8px;
+            padding: 18px;
+            box-shadow: 0 2px 8px rgba(244, 67, 54, 0.1);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .v2-current .mistake-original-problem {
+            background: white;
+            padding: 16px;
+            border-radius: 6px;
+            margin-bottom: 16px;
+            border: 2px solid #f44336;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            font-size: 16px;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .v2-current .mistake-original-problem strong {
+            color: #c62828;
+            font-weight: 600;
+        }
+
+        .v2-current .mistake-original-problem .fraction {
+            font-size: 1.25em;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .v2-current .mistake-original-problem .user-answer {
+            font-size: 1.5em;
+            font-weight: bold;
+            padding: 4px 12px;
+            border-radius: 4px;
+            min-width: 40px;
+            text-align: center;
+        }
+
+        .v2-current .mistake-original-problem .incorrect-answer {
+            background: #ffcdd2;
+            color: #c62828;
+            text-decoration: line-through;
+        }
+
+        .v2-current .mistake-original-problem .correct-indicator {
+            color: #2e7d32;
+            font-weight: 600;
+            background: #e8f5e9;
+            padding: 4px 12px;
+            border-radius: 4px;
+        }
+
+        .v2-current .mistake-original-problem .correct-indicator strong {
+            color: #2e7d32;
+            font-size: 1.25em;
+        }
+
+        .v2-current .mistake-feedback-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 14px;
+            font-weight: 600;
+            color: #c62828;
+        }
+
+        .v2-current .mistake-icon {
+            font-size: 26px;
+            line-height: 1;
+        }
+
+        .v2-current .mistake-name {
+            font-size: 17px;
+        }
+
+        .v2-current .mistake-feedback-body {
+            color: #333;
+        }
+
+        .v2-current .mistake-feedback-body p {
+            margin: 10px 0;
+        }
+
+        .v2-current .mistake-feedback-body strong {
+            color: #c62828;
+            font-weight: 600;
+        }
+
+        .v2-current .mistake-description {
+            color: #d32f2f;
+        }
+
+        .v2-current .mistake-explanation {
+            color: #555;
+        }
+
+        .v2-current .mistake-correction {
+            color: #2e7d32;
+            background: rgba(76, 175, 80, 0.1);
+            padding: 10px;
+            border-radius: 4px;
+            margin-top: 10px;
+        }
+
+        /* Pattern Summary for v2.13.x */
+        .v2-current .pattern-summary {
+            background: linear-gradient(135deg, #f5f9ff 0%, #e3f2fd 100%);
+            border: 2px solid #2196F3;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 4px 12px rgba(33, 150, 243, 0.15);
+            margin-top: 30px;
+        }
+
+        .v2-current .pattern-summary h3 {
+            margin: 0 0 12px 0;
+            color: #1565C0;
+            font-size: 20px;
+        }
+
+        .v2-current .pattern-summary > p {
+            margin: 0 0 16px 0;
+            color: #555;
+            font-size: 15px;
+        }
+
+        .v2-current .pattern-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .v2-current .pattern-item {
+            background: white;
+            border: 1px solid #90CAF9;
+            border-radius: 8px;
+            padding: 16px;
+            transition: all 0.2s ease;
+        }
+
+        .v2-current .pattern-item:hover {
+            border-color: #2196F3;
+            box-shadow: 0 2px 8px rgba(33, 150, 243, 0.2);
+        }
+
+        .v2-current .pattern-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 8px;
+        }
+
+        .v2-current .pattern-icon {
+            font-size: 24px;
+            line-height: 1;
+        }
+
+        .v2-current .pattern-name {
+            flex: 1;
+            font-weight: 600;
+            color: #1565C0;
+            font-size: 16px;
+        }
+
+        .v2-current .pattern-count {
+            background: #2196F3;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .v2-current .pattern-problems {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 12px;
+        }
+
+        .v2-current .pattern-problems strong {
+            color: #1565C0;
+            font-weight: 600;
+        }
+
+        .v2-current .pattern-review-btn {
+            background: linear-gradient(135deg, #2196F3 0%, #1976D2 100%);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            width: 100%;
+        }
+
+        .v2-current .pattern-review-btn:hover {
+            background: linear-gradient(135deg, #1976D2 0%, #1565C0 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(33, 150, 243, 0.3);
+        }
+
+        /* Comparison Table */
+        .comparison-table {
+            width: 100%;
+            margin: 40px 0;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .comparison-table th {
+            background: linear-gradient(135deg, #2196F3 0%, #1976D2 100%);
+            color: white;
+            font-weight: 600;
+        }
+
+        .comparison-table tr:hover {
+            background: #f5f5f5;
+        }
+
+        .check-yes {
+            color: #4CAF50;
+            font-size: 1.3em;
+        }
+
+        .check-no {
+            color: #F44336;
+            font-size: 1.3em;
+        }
+
+        /* Navigation */
+        .nav-buttons {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
+            z-index: 1000;
+        }
+
+        .nav-btn {
+            background: #2196F3;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(33, 150, 243, 0.3);
+            transition: all 0.2s ease;
+        }
+
+        .nav-btn:hover {
+            background: #1976D2;
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 1.8em;
+            }
+
+            .version-title {
+                font-size: 1.5em;
+            }
+
+            .nav-buttons {
+                position: static;
+                justify-content: center;
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="nav-buttons">
+        <button class="nav-btn" onclick="window.location.href='#v1-0'">v1.0</button>
+        <button class="nav-btn" onclick="window.location.href='#v1-3'">v1.3</button>
+        <button class="nav-btn" onclick="window.location.href='#v1-4-4'">v1.4.4</button>
+        <button class="nav-btn" onclick="window.location.href='#v1-4-6'">v1.4.6</button>
+        <button class="nav-btn" onclick="window.location.href='#v1-4-12'">v1.4.12</button>
+        <button class="nav-btn" onclick="window.location.href='#v2-13'">v2.13 Current</button>
+        <button class="nav-btn" onclick="window.location.href='#comparison'">Table</button>
+    </div>
+
+    <div class="container">
+        <h1>🎨 Hint & Mistake Box Visual Comparison</h1>
+        <p class="subtitle">v1.x Evolution → Current v2.13.x | See exactly what students see</p>
+
+        <!-- ============================================ -->
+        <!-- v1.0.0 - v1.2.0: Basic Feedback -->
+        <!-- ============================================ -->
+        <div id="v1-0" class="version-section v1-basic">
+            <div class="version-header">
+                <div class="version-title">v1.0.0 - v1.2.0: Basic Feedback Era</div>
+                <div class="version-badge">48-54 KB</div>
+            </div>
+
+            <div class="version-description">
+                <strong>Philosophy:</strong> Simple binary validation with color-coded feedback. No hints, no explanations, just red or green.
+            </div>
+
+            <div class="features-list">
+                <div class="feature-yes">✅ Red/Green color feedback</div>
+                <div class="feature-no">❌ No hints</div>
+                <div class="feature-no">❌ No explanations</div>
+                <div class="feature-no">❌ No visual aids</div>
+            </div>
+
+            <div class="example-problem">
+                <div class="problem-display">3/4 <input type="text" class="operator-input incorrect" value="<" readonly> 2/3</div>
+                <p style="text-align: center; color: #999; font-style: italic;">That's it. No hint, no explanation. Student sees red and has to figure it out alone.</p>
+            </div>
+        </div>
+
+        <!-- ============================================ -->
+        <!-- v1.3.0: Static Learning Guide -->
+        <!-- ============================================ -->
+        <div id="v1-3" class="version-section v1-static-guide">
+            <div class="version-header">
+                <div class="version-title">v1.3.0: Static Learning Guide</div>
+                <div class="version-badge">98 KB</div>
+            </div>
+
+            <div class="version-description">
+                <strong>Philosophy:</strong> Added educational content, but completely separate from answer checking. Students must scroll down to find generic guidance.
+            </div>
+
+            <div class="features-list">
+                <div class="feature-yes">✅ Red/Green feedback</div>
+                <div class="feature-yes">✅ Educational content exists</div>
+                <div class="feature-yes">✅ Pizza metaphor introduced</div>
+                <div class="feature-no">❌ Not integrated with problems</div>
+                <div class="feature-no">❌ Generic, not problem-specific</div>
+            </div>
+
+            <div class="example-problem">
+                <div class="problem-display">3/4 <input type="text" class="operator-input incorrect" value="<" readonly> 2/3</div>
+
+                <p style="text-align: center; color: #999; margin: 20px 0; font-style: italic;">
+                    ⬇️ Student must scroll down to find learning guide (not connected to their specific mistake) ⬇️
+                </p>
+
+                <div class="learning-guide">
+                    <h3>📚 Understanding Fractions</h3>
+                    <p>When comparing fractions:</p>
+                    <ul>
+                        <li>Higher denominator = smaller pieces</li>
+                        <li>Think of pizza slices</li>
+                        <li>Use common denominators</li>
+                    </ul>
+
+                    <div class="pizza-container">
+                        <div class="pizza-visual">
+                            <div class="pizza-circle"></div>
+                            <div>3/4 of a pizza</div>
+                        </div>
+                        <div class="pizza-visual">
+                            <div class="pizza-circle" style="background: conic-gradient(
+                                #FF9800 0deg,
+                                #FF9800 240deg,
+                                #FFF 240deg,
+                                #FFF 360deg
+                            );"></div>
+                            <div>2/3 of a pizza</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================ -->
+        <!-- v1.4.4: Common Mistakes with Text Explanations -->
+        <!-- ============================================ -->
+        <div id="v1-4-4" class="version-section v1-text-explanation">
+            <div class="version-header">
+                <div class="version-title">v1.4.4: Pattern Recognition Breakthrough</div>
+                <div class="version-badge">140 KB</div>
+            </div>
+
+            <div class="version-description">
+                <strong>Philosophy:</strong> First version to identify specific mistake patterns (5 types) and provide targeted text-based explanations.
+            </div>
+
+            <div class="features-list">
+                <div class="feature-yes">✅ Red/Green feedback</div>
+                <div class="feature-yes">✅ 5 mistake patterns detected</div>
+                <div class="feature-yes">✅ Pattern-specific explanations</div>
+                <div class="feature-yes">✅ Targeted problem generation</div>
+                <div class="feature-no">❌ Text-only (no visuals)</div>
+                <div class="feature-no">❌ No pizza diagrams yet</div>
+            </div>
+
+            <div class="example-problem">
+                <div class="problem-display">2/3 <input type="text" class="operator-input incorrect" value="<" readonly> 2/30</div>
+
+                <div class="mistake-box">
+                    <h4>🍕 Higher Denominator Trap</h4>
+                    <p><strong>What happened:</strong> You compared denominators instead of fraction values.</p>
+                    <p>Same numerator, higher denominator = SMALLER fraction. You thought 2/30 was bigger because 30 > 3, but actually 2/3 is much larger!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================ -->
+        <!-- v1.4.6: Interactive Hints with Visual Aids -->
+        <!-- ============================================ -->
+        <div id="v1-4-6" class="version-section v1-interactive">
+            <div class="version-header">
+                <div class="version-title">v1.4.6: Interactive Visual Hint System</div>
+                <div class="version-badge">167 KB</div>
+            </div>
+
+            <div class="version-description">
+                <strong>Philosophy:</strong> Major upgrade with SVG pizza diagrams and click-to-toggle hints. Students can show/hide hints by clicking problem numbers.
+            </div>
+
+            <div class="features-list">
+                <div class="feature-yes">✅ Red/Green feedback</div>
+                <div class="feature-yes">✅ 5 mistake patterns</div>
+                <div class="feature-yes">✅ SVG pizza diagrams</div>
+                <div class="feature-yes">✅ Click to toggle hints</div>
+                <div class="feature-yes">✅ Visual + text explanations</div>
+                <div class="feature-no">❌ Manual only (must click)</div>
+            </div>
+
+            <div class="example-problem">
+                <div class="problem-display">
+                    <span class="clickable-hint">1. [Click for hint]</span>
+                    3/4 <input type="text" class="operator-input" value="" style="width: 60px; height: 40px; font-size: 1.3em; text-align: center; border: 2px solid #ddd; border-radius: 4px;"> 2/3
+                </div>
+
+                <div class="visual-aids">
+                    <div class="pizza-comparison">
+                        <div class="pizza-item">
+                            <svg width="80" height="80" viewBox="0 0 80 80">
+                                <circle cx="40" cy="40" r="38" fill="none" stroke="#333" stroke-width="2"/>
+                                <path d="M 40 40 L 40 2 A 38 38 0 0 1 78 40 Z" fill="#FF9800" stroke="#333" stroke-width="1.5"/>
+                                <path d="M 40 40 L 78 40 A 38 38 0 0 1 40 78 Z" fill="#FF9800" stroke="#333" stroke-width="1.5"/>
+                                <path d="M 40 40 L 40 78 A 38 38 0 0 1 2 40 Z" fill="#FF9800" stroke="#333" stroke-width="1.5"/>
+                                <path d="M 40 40 L 2 40 A 38 38 0 0 1 40 2 Z" fill="#FFF" stroke="#333" stroke-width="1.5"/>
+                            </svg>
+                            <div class="fraction-label">3/4</div>
+                        </div>
+
+                        <div class="comparison-symbol">vs</div>
+
+                        <div class="pizza-item">
+                            <svg width="80" height="80" viewBox="0 0 80 80">
+                                <circle cx="40" cy="40" r="38" fill="none" stroke="#333" stroke-width="2"/>
+                                <path d="M 40 40 L 40 2 A 38 38 0 0 1 73.3 63.3 Z" fill="#FF9800" stroke="#333" stroke-width="1.5"/>
+                                <path d="M 40 40 L 73.3 63.3 A 38 38 0 0 1 6.7 63.3 Z" fill="#FF9800" stroke="#333" stroke-width="1.5"/>
+                                <path d="M 40 40 L 6.7 63.3 A 38 38 0 0 1 40 2 Z" fill="#FFF" stroke="#333" stroke-width="1.5"/>
+                            </svg>
+                            <div class="fraction-label">2/3</div>
+                        </div>
+                    </div>
+
+                    <div class="hint-explanation">
+                        💡 Higher denominator means smaller pieces! 3/4 = 0.750, 2/3 = 0.667. So 3/4 > 2/3.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================ -->
+        <!-- v1.4.12: Auto-Show + Enhanced -->
+        <!-- ============================================ -->
+        <div id="v1-4-12" class="version-section v1-interactive">
+            <div class="version-header">
+                <div class="version-title">v1.4.12: Polished & Auto-Show</div>
+                <div class="version-badge">205 KB</div>
+            </div>
+
+            <div class="version-description">
+                <strong>Philosophy:</strong> Best of v1.x. Hints automatically appear on wrong answers + manual toggle. Enhanced explanations with detailed reasoning.
+            </div>
+
+            <div class="features-list">
+                <div class="feature-yes">✅ Red/Green feedback</div>
+                <div class="feature-yes">✅ 5 mistake patterns</div>
+                <div class="feature-yes">✅ SVG pizza diagrams</div>
+                <div class="feature-yes">✅ Click to toggle hints</div>
+                <div class="feature-yes">✅ Auto-show on wrong answers <span class="auto-show-badge">AUTO</span></div>
+                <div class="feature-yes">✅ Enhanced explanations</div>
+                <div class="feature-yes">✅ Mobile optimized</div>
+            </div>
+
+            <div class="example-problem">
+                <div class="problem-display">3/4 <input type="text" class="operator-input incorrect" value="<" readonly> 2/3</div>
+
+                <p style="text-align: center; color: #4CAF50; font-weight: 600; margin: 15px 0;">
+                    ⬇️ After clicking "Check Answers", hint automatically appears ⬇️
+                </p>
+
+                <div class="visual-aids">
+                    <div class="pizza-comparison">
+                        <div class="pizza-item">
+                            <svg width="80" height="80" viewBox="0 0 80 80">
+                                <circle cx="40" cy="40" r="38" fill="none" stroke="#333" stroke-width="2"/>
+                                <path d="M 40 40 L 40 2 A 38 38 0 0 1 78 40 Z" fill="#FF9800" stroke="#333" stroke-width="1.5"/>
+                                <path d="M 40 40 L 78 40 A 38 38 0 0 1 40 78 Z" fill="#FF9800" stroke="#333" stroke-width="1.5"/>
+                                <path d="M 40 40 L 40 78 A 38 38 0 0 1 2 40 Z" fill="#FF9800" stroke="#333" stroke-width="1.5"/>
+                                <path d="M 40 40 L 2 40 A 38 38 0 0 1 40 2 Z" fill="#FFF" stroke="#333" stroke-width="1.5"/>
+                            </svg>
+                            <div class="fraction-label">3/4</div>
+                        </div>
+
+                        <div class="comparison-symbol">vs</div>
+
+                        <div class="pizza-item">
+                            <svg width="80" height="80" viewBox="0 0 80 80">
+                                <circle cx="40" cy="40" r="38" fill="none" stroke="#333" stroke-width="2"/>
+                                <path d="M 40 40 L 40 2 A 38 38 0 0 1 73.3 63.3 Z" fill="#FF9800" stroke="#333" stroke-width="1.5"/>
+                                <path d="M 40 40 L 73.3 63.3 A 38 38 0 0 1 6.7 63.3 Z" fill="#FF9800" stroke="#333" stroke-width="1.5"/>
+                                <path d="M 40 40 L 6.7 63.3 A 38 38 0 0 1 40 2 Z" fill="#FFF" stroke="#333" stroke-width="1.5"/>
+                            </svg>
+                            <div class="fraction-label">2/3</div>
+                        </div>
+                    </div>
+
+                    <div class="hint-explanation">
+                        🍕 <strong>Higher Denominator Trap:</strong> You might think 3/4 < 2/3 because 4 > 3. But remember: Higher denominator = SMALLER pieces! Think of pizza: 1/4 of a pizza is bigger than 1/3 of the same pizza. 3/4 = 0.750 and 2/3 = 0.667.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================ -->
+        <!-- v2.13.x: Current Version (Modular Architecture) -->
+        <!-- ============================================ -->
+        <div id="v2-13" class="version-section v2-current">
+            <div class="version-header">
+                <div class="version-title">v2.13.x: Current Version (Modular)</div>
+                <div class="version-badge">CURRENT</div>
+            </div>
+
+            <div class="version-description">
+                <strong>Philosophy:</strong> Refined inline system with original problem display, 3-tier explanation structure (What/Why/How), and pattern summary. Modular architecture for maintainability.
+            </div>
+
+            <div class="features-list">
+                <div class="feature-yes">✅ 7 mistake patterns (expanded)</div>
+                <div class="feature-yes">✅ Original problem display</div>
+                <div class="feature-yes">✅ 3-tier explanation structure</div>
+                <div class="feature-yes">✅ Pattern summary dashboard</div>
+                <div class="feature-yes">✅ Interactive review buttons</div>
+                <div class="feature-yes">✅ Red gradient visual design</div>
+                <div class="feature-yes">✅ Mobile optimized</div>
+                <div class="feature-yes">✅ Modular code architecture</div>
+            </div>
+
+            <div class="example-problem">
+                <h4 style="margin-bottom: 15px; color: #1565C0;">Individual Mistake Feedback:</h4>
+
+                <div class="mistake-feedback-container">
+                    <div class="mistake-feedback">
+                        <div class="mistake-original-problem">
+                            <strong>Problem 3:</strong>
+                            <span class="fraction">3/4</span>
+                            <span class="user-answer incorrect-answer">&lt;</span>
+                            <span class="fraction">2/3</span>
+                            <span class="correct-indicator">→ Correct: <strong>&gt;</strong></span>
+                        </div>
+
+                        <div class="mistake-feedback-header">
+                            <span class="mistake-icon">🍕</span>
+                            <span class="mistake-name">Higher Denominator Trap</span>
+                        </div>
+
+                        <div class="mistake-feedback-body">
+                            <p class="mistake-description"><strong>What happened:</strong> You compared denominators instead of the actual fraction values</p>
+                            <p class="mistake-explanation"><strong>Why this is wrong:</strong> You thought 3/4 < 2/3 because 4 > 3. However, larger denominators actually mean SMALLER pieces! Think of pizza slices: 1/8 of a pizza is smaller than 1/4 of a pizza.</p>
+                            <p class="mistake-correction"><strong>How to fix it:</strong> To compare correctly, find a common denominator or convert to decimals. 3/4 = 0.750 and 2/3 = 0.667, so 3/4 > 2/3.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <h4 style="margin: 40px 0 15px 0; color: #1565C0;">Pattern Summary (appears after checking all answers):</h4>
+
+                <div class="pattern-summary">
+                    <h3>📊 Mistake Patterns Detected</h3>
+                    <p>We noticed you made the same type of mistake multiple times:</p>
+                    <div class="pattern-list">
+                        <div class="pattern-item">
+                            <div class="pattern-header">
+                                <span class="pattern-icon">🍕</span>
+                                <span class="pattern-name">Higher Denominator Trap</span>
+                                <span class="pattern-count">3 times</span>
+                            </div>
+                            <div class="pattern-problems">
+                                Found in problems: <strong>1, 4, 7</strong>
+                            </div>
+                            <button class="pattern-review-btn">Review These Problems</button>
+                        </div>
+
+                        <div class="pattern-item">
+                            <div class="pattern-header">
+                                <span class="pattern-icon">⚖️</span>
+                                <span class="pattern-name">Both Numbers Higher Trap</span>
+                                <span class="pattern-count">2 times</span>
+                            </div>
+                            <div class="pattern-problems">
+                                Found in problems: <strong>3, 8</strong>
+                            </div>
+                            <button class="pattern-review-btn">Review These Problems</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================ -->
+        <!-- Comparison Table -->
+        <!-- ============================================ -->
+        <div id="comparison" style="margin-top: 60px;">
+            <h2 style="text-align: center; color: #1565C0; margin-bottom: 30px; font-size: 2em;">📋 Feature Comparison Table</h2>
+
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th>v1.0-v1.2</th>
+                        <th>v1.3.0</th>
+                        <th>v1.4.4</th>
+                        <th>v1.4.6</th>
+                        <th>v1.4.12</th>
+                        <th>v2.13.x</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Basic Red/Green Feedback</strong></td>
+                        <td class="check-yes">✓</td>
+                        <td class="check-yes">✓</td>
+                        <td class="check-yes">✓</td>
+                        <td class="check-yes">✓</td>
+                        <td class="check-yes">✓</td>
+                        <td class="check-yes">✓</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Educational Content</strong></td>
+                        <td class="check-no">✗</td>
+                        <td class="check-yes">✓ Static</td>
+                        <td class="check-yes">✓ Targeted</td>
+                        <td class="check-yes">✓ Interactive</td>
+                        <td class="check-yes">✓ Enhanced</td>
+                        <td class="check-yes">✓ Refined</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Mistake Pattern Detection</strong></td>
+                        <td class="check-no">✗</td>
+                        <td class="check-no">✗</td>
+                        <td class="check-yes">✓ 5 types</td>
+                        <td class="check-yes">✓ 5 types</td>
+                        <td class="check-yes">✓ 5 types</td>
+                        <td class="check-yes">✓ 7 types</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Visual Aids (Pizza Diagrams)</strong></td>
+                        <td class="check-no">✗</td>
+                        <td class="check-yes">CSS only</td>
+                        <td class="check-no">✗</td>
+                        <td class="check-yes">✓ SVG</td>
+                        <td class="check-yes">✓ SVG</td>
+                        <td class="check-yes">✓ SVG</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Interactive Hint Toggle</strong></td>
+                        <td class="check-no">✗</td>
+                        <td class="check-no">✗</td>
+                        <td class="check-no">✗</td>
+                        <td class="check-yes">✓</td>
+                        <td class="check-yes">✓</td>
+                        <td class="check-yes">✓</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Auto-Show Hints on Wrong</strong></td>
+                        <td class="check-no">✗</td>
+                        <td class="check-no">✗</td>
+                        <td class="check-no">✗</td>
+                        <td class="check-no">✗</td>
+                        <td class="check-yes">✓</td>
+                        <td class="check-yes">✓</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Original Problem Display</strong></td>
+                        <td class="check-no">✗</td>
+                        <td class="check-no">✗</td>
+                        <td class="check-no">✗</td>
+                        <td class="check-no">✗</td>
+                        <td class="check-no">✗</td>
+                        <td class="check-yes">✓</td>
+                    </tr>
+                    <tr>
+                        <td><strong>3-Tier Explanation Structure</strong></td>
+                        <td class="check-no">✗</td>
+                        <td class="check-no">✗</td>
+                        <td class="check-no">✗</td>
+                        <td class="check-no">✗</td>
+                        <td class="check-no">✗</td>
+                        <td class="check-yes">✓</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Pattern Summary Dashboard</strong></td>
+                        <td class="check-no">✗</td>
+                        <td class="check-no">✗</td>
+                        <td class="check-no">✗</td>
+                        <td class="check-no">✗</td>
+                        <td class="check-no">✗</td>
+                        <td class="check-yes">✓</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Review Button per Pattern</strong></td>
+                        <td class="check-no">✗</td>
+                        <td class="check-no">✗</td>
+                        <td class="check-no">✗</td>
+                        <td class="check-no">✗</td>
+                        <td class="check-no">✗</td>
+                        <td class="check-yes">✓</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Mobile Optimized</strong></td>
+                        <td>Basic</td>
+                        <td>Basic</td>
+                        <td>Basic</td>
+                        <td>Good</td>
+                        <td class="check-yes">✓</td>
+                        <td class="check-yes">✓</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Architecture</strong></td>
+                        <td>Monolithic</td>
+                        <td>Monolithic</td>
+                        <td>Monolithic</td>
+                        <td>Monolithic</td>
+                        <td>Monolithic</td>
+                        <td class="check-yes">Modular</td>
+                    </tr>
+                    <tr>
+                        <td><strong>File Size</strong></td>
+                        <td>48-54 KB</td>
+                        <td>98 KB</td>
+                        <td>140 KB</td>
+                        <td>167 KB</td>
+                        <td>205 KB</td>
+                        <td>Split files</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- ============================================ -->
+        <!-- Key Differences Summary -->
+        <!-- ============================================ -->
+        <div style="margin-top: 60px; padding: 30px; background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%); border-radius: 12px; border: 3px solid #4CAF50;">
+            <h2 style="color: #2E7D32; margin-bottom: 20px; font-size: 1.8em;">🎯 Key Visual Differences</h2>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-top: 20px;">
+                <div style="background: white; padding: 20px; border-radius: 8px; border-left: 4px solid #FF9800;">
+                    <h3 style="color: #E65100; margin-bottom: 10px;">v1.x Style</h3>
+                    <ul style="padding-left: 20px; line-height: 1.8;">
+                        <li>Light gray hint boxes (#F5F5F5)</li>
+                        <li>Light blue explanations (#E3F2FD)</li>
+                        <li>Simple borders</li>
+                        <li>Minimal shadows</li>
+                        <li>Hints below problems</li>
+                        <li>Click to toggle</li>
+                    </ul>
+                </div>
+
+                <div style="background: white; padding: 20px; border-radius: 8px; border-left: 4px solid #2196F3;">
+                    <h3 style="color: #1565C0; margin-bottom: 10px;">v2.13.x Style</h3>
+                    <ul style="padding-left: 20px; line-height: 1.8;">
+                        <li>Red gradient mistake cards</li>
+                        <li>Original problem display with strikethrough</li>
+                        <li>3-tier structure (What/Why/How)</li>
+                        <li>Blue gradient pattern summary</li>
+                        <li>Enhanced shadows & borders</li>
+                        <li>Interactive review buttons</li>
+                    </ul>
+                </div>
+
+                <div style="background: white; padding: 20px; border-radius: 8px; border-left: 4px solid #4CAF50;">
+                    <h3 style="color: #2E7D32; margin-bottom: 10px;">Best of Both</h3>
+                    <ul style="padding-left: 20px; line-height: 1.8;">
+                        <li>SVG pizza diagrams (both)</li>
+                        <li>Pattern detection (both)</li>
+                        <li>Auto-show on wrong (v1.4.12 & v2.13)</li>
+                        <li>Mobile optimized (both)</li>
+                        <li>Clear visual hierarchy</li>
+                        <li>Inline context</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div style="margin-top: 60px; text-align: center; padding: 30px; background: #f5f5f5; border-radius: 8px;">
+            <p style="font-size: 1.1em; color: #666; margin-bottom: 10px;">
+                <strong>Which style do you prefer?</strong>
+            </p>
+            <p style="color: #999;">
+                This comparison was created on 2026-02-02 to help visualize the evolution of hint and mistake feedback systems.
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Smooth scrolling for navigation
+        document.querySelectorAll('.nav-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const target = btn.getAttribute('onclick').match(/#[\w-]+/)[0];
+                document.querySelector(target).scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            });
+        });
+    </script>
+</body>
+</html>

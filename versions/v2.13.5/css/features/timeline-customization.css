@@ -1,0 +1,399 @@
+/**
+ * Timeline Customization Styles
+ * Styling for customizable timeline icon feature
+ */
+
+/* Customization Trigger Button */
+.timeline-customize-trigger {
+    background: linear-gradient(135deg, #9C27B0 0%, #7B1FA2 100%);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(156, 39, 176, 0.3);
+    margin: 16px 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: fit-content;
+}
+
+.timeline-customize-trigger:hover {
+    background: linear-gradient(135deg, #7B1FA2 0%, #6A1B9A 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(156, 39, 176, 0.4);
+}
+
+.timeline-customize-trigger:active {
+    transform: translateY(0);
+}
+
+/* Modal Overlay */
+.timeline-custom-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10002;
+    animation: fadeIn 0.3s ease-out;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Modal */
+.timeline-custom-modal {
+    background: white;
+    border-radius: 16px;
+    max-width: 700px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    animation: slideIn 0.3s ease-out;
+    position: relative;
+}
+
+@keyframes slideIn {
+    from {
+        transform: scale(0.9) translateY(20px);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1) translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Close Button */
+.timeline-custom-close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: transparent;
+    border: none;
+    font-size: 32px;
+    color: #999;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+}
+
+.timeline-custom-close:hover {
+    background: #f5f5f5;
+    color: #333;
+}
+
+/* Modal Content */
+.timeline-custom-content {
+    padding: 32px;
+}
+
+.timeline-custom-content h2 {
+    margin: 0 0 8px 0;
+    color: #333;
+    font-size: 28px;
+}
+
+/* Customization Grid */
+.timeline-custom-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    margin-bottom: 32px;
+}
+
+/* Customization Group */
+.timeline-custom-group {
+    background: linear-gradient(135deg, #f5f5f5 0%, #ececec 100%);
+    border-radius: 12px;
+    padding: 20px;
+    border: 2px solid #e0e0e0;
+}
+
+.timeline-custom-group h3 {
+    margin: 0 0 16px 0;
+    color: #555;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Customization Row */
+.timeline-custom-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+/* Customization Item */
+.timeline-custom-item label {
+    display: block;
+    margin-bottom: 12px;
+    font-weight: 600;
+    color: #666;
+    font-size: 14px;
+}
+
+/* Options Container */
+.timeline-custom-options {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+/* Icon Button */
+.timeline-custom-btn {
+    background: white;
+    border: 3px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 12px;
+    font-size: 32px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    min-width: 60px;
+    min-height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.timeline-custom-btn:hover {
+    border-color: #9C27B0;
+    background: #f9f5fb;
+    transform: scale(1.1);
+}
+
+.timeline-custom-btn.selected {
+    border-color: #9C27B0;
+    background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%);
+    box-shadow: 0 4px 12px rgba(156, 39, 176, 0.3);
+    transform: scale(1.05);
+}
+
+.timeline-custom-btn.selected::after {
+    content: '✓';
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    background: #9C27B0;
+    color: white;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+.timeline-custom-btn {
+    position: relative;
+}
+
+/* Action Buttons */
+.timeline-custom-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.timeline-custom-save {
+    flex: 1;
+    background: linear-gradient(135deg, #4CAF50 0%, #388E3C 100%);
+    color: white;
+    border: none;
+    padding: 14px 28px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+}
+
+.timeline-custom-save:hover {
+    background: linear-gradient(135deg, #388E3C 0%, #2E7D32 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(76, 175, 80, 0.4);
+}
+
+.timeline-custom-reset {
+    background: white;
+    color: #666;
+    border: 2px solid #e0e0e0;
+    padding: 14px 28px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.timeline-custom-reset:hover {
+    background: #f5f5f5;
+    border-color: #9C27B0;
+    color: #9C27B0;
+}
+
+/* Notification */
+.timeline-notification {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: linear-gradient(135deg, #4CAF50 0%, #388E3C 100%);
+    color: white;
+    padding: 16px 24px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    z-index: 10003;
+    font-weight: 500;
+    transform: translateY(100px);
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.timeline-notification.show {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.timeline-notification-success {
+    background: linear-gradient(135deg, #4CAF50 0%, #388E3C 100%);
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .timeline-customize-trigger {
+        width: 100%;
+        justify-content: center;
+        font-size: 14px;
+        padding: 10px 20px;
+    }
+
+    .timeline-custom-modal {
+        max-width: 100%;
+        max-height: 100vh;
+        border-radius: 0;
+        margin: 0;
+    }
+
+    .timeline-custom-content {
+        padding: 20px;
+    }
+
+    .timeline-custom-content h2 {
+        font-size: 22px;
+        padding-right: 40px; /* Space for close button */
+    }
+
+    .timeline-custom-row {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .timeline-custom-group {
+        padding: 16px;
+    }
+
+    .timeline-custom-group h3 {
+        font-size: 16px;
+    }
+
+    .timeline-custom-btn {
+        min-width: 50px;
+        min-height: 50px;
+        font-size: 28px;
+        padding: 10px;
+    }
+
+    .timeline-custom-actions {
+        flex-direction: column;
+    }
+
+    .timeline-custom-save,
+    .timeline-custom-reset {
+        width: 100%;
+    }
+
+    .timeline-notification {
+        bottom: 10px;
+        right: 10px;
+        left: 10px;
+        text-align: center;
+    }
+}
+
+/* Extra small screens */
+@media (max-width: 480px) {
+    .timeline-custom-options {
+        gap: 6px;
+    }
+
+    .timeline-custom-btn {
+        min-width: 44px;
+        min-height: 44px;
+        font-size: 24px;
+        padding: 8px;
+    }
+
+    .timeline-custom-close {
+        width: 36px;
+        height: 36px;
+        font-size: 28px;
+        top: 12px;
+        right: 12px;
+    }
+}
+
+/* Print - Hide customization UI */
+@media print {
+    .timeline-customize-trigger,
+    .timeline-custom-modal-overlay,
+    .timeline-notification {
+        display: none !important;
+    }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+    .timeline-custom-modal-overlay,
+    .timeline-custom-modal,
+    .timeline-customize-trigger,
+    .timeline-custom-btn,
+    .timeline-notification {
+        animation: none !important;
+        transition: none !important;
+    }
+
+    .timeline-customize-trigger:hover,
+    .timeline-custom-btn:hover,
+    .timeline-custom-save:hover {
+        transform: none !important;
+    }
+}
