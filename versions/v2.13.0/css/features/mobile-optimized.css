@@ -1,0 +1,461 @@
+/**
+ * Mobile-Optimized Layout Styles
+ * Enhanced responsive design for small screens with touch-optimized controls
+ */
+
+/* Mobile-specific improvements for screens 768px and below */
+@media (max-width: 768px) {
+    /* Force single-column layout for main controls */
+    .controls {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .controls .control-group {
+        width: 100%;
+        margin: 0;
+    }
+
+    /* Touch-optimized buttons - larger hit targets (minimum 44x44px) */
+    button {
+        min-height: 44px;
+        padding: 12px 20px;
+        font-size: 16px; /* Prevents zoom on iOS */
+        touch-action: manipulation; /* Disables double-tap zoom */
+    }
+
+    .operator-btn {
+        min-width: 60px;
+        min-height: 60px;
+        font-size: 24px;
+        margin: 4px;
+    }
+
+    /* Larger form inputs for better touch targets */
+    select,
+    input[type="text"],
+    .operator-input {
+        min-height: 44px;
+        padding: 10px;
+        font-size: 16px; /* Prevents zoom on iOS */
+        border-radius: 8px;
+    }
+
+    /* Checkbox touch targets */
+    input[type="checkbox"] {
+        min-width: 24px;
+        min-height: 24px;
+        margin-right: 10px;
+    }
+
+    label {
+        padding: 8px;
+        cursor: pointer;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
+    }
+
+    /* Simplified problem display */
+    .problem {
+        padding: 20px 12px;
+        margin-bottom: 16px;
+        border-radius: 12px;
+        touch-action: manipulation;
+    }
+
+    /* Stack fraction elements vertically on very small screens */
+    @media (max-width: 480px) {
+        .problem {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            text-align: center;
+        }
+
+        .problem-number {
+            align-self: flex-start;
+            margin-bottom: -8px;
+        }
+
+        .fraction {
+            margin: 8px 0;
+        }
+
+        .input-area {
+            margin: 8px 0;
+        }
+    }
+
+    /* Simplified header on mobile */
+    .header {
+        flex-wrap: wrap;
+        gap: 12px;
+        padding: 12px 16px;
+    }
+
+    .header h1 {
+        font-size: 20px;
+        flex: 1 1 100%;
+        text-align: center;
+        margin: 0 0 8px 0;
+    }
+
+    /* Compact version selector */
+    .version-selector {
+        font-size: 13px;
+        padding: 6px 10px;
+    }
+
+    /* Simplified action buttons - make them full width on small screens */
+    .actions {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        margin: 16px 0;
+    }
+
+    .actions button {
+        width: 100%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    /* Stack action buttons vertically on very small screens */
+    @media (max-width: 480px) {
+        .actions {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    /* Simplified score display */
+    .score {
+        padding: 16px;
+        font-size: 14px;
+        flex-wrap: wrap;
+        justify-content: center;
+        text-align: center;
+        gap: 8px;
+    }
+
+    .score span {
+        display: inline-block;
+        margin: 4px;
+    }
+
+    /* Collapsible sections - easier to tap */
+    .collapsible-header {
+        padding: 16px;
+        font-size: 18px;
+        touch-action: manipulation;
+    }
+
+    .collapsible-header::after {
+        font-size: 24px;
+    }
+
+    /* Simplified controls - hide advanced options by default on mobile */
+    .advanced-controls {
+        display: none;
+    }
+
+    .advanced-controls.show {
+        display: block;
+    }
+
+    /* Add a toggle button for advanced controls */
+    #toggle-advanced-mobile {
+        display: block;
+        width: 100%;
+        margin: 12px 0;
+        background: linear-gradient(135deg, #757575 0%, #616161 100%);
+        color: white;
+    }
+
+    /* Simplified carousel controls for touch */
+    .carousel-btn {
+        width: 48px;
+        height: 48px;
+        font-size: 24px;
+        opacity: 0.9;
+    }
+
+    .carousel-dots {
+        padding: 16px 0;
+    }
+
+    .carousel-dot {
+        width: 12px;
+        height: 12px;
+        margin: 0 6px;
+    }
+
+    /* Touch-optimized voice button */
+    .voice-btn {
+        min-width: 60px;
+        min-height: 60px;
+        font-size: 28px;
+    }
+
+    /* Simplified drawing canvas */
+    .drawing-canvas {
+        width: 100%;
+        max-width: 200px;
+        height: 80px;
+        touch-action: none; /* Prevents scrolling while drawing */
+    }
+
+    /* Better spacing for mistake feedback on mobile */
+    .mistake-feedback {
+        font-size: 13px;
+        padding: 12px;
+    }
+
+    /* Compact pattern summary */
+    .pattern-summary {
+        padding: 16px;
+    }
+
+    .pattern-summary h3 {
+        font-size: 16px;
+    }
+
+    /* Print/PDF buttons - make them icon-only on mobile to save space */
+    @media (max-width: 480px) {
+        #print-btn span,
+        #pdf-btn span {
+            display: none;
+        }
+
+        #print-btn .material-icons,
+        #pdf-btn .material-icons {
+            margin-right: 0;
+        }
+    }
+
+    /* Visual aids - optimize for mobile viewing */
+    .visual-aids {
+        padding: 12px;
+        margin: 12px 0;
+    }
+
+    .visual-aids svg {
+        max-width: 100%;
+        height: auto;
+    }
+
+    /* Educational content - more compact on mobile */
+    .learning-guide {
+        padding: 16px;
+    }
+
+    .learning-guide h2 {
+        font-size: 20px;
+    }
+
+    .learning-guide h3 {
+        font-size: 18px;
+    }
+
+    /* Auth UI - optimize for mobile */
+    .auth-user-info {
+        max-width: none;
+        padding: 8px 12px;
+    }
+
+    .auth-login-btn {
+        padding: 8px 16px;
+        font-size: 14px;
+    }
+
+    /* Simplify version history on mobile */
+    .version-history {
+        padding: 16px;
+    }
+
+    .version-item {
+        padding: 12px;
+        margin-bottom: 12px;
+    }
+}
+
+/* Extra small screens (phones < 390px) */
+@media (max-width: 389px) {
+    /* Even more compact layout */
+    .container {
+        padding: 8px;
+    }
+
+    .header {
+        padding: 8px 12px;
+    }
+
+    .header h1 {
+        font-size: 18px;
+    }
+
+    button {
+        padding: 10px 16px;
+        font-size: 14px;
+    }
+
+    .operator-btn {
+        min-width: 50px;
+        min-height: 50px;
+        font-size: 20px;
+    }
+
+    .problem {
+        padding: 16px 8px;
+    }
+
+    .collapsible-header {
+        padding: 12px;
+        font-size: 16px;
+    }
+}
+
+/* Landscape mode on mobile - optimize horizontal space */
+@media (max-width: 768px) and (orientation: landscape) {
+    /* Use horizontal space more efficiently */
+    .problem {
+        display: grid;
+        grid-template-columns: auto 1fr auto 1fr auto;
+        gap: 12px;
+        align-items: center;
+    }
+
+    .problem-number {
+        grid-column: 1;
+    }
+
+    /* Actions in a single row for landscape */
+    .actions {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    @media (max-width: 480px) {
+        .actions {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+}
+
+/* Large touch targets for accessibility */
+@media (pointer: coarse) {
+    /* This targets touch devices specifically */
+    button,
+    select,
+    input,
+    .clickable {
+        min-height: 44px;
+        min-width: 44px;
+    }
+
+    .operator-btn {
+        min-width: 60px;
+        min-height: 60px;
+    }
+
+    /* Larger tap target for problem numbers (hint trigger) */
+    .problem-number {
+        padding: 8px;
+        margin: -8px;
+        cursor: pointer;
+        -webkit-tap-highlight-color: rgba(76, 175, 80, 0.2);
+    }
+
+    .problem-number:active {
+        background: rgba(76, 175, 80, 0.1);
+        border-radius: 4px;
+    }
+}
+
+/* iOS-specific optimizations */
+@supports (-webkit-touch-callout: none) {
+    /* Disable iOS text selection on buttons and interactive elements */
+    button,
+    .operator-btn,
+    .collapsible-header,
+    .carousel-btn {
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        user-select: none;
+    }
+
+    /* Prevent iOS bounce scrolling on specific elements */
+    body {
+        overscroll-behavior-y: none;
+    }
+
+    /* Fix iOS safe area insets */
+    .container {
+        padding-top: env(safe-area-inset-top);
+        padding-bottom: env(safe-area-inset-bottom);
+        padding-left: env(safe-area-inset-left);
+        padding-right: env(safe-area-inset-right);
+    }
+}
+
+/* Android-specific optimizations */
+@supports (display: -webkit-box) {
+    /* Optimize for older Android browsers */
+    .problem {
+        display: -webkit-box;
+        -webkit-box-orient: horizontal;
+        -webkit-box-align: center;
+    }
+}
+
+/* Dark mode support for mobile */
+@media (prefers-color-scheme: dark) and (max-width: 768px) {
+    .problem {
+        background: #2d2d2d;
+        color: #ffffff;
+        border-color: #404040;
+    }
+
+    button {
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    .controls {
+        background: #2d2d2d;
+    }
+
+    select,
+    input {
+        background: #3d3d3d;
+        color: #ffffff;
+        border-color: #505050;
+    }
+}
+
+/* Hide desktop-only elements on mobile */
+@media (max-width: 768px) {
+    .desktop-only {
+        display: none !important;
+    }
+
+    .mobile-hidden {
+        display: none !important;
+    }
+}
+
+/* Show mobile-only elements */
+@media (max-width: 768px) {
+    .mobile-only {
+        display: block !important;
+    }
+}
+
+@media (min-width: 769px) {
+    .mobile-only {
+        display: none !important;
+    }
+
+    #toggle-advanced-mobile {
+        display: none;
+    }
+}

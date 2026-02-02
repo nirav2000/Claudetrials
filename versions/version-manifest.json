@@ -1,6 +1,16 @@
 {
-  "current": "2.12.0",
+  "current": "2.13.0",
   "versions": [
+    {
+      "number": "2.13.0",
+      "date": "2026-02-02",
+      "changelogFile": "changelogs/v2.13.0.md",
+      "type": "minor",
+      "description": "Improve UX with inline feedback and better defaults",
+      "file": "fraction-worksheet-v2.13.0.html",
+      "path": "versions/v2.13.0/index.html",
+      "commit": "feat: Improve UX with inline feedback and better defaults\n\nMajor UI/UX improvements:\n\n1. Debug Panel"
+    },
     {
       "number": "2.12.0",
       "date": "2026-02-02",
@@ -620,6 +630,6 @@
       "file": "fraction-worksheet-v1.0.0.html"
     }
   ],
-  "currentVersion": "2.12.0",
+  "currentVersion": "2.13.0",
   "lastUpdated": "2026-02-02"
 }
