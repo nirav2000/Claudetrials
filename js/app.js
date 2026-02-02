@@ -16,6 +16,7 @@ import { historySlides, strategiesSlides, misconceptionsSlides } from './feature
 import { initializeEducationalVisuals } from './features/educationalVisuals.js';
 import { registerServiceWorker, initializeOfflineDetection } from './core/offline-support.js';
 import { initializeTimelineCustomization } from './features/timelineCustomization.js';
+import { initializeAgentUI } from './features/agentUI.js';
 
 // Import auth module (optional - app continues without it)
 let fractionAppAuth = null;
@@ -117,6 +118,9 @@ async function init() {
 
         // Initialize timeline customization
         initializeTimelineCustomization();
+
+        // Initialize Agent UI (Educational and Testing Agents)
+        initializeAgentUI();
 
         // Attach event listeners
         attachEventListeners();
@@ -249,6 +253,9 @@ function renderProblems() {
     if (!container) return;
 
     empty(container);
+
+    // Expose problems globally for agents
+    window.currentProblems = problems;
 
     problems.forEach((problem, index) => {
         const problemDiv = createElement('div', {

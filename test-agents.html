@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agent Testing - Fraction Comparison</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        .test-section {
+            background: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .test-section h2 {
+            margin-top: 0;
+            color: #333;
+        }
+        .btn {
+            background: #6200EA;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+            font-size: 14px;
+        }
+        .btn:hover {
+            background: #7c4dff;
+        }
+        .btn-secondary {
+            background: #03DAC6;
+        }
+        .btn-secondary:hover {
+            background: #018786;
+        }
+        .output {
+            background: #f9f9f9;
+            padding: 15px;
+            margin-top: 15px;
+            border-radius: 4px;
+            border-left: 4px solid #6200EA;
+            white-space: pre-wrap;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        .success {
+            border-left-color: #4CAF50;
+            background: #e8f5e9;
+        }
+        .error {
+            border-left-color: #f44336;
+            background: #ffebee;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🤖 Agent Testing Page</h1>
+        <p>Test the Educational AI Agent and Testing Agent functionality</p>
+    </div>
+
+    <!-- Educational Agent Tests -->
+    <div class="test-section">
+        <h2>📚 Educational AI Agent</h2>
+        <p>Test intelligent tutoring and hint generation</p>
+
+        <button class="btn" onclick="testGentleHint()">Test Gentle Hint</button>
+        <button class="btn" onclick="testDetailedHint()">Test Detailed Hint</button>
+        <button class="btn" onclick="testStepByStep()">Test Step-by-Step</button>
+        <button class="btn-secondary" onclick="testMistakeAnalysis()">Test Mistake Analysis</button>
+        <button class="btn-secondary" onclick="testProgressTracking()">Test Progress Tracking</button>
+        <button class="btn-secondary" onclick="testAdaptivePractice()">Test Adaptive Practice</button>
+
+        <div id="edu-output" class="output">Click a button to test the Educational Agent...</div>
+    </div>
+
+    <!-- Testing Agent Tests -->
+    <div class="test-section">
+        <h2>🧪 Testing Agent</h2>
+        <p>Run automated tests and generate reports</p>
+
+        <button class="btn" onclick="runAllTests()">Run All Tests</button>
+        <button class="btn-secondary" onclick="testProblems()">Test Problem Generation</button>
+        <button class="btn-secondary" onclick="testComparison()">Test Fraction Comparison</button>
+        <button class="btn-secondary" onclick="exportReport()">Export HTML Report</button>
+
+        <div id="test-output" class="output">Click a button to test the Testing Agent...</div>
+    </div>
+
+    <script type="module">
+        // Import agents
+        import { educationalAgent } from './js/agents/educationalAgent.js';
+        import { testingAgent } from './js/agents/testingAgent.js';
+        import { generateProblems } from './js/features/problemGenerator.js';
+
+        // Make them globally accessible for onclick handlers
+        window.educationalAgent = educationalAgent;
+        window.testingAgent = testingAgent;
+        window.generateProblems = generateProblems;
+
+        // Educational Agent Tests
+        window.testGentleHint = function() {
+            const problem = {
+                num1: 3, denom1: 8,
+                num2: 5, denom2: 12,
+                correctAnswer: '<'
+            };
+
+            const hint = educationalAgent.getHint(problem, 1);
+            displayEducationalOutput(hint);
+        };
+
+        window.testDetailedHint = function() {
+            const problem = {
+                num1: 3, denom1: 8,
+                num2: 5, denom2: 12,
+                correctAnswer: '<'
+            };
+
+            const hint = educationalAgent.getHint(problem, 2);
+            displayEducationalOutput(hint);
+        };
+
+        window.testStepByStep = function() {
+            const problem = {
+                num1: 3, denom1: 8,
+                num2: 5, denom2: 12,
+                correctAnswer: '<'
+            };
+
+            const hint = educationalAgent.getHint(problem, 3);
+            displayEducationalOutput(hint);
+        };
+
+        window.testMistakeAnalysis = function() {
+            const problem = {
+                num1: 1, denom1: 4,
+                num2: 1, denom2: 8,
+                correctAnswer: '>',
+                mistakeType: 'unit-fraction'
+            };
+
+            const feedback = educationalAgent.analyzeMistake(problem, '<');
+            displayEducationalOutput(feedback);
+        };
+
+        window.testProgressTracking = function() {
+            const problems = [
+                { correctAnswer: '<', userAnswer: '<' },
+                { correctAnswer: '>', userAnswer: '<' },
+                { correctAnswer: '=', userAnswer: '=' },
+                { correctAnswer: '<', userAnswer: '<' },
+                { correctAnswer: '>', userAnswer: '>' }
+            ];
+
+            const progress = educationalAgent.updateStudentProfile(problems);
+            const message = educationalAgent.getEncouragingMessage(3, 5);
+
+            displayEducationalOutput({
+                message: 'Progress Report',
+                icon: '📊',
+                steps: [
+                    `Accuracy: ${progress.accuracy}`,
+                    `Overall Progress: ${progress.overallProgress}`,
+                    `Message: ${message}`
+                ]
+            });
+        };
+
+        window.testAdaptivePractice = function() {
+            const recommendations = educationalAgent.generateAdaptivePractice(5);
+            displayEducationalOutput({
+                message: 'Adaptive Practice Plan',
+                icon: '🎯',
+                steps: [
+                    `Recommended Count: ${recommendations.recommendedCount}`,
+                    `Focus Areas: ${recommendations.focusAreas.join(', ') || 'None'}`,
+                    `Message: ${recommendations.message}`
+                ]
+            });
+        };
+
+        function displayEducationalOutput(output) {
+            const div = document.getElementById('edu-output');
+            let text = `${output.icon || '💡'} ${output.message}\n\n`;
+
+            if (output.strategy) {
+                text += `Strategy: ${output.strategy}\n\n`;
+            }
+
+            if (output.steps && output.steps.length > 0) {
+                text += 'Steps:\n';
+                output.steps.forEach((step, i) => {
+                    text += `${i + 1}. ${step}\n`;
+                });
+                text += '\n';
+            }
+
+            if (output.explanation) {
+                text += `Explanation: ${output.explanation}\n\n`;
+            }
+
+            if (output.howToAvoid) {
+                text += `Tip: ${output.howToAvoid}\n`;
+            }
+
+            div.textContent = text;
+            div.className = 'output success';
+        }
+
+        // Testing Agent Tests
+        window.runAllTests = async function() {
+            const div = document.getElementById('test-output');
+            div.textContent = 'Running tests... Please wait.';
+            div.className = 'output';
+
+            try {
+                const report = await testingAgent.runAllTests();
+                displayTestOutput(report);
+            } catch (error) {
+                div.textContent = `Error: ${error.message}`;
+                div.className = 'output error';
+            }
+        };
+
+        window.testProblems = function() {
+            const problems = generateProblems(10, [2, 4, 6, 8]);
+            const results = testingAgent.testProblemBatch(problems);
+
+            const div = document.getElementById('test-output');
+            div.textContent = `Problem Validation Results:\n\nTotal: ${results.total}\nValid: ${results.valid}\nInvalid: ${results.invalid}\n\n${results.errors.length > 0 ? 'Errors:\n' + results.errors.map(e => `Problem ${e.index + 1}: ${e.errors.join(', ')}`).join('\n') : 'All problems valid!'}`;
+            div.className = results.invalid === 0 ? 'output success' : 'output error';
+        };
+
+        window.testComparison = function() {
+            const div = document.getElementById('test-output');
+            let text = 'Fraction Comparison Tests:\n\n';
+
+            const tests = [
+                { test: '1/4 < 1/2', expected: '<', args: [1, 4, 1, 2] },
+                { test: '3/4 > 1/2', expected: '>', args: [3, 4, 1, 2] },
+                { test: '1/2 = 2/4', expected: '=', args: [1, 2, 2, 4] },
+                { test: '2/3 < 3/4', expected: '<', args: [2, 3, 3, 4] }
+            ];
+
+            tests.forEach(t => {
+                const result = compareFractions(...t.args);
+                const pass = result === t.expected;
+                text += `${pass ? '✅' : '❌'} ${t.test} (Expected: ${t.expected}, Got: ${result})\n`;
+            });
+
+            div.textContent = text;
+            div.className = 'output success';
+        };
+
+        window.exportReport = function() {
+            const html = testingAgent.exportHTMLReport();
+            const blob = new Blob([html], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `test-report-${new Date().toISOString().split('T')[0]}.html`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+
+            const div = document.getElementById('test-output');
+            div.textContent = 'Report exported successfully!';
+            div.className = 'output success';
+        };
+
+        function displayTestOutput(report) {
+            const div = document.getElementById('test-output');
+            const passRate = parseFloat(report.summary.passRate);
+
+            let text = `Test Results:\n\n`;
+            text += `Total Tests: ${report.summary.total}\n`;
+            text += `✅ Passed: ${report.summary.passed}\n`;
+            text += `❌ Failed: ${report.summary.failed}\n`;
+            text += `📈 Pass Rate: ${report.summary.passRate}\n\n`;
+
+            if (report.summary.failed > 0) {
+                text += 'Failed Tests:\n';
+                report.results.filter(r => !r.passed).forEach(r => {
+                    text += `  • ${r.name}${r.message ? ': ' + r.message : ''}\n`;
+                });
+            } else {
+                text += '✨ All tests passed!';
+            }
+
+            div.textContent = text;
+            div.className = passRate === 100 ? 'output success' : 'output error';
+        }
+
+        // Import compareFractions for testing
+        import { compareFractions } from './js/core/utils.js';
+        window.compareFractions = compareFractions;
+    </script>
+</body>
+</html>

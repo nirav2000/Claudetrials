@@ -1,0 +1,428 @@
+/**
+ * Agent UI Styles
+ * Styles for Educational Agent and Testing Agent interfaces
+ */
+
+/* Agent Panel */
+.agent-panel {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin: 20px 0;
+    overflow: hidden;
+}
+
+.agent-panel-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 16px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+}
+
+.agent-panel-header h3 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.agent-panel-header .icon-btn {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: none;
+}
+
+.agent-panel-header .icon-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.agent-panel-content {
+    padding: 20px;
+}
+
+/* Agent Sections */
+.agent-section {
+    margin-bottom: 30px;
+    padding-bottom: 30px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.agent-section:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+.agent-section h4 {
+    margin: 0 0 8px 0;
+    font-size: 16px;
+    font-weight: 500;
+    color: #333;
+}
+
+.agent-section p {
+    margin: 0 0 16px 0;
+    color: #666;
+    font-size: 14px;
+}
+
+/* Agent Controls */
+.agent-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 16px;
+}
+
+.agent-controls button {
+    flex: 1;
+    min-width: 150px;
+}
+
+/* Agent Output */
+.agent-output {
+    margin-top: 16px;
+    min-height: 50px;
+}
+
+.agent-message {
+    background: #f5f5f5;
+    border-left: 4px solid #6200EA;
+    border-radius: 4px;
+    padding: 16px;
+    margin-bottom: 12px;
+    animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.agent-message.success {
+    background: #e8f5e9;
+    border-left-color: #4CAF50;
+}
+
+.agent-message.warning {
+    background: #fff3e0;
+    border-left-color: #FF9800;
+}
+
+.agent-message.error {
+    background: #ffebee;
+    border-left-color: #f44336;
+}
+
+.agent-message.gentle {
+    background: #e3f2fd;
+    border-left-color: #2196F3;
+}
+
+.agent-message.detailed {
+    background: #f3e5f5;
+    border-left-color: #9C27B0;
+}
+
+.agent-message.step-by-step {
+    background: #e8f5e9;
+    border-left-color: #4CAF50;
+}
+
+/* Agent Message Header */
+.agent-message-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+.agent-icon {
+    font-size: 24px;
+    line-height: 1;
+}
+
+.agent-message-header strong {
+    font-size: 16px;
+    color: #333;
+}
+
+/* Agent Content Sections */
+.agent-strategy,
+.agent-explanation,
+.agent-tip {
+    margin-top: 12px;
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 4px;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.agent-strategy {
+    background: rgba(33, 150, 243, 0.1);
+}
+
+.agent-explanation {
+    background: rgba(156, 39, 176, 0.1);
+}
+
+.agent-tip {
+    background: rgba(255, 193, 7, 0.1);
+}
+
+/* Agent Steps */
+.agent-steps {
+    margin-top: 12px;
+}
+
+.agent-steps strong {
+    display: block;
+    margin-bottom: 8px;
+    color: #333;
+}
+
+.agent-steps ol {
+    margin: 0;
+    padding-left: 20px;
+}
+
+.agent-steps li {
+    margin-bottom: 8px;
+    line-height: 1.6;
+    font-size: 14px;
+}
+
+/* Test Results */
+.test-summary {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 12px;
+    margin: 16px 0;
+}
+
+.test-stat {
+    background: rgba(255, 255, 255, 0.6);
+    padding: 12px;
+    border-radius: 4px;
+    text-align: center;
+}
+
+.stat-label {
+    display: block;
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 4px;
+    text-transform: uppercase;
+    font-weight: 500;
+}
+
+.stat-value {
+    display: block;
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+}
+
+.stat-value.passed {
+    color: #4CAF50;
+}
+
+.stat-value.failed {
+    color: #f44336;
+}
+
+/* Failed Tests List */
+.failed-tests {
+    margin-top: 16px;
+    padding: 12px;
+    background: rgba(244, 67, 54, 0.05);
+    border-radius: 4px;
+}
+
+.failed-tests strong {
+    display: block;
+    margin-bottom: 8px;
+    color: #d32f2f;
+}
+
+.failed-tests ul {
+    margin: 0;
+    padding-left: 20px;
+}
+
+.failed-tests li {
+    margin-bottom: 6px;
+    color: #666;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .agent-controls {
+        flex-direction: column;
+    }
+
+    .agent-controls button {
+        min-width: 100%;
+    }
+
+    .test-summary {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .agent-message-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    .agent-icon {
+        font-size: 32px;
+    }
+}
+
+/* Print Styles */
+@media print {
+    .agent-panel {
+        display: none;
+    }
+}
+
+/* Loading State */
+.agent-loading {
+    text-align: center;
+    padding: 20px;
+    color: #666;
+}
+
+.agent-loading::after {
+    content: '...';
+    display: inline-block;
+    animation: dots 1.5s steps(4, end) infinite;
+}
+
+@keyframes dots {
+    0%, 20% {
+        content: '.';
+    }
+    40% {
+        content: '..';
+    }
+    60%, 100% {
+        content: '...';
+    }
+}
+
+/* Common Mistake Badge */
+.mistake-badge {
+    display: inline-block;
+    background: #ff9800;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 500;
+    margin-right: 8px;
+}
+
+/* Progress Bar */
+.progress-bar-container {
+    width: 100%;
+    height: 8px;
+    background: #e0e0e0;
+    border-radius: 4px;
+    overflow: hidden;
+    margin: 12px 0;
+}
+
+.progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, #4CAF50 0%, #8BC34A 100%);
+    transition: width 0.3s ease;
+}
+
+/* Agent Tooltip */
+.agent-tooltip {
+    position: relative;
+    display: inline-block;
+    cursor: help;
+}
+
+.agent-tooltip:hover::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #333;
+    color: white;
+    padding: 6px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    white-space: nowrap;
+    z-index: 1000;
+    margin-bottom: 5px;
+}
+
+/* Interactive Hint Badge */
+.hint-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #e3f2fd;
+    color: #1976d2;
+    padding: 6px 12px;
+    border-radius: 16px;
+    font-size: 13px;
+    font-weight: 500;
+    margin: 4px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.hint-badge:hover {
+    background: #bbdefb;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Agent Card */
+.agent-card {
+    background: white;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 16px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.2s;
+}
+
+.agent-card:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Success Animation */
+.success-animation {
+    animation: successPulse 0.6s ease-out;
+}
+
+@keyframes successPulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
