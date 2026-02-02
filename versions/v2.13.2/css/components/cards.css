@@ -1,0 +1,153 @@
+/* Material Design Cards */
+
+.instructions {
+    background: #E8EAF6;
+    padding: 16px;
+    border-radius: 4px;
+    margin-bottom: 24px;
+    border-left: 4px solid var(--md-primary);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.instructions h3 {
+    color: var(--md-primary);
+    margin-bottom: 12px;
+    font-size: 1.25rem;
+    font-weight: 500;
+}
+
+.instructions ul {
+    margin-left: 20px;
+}
+
+.instructions li {
+    margin-bottom: 8px;
+    color: var(--md-text-primary);
+    line-height: 1.5;
+}
+
+.strategy-box {
+    background: #E8EAF6;
+    padding: 20px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    border-left: 4px solid var(--md-primary);
+}
+
+.strategy-box p,
+.strategy-box li {
+    line-height: 2;
+}
+
+.example-box {
+    background: #FFF3E0;
+    padding: 20px;
+    border-radius: 4px;
+    margin: 20px 0;
+    border-left: 4px solid var(--md-warning);
+    line-height: 2;
+}
+
+.score {
+    text-align: center;
+    font-size: 1.25rem;
+    margin: 16px 0;
+    padding: 16px;
+    background: var(--md-primary);
+    color: white;
+    border-radius: 4px;
+    display: none;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    font-weight: 500;
+}
+
+.score.show {
+    display: block;
+}
+
+.score-correct {
+    color: #C8E6C9;
+    font-weight: 700;
+}
+
+.score-incorrect {
+    color: #FFCDD2;
+    font-weight: 700;
+}
+
+/* Collapsible Sections */
+.collapsible-section {
+    margin: 24px 0;
+}
+
+.collapsible-header {
+    cursor: pointer;
+    padding: 16px;
+    background: var(--md-background);
+    border-radius: 4px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.3s;
+}
+
+.collapsible-header:hover {
+    background: #E0E0E0;
+}
+
+.collapsible-header h2,
+.collapsible-header h3 {
+    margin: 0;
+    color: var(--md-primary);
+    font-size: 1.25rem;
+    font-weight: 500;
+}
+
+.chevron {
+    transition: transform 0.3s;
+    color: var(--md-primary);
+}
+
+.collapsible-header.active .chevron {
+    transform: rotate(180deg);
+}
+
+.collapsible-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+}
+
+.collapsible-content.show {
+    max-height: none;
+    overflow: visible;
+    padding: 16px 0;
+}
+
+/* Version History Entries */
+.version-entry {
+    background: #FFFFFF;
+    padding: 16px;
+    border-radius: 4px;
+    margin-bottom: 16px;
+    border-left: 4px solid var(--md-secondary);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+
+.version-entry h4 {
+    color: var(--md-primary);
+    margin: 0 0 12px 0;
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+.version-entry ul {
+    margin: 8px 0 0 20px;
+    padding: 0;
+}
+
+.version-entry li {
+    margin-bottom: 6px;
+    color: var(--md-text-primary);
+    line-height: 1.6;
+}

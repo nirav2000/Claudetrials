@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comprehensive Functionality Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-section {
+            background: white;
+            padding: 20px;
+            margin: 10px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .pass { color: green; font-weight: bold; }
+        .fail { color: red; font-weight: bold; }
+        .test-result { margin: 5px 0; padding: 5px; }
+        #app-frame {
+            width: 100%;
+            height: 800px;
+            border: 2px solid #ddd;
+            margin-top: 20px;
+        }
+        button {
+            background: #6200EA;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #4615B2;
+        }
+    </style>
+</head>
+<body>
+    <h1>Comprehensive Functionality Test</h1>
+
+    <div class="test-section">
+        <h2>Module Loading Tests</h2>
+        <div id="module-tests"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>DOM Elements Test</h2>
+        <div id="dom-tests"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>Interactive Test</h2>
+        <p>Open the application in the iframe below and test manually:</p>
+        <div>
+            <button onclick="loadApp()">Load Application</button>
+            <button onclick="checkWorksheet()">Check if Worksheet is Displayed</button>
+            <button onclick="checkDropdowns()">Check Dropdowns</button>
+            <button onclick="checkButtons()">Check Buttons</button>
+        </div>
+        <div id="interactive-results"></div>
+        <iframe id="app-frame" src=""></iframe>
+    </div>
+
+    <script type="module">
+        const moduleTests = document.getElementById('module-tests');
+        const domTests = document.getElementById('dom-tests');
+        const interactiveResults = document.getElementById('interactive-results');
+
+        // Test 1: Module Loading
+        async function testModules() {
+            const modules = [
+                { name: 'Config', path: './js/core/config.js' },
+                { name: 'DOM Helpers', path: './js/core/domHelpers.js' },
+                { name: 'Utils', path: './js/core/utils.js' },
+                { name: 'Problem Generator', path: './js/features/problemGenerator.js' },
+                { name: 'Input Methods', path: './js/features/inputMethods.js' },
+                { name: 'Check Answers', path: './js/features/checkAnswers.js' },
+                { name: 'Visual Aids', path: './js/features/visualAids.js' },
+                { name: 'Carousel', path: './js/features/carousel.js' },
+                { name: 'Educational Content', path: './js/features/educationalContent.js' },
+                { name: 'Educational Visuals', path: './js/features/educationalVisuals.js' },
+                { name: 'Offline Support', path: './js/core/offline-support.js' },
+                { name: 'Timeline Customization', path: './js/features/timelineCustomization.js' },
+                { name: 'Voice Recognition', path: './js/features/voiceRecognition.js' },
+                { name: 'Print Export', path: './js/features/printExport.js' },
+                { name: 'App', path: './js/app.js' }
+            ];
+
+            let passed = 0;
+            let failed = 0;
+
+            for (const module of modules) {
+                try {
+                    await import(module.path);
+                    moduleTests.innerHTML += `<div class="test-result pass">✓ ${module.name} loaded successfully</div>`;
+                    passed++;
+                } catch (error) {
+                    moduleTests.innerHTML += `<div class="test-result fail">✗ ${module.name} failed: ${error.message}</div>`;
+                    failed++;
+                }
+            }
+
+            moduleTests.innerHTML += `<div style="margin-top: 10px;"><strong>Results: ${passed} passed, ${failed} failed</strong></div>`;
+        }
+
+        // Test 2: DOM Elements (after loading index.html in iframe)
+        async function testDOM() {
+            const frame = document.getElementById('app-frame');
+
+            try {
+                const doc = frame.contentDocument || frame.contentWindow.document;
+                const tests = [
+                    { name: 'Problems Container', selector: '#problems-container' },
+                    { name: 'Generate Button', selector: '#generate-btn' },
+                    { name: 'Check Button', selector: '#check-btn' },
+                    { name: 'Input Method Dropdown', selector: '#input-method' },
+                    { name: 'Problem Count Dropdown', selector: '#problem-count' },
+                    { name: 'Denominator Set Dropdown', selector: '#denominator-set' },
+                    { name: 'Score Display', selector: '#score' },
+                    { name: 'Common Mistakes Checkbox', selector: '#common-mistakes' }
+                ];
+
+                let passed = 0;
+                let failed = 0;
+
+                domTests.innerHTML = '';
+                for (const test of tests) {
+                    const element = doc.querySelector(test.selector);
+                    if (element) {
+                        domTests.innerHTML += `<div class="test-result pass">✓ ${test.name} exists</div>`;
+                        passed++;
+                    } else {
+                        domTests.innerHTML += `<div class="test-result fail">✗ ${test.name} not found</div>`;
+                        failed++;
+                    }
+                }
+
+                domTests.innerHTML += `<div style="margin-top: 10px;"><strong>Results: ${passed} passed, ${failed} failed</strong></div>`;
+            } catch (error) {
+                domTests.innerHTML = `<div class="test-result fail">Error accessing iframe: ${error.message}</div>`;
+            }
+        }
+
+        // Load application
+        window.loadApp = function() {
+            const frame = document.getElementById('app-frame');
+            frame.src = './index.html';
+            interactiveResults.innerHTML = '<p>Loading application...</p>';
+
+            frame.onload = function() {
+                interactiveResults.innerHTML = '<p class="pass">✓ Application loaded successfully!</p>';
+                // Wait a bit for JS to initialize, then test DOM
+                setTimeout(testDOM, 2000);
+            };
+        };
+
+        // Check if worksheet is displayed
+        window.checkWorksheet = function() {
+            const frame = document.getElementById('app-frame');
+            try {
+                const doc = frame.contentDocument || frame.contentWindow.document;
+                const problemsContainer = doc.querySelector('#problems-container');
+                const problems = doc.querySelectorAll('.problem');
+
+                if (!problemsContainer) {
+                    interactiveResults.innerHTML += '<p class="fail">✗ Problems container not found</p>';
+                } else if (problems.length === 0) {
+                    interactiveResults.innerHTML += '<p class="fail">✗ No problems displayed (worksheet may not have generated)</p>';
+                    interactiveResults.innerHTML += '<p>Checking console logs...</p>';
+                } else {
+                    interactiveResults.innerHTML += `<p class="pass">✓ Worksheet displayed with ${problems.length} problems</p>`;
+                }
+            } catch (error) {
+                interactiveResults.innerHTML += `<p class="fail">✗ Error: ${error.message}</p>`;
+            }
+        };
+
+        // Check dropdowns
+        window.checkDropdowns = function() {
+            const frame = document.getElementById('app-frame');
+            try {
+                const doc = frame.contentDocument || frame.contentWindow.document;
+                const dropdowns = [
+                    { name: 'Input Method', id: 'input-method' },
+                    { name: 'Problem Count', id: 'problem-count' },
+                    { name: 'Denominator Set', id: 'denominator-set' },
+                    { name: 'Hint Timeout', id: 'hint-timeout' }
+                ];
+
+                let allWorking = true;
+                for (const dropdown of dropdowns) {
+                    const element = doc.getElementById(dropdown.id);
+                    if (!element) {
+                        interactiveResults.innerHTML += `<p class="fail">✗ ${dropdown.name} dropdown not found</p>`;
+                        allWorking = false;
+                    } else if (element.disabled) {
+                        interactiveResults.innerHTML += `<p class="fail">✗ ${dropdown.name} dropdown is disabled</p>`;
+                        allWorking = false;
+                    } else {
+                        interactiveResults.innerHTML += `<p class="pass">✓ ${dropdown.name} dropdown is working</p>`;
+                    }
+                }
+
+                if (allWorking) {
+                    interactiveResults.innerHTML += '<p class="pass"><strong>All dropdowns are working!</strong></p>';
+                }
+            } catch (error) {
+                interactiveResults.innerHTML += `<p class="fail">✗ Error: ${error.message}</p>`;
+            }
+        };
+
+        // Check buttons
+        window.checkButtons = function() {
+            const frame = document.getElementById('app-frame');
+            try {
+                const doc = frame.contentDocument || frame.contentWindow.document;
+                const buttons = [
+                    { name: 'Generate', id: 'generate-btn' },
+                    { name: 'Check Answers', id: 'check-btn' },
+                    { name: 'Show Answers', id: 'show-answers-btn' },
+                    { name: 'Clear Answers', id: 'clear-btn' },
+                    { name: 'Print', id: 'print-btn' },
+                    { name: 'PDF', id: 'pdf-btn' }
+                ];
+
+                let allWorking = true;
+                for (const button of buttons) {
+                    const element = doc.getElementById(button.id);
+                    if (!element) {
+                        interactiveResults.innerHTML += `<p class="fail">✗ ${button.name} button not found</p>`;
+                        allWorking = false;
+                    } else if (element.disabled) {
+                        interactiveResults.innerHTML += `<p class="fail">✗ ${button.name} button is disabled</p>`;
+                        allWorking = false;
+                    } else {
+                        interactiveResults.innerHTML += `<p class="pass">✓ ${button.name} button is working</p>`;
+                    }
+                }
+
+                if (allWorking) {
+                    interactiveResults.innerHTML += '<p class="pass"><strong>All buttons are working!</strong></p>';
+                }
+            } catch (error) {
+                interactiveResults.innerHTML += `<p class="fail">✗ Error: ${error.message}</p>`;
+            }
+        };
+
+        // Run module tests immediately
+        testModules();
+    </script>
+</body>
+</html>

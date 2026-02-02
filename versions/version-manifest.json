@@ -1,6 +1,16 @@
 {
-  "current": "2.13.1",
+  "current": "2.13.2",
   "versions": [
+    {
+      "number": "2.13.2",
+      "date": "2026-02-02",
+      "changelogFile": "changelogs/v2.13.2.md",
+      "type": "patch",
+      "description": "Add comprehensive testing suite and documentation",
+      "file": "fraction-worksheet-v2.13.2.html",
+      "path": "versions/v2.13.2/index.html",
+      "commit": "test: Add comprehensive testing suite and documentation\n\nCreated multiple test pages and documentati"
+    },
     {
       "number": "2.13.1",
       "date": "2026-02-02",
@@ -640,6 +650,6 @@
       "file": "fraction-worksheet-v1.0.0.html"
     }
   ],
-  "currentVersion": "2.13.1",
+  "currentVersion": "2.13.2",
   "lastUpdated": "2026-02-02"
 }

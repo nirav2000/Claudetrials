@@ -1,0 +1,451 @@
+/* Visual Aids Styles */
+
+/* Inline hints (new design) */
+.visual-aids-inline {
+    margin-top: 16px;
+    padding: 20px;
+    background: linear-gradient(135deg, #E8F5E9 0%, #F1F8E9 100%);
+    border-radius: 12px;
+    border-left: 6px solid #4CAF50;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.visual-aids-inline .hint-title {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: #2E7D32;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.visual-aids-inline .hint-content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.visual-aids-inline .hint-fraction-display {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+.visual-aids-inline .pizza-diagram {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.visual-aids-inline .pizza-label {
+    font-size: 1.125rem;
+    color: #333;
+    font-weight: 600;
+}
+
+.visual-aids-inline .hint-explanation {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.visual-aids-inline .hint-correct-answer {
+    background: white;
+    padding: 14px;
+    border-radius: 8px;
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: #2E7D32;
+    text-align: center;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+.visual-aids-inline .hint-decimal {
+    background: white;
+    padding: 12px;
+    border-radius: 8px;
+    font-family: 'Courier New', monospace;
+    font-size: 0.95rem;
+    color: #1565C0;
+    text-align: center;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Legacy inline hints (deprecated, kept for backwards compatibility) */
+.visual-aids {
+    grid-column: 1 / -1;
+    margin-top: 12px;
+    padding: 16px;
+    background: #FFF9C4;
+    border-radius: 4px;
+    border-left: 4px solid var(--md-warning);
+}
+
+.visual-aids.hidden-for-print {
+    display: none !important;
+}
+
+/* Hint Modal Overlay */
+.hint-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10001;
+    padding: 20px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.hint-modal-overlay.show {
+    opacity: 1;
+}
+
+/* Hint Modal */
+.hint-modal {
+    background: white;
+    border-radius: 16px;
+    max-width: 600px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(30px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Modal Header */
+.hint-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 24px;
+    border-bottom: 2px solid #e0e0e0;
+    background: linear-gradient(135deg, #6200EA 0%, #7C4DFF 100%);
+    border-radius: 16px 16px 0 0;
+}
+
+.hint-modal-header h3 {
+    margin: 0;
+    color: white;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.hint-modal-close {
+    background: transparent;
+    border: none;
+    font-size: 36px;
+    color: white;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: background 0.2s ease;
+    padding: 0;
+    line-height: 1;
+}
+
+.hint-modal-close:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* Modal Body */
+.hint-modal-body {
+    padding: 32px 24px;
+}
+
+.hint-fraction-display {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 32px;
+    margin-bottom: 32px;
+    padding: 24px;
+    background: linear-gradient(135deg, #f5f5f5 0%, #ececec 100%);
+    border-radius: 12px;
+}
+
+.pizza-diagram {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+.pizza-label {
+    font-size: 1.125rem;
+    color: var(--md-text-primary);
+    font-weight: 600;
+}
+
+.hint-operator {
+    font-size: 2.5em;
+    font-weight: bold;
+    color: var(--md-primary);
+}
+
+.hint-explanation {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.hint-correct-answer {
+    background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%);
+    padding: 16px;
+    border-radius: 8px;
+    border-left: 4px solid #4CAF50;
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: #2E7D32;
+    text-align: center;
+}
+
+.hint-mistake-box {
+    background: #FFF3E0;
+    padding: 16px;
+    border-radius: 8px;
+    border-left: 4px solid #FF9800;
+}
+
+.hint-mistake-box strong {
+    color: #E65100;
+    display: block;
+    margin-bottom: 8px;
+    font-size: 1rem;
+}
+
+.hint-mistake-box p {
+    margin: 0;
+    line-height: 1.6;
+    color: #5D4037;
+}
+
+.hint-decimal {
+    background: #E3F2FD;
+    padding: 16px;
+    border-radius: 8px;
+    border-left: 4px solid #2196F3;
+    font-family: 'Courier New', monospace;
+    font-size: 0.95rem;
+    color: #1565C0;
+    text-align: center;
+}
+
+/* Fraction Visual Components */
+.fraction-visual {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 8px;
+    position: relative;
+}
+
+.fraction-visual .numerator-label,
+.fraction-visual .denominator-label {
+    font-size: 0.75em;
+    color: var(--md-primary);
+    font-weight: 600;
+    position: absolute;
+    white-space: nowrap;
+}
+
+.fraction-visual .numerator-label {
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.fraction-visual .denominator-label {
+    bottom: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* Fraction Bar Components */
+.fraction-bar {
+    display: inline-flex;
+    border: 3px solid #333;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.fraction-part {
+    width: 40px;
+    height: 40px;
+    border-right: 2px solid #333;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: #666;
+}
+
+.fraction-part:last-child {
+    border-right: none;
+}
+
+.fraction-part.filled {
+    background: #FFA726;
+    color: white;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    /* Inline hints mobile styles */
+    .visual-aids-inline {
+        padding: 16px;
+    }
+
+    .visual-aids-inline .hint-title {
+        font-size: 1rem;
+    }
+
+    .visual-aids-inline .hint-fraction-display {
+        flex-direction: column;
+        gap: 16px;
+        padding: 16px;
+    }
+
+    .visual-aids-inline .hint-operator {
+        font-size: 1.5em;
+        transform: rotate(90deg);
+    }
+
+    .visual-aids-inline .pizza-label {
+        font-size: 1rem;
+    }
+
+    .visual-aids-inline .hint-correct-answer {
+        font-size: 1rem;
+        padding: 12px;
+    }
+
+    .visual-aids-inline .hint-decimal {
+        font-size: 0.875rem;
+        padding: 10px;
+    }
+
+    /* Modal styles */
+    .hint-modal {
+        max-width: 100%;
+        max-height: 100vh;
+        border-radius: 0;
+        margin: 0;
+    }
+
+    .hint-modal-header {
+        padding: 16px 20px;
+        border-radius: 0;
+    }
+
+    .hint-modal-header h3 {
+        font-size: 1.25rem;
+        padding-right: 10px;
+    }
+
+    .hint-modal-close {
+        width: 36px;
+        height: 36px;
+        font-size: 32px;
+    }
+
+    .hint-modal-body {
+        padding: 20px 16px;
+    }
+
+    .hint-fraction-display {
+        flex-direction: column;
+        gap: 20px;
+        padding: 20px 16px;
+    }
+
+    .hint-operator {
+        font-size: 2em;
+        transform: rotate(90deg);
+    }
+
+    .pizza-label {
+        font-size: 1rem;
+    }
+
+    .hint-correct-answer {
+        font-size: 1rem;
+        padding: 12px;
+    }
+
+    .hint-mistake-box,
+    .hint-decimal {
+        padding: 12px;
+        font-size: 0.875rem;
+    }
+}
+
+/* Extra small screens */
+@media (max-width: 480px) {
+    .hint-modal-header h3 {
+        font-size: 1.1rem;
+    }
+
+    .hint-fraction-display {
+        padding: 16px 12px;
+        gap: 16px;
+    }
+
+    .pizza-label {
+        font-size: 0.9rem;
+    }
+}
+
+/* Print Styles */
+@media print {
+    .visual-aids {
+        break-inside: avoid;
+        page-break-inside: avoid;
+    }
+
+    .visual-aids.print-show {
+        display: block !important;
+    }
+
+    .hint-modal-overlay {
+        display: none !important;
+    }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+    .hint-modal-overlay,
+    .hint-modal {
+        animation: none !important;
+        transition: none !important;
+    }
+}
