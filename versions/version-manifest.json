@@ -1,6 +1,16 @@
 {
-  "current": "2.10.0",
+  "current": "2.11.0",
   "versions": [
+    {
+      "number": "2.11.0",
+      "date": "2026-02-02",
+      "changelogFile": "changelogs/v2.11.0.md",
+      "type": "minor",
+      "description": "Improve UI positioning and error handling",
+      "file": "fraction-worksheet-v2.11.0.html",
+      "path": "versions/v2.11.0/index.html",
+      "commit": "feat: Improve UI positioning and error handling\n\n- Reposition auth feature indicator to top-right fo"
+    },
     {
       "number": "2.10.0",
       "date": "2026-02-01",
@@ -600,6 +610,6 @@
       "file": "fraction-worksheet-v1.0.0.html"
     }
   ],
-  "currentVersion": "2.10.0",
-  "lastUpdated": "2026-02-01"
+  "currentVersion": "2.11.0",
+  "lastUpdated": "2026-02-02"
 }
