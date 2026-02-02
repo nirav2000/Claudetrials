@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Load</title>
+</head>
+<body>
+    <h1>Testing Module Load</h1>
+    <div id="test-output"></div>
+
+    <script type="module">
+        const output = document.getElementById('test-output');
+
+        try {
+            output.innerHTML += '<p>Starting tests...</p>';
+
+            // Test 1: Load config
+            const configModule = await import('./js/core/config.js');
+            output.innerHTML += '<p style="color: green;">✓ Config loaded</p>';
+
+            // Test 2: Load domHelpers
+            const domModule = await import('./js/core/domHelpers.js');
+            output.innerHTML += '<p style="color: green;">✓ DOM Helpers loaded</p>';
+
+            // Test 3: Load utils
+            const utilsModule = await import('./js/core/utils.js');
+            output.innerHTML += '<p style="color: green;">✓ Utils loaded</p>';
+
+            // Test 4: Load problemGenerator
+            const problemGenModule = await import('./js/features/problemGenerator.js');
+            output.innerHTML += '<p style="color: green;">✓ Problem Generator loaded</p>';
+
+            // Test 5: Load inputMethods
+            const inputModule = await import('./js/features/inputMethods.js');
+            output.innerHTML += '<p style="color: green;">✓ Input Methods loaded</p>';
+
+            // Test 6: Load checkAnswers
+            const checkModule = await import('./js/features/checkAnswers.js');
+            output.innerHTML += '<p style="color: green;">✓ Check Answers loaded</p>';
+
+            // Test 7: Load visualAids
+            const visualModule = await import('./js/features/visualAids.js');
+            output.innerHTML += '<p style="color: green;">✓ Visual Aids loaded</p>';
+
+            // Test 8: Load carousel
+            const carouselModule = await import('./js/features/carousel.js');
+            output.innerHTML += '<p style="color: green;">✓ Carousel loaded</p>';
+
+            // Test 9: Load educationalContent
+            const eduModule = await import('./js/features/educationalContent.js');
+            output.innerHTML += '<p style="color: green;">✓ Educational Content loaded</p>';
+
+            // Test 10: Load educationalVisuals
+            const eduVisModule = await import('./js/features/educationalVisuals.js');
+            output.innerHTML += '<p style="color: green;">✓ Educational Visuals loaded</p>';
+
+            // Test 11: Load offline-support
+            const offlineModule = await import('./js/core/offline-support.js');
+            output.innerHTML += '<p style="color: green;">✓ Offline Support loaded</p>';
+
+            // Test 12: Load timelineCustomization
+            const timelineModule = await import('./js/features/timelineCustomization.js');
+            output.innerHTML += '<p style="color: green;">✓ Timeline Customization loaded</p>';
+
+            // Test 13: Load voiceRecognition
+            const voiceModule = await import('./js/features/voiceRecognition.js');
+            output.innerHTML += '<p style="color: green;">✓ Voice Recognition loaded</p>';
+
+            // Test 14: Load printExport
+            const printModule = await import('./js/features/printExport.js');
+            output.innerHTML += '<p style="color: green;">✓ Print Export loaded</p>';
+
+            // Test 15: Try loading app.js (this should work if all dependencies are fine)
+            const appModule = await import('./js/app.js');
+            output.innerHTML += '<p style="color: green;">✓ App loaded successfully!</p>';
+
+            output.innerHTML += '<h2 style="color: green;">All modules loaded successfully!</h2>';
+        } catch (error) {
+            output.innerHTML += `<p style="color: red;">✗ Error: ${error.message}</p>`;
+            output.innerHTML += `<pre style="color: red;">${error.stack}</pre>`;
+        }
+    </script>
+</body>
+</html>
