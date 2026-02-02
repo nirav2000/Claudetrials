@@ -1,0 +1,307 @@
+/**
+ * Mistake Feedback Styles
+ * Styling for dynamic mistake detection and feedback system
+ */
+
+/* Mistake Feedback Container */
+.mistake-feedback-container {
+    margin-top: 12px;
+    animation: fadeInSlide 0.3s ease-out;
+}
+
+@keyframes fadeInSlide {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Mistake Feedback Card */
+.mistake-feedback {
+    background: linear-gradient(135deg, #fff5f5 0%, #ffe5e5 100%);
+    border-left: 4px solid #f44336;
+    border-radius: 8px;
+    padding: 16px;
+    box-shadow: 0 2px 8px rgba(244, 67, 54, 0.1);
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+/* Mistake Header */
+.mistake-feedback-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+    font-weight: 600;
+    color: #c62828;
+}
+
+.mistake-icon {
+    font-size: 24px;
+    line-height: 1;
+}
+
+.mistake-name {
+    font-size: 16px;
+}
+
+/* Mistake Body */
+.mistake-feedback-body {
+    color: #333;
+}
+
+.mistake-feedback-body p {
+    margin: 8px 0;
+}
+
+.mistake-feedback-body strong {
+    color: #c62828;
+    font-weight: 600;
+}
+
+.mistake-description {
+    color: #d32f2f;
+}
+
+.mistake-explanation {
+    color: #555;
+}
+
+.mistake-correction {
+    color: #2e7d32;
+    background: rgba(76, 175, 80, 0.1);
+    padding: 8px;
+    border-radius: 4px;
+    margin-top: 8px;
+}
+
+/* Pattern Summary Container */
+#pattern-summary-container {
+    margin: 24px 0;
+    animation: fadeInSlide 0.4s ease-out;
+}
+
+/* Pattern Summary Card */
+.pattern-summary {
+    background: linear-gradient(135deg, #f5f9ff 0%, #e3f2fd 100%);
+    border: 2px solid #2196F3;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 4px 12px rgba(33, 150, 243, 0.15);
+}
+
+.pattern-summary h3 {
+    margin: 0 0 12px 0;
+    color: #1565C0;
+    font-size: 20px;
+}
+
+.pattern-summary > p {
+    margin: 0 0 16px 0;
+    color: #555;
+    font-size: 15px;
+}
+
+/* Pattern List */
+.pattern-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* Pattern Item */
+.pattern-item {
+    background: white;
+    border: 1px solid #90CAF9;
+    border-radius: 8px;
+    padding: 16px;
+    transition: all 0.2s ease;
+}
+
+.pattern-item:hover {
+    border-color: #2196F3;
+    box-shadow: 0 2px 8px rgba(33, 150, 243, 0.2);
+}
+
+/* Pattern Header */
+.pattern-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 8px;
+}
+
+.pattern-icon {
+    font-size: 24px;
+    line-height: 1;
+}
+
+.pattern-name {
+    flex: 1;
+    font-weight: 600;
+    color: #1565C0;
+    font-size: 16px;
+}
+
+.pattern-count {
+    background: #2196F3;
+    color: white;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+/* Pattern Problems */
+.pattern-problems {
+    color: #666;
+    font-size: 14px;
+    margin-bottom: 12px;
+}
+
+.pattern-problems strong {
+    color: #1565C0;
+    font-weight: 600;
+}
+
+/* Pattern Review Button */
+.pattern-review-btn {
+    background: linear-gradient(135deg, #2196F3 0%, #1976D2 100%);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    width: 100%;
+}
+
+.pattern-review-btn:hover {
+    background: linear-gradient(135deg, #1976D2 0%, #1565C0 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(33, 150, 243, 0.3);
+}
+
+.pattern-review-btn:active {
+    transform: translateY(0);
+}
+
+/* Highlighted Problem (when reviewing) */
+.problem.highlighted {
+    background: linear-gradient(135deg, #fff9c4 0%, #fff59d 100%);
+    border: 2px solid #FBC02D;
+    border-radius: 8px;
+    padding: 12px;
+    margin: -12px;
+    animation: pulseHighlight 1s ease-in-out 3;
+}
+
+@keyframes pulseHighlight {
+    0%, 100% {
+        box-shadow: 0 0 0 0 rgba(251, 192, 45, 0.4);
+    }
+    50% {
+        box-shadow: 0 0 0 10px rgba(251, 192, 45, 0);
+    }
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .mistake-feedback {
+        padding: 12px;
+        font-size: 13px;
+    }
+
+    .mistake-feedback-header {
+        flex-wrap: wrap;
+        align-items: flex-start;
+    }
+
+    .mistake-icon {
+        font-size: 20px;
+        flex-shrink: 0;
+    }
+
+    .mistake-name {
+        font-size: 14px;
+        flex: 1;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        hyphens: auto;
+        line-height: 1.4;
+    }
+
+    .pattern-summary {
+        padding: 16px;
+    }
+
+    .pattern-summary h3 {
+        font-size: 18px;
+    }
+
+    .pattern-item {
+        padding: 12px;
+    }
+
+    .pattern-header {
+        flex-wrap: wrap;
+    }
+
+    .pattern-name {
+        flex-basis: 100%;
+        margin-bottom: 4px;
+    }
+
+    .pattern-review-btn {
+        padding: 8px 16px;
+        font-size: 13px;
+    }
+}
+
+/* Print: Hide Mistake Feedback */
+@media print {
+    .mistake-feedback-container,
+    #pattern-summary-container {
+        display: none !important;
+    }
+
+    .problem.highlighted {
+        background: white;
+        border: none;
+        padding: 0;
+        margin: 0;
+    }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+    .mistake-feedback-container,
+    #pattern-summary-container,
+    .problem.highlighted {
+        animation: none;
+    }
+
+    .pattern-review-btn:hover {
+        transform: none;
+    }
+
+    @keyframes fadeInSlide {
+        from, to {
+            opacity: 1;
+            transform: none;
+        }
+    }
+
+    @keyframes pulseHighlight {
+        from, to {
+            box-shadow: none;
+        }
+    }
+}
