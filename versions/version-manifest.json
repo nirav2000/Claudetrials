@@ -1,6 +1,16 @@
 {
-  "current": "2.13.2",
+  "current": "2.13.3",
   "versions": [
+    {
+      "number": "2.13.3",
+      "date": "2026-02-02",
+      "changelogFile": "changelogs/v2.13.3.md",
+      "type": "patch",
+      "description": "Add comprehensive mistake and hint box comparison across all versions",
+      "file": "fraction-worksheet-v2.13.3.html",
+      "path": "versions/v2.13.3/index.html",
+      "commit": "docs: Add comprehensive mistake and hint box comparison across all versions\n\nCreate detailed compari"
+    },
     {
       "number": "2.13.2",
       "date": "2026-02-02",
@@ -650,6 +660,6 @@
       "file": "fraction-worksheet-v1.0.0.html"
     }
   ],
-  "currentVersion": "2.13.2",
+  "currentVersion": "2.13.3",
   "lastUpdated": "2026-02-02"
 }
