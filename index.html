@@ -9,18 +9,40 @@
 <body>
     <div class="container">
         <header>
-            <h1>Japanese Learning App</h1>
-            <p class="subtitle">Master Hiragana, Katakana & Kanji with Spaced Repetition</p>
+            <h1 id="appTitle">Language Learning App</h1>
+            <p class="subtitle" id="appSubtitle">Master Languages with Spaced Repetition</p>
         </header>
 
+        <div class="language-selector" id="languageSelector">
+            <button class="language-btn active" data-language="japanese">
+                <span class="language-flag">🇯🇵</span>
+                <span class="language-name">Japanese</span>
+            </button>
+            <button class="language-btn" data-language="french">
+                <span class="language-flag">🇫🇷</span>
+                <span class="language-name">French</span>
+            </button>
+            <button class="language-btn" data-language="gujarati">
+                <span class="language-flag">🇮🇳</span>
+                <span class="language-name">Gujarati</span>
+            </button>
+        </div>
+
         <div class="mode-selector" id="modeSelector">
-            <button class="mode-btn" data-mode="hiragana">Hiragana</button>
-            <button class="mode-btn" data-mode="katakana">Katakana</button>
-            <button class="mode-btn" data-mode="kanji">Kanji</button>
+            <button class="mode-btn" data-mode="characters">Characters</button>
             <button class="mode-btn" data-mode="words">Words</button>
             <button class="mode-btn" data-mode="sentences">Sentences</button>
-            <button class="view-chart-btn" id="viewChartBtn">📖 Reference</button>
-            <button class="view-chart-btn" id="viewProgressBtn">📊 Progress</button>
+        </div>
+
+        <div class="quick-actions">
+            <div class="quick-action-card" id="referenceCard">
+                <span>📖 Reference</span>
+                <button class="dismiss-btn" id="dismissReference">×</button>
+            </div>
+            <div class="quick-action-card" id="progressCard">
+                <span>📊 Progress</span>
+                <button class="dismiss-btn" id="dismissProgress">×</button>
+            </div>
         </div>
 
         <div class="stats-panel">
@@ -29,7 +51,7 @@
                 <span class="stat-value" id="learnedCount">0</span>
             </div>
             <div class="stat-item">
-                <span class="stat-label">Review Today:</span>
+                <span class="stat-label">Review:</span>
                 <span class="stat-value" id="reviewCount">0</span>
             </div>
             <div class="stat-item">

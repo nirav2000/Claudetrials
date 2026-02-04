@@ -3,6 +3,7 @@
 
 class SpacedRepetitionApp {
     constructor() {
+        this.currentLanguage = 'japanese';
         this.currentMode = null;
         this.currentData = [];
         this.reviewQueue = [];
@@ -10,8 +11,8 @@ class SpacedRepetitionApp {
         this.currentIndex = 0;
         this.sessionCards = [];
 
-        // Local storage keys
-        this.STORAGE_KEY = 'japaneseLearningSRS';
+        // Local storage key base
+        this.STORAGE_KEY_BASE = 'multiLangLearningSRS';
 
         // Load saved progress
         this.loadProgress();
@@ -21,6 +22,16 @@ class SpacedRepetitionApp {
     }
 
     initializeUI() {
+        // Language selection buttons
+        document.querySelectorAll('.language-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const button = e.target.closest('.language-btn');
+                if (button) {
+                    this.selectLanguage(button.dataset.language);
+                }
+            });
+        });
+
         // Mode selection buttons
         document.querySelectorAll('.mode-btn').forEach(btn => {
             btn.addEventListener('click', (e) => {
@@ -46,19 +57,47 @@ class SpacedRepetitionApp {
             this.selectMode(this.currentMode);
         });
 
-        // View Chart button
-        document.getElementById('viewChartBtn').addEventListener('click', () => {
-            this.showReferenceChart();
-        });
+        // Reference card click
+        const referenceCard = document.getElementById('referenceCard');
+        if (referenceCard) {
+            referenceCard.addEventListener('click', (e) => {
+                if (!e.target.classList.contains('dismiss-btn')) {
+                    this.showReferenceChart();
+                }
+            });
+        }
+
+        // Dismiss Reference button
+        const dismissReference = document.getElementById('dismissReference');
+        if (dismissReference) {
+            dismissReference.addEventListener('click', (e) => {
+                e.stopPropagation();
+                document.getElementById('referenceCard').style.display = 'none';
+            });
+        }
+
+        // Progress card click
+        const progressCard = document.getElementById('progressCard');
+        if (progressCard) {
+            progressCard.addEventListener('click', (e) => {
+                if (!e.target.classList.contains('dismiss-btn')) {
+                    this.showProgressScreen();
+                }
+            });
+        }
+
+        // Dismiss Progress button
+        const dismissProgress = document.getElementById('dismissProgress');
+        if (dismissProgress) {
+            dismissProgress.addEventListener('click', (e) => {
+                e.stopPropagation();
+                document.getElementById('progressCard').style.display = 'none';
+            });
+        }
 
         // Close Chart button
         document.getElementById('closeChartBtn').addEventListener('click', () => {
             this.closeReferenceChart();
-        });
-
-        // View Progress button
-        document.getElementById('viewProgressBtn').addEventListener('click', () => {
-            this.showProgressScreen();
         });
 
         // Close Progress button
@@ -66,8 +105,46 @@ class SpacedRepetitionApp {
             this.closeProgressScreen();
         });
 
+        // Update UI for current language
+        this.updateLanguageUI();
+
         // Update stats display
         this.updateStats();
+    }
+
+    selectLanguage(language) {
+        // Remove active class from all language buttons
+        document.querySelectorAll('.language-btn').forEach(btn => {
+            btn.classList.remove('active');
+        });
+
+        // Add active class to selected button
+        const selectedBtn = document.querySelector(`[data-language="${language}"]`);
+        if (selectedBtn) {
+            selectedBtn.classList.add('active');
+        }
+
+        this.currentLanguage = language;
+        this.updateLanguageUI();
+        this.updateStats();
+
+        // Reset current mode if active
+        if (this.currentMode) {
+            document.getElementById('learningArea').style.display = 'none';
+            document.getElementById('welcomeScreen').style.display = 'block';
+            document.querySelectorAll('.mode-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            this.currentMode = null;
+        }
+    }
+
+    updateLanguageUI() {
+        const config = languageConfig[this.currentLanguage];
+        if (config) {
+            document.getElementById('appTitle').textContent = config.title;
+            document.getElementById('appSubtitle').textContent = config.subtitle;
+        }
     }
 
     selectMode(mode) {
@@ -83,7 +160,23 @@ class SpacedRepetitionApp {
         }
 
         this.currentMode = mode;
-        this.currentData = japaneseData[mode] || [];
+        const currentLangData = languageData[this.currentLanguage];
+
+        // Map modes for Japanese (backwards compatibility)
+        if (this.currentLanguage === 'japanese') {
+            if (mode === 'characters') {
+                // Combine hiragana, katakana, and kanji for Japanese
+                this.currentData = [
+                    ...currentLangData.hiragana,
+                    ...currentLangData.katakana,
+                    ...currentLangData.kanji
+                ];
+            } else {
+                this.currentData = currentLangData[mode] || [];
+            }
+        } else {
+            this.currentData = currentLangData[mode] || [];
+        }
 
         // Get due cards or new cards
         this.sessionCards = this.getSessionCards();
@@ -105,7 +198,7 @@ class SpacedRepetitionApp {
 
         // Get cards that are due for review
         this.currentData.forEach((item, index) => {
-            const cardId = `${this.currentMode}-${index}`;
+            const cardId = `${this.currentLanguage}-${this.currentMode}-${index}`;
             const cardData = this.progress[cardId];
 
             if (!cardData) {
@@ -278,7 +371,8 @@ class SpacedRepetitionApp {
     }
 
     loadProgress() {
-        const saved = localStorage.getItem(this.STORAGE_KEY);
+        const storageKey = `${this.STORAGE_KEY_BASE}_${this.currentLanguage}`;
+        const saved = localStorage.getItem(storageKey);
         if (saved) {
             const data = JSON.parse(saved);
             this.progress = data.progress || {};
@@ -295,12 +389,13 @@ class SpacedRepetitionApp {
     }
 
     saveProgress() {
+        const storageKey = `${this.STORAGE_KEY_BASE}_${this.currentLanguage}`;
         const data = {
             progress: this.progress,
             streak: this.streak,
             lastStudyDate: this.lastStudyDate
         };
-        localStorage.setItem(this.STORAGE_KEY, JSON.stringify(data));
+        localStorage.setItem(storageKey, JSON.stringify(data));
     }
 
     updateStreak() {
@@ -345,7 +440,7 @@ class SpacedRepetitionApp {
         // Determine which data to show
         let title = 'Reference Chart';
 
-        if (this.currentMode && japaneseData[this.currentMode]) {
+        if (this.currentMode) {
             title = `${this.currentMode.charAt(0).toUpperCase() + this.currentMode.slice(1)} Reference Chart`;
         } else {
             title = 'Choose a learning mode to see its reference chart';
@@ -358,10 +453,21 @@ class SpacedRepetitionApp {
         const chartGrid = document.getElementById('chartGrid');
         chartGrid.innerHTML = '';
 
-        // Different layouts based on mode
-        if (this.currentMode === 'hiragana' || this.currentMode === 'katakana') {
-            this.renderKanaChart(chartGrid, this.currentMode);
-        } else if (this.currentMode === 'kanji' || this.currentMode === 'words' || this.currentMode === 'sentences') {
+        const currentLangData = languageData[this.currentLanguage];
+
+        // Different layouts based on language and mode
+        if (this.currentLanguage === 'japanese' && this.currentMode === 'characters') {
+            // Show both hiragana and katakana charts for Japanese
+            const hiraganaSection = document.createElement('div');
+            hiraganaSection.innerHTML = '<h3 style="color: #667eea; margin: 20px 0;">Hiragana</h3>';
+            chartGrid.appendChild(hiraganaSection);
+            this.renderKanaChart(chartGrid, 'hiragana');
+
+            const katakanaSection = document.createElement('div');
+            katakanaSection.innerHTML = '<h3 style="color: #667eea; margin: 40px 0 20px 0;">Katakana</h3>';
+            chartGrid.appendChild(katakanaSection);
+            this.renderKanaChart(chartGrid, 'katakana');
+        } else {
             this.renderListChart(chartGrid);
         }
 
@@ -495,19 +601,34 @@ class SpacedRepetitionApp {
         // Calculate total learned
         let totalLearned = 0;
         let totalStudyTime = 0;
-        const modeStats = {
-            hiragana: { learned: 0, total: japaneseData.hiragana.length },
-            katakana: { learned: 0, total: japaneseData.katakana.length },
-            kanji: { learned: 0, total: japaneseData.kanji.length },
-            words: { learned: 0, total: japaneseData.words.length },
-            sentences: { learned: 0, total: japaneseData.sentences.length }
-        };
+        const currentLangData = languageData[this.currentLanguage];
+
+        // Create mode stats dynamically based on current language
+        const modeStats = {};
+        if (this.currentLanguage === 'japanese') {
+            modeStats.characters = {
+                learned: 0,
+                total: currentLangData.hiragana.length + currentLangData.katakana.length + currentLangData.kanji.length
+            };
+            modeStats.words = { learned: 0, total: currentLangData.words.length };
+            modeStats.sentences = { learned: 0, total: currentLangData.sentences.length };
+        } else {
+            modeStats.characters = { learned: 0, total: currentLangData.characters.length };
+            modeStats.words = { learned: 0, total: currentLangData.words.length };
+            modeStats.sentences = { learned: 0, total: currentLangData.sentences.length };
+        }
+
         const upcomingCards = [];
         const mistakeCards = [];
 
         Object.keys(this.progress).forEach(key => {
             const card = this.progress[key];
-            const [mode, index] = key.split('-');
+            // key format: language-mode-index
+            const parts = key.split('-');
+            if (parts.length < 3) return; // Skip old format keys
+
+            const [lang, mode, index] = parts;
+            if (lang !== this.currentLanguage) return; // Skip other languages
 
             if (card.repetitions > 0) {
                 totalLearned++;
@@ -522,25 +643,52 @@ class SpacedRepetitionApp {
 
             // Cards due soon
             if (card.nextReview && card.nextReview <= now + 24 * 60 * 60 * 1000) {
-                const modeData = japaneseData[mode];
-                if (modeData && modeData[parseInt(index)]) {
-                    upcomingCards.push({
-                        ...modeData[parseInt(index)],
-                        mode,
-                        nextReview: card.nextReview
-                    });
+                let modeData = null;
+                if (this.currentLanguage === 'japanese' && mode === 'characters') {
+                    // For Japanese characters mode, need to find in combined data
+                    const allChars = [...currentLangData.hiragana, ...currentLangData.katakana, ...currentLangData.kanji];
+                    modeData = allChars[parseInt(index)];
+                    if (modeData) {
+                        upcomingCards.push({
+                            ...modeData,
+                            mode,
+                            nextReview: card.nextReview
+                        });
+                    }
+                } else {
+                    modeData = currentLangData[mode];
+                    if (modeData && modeData[parseInt(index)]) {
+                        upcomingCards.push({
+                            ...modeData[parseInt(index)],
+                            mode,
+                            nextReview: card.nextReview
+                        });
+                    }
                 }
             }
 
             // Cards with mistakes (low repetitions or short intervals)
             if (card.repetitions < 3 && card.lastReview) {
-                const modeData = japaneseData[mode];
-                if (modeData && modeData[parseInt(index)]) {
-                    mistakeCards.push({
-                        ...modeData[parseInt(index)],
-                        mode,
-                        mistakes: card.mistakes || 0
-                    });
+                let modeData = null;
+                if (this.currentLanguage === 'japanese' && mode === 'characters') {
+                    const allChars = [...currentLangData.hiragana, ...currentLangData.katakana, ...currentLangData.kanji];
+                    modeData = allChars[parseInt(index)];
+                    if (modeData) {
+                        mistakeCards.push({
+                            ...modeData,
+                            mode,
+                            mistakes: card.mistakes || 0
+                        });
+                    }
+                } else {
+                    modeData = currentLangData[mode];
+                    if (modeData && modeData[parseInt(index)]) {
+                        mistakeCards.push({
+                            ...modeData[parseInt(index)],
+                            mode,
+                            mistakes: card.mistakes || 0
+                        });
+                    }
                 }
             }
         });

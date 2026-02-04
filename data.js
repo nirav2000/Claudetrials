@@ -1,7 +1,29 @@
-// Japanese Learning Data
+// Multi-Language Learning Data
 // Frequency-based data for spaced repetition learning
 
-// Character to Romaji mapping for hover tooltips
+// Language configurations
+const languageConfig = {
+    japanese: {
+        title: 'Japanese Learning App',
+        subtitle: 'Master Hiragana, Katakana & Kanji with Spaced Repetition',
+        modes: ['characters', 'words', 'sentences'],
+        charactersLabel: 'Hiragana/Katakana/Kanji'
+    },
+    french: {
+        title: 'French Learning App',
+        subtitle: 'Master French Alphabet & Vocabulary with Spaced Repetition',
+        modes: ['characters', 'words', 'sentences'],
+        charactersLabel: 'Alphabet & Accents'
+    },
+    gujarati: {
+        title: 'Gujarati Learning App',
+        subtitle: 'Master Gujarati Script & Vocabulary with Spaced Repetition',
+        modes: ['characters', 'words', 'sentences'],
+        charactersLabel: 'Gujarati Script'
+    }
+};
+
+// Character to pronunciation mapping for hover tooltips
 const charToRomaji = {
     // Hiragana
     'あ': 'a', 'い': 'i', 'う': 'u', 'え': 'e', 'お': 'o',
@@ -37,6 +59,29 @@ const charToRomaji = {
     'ワ': 'wa', 'ヰ': 'wi', 'ヱ': 'we', 'ヲ': 'wo', 'ン': 'n',
     // Punctuation and particles
     '？': '?', '！': '!', '、': ',', '。': '.',
+
+    // French alphabet
+    'a': 'a', 'b': 'b', 'c': 'c', 'd': 'd', 'e': 'e', 'f': 'f', 'g': 'g', 'h': 'h', 'i': 'i', 'j': 'j',
+    'k': 'k', 'l': 'l', 'm': 'm', 'n': 'n', 'o': 'o', 'p': 'p', 'q': 'q', 'r': 'r', 's': 's', 't': 't',
+    'u': 'u', 'v': 'v', 'w': 'w', 'x': 'x', 'y': 'y', 'z': 'z',
+    'A': 'A', 'B': 'B', 'C': 'C', 'D': 'D', 'E': 'E', 'F': 'F', 'G': 'G', 'H': 'H', 'I': 'I', 'J': 'J',
+    'K': 'K', 'L': 'L', 'M': 'M', 'N': 'N', 'O': 'O', 'P': 'P', 'Q': 'Q', 'R': 'R', 'S': 'S', 'T': 'T',
+    'U': 'U', 'V': 'V', 'W': 'W', 'X': 'X', 'Y': 'Y', 'Z': 'Z',
+    'é': 'é', 'è': 'è', 'ê': 'ê', 'ë': 'ë', 'à': 'à', 'â': 'â', 'ù': 'ù', 'û': 'û',
+    'ô': 'ô', 'î': 'î', 'ï': 'ï', 'ç': 'ç', 'œ': 'œ', 'æ': 'æ', 'ÿ': 'ÿ',
+
+    // Gujarati vowels
+    'અ': 'a', 'આ': 'ā', 'ઇ': 'i', 'ઈ': 'ī', 'ઉ': 'u', 'ઊ': 'ū', 'ઋ': 'ṛ',
+    'એ': 'e', 'ઐ': 'ai', 'ઓ': 'o', 'ઔ': 'au',
+    // Gujarati consonants
+    'ક': 'ka', 'ખ': 'kha', 'ગ': 'ga', 'ઘ': 'gha', 'ઙ': 'ṅa',
+    'ચ': 'ca', 'છ': 'cha', 'જ': 'ja', 'ઝ': 'jha', 'ઞ': 'ña',
+    'ટ': 'ṭa', 'ઠ': 'ṭha', 'ડ': 'ḍa', 'ઢ': 'ḍha', 'ણ': 'ṇa',
+    'ત': 'ta', 'થ': 'tha', 'દ': 'da', 'ધ': 'dha', 'ન': 'na',
+    'પ': 'pa', 'ફ': 'pha', 'બ': 'ba', 'ભ': 'bha', 'મ': 'ma',
+    'ય': 'ya', 'ર': 'ra', 'લ': 'la', 'વ': 'va',
+    'શ': 'śa', 'ષ': 'ṣa', 'સ': 'sa', 'હ': 'ha', 'ળ': 'ḷa', 'ક્ષ': 'kṣa', 'જ્ઞ': 'jña',
+
     // Common kanji
     '人': 'hito', '日': 'hi/nichi', '一': 'ichi', '国': 'kuni',
     '会': 'kai', '年': 'nen', '大': 'dai', '十': 'juu',
@@ -252,4 +297,178 @@ const japaneseData = {
         { char: 'お腹が空きました。', romaji: 'onaka ga sukimashita', meaning: 'I\'m hungry', frequency: 9, example: 'Expressing needs' },
         { char: '何時ですか？', romaji: 'nanji desu ka?', meaning: 'What time is it?', frequency: 10, example: 'Asking for time' }
     ]
+};
+
+const frenchData = {
+    characters: [
+        // Basic French alphabet + accented characters
+        { char: 'a', romaji: 'a', meaning: 'letter a', frequency: 1 },
+        { char: 'b', romaji: 'b', meaning: 'letter b', frequency: 2 },
+        { char: 'c', romaji: 'c', meaning: 'letter c', frequency: 3 },
+        { char: 'd', romaji: 'd', meaning: 'letter d', frequency: 4 },
+        { char: 'e', romaji: 'e', meaning: 'letter e', frequency: 5 },
+        { char: 'f', romaji: 'f', meaning: 'letter f', frequency: 6 },
+        { char: 'g', romaji: 'g', meaning: 'letter g', frequency: 7 },
+        { char: 'h', romaji: 'h', meaning: 'letter h', frequency: 8 },
+        { char: 'i', romaji: 'i', meaning: 'letter i', frequency: 9 },
+        { char: 'j', romaji: 'j', meaning: 'letter j', frequency: 10 },
+        { char: 'k', romaji: 'k', meaning: 'letter k', frequency: 11 },
+        { char: 'l', romaji: 'l', meaning: 'letter l', frequency: 12 },
+        { char: 'm', romaji: 'm', meaning: 'letter m', frequency: 13 },
+        { char: 'n', romaji: 'n', meaning: 'letter n', frequency: 14 },
+        { char: 'o', romaji: 'o', meaning: 'letter o', frequency: 15 },
+        { char: 'p', romaji: 'p', meaning: 'letter p', frequency: 16 },
+        { char: 'q', romaji: 'q', meaning: 'letter q', frequency: 17 },
+        { char: 'r', romaji: 'r', meaning: 'letter r', frequency: 18 },
+        { char: 's', romaji: 's', meaning: 'letter s', frequency: 19 },
+        { char: 't', romaji: 't', meaning: 'letter t', frequency: 20 },
+        { char: 'u', romaji: 'u', meaning: 'letter u', frequency: 21 },
+        { char: 'v', romaji: 'v', meaning: 'letter v', frequency: 22 },
+        { char: 'w', romaji: 'w', meaning: 'letter w', frequency: 23 },
+        { char: 'x', romaji: 'x', meaning: 'letter x', frequency: 24 },
+        { char: 'y', romaji: 'y', meaning: 'letter y', frequency: 25 },
+        { char: 'z', romaji: 'z', meaning: 'letter z', frequency: 26 },
+        // Accented characters
+        { char: 'é', romaji: 'é (e acute)', meaning: 'accented e', frequency: 27, example: 'café, été' },
+        { char: 'è', romaji: 'è (e grave)', meaning: 'accented e', frequency: 28, example: 'père, mère' },
+        { char: 'ê', romaji: 'ê (e circumflex)', meaning: 'accented e', frequency: 29, example: 'être, fête' },
+        { char: 'ë', romaji: 'ë (e diaeresis)', meaning: 'accented e', frequency: 30, example: 'Noël' },
+        { char: 'à', romaji: 'à (a grave)', meaning: 'accented a', frequency: 31, example: 'à, voilà' },
+        { char: 'â', romaji: 'â (a circumflex)', meaning: 'accented a', frequency: 32, example: 'pâte' },
+        { char: 'ù', romaji: 'ù (u grave)', meaning: 'accented u', frequency: 33, example: 'où' },
+        { char: 'û', romaji: 'û (u circumflex)', meaning: 'accented u', frequency: 34, example: 'sûr' },
+        { char: 'ô', romaji: 'ô (o circumflex)', meaning: 'accented o', frequency: 35, example: 'hôtel' },
+        { char: 'î', romaji: 'î (i circumflex)', meaning: 'accented i', frequency: 36, example: 'île' },
+        { char: 'ï', romaji: 'ï (i diaeresis)', meaning: 'accented i', frequency: 37, example: 'maïs' },
+        { char: 'ç', romaji: 'ç (c cedilla)', meaning: 'c with cedilla', frequency: 38, example: 'français, garçon' },
+        { char: 'œ', romaji: 'œ (oe ligature)', meaning: 'oe ligature', frequency: 39, example: 'cœur, sœur' },
+        { char: 'æ', romaji: 'æ (ae ligature)', meaning: 'ae ligature', frequency: 40, example: 'ex æquo' }
+    ],
+
+    words: [
+        { char: 'bonjour', romaji: 'bon-zhoor', meaning: 'hello, good day', frequency: 1, example: 'Bonjour! Comment allez-vous?' },
+        { char: 'merci', romaji: 'mehr-see', meaning: 'thank you', frequency: 2, example: 'Merci beaucoup!' },
+        { char: 'au revoir', romaji: 'oh ruh-vwahr', meaning: 'goodbye', frequency: 3, example: 'Au revoir, à bientôt!' },
+        { char: 's\'il vous plaît', romaji: 'seel voo pleh', meaning: 'please', frequency: 4, example: 'S\'il vous plaît, aidez-moi' },
+        { char: 'oui', romaji: 'wee', meaning: 'yes', frequency: 5, example: 'Oui, c\'est vrai' },
+        { char: 'non', romaji: 'nohn', meaning: 'no', frequency: 6, example: 'Non, ce n\'est pas correct' },
+        { char: 'pardon', romaji: 'par-dohn', meaning: 'excuse me, sorry', frequency: 7, example: 'Pardon, je ne comprends pas' },
+        { char: 'je', romaji: 'zhuh', meaning: 'I', frequency: 8, example: 'Je suis étudiant' },
+        { char: 'tu', romaji: 'too', meaning: 'you (informal)', frequency: 9, example: 'Tu es français?' },
+        { char: 'il/elle', romaji: 'eel/ell', meaning: 'he/she', frequency: 10, example: 'Il est ici' },
+        { char: 'nous', romaji: 'noo', meaning: 'we', frequency: 11, example: 'Nous allons à Paris' },
+        { char: 'vous', romaji: 'voo', meaning: 'you (formal/plural)', frequency: 12, example: 'Vous êtes très gentil' },
+        { char: 'être', romaji: 'eh-truh', meaning: 'to be', frequency: 13, example: 'Je suis, tu es, il est' },
+        { char: 'avoir', romaji: 'ah-vwahr', meaning: 'to have', frequency: 14, example: 'J\'ai, tu as, il a' },
+        { char: 'aller', romaji: 'ah-lay', meaning: 'to go', frequency: 15, example: 'Je vais à l\'école' },
+        { char: 'faire', romaji: 'fehr', meaning: 'to do, to make', frequency: 16, example: 'Je fais mes devoirs' },
+        { char: 'manger', romaji: 'mahn-zhay', meaning: 'to eat', frequency: 17, example: 'Je mange du pain' },
+        { char: 'boire', romaji: 'bwahr', meaning: 'to drink', frequency: 18, example: 'Je bois de l\'eau' },
+        { char: 'parler', romaji: 'par-lay', meaning: 'to speak', frequency: 19, example: 'Je parle français' },
+        { char: 'comprendre', romaji: 'kohm-prahn-druh', meaning: 'to understand', frequency: 20, example: 'Je comprends maintenant' }
+    ],
+
+    sentences: [
+        { char: 'Comment allez-vous?', romaji: 'koh-mahn tah-lay voo', meaning: 'How are you?', frequency: 1, example: 'Formal greeting' },
+        { char: 'Je m\'appelle...', romaji: 'zhuh mah-pell', meaning: 'My name is...', frequency: 2, example: 'Self-introduction' },
+        { char: 'Où sont les toilettes?', romaji: 'oo sohn lay twah-let', meaning: 'Where is the bathroom?', frequency: 3, example: 'Asking for directions' },
+        { char: 'Je ne comprends pas', romaji: 'zhuh nuh kohm-prahn pah', meaning: 'I don\'t understand', frequency: 4, example: 'Expressing confusion' },
+        { char: 'Parlez-vous anglais?', romaji: 'par-lay voo ahn-gleh', meaning: 'Do you speak English?', frequency: 5, example: 'Language question' },
+        { char: 'Combien ça coûte?', romaji: 'kohm-byahn sah koot', meaning: 'How much does it cost?', frequency: 6, example: 'Shopping' },
+        { char: 'J\'ai faim', romaji: 'zhay fahm', meaning: 'I\'m hungry', frequency: 7, example: 'Expressing need' },
+        { char: 'Quelle heure est-il?', romaji: 'kell uhr eh-teel', meaning: 'What time is it?', frequency: 8, example: 'Asking for time' },
+        { char: 'Je voudrais...', romaji: 'zhuh voo-dreh', meaning: 'I would like...', frequency: 9, example: 'Polite request' },
+        { char: 'Pouvez-vous m\'aider?', romaji: 'poo-vay voo may-day', meaning: 'Can you help me?', frequency: 10, example: 'Asking for help' }
+    ]
+};
+
+const gujaratiData = {
+    characters: [
+        // Gujarati vowels (સ્વર)
+        { char: 'અ', romaji: 'a', meaning: 'vowel a', frequency: 1, example: 'અ as in અમે (ame - we)' },
+        { char: 'આ', romaji: 'ā', meaning: 'vowel ā', frequency: 2, example: 'આ as in આપ (āp - you)' },
+        { char: 'ઇ', romaji: 'i', meaning: 'vowel i', frequency: 3, example: 'ઇ as in ઇચ્છા (icchā - wish)' },
+        { char: 'ઈ', romaji: 'ī', meaning: 'vowel ī', frequency: 4, example: 'ઈ as in ઈશ્વર (īśvar - god)' },
+        { char: 'ઉ', romaji: 'u', meaning: 'vowel u', frequency: 5, example: 'ઉ as in ઉત્તર (uttar - north)' },
+        { char: 'ઊ', romaji: 'ū', meaning: 'vowel ū', frequency: 6, example: 'ઊ as in ઊંચું (ūṃcuṃ - tall)' },
+        { char: 'એ', romaji: 'e', meaning: 'vowel e', frequency: 7, example: 'એ as in એક (ek - one)' },
+        { char: 'ઐ', romaji: 'ai', meaning: 'vowel ai', frequency: 8, example: 'ઐ as in ઐશ્વર્ય (aiśvarya - wealth)' },
+        { char: 'ઓ', romaji: 'o', meaning: 'vowel o', frequency: 9, example: 'ઓ as in ઓળખ (oḷakh - identity)' },
+        { char: 'ઔ', romaji: 'au', meaning: 'vowel au', frequency: 10, example: 'ઔ as in ઔષધ (auṣadh - medicine)' },
+        // Gujarati consonants (વ્યંજન)
+        { char: 'ક', romaji: 'ka', meaning: 'consonant ka', frequency: 11, example: 'ક as in કમળ (kamaḷ - lotus)' },
+        { char: 'ખ', romaji: 'kha', meaning: 'consonant kha', frequency: 12, example: 'ખ as in ખુશી (khushī - happiness)' },
+        { char: 'ગ', romaji: 'ga', meaning: 'consonant ga', frequency: 13, example: 'ગ as in ગામ (gām - village)' },
+        { char: 'ઘ', romaji: 'gha', meaning: 'consonant gha', frequency: 14, example: 'ઘ as in ઘર (ghar - house)' },
+        { char: 'ચ', romaji: 'ca', meaning: 'consonant ca', frequency: 15, example: 'ચ as in ચા (cā - tea)' },
+        { char: 'છ', romaji: 'cha', meaning: 'consonant cha', frequency: 16, example: 'છ as in છોકરો (chokaro - boy)' },
+        { char: 'જ', romaji: 'ja', meaning: 'consonant ja', frequency: 17, example: 'જ as in જળ (jaḷ - water)' },
+        { char: 'ઝ', romaji: 'jha', meaning: 'consonant jha', frequency: 18, example: 'ઝ as in ઝાડ (jhāḍ - tree)' },
+        { char: 'ટ', romaji: 'ṭa', meaning: 'consonant ṭa', frequency: 19, example: 'ટ as in ટોપી (ṭopī - hat)' },
+        { char: 'ઠ', romaji: 'ṭha', meaning: 'consonant ṭha', frequency: 20, example: 'ઠ as in ઠંડી (ṭhaṇḍī - cold)' },
+        { char: 'ડ', romaji: 'ḍa', meaning: 'consonant ḍa', frequency: 21, example: 'ડ as in ડબ્બો (ḍabbo - box)' },
+        { char: 'ઢ', romaji: 'ḍha', meaning: 'consonant ḍha', frequency: 22, example: 'ઢ as in ઢોલ (ḍhol - drum)' },
+        { char: 'ણ', romaji: 'ṇa', meaning: 'consonant ṇa', frequency: 23, example: 'ણ as in જાણવું (jāṇavuṃ - to know)' },
+        { char: 'ત', romaji: 'ta', meaning: 'consonant ta', frequency: 24, example: 'ત as in તમે (tame - you)' },
+        { char: 'થ', romaji: 'tha', meaning: 'consonant tha', frequency: 25, example: 'થ as in થાળી (thāḷī - plate)' },
+        { char: 'દ', romaji: 'da', meaning: 'consonant da', frequency: 26, example: 'દ as in દિવસ (divas - day)' },
+        { char: 'ધ', romaji: 'dha', meaning: 'consonant dha', frequency: 27, example: 'ધ as in ધન (dhan - wealth)' },
+        { char: 'ન', romaji: 'na', meaning: 'consonant na', frequency: 28, example: 'ન as in નામ (nām - name)' },
+        { char: 'પ', romaji: 'pa', meaning: 'consonant pa', frequency: 29, example: 'પ as in પાણી (pāṇī - water)' },
+        { char: 'ફ', romaji: 'pha', meaning: 'consonant pha', frequency: 30, example: 'ફ as in ફૂલ (phūl - flower)' },
+        { char: 'બ', romaji: 'ba', meaning: 'consonant ba', frequency: 31, example: 'બ as in બાળક (bāḷak - child)' },
+        { char: 'ભ', romaji: 'bha', meaning: 'consonant bha', frequency: 32, example: 'ભ as in ભાષા (bhāṣā - language)' },
+        { char: 'મ', romaji: 'ma', meaning: 'consonant ma', frequency: 33, example: 'મ as in માતા (mātā - mother)' },
+        { char: 'ય', romaji: 'ya', meaning: 'consonant ya', frequency: 34, example: 'ય as in યુવા (yuvā - youth)' },
+        { char: 'ર', romaji: 'ra', meaning: 'consonant ra', frequency: 35, example: 'ર as in રાત (rāt - night)' },
+        { char: 'લ', romaji: 'la', meaning: 'consonant la', frequency: 36, example: 'લ as in લાલ (lāl - red)' },
+        { char: 'વ', romaji: 'va', meaning: 'consonant va', frequency: 37, example: 'વ as in વાત (vāt - talk)' },
+        { char: 'શ', romaji: 'śa', meaning: 'consonant śa', frequency: 38, example: 'શ as in શાળા (śāḷā - school)' },
+        { char: 'ષ', romaji: 'ṣa', meaning: 'consonant ṣa', frequency: 39, example: 'ષ as in ષડયંત્ર (ṣaḍyantra - conspiracy)' },
+        { char: 'સ', romaji: 'sa', meaning: 'consonant sa', frequency: 40, example: 'સ as in સત્ય (satya - truth)' },
+        { char: 'હ', romaji: 'ha', meaning: 'consonant ha', frequency: 41, example: 'હ as in હા (hā - yes)' }
+    ],
+
+    words: [
+        { char: 'નમસ્તે', romaji: 'namaste', meaning: 'hello, greetings', frequency: 1, example: 'નમસ્તે! તમે કેમ છો?' },
+        { char: 'આભાર', romaji: 'ābhār', meaning: 'thank you', frequency: 2, example: 'તમારો આભાર' },
+        { char: 'હા', romaji: 'hā', meaning: 'yes', frequency: 3, example: 'હા, બરાબર છે' },
+        { char: 'ના', romaji: 'nā', meaning: 'no', frequency: 4, example: 'ના, તે યોગ્ય નથી' },
+        { char: 'માફ કરશો', romaji: 'māf karśo', meaning: 'sorry, excuse me', frequency: 5, example: 'માફ કરશો, હું સમજ્યો નહીં' },
+        { char: 'પાણી', romaji: 'pāṇī', meaning: 'water', frequency: 6, example: 'મને પાણી જોઈએ' },
+        { char: 'ખાવું', romaji: 'khāvuṃ', meaning: 'to eat', frequency: 7, example: 'હું રોટલી ખાઉં છું' },
+        { char: 'પીવું', romaji: 'pīvuṃ', meaning: 'to drink', frequency: 8, example: 'હું ચા પીઉં છું' },
+        { char: 'જવું', romaji: 'javuṃ', meaning: 'to go', frequency: 9, example: 'હું શાળાએ જાઉં છું' },
+        { char: 'આવવું', romaji: 'āvavuṃ', meaning: 'to come', frequency: 10, example: 'તમે આવો' },
+        { char: 'બોલવું', romaji: 'bolavuṃ', meaning: 'to speak', frequency: 11, example: 'હું ગુજરાતી બોલું છું' },
+        { char: 'વાંચવું', romaji: 'vāṃcavuṃ', meaning: 'to read', frequency: 12, example: 'હું પુસ્તક વાંચું છું' },
+        { char: 'લખવું', romaji: 'lakhavuṃ', meaning: 'to write', frequency: 13, example: 'હું પત્ર લખું છું' },
+        { char: 'સમજવું', romaji: 'samajavuṃ', meaning: 'to understand', frequency: 14, example: 'હવે હું સમજ્યો' },
+        { char: 'શીખવું', romaji: 'śīkhavuṃ', meaning: 'to learn', frequency: 15, example: 'હું ગુજરાતી શીખું છું' },
+        { char: 'ઘર', romaji: 'ghar', meaning: 'house, home', frequency: 16, example: 'આ મારું ઘર છે' },
+        { char: 'શાળા', romaji: 'śāḷā', meaning: 'school', frequency: 17, example: 'બાળકો શાળામાં જાય છે' },
+        { char: 'મિત્ર', romaji: 'mitra', meaning: 'friend', frequency: 18, example: 'તે મારો મિત્ર છે' },
+        { char: 'કુટુંબ', romaji: 'kuṭuṃba', meaning: 'family', frequency: 19, example: 'મારું કુટુંબ મોટું છે' },
+        { char: 'પ્રેમ', romaji: 'prem', meaning: 'love', frequency: 20, example: 'પ્રેમ મહત્વનું છે' }
+    ],
+
+    sentences: [
+        { char: 'તમે કેમ છો?', romaji: 'tame kem cho?', meaning: 'How are you?', frequency: 1, example: 'Basic greeting' },
+        { char: 'મારું નામ... છે', romaji: 'māruṃ nām... che', meaning: 'My name is...', frequency: 2, example: 'Self-introduction' },
+        { char: 'હું ગુજરાતી શીખું છું', romaji: 'huṃ gujarātī śīkhuṃ chuṃ', meaning: 'I am learning Gujarati', frequency: 3, example: 'Talking about learning' },
+        { char: 'તમે ક્યાંથી આવો છો?', romaji: 'tame kyāṃthī āvo cho?', meaning: 'Where are you from?', frequency: 4, example: 'Asking about origin' },
+        { char: 'મને સમજાયું નહીં', romaji: 'mane samajāyuṃ nahīṃ', meaning: 'I didn\'t understand', frequency: 5, example: 'Expressing confusion' },
+        { char: 'આ કેટલું છે?', romaji: 'ā keṭaluṃ che?', meaning: 'How much is this?', frequency: 6, example: 'Shopping' },
+        { char: 'મને ભૂખ લાગી છે', romaji: 'mane bhūkh lāgī che', meaning: 'I am hungry', frequency: 7, example: 'Expressing need' },
+        { char: 'સમય શું થયો?', romaji: 'samay śuṃ thayo?', meaning: 'What time is it?', frequency: 8, example: 'Asking for time' },
+        { char: 'કૃપા કરીને મને મદદ કરો', romaji: 'kṛpā karīne mane madad karo', meaning: 'Please help me', frequency: 9, example: 'Asking for help' },
+        { char: 'તમારો દિવસ શુભ હો', romaji: 'tamāro divas śubh ho', meaning: 'Have a good day', frequency: 10, example: 'Well-wishing' }
+    ]
+};
+
+// Unified data structure
+const languageData = {
+    japanese: japaneseData,
+    french: frenchData,
+    gujarati: gujaratiData
 };
