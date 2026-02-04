@@ -29,20 +29,19 @@
         </div>
 
         <div class="mode-selector" id="modeSelector">
-            <button class="mode-btn" data-mode="characters">Characters</button>
-            <button class="mode-btn" data-mode="words">Words</button>
-            <button class="mode-btn" data-mode="sentences">Sentences</button>
+            <!-- Mode buttons will be dynamically generated based on language -->
+        </div>
+
+        <div class="category-selector" id="categorySelector" style="display: none;">
+            <label for="categoryDropdown">Focus on: </label>
+            <select id="categoryDropdown" class="category-dropdown">
+                <option value="">All</option>
+            </select>
         </div>
 
         <div class="quick-actions">
-            <div class="quick-action-card" id="referenceCard">
-                <span>📖 Reference</span>
-                <button class="dismiss-btn" id="dismissReference">×</button>
-            </div>
-            <div class="quick-action-card" id="progressCard">
-                <span>📊 Progress</span>
-                <button class="dismiss-btn" id="dismissProgress">×</button>
-            </div>
+            <button class="quick-action-btn" id="referenceBtn">📖 Reference</button>
+            <button class="quick-action-btn" id="progressBtn">📊 Progress</button>
         </div>
 
         <div class="stats-panel">
@@ -162,6 +161,9 @@
         </div>
     </div>
 
+    <script src="japanese-data.js"></script>
+    <script src="french-data.js"></script>
+    <script src="gujarati-data.js"></script>
     <script src="data.js"></script>
     <script src="app.js"></script>
 </body>
