@@ -327,6 +327,130 @@ header h1 {
     box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
 }
 
+/* Hover Tooltip for Romaji */
+.character-display {
+    position: relative;
+    cursor: help;
+}
+
+.character-display::after {
+    content: attr(data-romaji);
+    position: absolute;
+    bottom: -50px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0, 0, 0, 0.85);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 0.25em;
+    white-space: nowrap;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    z-index: 10;
+}
+
+.character-display:hover::after {
+    opacity: 1;
+}
+
+/* Reference Chart Styles */
+.reference-chart {
+    background: white;
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+    max-height: 70vh;
+    overflow-y: auto;
+}
+
+.reference-chart h2 {
+    color: #667eea;
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 2em;
+}
+
+.chart-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.chart-item {
+    background: linear-gradient(135deg, #667eea10 0%, #764ba210 100%);
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 20px 10px;
+    text-align: center;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.chart-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    border-color: #667eea;
+}
+
+.chart-character {
+    font-size: 2.5em;
+    color: #667eea;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.chart-romaji {
+    font-size: 1em;
+    color: #666;
+    font-weight: 600;
+}
+
+.chart-meaning {
+    font-size: 0.85em;
+    color: #888;
+    margin-top: 5px;
+}
+
+.close-chart-btn {
+    padding: 12px 30px;
+    background: #667eea;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    font-size: 1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: block;
+    margin: 20px auto 0;
+}
+
+.close-chart-btn:hover {
+    background: #5568d3;
+    transform: translateY(-2px);
+}
+
+.view-chart-btn {
+    padding: 10px 20px;
+    background: rgba(255, 255, 255, 0.9);
+    border: 2px solid white;
+    border-radius: 20px;
+    color: #667eea;
+    font-size: 0.9em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.view-chart-btn:hover {
+    background: white;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
 @media (max-width: 768px) {
     header h1 {
         font-size: 2em;
@@ -335,6 +459,11 @@ header h1 {
     .character-display {
         font-size: 5em;
         min-height: 120px;
+    }
+
+    .character-display::after {
+        font-size: 0.3em;
+        bottom: -40px;
     }
 
     .romaji {
@@ -351,5 +480,18 @@ header h1 {
 
     .rating-btn {
         width: 100%;
+    }
+
+    .chart-grid {
+        grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+        gap: 10px;
+    }
+
+    .chart-character {
+        font-size: 2em;
+    }
+
+    .reference-chart {
+        padding: 20px;
     }
 }

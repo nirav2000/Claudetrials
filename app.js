@@ -46,6 +46,16 @@ class SpacedRepetitionApp {
             this.selectMode(this.currentMode);
         });
 
+        // View Chart button
+        document.getElementById('viewChartBtn').addEventListener('click', () => {
+            this.showReferenceChart();
+        });
+
+        // Close Chart button
+        document.getElementById('closeChartBtn').addEventListener('click', () => {
+            this.closeReferenceChart();
+        });
+
         // Update stats display
         this.updateStats();
     }
@@ -69,9 +79,10 @@ class SpacedRepetitionApp {
         this.sessionCards = this.getSessionCards();
         this.currentIndex = 0;
 
-        // Show learning area, hide welcome screen
+        // Show learning area, hide other screens
         document.getElementById('welcomeScreen').style.display = 'none';
         document.getElementById('completionScreen').style.display = 'none';
+        document.getElementById('referenceChart').style.display = 'none';
         document.getElementById('learningArea').style.display = 'block';
 
         // Start the session
@@ -134,8 +145,10 @@ class SpacedRepetitionApp {
 
         this.currentCard = this.sessionCards[this.currentIndex];
 
-        // Update character display
-        document.getElementById('characterDisplay').textContent = this.currentCard.char;
+        // Update character display with romaji tooltip
+        const charDisplay = document.getElementById('characterDisplay');
+        charDisplay.textContent = this.currentCard.char;
+        charDisplay.setAttribute('data-romaji', `💡 Hover for hint: ${this.currentCard.romaji}`);
         document.getElementById('hint').style.display = 'none';
         document.getElementById('answerSection').style.display = 'none';
         document.getElementById('showAnswerBtn').style.display = 'block';
@@ -288,6 +301,73 @@ class SpacedRepetitionApp {
         document.getElementById('learnedCount').textContent = learnedCount;
         document.getElementById('reviewCount').textContent = reviewCount;
         document.getElementById('streakCount').textContent = this.streak;
+    }
+
+    showReferenceChart() {
+        // Determine which data to show
+        let chartData = [];
+        let title = 'Reference Chart';
+
+        if (this.currentMode && japaneseData[this.currentMode]) {
+            chartData = japaneseData[this.currentMode];
+            title = `${this.currentMode.charAt(0).toUpperCase() + this.currentMode.slice(1)} Reference Chart`;
+        } else {
+            // Default to showing all alphabets
+            title = 'Choose a learning mode to see its reference chart';
+        }
+
+        // Update title
+        document.getElementById('chartTitle').textContent = title;
+
+        // Clear previous chart
+        const chartGrid = document.getElementById('chartGrid');
+        chartGrid.innerHTML = '';
+
+        // Populate chart
+        chartData.forEach(item => {
+            const chartItem = document.createElement('div');
+            chartItem.className = 'chart-item';
+
+            const character = document.createElement('div');
+            character.className = 'chart-character';
+            character.textContent = item.char;
+
+            const romaji = document.createElement('div');
+            romaji.className = 'chart-romaji';
+            romaji.textContent = item.romaji;
+
+            chartItem.appendChild(character);
+            chartItem.appendChild(romaji);
+
+            // Add meaning if available (for kanji, words, sentences)
+            if (item.meaning && (this.currentMode === 'kanji' || this.currentMode === 'words' || this.currentMode === 'sentences')) {
+                const meaning = document.createElement('div');
+                meaning.className = 'chart-meaning';
+                meaning.textContent = item.meaning;
+                chartItem.appendChild(meaning);
+            }
+
+            chartGrid.appendChild(chartItem);
+        });
+
+        // Hide other screens, show chart
+        document.getElementById('welcomeScreen').style.display = 'none';
+        document.getElementById('learningArea').style.display = 'none';
+        document.getElementById('completionScreen').style.display = 'none';
+        document.getElementById('referenceChart').style.display = 'block';
+    }
+
+    closeReferenceChart() {
+        document.getElementById('referenceChart').style.display = 'none';
+
+        // Show appropriate screen based on state
+        if (this.currentMode && this.sessionCards.length > 0 && this.currentIndex < this.sessionCards.length) {
+            document.getElementById('learningArea').style.display = 'block';
+        } else if (this.currentMode && this.currentIndex >= this.sessionCards.length) {
+            document.getElementById('completionScreen').style.display = 'block';
+        } else {
+            document.getElementById('welcomeScreen').style.display = 'block';
+        }
     }
 }
 

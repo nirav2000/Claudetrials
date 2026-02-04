@@ -19,6 +19,7 @@
             <button class="mode-btn" data-mode="kanji">Kanji</button>
             <button class="mode-btn" data-mode="words">Words</button>
             <button class="mode-btn" data-mode="sentences">Sentences</button>
+            <button class="view-chart-btn" id="viewChartBtn">📖 View Reference Chart</button>
         </div>
 
         <div class="stats-panel">
@@ -84,6 +85,12 @@
             <h2>Session Complete!</h2>
             <p id="completionMessage"></p>
             <button class="restart-btn" id="restartBtn">Start New Session</button>
+        </div>
+
+        <div class="reference-chart" id="referenceChart" style="display: none;">
+            <h2 id="chartTitle">Reference Chart</h2>
+            <div class="chart-grid" id="chartGrid"></div>
+            <button class="close-chart-btn" id="closeChartBtn">Close</button>
         </div>
     </div>
 
