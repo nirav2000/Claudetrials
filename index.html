@@ -19,7 +19,8 @@
             <button class="mode-btn" data-mode="kanji">Kanji</button>
             <button class="mode-btn" data-mode="words">Words</button>
             <button class="mode-btn" data-mode="sentences">Sentences</button>
-            <button class="view-chart-btn" id="viewChartBtn">📖 View Reference Chart</button>
+            <button class="view-chart-btn" id="viewChartBtn">📖 Reference</button>
+            <button class="view-chart-btn" id="viewProgressBtn">📊 Progress</button>
         </div>
 
         <div class="stats-panel">
@@ -91,6 +92,51 @@
             <h2 id="chartTitle">Reference Chart</h2>
             <div class="chart-grid" id="chartGrid"></div>
             <button class="close-chart-btn" id="closeChartBtn">Close</button>
+        </div>
+
+        <div class="progress-screen" id="progressScreen" style="display: none;">
+            <h2>📊 Your Progress & Statistics</h2>
+
+            <div class="progress-summary">
+                <div class="progress-card">
+                    <div class="progress-icon">🎯</div>
+                    <div class="progress-info">
+                        <div class="progress-label">Total Cards Learned</div>
+                        <div class="progress-number" id="progressTotalLearned">0</div>
+                    </div>
+                </div>
+                <div class="progress-card">
+                    <div class="progress-icon">📅</div>
+                    <div class="progress-info">
+                        <div class="progress-label">Study Streak</div>
+                        <div class="progress-number" id="progressStreak">0 days</div>
+                    </div>
+                </div>
+                <div class="progress-card">
+                    <div class="progress-icon">⏰</div>
+                    <div class="progress-info">
+                        <div class="progress-label">Total Study Time</div>
+                        <div class="progress-number" id="progressStudyTime">0 min</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="progress-by-mode">
+                <h3>Progress by Mode</h3>
+                <div id="progressModesList"></div>
+            </div>
+
+            <div class="progress-upcoming">
+                <h3>Due for Review</h3>
+                <div id="progressUpcoming"></div>
+            </div>
+
+            <div class="progress-mistakes">
+                <h3>Cards Needing Practice</h3>
+                <div id="progressMistakes"></div>
+            </div>
+
+            <button class="close-chart-btn" id="closeProgressBtn">Close</button>
         </div>
     </div>
 

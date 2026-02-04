@@ -56,6 +56,16 @@ class SpacedRepetitionApp {
             this.closeReferenceChart();
         });
 
+        // View Progress button
+        document.getElementById('viewProgressBtn').addEventListener('click', () => {
+            this.showProgressScreen();
+        });
+
+        // Close Progress button
+        document.getElementById('closeProgressBtn').addEventListener('click', () => {
+            this.closeProgressScreen();
+        });
+
         // Update stats display
         this.updateStats();
     }
@@ -145,13 +155,33 @@ class SpacedRepetitionApp {
 
         this.currentCard = this.sessionCards[this.currentIndex];
 
-        // Update character display with romaji tooltip
+        // Update character display with individual character hover
         const charDisplay = document.getElementById('characterDisplay');
-        charDisplay.textContent = this.currentCard.char;
-        charDisplay.setAttribute('data-romaji', `💡 Hover for hint: ${this.currentCard.romaji}`);
+        charDisplay.innerHTML = ''; // Clear previous content
+
+        // For words and sentences, create hoverable individual characters
+        if (this.currentMode === 'words' || this.currentMode === 'sentences') {
+            const chars = this.currentCard.char.split('');
+            chars.forEach(char => {
+                const span = document.createElement('span');
+                span.textContent = char;
+                span.className = 'hoverable-char';
+                const romaji = charToRomaji[char] || char;
+                span.setAttribute('data-char-romaji', romaji);
+                charDisplay.appendChild(span);
+            });
+        } else {
+            // For single characters (hiragana, katakana, kanji), show normally
+            charDisplay.textContent = this.currentCard.char;
+            charDisplay.setAttribute('data-romaji', this.currentCard.romaji);
+        }
+
         document.getElementById('hint').style.display = 'none';
         document.getElementById('answerSection').style.display = 'none';
         document.getElementById('showAnswerBtn').style.display = 'block';
+
+        // Track start time for statistics
+        this.cardStartTime = Date.now();
 
         // Update progress bar
         const progress = (this.currentIndex / this.sessionCards.length) * 100;
@@ -177,17 +207,22 @@ class SpacedRepetitionApp {
     }
 
     rateCard(rating) {
+        // Calculate study time for this card
+        const studyTime = this.cardStartTime ? (Date.now() - this.cardStartTime) / 1000 : 0;
+
         // Update card using SM-2 algorithm
         const cardId = this.currentCard.id;
         const cardData = this.progress[cardId] || {
             easeFactor: 2.5,
             interval: 1,
             repetitions: 0,
-            nextReview: Date.now()
+            nextReview: Date.now(),
+            mistakes: 0,
+            studyTime: 0
         };
 
         // SM-2 Algorithm
-        let { easeFactor, interval, repetitions } = cardData;
+        let { easeFactor, interval, repetitions, mistakes, studyTime: totalStudyTime } = cardData;
 
         if (rating >= 3) {
             // Correct response
@@ -201,6 +236,7 @@ class SpacedRepetitionApp {
             repetitions += 1;
         } else {
             // Incorrect response
+            mistakes = (mistakes || 0) + 1;
             repetitions = 0;
             interval = 1;
         }
@@ -218,7 +254,9 @@ class SpacedRepetitionApp {
             interval,
             repetitions,
             nextReview,
-            lastReview: Date.now()
+            lastReview: Date.now(),
+            mistakes,
+            studyTime: (totalStudyTime || 0) + studyTime
         };
 
         this.saveProgress();
@@ -305,14 +343,11 @@ class SpacedRepetitionApp {
 
     showReferenceChart() {
         // Determine which data to show
-        let chartData = [];
         let title = 'Reference Chart';
 
         if (this.currentMode && japaneseData[this.currentMode]) {
-            chartData = japaneseData[this.currentMode];
             title = `${this.currentMode.charAt(0).toUpperCase() + this.currentMode.slice(1)} Reference Chart`;
         } else {
-            // Default to showing all alphabets
             title = 'Choose a learning mode to see its reference chart';
         }
 
@@ -323,38 +358,122 @@ class SpacedRepetitionApp {
         const chartGrid = document.getElementById('chartGrid');
         chartGrid.innerHTML = '';
 
-        // Populate chart
-        chartData.forEach(item => {
-            const chartItem = document.createElement('div');
-            chartItem.className = 'chart-item';
-
-            const character = document.createElement('div');
-            character.className = 'chart-character';
-            character.textContent = item.char;
-
-            const romaji = document.createElement('div');
-            romaji.className = 'chart-romaji';
-            romaji.textContent = item.romaji;
-
-            chartItem.appendChild(character);
-            chartItem.appendChild(romaji);
-
-            // Add meaning if available (for kanji, words, sentences)
-            if (item.meaning && (this.currentMode === 'kanji' || this.currentMode === 'words' || this.currentMode === 'sentences')) {
-                const meaning = document.createElement('div');
-                meaning.className = 'chart-meaning';
-                meaning.textContent = item.meaning;
-                chartItem.appendChild(meaning);
-            }
-
-            chartGrid.appendChild(chartItem);
-        });
+        // Different layouts based on mode
+        if (this.currentMode === 'hiragana' || this.currentMode === 'katakana') {
+            this.renderKanaChart(chartGrid, this.currentMode);
+        } else if (this.currentMode === 'kanji' || this.currentMode === 'words' || this.currentMode === 'sentences') {
+            this.renderListChart(chartGrid);
+        }
 
         // Hide other screens, show chart
         document.getElementById('welcomeScreen').style.display = 'none';
         document.getElementById('learningArea').style.display = 'none';
         document.getElementById('completionScreen').style.display = 'none';
         document.getElementById('referenceChart').style.display = 'block';
+    }
+
+    renderKanaChart(container, mode) {
+        // Traditional kana chart layout
+        const kanaChart = mode === 'hiragana' ? [
+            ['あ', 'い', 'う', 'え', 'お'],
+            ['か', 'き', 'く', 'け', 'こ'],
+            ['さ', 'し', 'す', 'せ', 'そ'],
+            ['た', 'ち', 'つ', 'て', 'と'],
+            ['な', 'に', 'ぬ', 'ね', 'の'],
+            ['は', 'ひ', 'ふ', 'へ', 'ほ'],
+            ['ま', 'み', 'む', 'め', 'も'],
+            ['や', '', 'ゆ', '', 'よ'],
+            ['ら', 'り', 'る', 'れ', 'ろ'],
+            ['わ', '', '', '', 'を'],
+            ['ん', '', '', '', '']
+        ] : [
+            ['ア', 'イ', 'ウ', 'エ', 'オ'],
+            ['カ', 'キ', 'ク', 'ケ', 'コ'],
+            ['サ', 'シ', 'ス', 'セ', 'ソ'],
+            ['タ', 'チ', 'ツ', 'テ', 'ト'],
+            ['ナ', 'ニ', 'ヌ', 'ネ', 'ノ'],
+            ['ハ', 'ヒ', 'フ', 'ヘ', 'ホ'],
+            ['マ', 'ミ', 'ム', 'メ', 'モ'],
+            ['ヤ', '', 'ユ', '', 'ヨ'],
+            ['ラ', 'リ', 'ル', 'レ', 'ロ'],
+            ['ワ', '', '', '', 'ヲ'],
+            ['ン', '', '', '', '']
+        ];
+
+        // Add vowel headers
+        const headerRow = document.createElement('div');
+        headerRow.className = 'chart-header-row';
+        ['', 'A', 'I', 'U', 'E', 'O'].forEach(vowel => {
+            const header = document.createElement('div');
+            header.className = 'chart-header';
+            header.textContent = vowel;
+            headerRow.appendChild(header);
+        });
+        container.appendChild(headerRow);
+
+        // Add consonant rows
+        const consonants = ['', 'K', 'S', 'T', 'N', 'H', 'M', 'Y', 'R', 'W', 'N'];
+        kanaChart.forEach((row, index) => {
+            const rowDiv = document.createElement('div');
+            rowDiv.className = 'chart-row';
+
+            // Add consonant label
+            const consonantLabel = document.createElement('div');
+            consonantLabel.className = 'chart-consonant';
+            consonantLabel.textContent = consonants[index];
+            rowDiv.appendChild(consonantLabel);
+
+            row.forEach(char => {
+                const cell = document.createElement('div');
+                cell.className = 'chart-cell';
+                if (char) {
+                    const charDiv = document.createElement('div');
+                    charDiv.className = 'chart-character';
+                    charDiv.textContent = char;
+
+                    const romajiDiv = document.createElement('div');
+                    romajiDiv.className = 'chart-romaji';
+                    romajiDiv.textContent = charToRomaji[char] || '';
+
+                    cell.appendChild(charDiv);
+                    cell.appendChild(romajiDiv);
+                }
+                rowDiv.appendChild(cell);
+            });
+            container.appendChild(rowDiv);
+        });
+    }
+
+    renderListChart(container) {
+        const chartData = japaneseData[this.currentMode] || [];
+
+        chartData.forEach(item => {
+            const chartItem = document.createElement('div');
+            chartItem.className = 'chart-list-item';
+
+            const character = document.createElement('div');
+            character.className = 'chart-list-character';
+            character.textContent = item.char;
+
+            const details = document.createElement('div');
+            details.className = 'chart-list-details';
+
+            const romaji = document.createElement('div');
+            romaji.className = 'chart-list-romaji';
+            romaji.textContent = item.romaji;
+
+            const meaning = document.createElement('div');
+            meaning.className = 'chart-list-meaning';
+            meaning.textContent = item.meaning;
+
+            details.appendChild(romaji);
+            details.appendChild(meaning);
+
+            chartItem.appendChild(character);
+            chartItem.appendChild(details);
+
+            container.appendChild(chartItem);
+        });
     }
 
     closeReferenceChart() {
@@ -368,6 +487,156 @@ class SpacedRepetitionApp {
         } else {
             document.getElementById('welcomeScreen').style.display = 'block';
         }
+    }
+
+    showProgressScreen() {
+        const now = Date.now();
+
+        // Calculate total learned
+        let totalLearned = 0;
+        let totalStudyTime = 0;
+        const modeStats = {
+            hiragana: { learned: 0, total: japaneseData.hiragana.length },
+            katakana: { learned: 0, total: japaneseData.katakana.length },
+            kanji: { learned: 0, total: japaneseData.kanji.length },
+            words: { learned: 0, total: japaneseData.words.length },
+            sentences: { learned: 0, total: japaneseData.sentences.length }
+        };
+        const upcomingCards = [];
+        const mistakeCards = [];
+
+        Object.keys(this.progress).forEach(key => {
+            const card = this.progress[key];
+            const [mode, index] = key.split('-');
+
+            if (card.repetitions > 0) {
+                totalLearned++;
+                if (modeStats[mode]) {
+                    modeStats[mode].learned++;
+                }
+            }
+
+            if (card.studyTime) {
+                totalStudyTime += card.studyTime;
+            }
+
+            // Cards due soon
+            if (card.nextReview && card.nextReview <= now + 24 * 60 * 60 * 1000) {
+                const modeData = japaneseData[mode];
+                if (modeData && modeData[parseInt(index)]) {
+                    upcomingCards.push({
+                        ...modeData[parseInt(index)],
+                        mode,
+                        nextReview: card.nextReview
+                    });
+                }
+            }
+
+            // Cards with mistakes (low repetitions or short intervals)
+            if (card.repetitions < 3 && card.lastReview) {
+                const modeData = japaneseData[mode];
+                if (modeData && modeData[parseInt(index)]) {
+                    mistakeCards.push({
+                        ...modeData[parseInt(index)],
+                        mode,
+                        mistakes: card.mistakes || 0
+                    });
+                }
+            }
+        });
+
+        // Update progress summary
+        document.getElementById('progressTotalLearned').textContent = totalLearned;
+        document.getElementById('progressStreak').textContent = `${this.streak} days`;
+        document.getElementById('progressStudyTime').textContent = `${Math.round(totalStudyTime / 60)} min`;
+
+        // Populate mode progress
+        const modesList = document.getElementById('progressModesList');
+        modesList.innerHTML = '';
+        Object.keys(modeStats).forEach(mode => {
+            const stats = modeStats[mode];
+            const percentage = stats.total > 0 ? (stats.learned / stats.total * 100) : 0;
+
+            const modeItem = document.createElement('div');
+            modeItem.className = 'progress-mode-item';
+            modeItem.innerHTML = `
+                <div>
+                    <div class="progress-mode-name">${mode.charAt(0).toUpperCase() + mode.slice(1)}</div>
+                    <div class="progress-mode-stats">${stats.learned} / ${stats.total} learned (${Math.round(percentage)}%)</div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar-fill" style="width: ${percentage}%"></div>
+                    </div>
+                </div>
+            `;
+            modesList.appendChild(modeItem);
+        });
+
+        // Populate upcoming reviews
+        const upcomingList = document.getElementById('progressUpcoming');
+        upcomingList.innerHTML = '';
+        const sortedUpcoming = upcomingCards.sort((a, b) => a.nextReview - b.nextReview).slice(0, 10);
+        if (sortedUpcoming.length === 0) {
+            upcomingList.innerHTML = '<p style="color: #888; text-align: center;">No cards due for review</p>';
+        } else {
+            sortedUpcoming.forEach(card => {
+                const timeUntil = this.formatTimeUntil(card.nextReview - now);
+                const upcomingItem = document.createElement('div');
+                upcomingItem.className = 'progress-upcoming-item';
+                upcomingItem.innerHTML = `
+                    <div class="progress-upcoming-char">${card.char} - ${card.romaji}</div>
+                    <div class="progress-upcoming-time">Due in ${timeUntil}</div>
+                `;
+                upcomingList.appendChild(upcomingItem);
+            });
+        }
+
+        // Populate mistake cards
+        const mistakesList = document.getElementById('progressMistakes');
+        mistakesList.innerHTML = '';
+        const sortedMistakes = mistakeCards.sort((a, b) => (b.mistakes || 0) - (a.mistakes || 0)).slice(0, 10);
+        if (sortedMistakes.length === 0) {
+            mistakesList.innerHTML = '<p style="color: #888; text-align: center;">No cards needing practice</p>';
+        } else {
+            sortedMistakes.forEach(card => {
+                const mistakeItem = document.createElement('div');
+                mistakeItem.className = 'progress-mistake-item';
+                mistakeItem.innerHTML = `
+                    <div class="progress-mistake-char">${card.char} - ${card.romaji}</div>
+                    <div class="progress-mistake-count">${card.mistakes || 0} mistakes</div>
+                `;
+                mistakesList.appendChild(mistakeItem);
+            });
+        }
+
+        // Hide other screens, show progress
+        document.getElementById('welcomeScreen').style.display = 'none';
+        document.getElementById('learningArea').style.display = 'none';
+        document.getElementById('completionScreen').style.display = 'none';
+        document.getElementById('referenceChart').style.display = 'none';
+        document.getElementById('progressScreen').style.display = 'block';
+    }
+
+    closeProgressScreen() {
+        document.getElementById('progressScreen').style.display = 'none';
+
+        // Show appropriate screen based on state
+        if (this.currentMode && this.sessionCards.length > 0 && this.currentIndex < this.sessionCards.length) {
+            document.getElementById('learningArea').style.display = 'block';
+        } else if (this.currentMode && this.currentIndex >= this.sessionCards.length) {
+            document.getElementById('completionScreen').style.display = 'block';
+        } else {
+            document.getElementById('welcomeScreen').style.display = 'block';
+        }
+    }
+
+    formatTimeUntil(ms) {
+        if (ms < 0) return 'now';
+        const hours = Math.floor(ms / (1000 * 60 * 60));
+        const days = Math.floor(hours / 24);
+        if (days > 0) return `${days} day${days !== 1 ? 's' : ''}`;
+        if (hours > 0) return `${hours} hour${hours !== 1 ? 's' : ''}`;
+        const minutes = Math.floor(ms / (1000 * 60));
+        return `${minutes} min`;
     }
 }
 
