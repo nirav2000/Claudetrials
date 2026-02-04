@@ -32,12 +32,16 @@ class SpacedRepetitionApp {
             });
         });
 
-        // Mode selection buttons
-        document.querySelectorAll('.mode-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                this.selectMode(e.target.dataset.mode);
+        // Mode selection buttons - will be dynamically generated
+        this.updateModeButtons();
+
+        // Category dropdown
+        const categoryDropdown = document.getElementById('categoryDropdown');
+        if (categoryDropdown) {
+            categoryDropdown.addEventListener('change', (e) => {
+                this.handleCategoryChange(e.target.value);
             });
-        });
+        }
 
         // Show answer button
         document.getElementById('showAnswerBtn').addEventListener('click', () => {
@@ -57,41 +61,19 @@ class SpacedRepetitionApp {
             this.selectMode(this.currentMode);
         });
 
-        // Reference card click
-        const referenceCard = document.getElementById('referenceCard');
-        if (referenceCard) {
-            referenceCard.addEventListener('click', (e) => {
-                if (!e.target.classList.contains('dismiss-btn')) {
-                    this.showReferenceChart();
-                }
+        // Reference button - toggleable
+        const referenceBtn = document.getElementById('referenceBtn');
+        if (referenceBtn) {
+            referenceBtn.addEventListener('click', () => {
+                this.toggleReferenceChart();
             });
         }
 
-        // Dismiss Reference button
-        const dismissReference = document.getElementById('dismissReference');
-        if (dismissReference) {
-            dismissReference.addEventListener('click', (e) => {
-                e.stopPropagation();
-                document.getElementById('referenceCard').style.display = 'none';
-            });
-        }
-
-        // Progress card click
-        const progressCard = document.getElementById('progressCard');
-        if (progressCard) {
-            progressCard.addEventListener('click', (e) => {
-                if (!e.target.classList.contains('dismiss-btn')) {
-                    this.showProgressScreen();
-                }
-            });
-        }
-
-        // Dismiss Progress button
-        const dismissProgress = document.getElementById('dismissProgress');
-        if (dismissProgress) {
-            dismissProgress.addEventListener('click', (e) => {
-                e.stopPropagation();
-                document.getElementById('progressCard').style.display = 'none';
+        // Progress button - toggleable
+        const progressBtn = document.getElementById('progressBtn');
+        if (progressBtn) {
+            progressBtn.addEventListener('click', () => {
+                this.toggleProgressScreen();
             });
         }
 
@@ -112,6 +94,138 @@ class SpacedRepetitionApp {
         this.updateStats();
     }
 
+    updateModeButtons() {
+        const modeSelector = document.getElementById('modeSelector');
+        if (!modeSelector) return;
+
+        // Clear existing buttons
+        modeSelector.innerHTML = '';
+
+        // Get modes for current language
+        const config = languageConfig[this.currentLanguage];
+        if (!config || !config.modes) return;
+
+        // Create buttons for each mode
+        config.modes.forEach(mode => {
+            const btn = document.createElement('button');
+            btn.className = 'mode-btn';
+            btn.dataset.mode = mode;
+            btn.textContent = mode.charAt(0).toUpperCase() + mode.slice(1);
+
+            btn.addEventListener('click', () => {
+                this.selectMode(mode);
+            });
+
+            modeSelector.appendChild(btn);
+        });
+
+        // Update category dropdown for categories
+        this.updateCategoryDropdown();
+    }
+
+    updateCategoryDropdown() {
+        const categorySelector = document.getElementById('categorySelector');
+        const categoryDropdown = document.getElementById('categoryDropdown');
+
+        if (!categorySelector || !categoryDropdown) return;
+
+        const config = languageConfig[this.currentLanguage];
+
+        // Clear existing options except "All"
+        categoryDropdown.innerHTML = '<option value="">All</option>';
+
+        // Check if language has categories
+        if (config && config.categories) {
+            // Show category selector
+            categorySelector.style.display = 'flex';
+
+            // Add category options
+            Object.keys(config.categories).forEach(key => {
+                const option = document.createElement('option');
+                option.value = key;
+                option.textContent = config.categories[key];
+                categoryDropdown.appendChild(option);
+            });
+        } else {
+            // Hide category selector if no categories
+            categorySelector.style.display = 'none';
+        }
+    }
+
+    handleCategoryChange(category) {
+        if (!category) {
+            // Show all modes
+            document.querySelectorAll('.mode-btn').forEach(btn => {
+                btn.style.display = '';
+            });
+        } else {
+            // Only show the selected category button
+            document.querySelectorAll('.mode-btn').forEach(btn => {
+                if (btn.dataset.mode === category) {
+                    btn.style.display = '';
+                } else {
+                    btn.style.display = 'none';
+                }
+            });
+        }
+    }
+
+    toggleReferenceChart() {
+        const referenceChart = document.getElementById('referenceChart');
+        const referenceBtn = document.getElementById('referenceBtn');
+        const welcomeScreen = document.getElementById('welcomeScreen');
+        const learningArea = document.getElementById('learningArea');
+        const progressScreen = document.getElementById('progressScreen');
+
+        if (referenceChart.style.display === 'block') {
+            // Hide reference chart
+            referenceChart.style.display = 'none';
+            referenceBtn.classList.remove('active');
+
+            // Show previous screen
+            if (this.currentMode) {
+                learningArea.style.display = 'block';
+            } else {
+                welcomeScreen.style.display = 'block';
+            }
+        } else {
+            // Show reference chart
+            this.showReferenceChart();
+            referenceBtn.classList.add('active');
+
+            // Hide progress button active state
+            document.getElementById('progressBtn').classList.remove('active');
+        }
+    }
+
+    toggleProgressScreen() {
+        const progressScreen = document.getElementById('progressScreen');
+        const progressBtn = document.getElementById('progressBtn');
+        const welcomeScreen = document.getElementById('welcomeScreen');
+        const learningArea = document.getElementById('learningArea');
+        const referenceChart = document.getElementById('referenceChart');
+
+        if (progressScreen.style.display === 'block') {
+            // Hide progress screen
+            progressScreen.style.display = 'none';
+            progressBtn.classList.remove('active');
+
+            // Show previous screen
+            if (this.currentMode) {
+                learningArea.style.display = 'block';
+            } else {
+                welcomeScreen.style.display = 'block';
+            }
+        } else {
+            // Show progress screen
+            this.showProgressScreen();
+            progressBtn.classList.add('active');
+
+            // Hide reference button active state
+            document.getElementById('referenceBtn').classList.remove('active');
+        }
+    }
+
     selectLanguage(language) {
         // Remove active class from all language buttons
         document.querySelectorAll('.language-btn').forEach(btn => {
@@ -125,18 +239,27 @@ class SpacedRepetitionApp {
         }
 
         this.currentLanguage = language;
+
+        // Reload progress for this language
+        this.loadProgress();
+
+        // Update UI
         this.updateLanguageUI();
+        this.updateModeButtons();
         this.updateStats();
 
         // Reset current mode if active
         if (this.currentMode) {
             document.getElementById('learningArea').style.display = 'none';
             document.getElementById('welcomeScreen').style.display = 'block';
-            document.querySelectorAll('.mode-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
             this.currentMode = null;
         }
+
+        // Hide reference and progress screens
+        document.getElementById('referenceChart').style.display = 'none';
+        document.getElementById('progressScreen').style.display = 'none';
+        document.getElementById('referenceBtn').classList.remove('active');
+        document.getElementById('progressBtn').classList.remove('active');
     }
 
     updateLanguageUI() {
@@ -162,21 +285,8 @@ class SpacedRepetitionApp {
         this.currentMode = mode;
         const currentLangData = languageData[this.currentLanguage];
 
-        // Map modes for Japanese (backwards compatibility)
-        if (this.currentLanguage === 'japanese') {
-            if (mode === 'characters') {
-                // Combine hiragana, katakana, and kanji for Japanese
-                this.currentData = [
-                    ...currentLangData.hiragana,
-                    ...currentLangData.katakana,
-                    ...currentLangData.kanji
-                ];
-            } else {
-                this.currentData = currentLangData[mode] || [];
-            }
-        } else {
-            this.currentData = currentLangData[mode] || [];
-        }
+        // Get data for the selected mode
+        this.currentData = currentLangData[mode] || [];
 
         // Get due cards or new cards
         this.sessionCards = this.getSessionCards();
@@ -186,7 +296,12 @@ class SpacedRepetitionApp {
         document.getElementById('welcomeScreen').style.display = 'none';
         document.getElementById('completionScreen').style.display = 'none';
         document.getElementById('referenceChart').style.display = 'none';
+        document.getElementById('progressScreen').style.display = 'none';
         document.getElementById('learningArea').style.display = 'block';
+
+        // Remove active states from quick action buttons
+        document.getElementById('referenceBtn').classList.remove('active');
+        document.getElementById('progressBtn').classList.remove('active');
 
         // Start the session
         this.showNextCard();

@@ -6,20 +6,29 @@ const languageConfig = {
     japanese: {
         title: 'Japanese Learning App',
         subtitle: 'Master Hiragana, Katakana & Kanji with Spaced Repetition',
-        modes: ['characters', 'words', 'sentences'],
-        charactersLabel: 'Hiragana/Katakana/Kanji'
+        modes: ['hiragana', 'katakana', 'kanji', 'numbers', 'colors', 'words', 'sentences'],
+        categories: {
+            'numbers': 'Numbers',
+            'colors': 'Colors'
+        }
     },
     french: {
         title: 'French Learning App',
         subtitle: 'Master French Alphabet & Vocabulary with Spaced Repetition',
-        modes: ['characters', 'words', 'sentences'],
-        charactersLabel: 'Alphabet & Accents'
+        modes: ['alphabet', 'numbers', 'colors', 'words', 'sentences'],
+        categories: {
+            'numbers': 'Numbers (Nombres)',
+            'colors': 'Colors (Couleurs)'
+        }
     },
     gujarati: {
         title: 'Gujarati Learning App',
         subtitle: 'Master Gujarati Script & Vocabulary with Spaced Repetition',
-        modes: ['characters', 'words', 'sentences'],
-        charactersLabel: 'Gujarati Script'
+        modes: ['vowels', 'consonants', 'numbers', 'colors', 'words', 'sentences'],
+        categories: {
+            'numbers': 'Numbers',
+            'colors': 'Colors'
+        }
     }
 };
 
